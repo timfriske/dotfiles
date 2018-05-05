@@ -53,6 +53,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 For details please read the full <<gpl-3.0, GPLv3>> license.
 
+== Project Organization & Management
+
+=== Files & Folders
+
+The top-level folder, i.e. the one this file resides in, MUST only
+contain the most important files, i.e. only those which give an
+introduction to or an overview about this project.  But also files with
+long standing traditions and thus well-known meanings — files people
+simply expect to find — MAY be located here.  Examples of these are text
+files such as `README`, `INSTALL`, `CHANGELOG` or `NEWS`, `LICENSE` or
+`COPYING`, `CONTRIBUTING` etc. with OPTIONAL file extensions such as
+`adoc`, `md`, `txt` etc.
+
+The main content of this project — that is the configuration of each
+software — MUST be each contained in a separate folder named after the
+software.  The folder name SHALL be written in lower case letters with
+words separated by single `-` hypen signs.
+
+Further documentation pertaining to the project itself SHALL go into the
+top-level folder `Documentation`.  Information specific to one software
+MUST be located underneath its own `Documentation` folder but SHOULD
+otherwise follow the same structure as the project documentation for
+consistency reasons.
+
+The structure below each software configuration folder SHOULD be
+organized in a way that best fits the requirements of the individual
+software being configured.  Nevertheless when commonalities, especially
+structural similarities, between certain software configurations evolve
+then these SHOULD be captured and endorsed for consistency where
+reasonable.  This MAY mean to externalize common files and folders below
+the top-level folder `Shared` with OPTIONAL references, e.g. soft links,
+from the affected software configuration folders.
+
+Text files and soft links MAY be versioned.  Generated files, e.g.
+binary build artifacts, MUST NOT be put under version control.  All
+other kinds of files not explicitly mentioned for OPTIONAL inclusion are
+REQUIRED to be excluded from version control.
+
 [bibliography]
 == Bibliography
 
