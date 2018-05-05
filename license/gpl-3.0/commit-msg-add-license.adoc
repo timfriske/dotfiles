@@ -1,0 +1,61 @@
+License content under GPLv3
+
+License the content of this project under the
+http://www.gnu.org/licenses/gpl-3.0.md[GPLv3 GNU General Public License
+Version 3].
+
+== Problem
+
+When creative work is published, the work is under exclusive copyright
+by default.  Unless a license is included that specifies otherwise,
+*nobody* else can use, copy, distribute, or modify the work without
+being at risk of take-downs, shake-downs, or litigations.  Once the work
+has other contributors — each a copyright holder — *nobody* starts
+committing in steady fear of infringing the copyrights of the others.
+
+== Solution
+
+Provide a verbatim copy of the license text prominently in the
+link:LICENSE.md[] file of the top-level folder of this project.
+
+=== GPLv3 License
+
+License the content of this project under the
+http://www.gnu.org/licenses/gpl-3.0.md[GPLv3 GNU General Public License
+Version 3] such that the following points
+https://choosealicense.com/licenses/gpl-3.0/#[apply]:
+
+Permissions::
+  Commercial use;;
+    This software and derivates may be used for commercial purposes.
+  Distribution;;
+    This software may be distributed.
+  Modification;;
+    This software may be modified.
+  Patent use;;
+    This license provides an express grant of patent rights from
+    contributors.
+  Private use;;
+    This software may be used and modified in private.
+Conditions::
+  Disclose source;;
+    Source code must be made available when the software is distributed.
+  License and copyright notice;;
+    A copy of the license and copyright notice must be included with the
+    software.
+  Same license;;
+    Modifications must be released under the same license when
+    distributing the software.  In some cases a similar or related
+    license may be used.
+  State changes;;
+    Changes made to the code must be documented.
+Limitations::
+  Liability;;
+    This license includes a limitation of liability.
+  Warranty;;
+    The license explicitly states that it does not provide any warranty.
+
+=== Alternatives
+
+There are a variety of other licenses to
+https://choosealicense.com/[choose] from.
