@@ -21,3 +21,20 @@ _Dotfiles_ would be too limiting here because it gives the reader the
 impression that this project and therefore its _Git_ repository only
 encompasses configuration files living as hidden files or in hidden
 folders underneath the user's home folder.
+
+.RFC Request for Comments 2119
+....
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in RFC 2119.
+....
+
+For details please read the full <<rfc-2119, RFC 2119>> document.
+
+[bibliography]
+== Bibliography
+
+[bibliography]
+  * [[[rfc-2119]]] S. Bradner, _RFC Request for Comments 2119_, IETF
+    Internet Engineering Task Force / Network Working Group,
+    https://www.ietf.org/rfc/rfc2119.txt[online version]
