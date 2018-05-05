@@ -91,6 +91,60 @@ binary build artifacts, MUST NOT be put under version control.  All
 other kinds of files not explicitly mentioned for OPTIONAL inclusion are
 REQUIRED to be excluded from version control.
 
+=== Git Workflow
+
+This project follows a simple _Git_ workflow because it is mainly
+intended for personal use.  Therefore the administrative overhead SHOULD
+be kept at a minimum.  As such I picked the _Integration-Manager_
+workflow described in the book <<pro-git, Pro Git>> rather than a more
+<<git-workflows, sophisticated>> Git workflow.
+
+Here is an incomplete but quick overview about how the
+_Integration-Manager_ workflow is practiced in this project —
+suggestions for improvements always welcome:
+
+  * This _Git_ repository
+
+    ** OPTIONAL
+
+      *** is cloned by a user who is interested in it.
+
+      *** is forked by a user who wants to contribute to it.
+
+  * The branch `master'
+
+    ** REQUIRED
+
+      *** is the only source of truth.
+
+      *** is the only integration branch.
+
+      *** is the only branch where the latest more or less stable
+          sources are to be found.
+
+      *** is consisting of mostly merge commits but only of completed
+	  topic branches except for a few self-contained commits here
+          and there.
+
+      *** is the authoritative history that can be easily followed with
+	  `git-log --first-parent` to get a summary of completed topics.
+	  Therefore you MUST only ever fetch and rebase from upstream;
+          *never* fetch and merge, e.g. with `git-pull --rebase=false`!
+
+  * A topic branch
+
+    ** REQUIRED
+
+      *** is where all kinds of development happens. It is used for
+          features, bugfixes, reworks, experiments etc.
+
+      *** is branched by the contributor from `master' when he starts
+          working on the topic.
+
+      *** is merged by the maintainer into `master' when he is convinced
+	  that the topic has matured enough to form a solid foundation
+          for others to base their work upon.
+
 [bibliography]
 == Bibliography
 
@@ -103,3 +157,10 @@ REQUIRED to be excluded from version control.
     Version 3_, Free Software Foundation Incorporated,
     http://www.gnu.org/licenses/gpl-3.0.md[online version],
     link:Documentation/license/gpl-3.0.md[offline version]
+
+  * [[[pro-git]]] Scott Chacon & Ben Straub, _Pro Git 2nd Edition_,
+    APRESS, ISBN-13: 978-1-4842-0077-3, https://git-scm.com/book[online
+    version]
+
+  * [[[git-workflows]]] The _Git_ authors, _GITWORKFLOWS(7)_, _Git_
+    project, https://git-scm.com/docs/gitworkflows[online version]
