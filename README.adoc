@@ -1,0 +1,23 @@
+= Personal Software Configuration Management
+Tim Friske <me@tifr.de>
+
+Welcome to _Config_!
+
+The project _Config_ is a personal project of mine.  It serves me to
+manage the configuration files of my favorite software I use on a
+regular basis.
+
+When you are an IT enthusiast like me then you know how much time and
+effort one is willing to spent in polishing his very own working
+environment to perfection.  Therefore the _Git_ repository of this
+project helps me to track the history of changes so that nothing is
+lost.
+
+I have chosen the generic name _Config_ for this project because even
+though I primarily intend to configure my personal working environment
+chances are that I will also set up the environments and services of the
+client and server computers I control.  The common alternative name
+_Dotfiles_ would be too limiting here because it gives the reader the
+impression that this project and therefore its _Git_ repository only
+encompasses configuration files living as hidden files or in hidden
+folders underneath the user's home folder.
