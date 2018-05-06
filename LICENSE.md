@@ -1,1 +1,1 @@
-license/gpl-3.0/gpl-3.0.md
+Documentation/license/gpl-3.0/gpl-3.0.md
