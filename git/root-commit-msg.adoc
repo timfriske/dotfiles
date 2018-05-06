@@ -1,0 +1,3 @@
+Start new commit history w/ empty root commit
+
+Start a new commit history with an empty root commit.
