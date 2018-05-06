@@ -30,3 +30,9 @@ history can evolve with every new child commit leading back through the
 directed acyclic graph of ancestor commits to that oldest parent commit
 eventually.  All these commits live on an orphaned branch, i.e. a branch
 totally disconnected from all other orphans.
+
+=== Alternative
+
+Technically seen some arbitrary non-empty commit could become the root
+commit but from a logical perspective it feels *not right* that such an
+_ordinary_ commit should take this _special_ position.
