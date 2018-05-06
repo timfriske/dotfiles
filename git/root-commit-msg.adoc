@@ -1,0 +1,60 @@
+Start new commit history w/ empty root commit
+
+Start a new commit history with an empty root commit.
+
+== Problem
+
+Various _Git_ commands do not work correctly when run on an empty
+orphaned branch, i.e. a branch without root commit yet.  This
+unfortunate situation is encountered every time a new _Git_ repository
+is initialized.  That is because _Git's_ `init' command neither creates
+such a root commit by default nor can it be told to do so leaving the
+_Git_ repository empty behind.
+
+Without such a root commit on an orphaned branch it is not possible for
+example to rename that branch or create any further branches until that
+commit is made.
+
+Whether an ordinary or empty commit becomes the root commit of an
+orphaned branch does not matter.  The only thing that matters is a
+non-empty orphaned branch for the _Git_ commands to function.
+
+== Solution
+
+Initialize an empty orphaned branch with an empty root commit in order
+to make the non functioning _Git_ commands work again as they normally
+would when there were commits they could operate on.
+
+Start a new commit history with an empty root commit upon which the
+history can evolve with every new child commit leading back through the
+directed acyclic graph of ancestor commits to that oldest parent commit
+eventually.  All these commits live on an orphaned branch, i.e. a branch
+totally disconnected from all other orphans.
+
+An orphaned branch, i.e. an independent commit history, can be created
+by running the following commands; of which several ones may come into
+existence as needed:
+
+.Independent Commit History Creation
+----
+$ git checkout --orphan <new_branch>
+(new orphaned branch <new_branch> created)
+
+$ git commit --allow-empty --no-edit --file="$this_document" \
+> --signoff --gpg-sign
+(new empty root commit with this document as message created) <1> <2>
+----
+<1> It is *recommended* to make this document the commit message of
+every otherwise empty root commit because it provides a thorough
+explanation on the topic of _Creating independent commit histories with
+the help of non-empty orphaned branches with empty root commits_.
+<2> It is *recommended* to use _GnuPG_ to sign the root commit itself
+because this commit is directly made on the orphaned branch and not
+merged via a signed tag from another branch.  For this to work a _GnuPG_
+private key must exist and made known to _Git_ in advance.
+
+=== Alternative
+
+Technically seen some arbitrary non-empty commit could become the root
+commit but from a logical perspective it feels *not right* that such an
+_ordinary_ commit should take this _special_ position.
