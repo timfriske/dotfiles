@@ -122,14 +122,15 @@ suggestions for improvements always welcome:
       *** is the only branch where the latest more or less stable
           sources are to be found.
 
-      *** is consisting of mostly merge commits but only of completed
-	  topic branches except for a few self-contained commits here
-          and there.
+      *** is consisting of mostly merge commits of signed tags pointing to
+          completed topic branches except for a few self-contained but signed
+          commits here and there.
 
       *** is the authoritative history that can be easily followed with
-	  `git-log --first-parent` to get a summary of completed topics.
-	  Therefore you MUST only ever fetch and rebase from upstream;
-          *never* fetch and merge, e.g. with `git-pull --rebase=false`!
+          `git-log --first-parent` to get a summary of completed topics.
+          Therefore updates MUST be fetched and *rebased* from upstream but
+          MUST NOT be fetched and *merged*, e.g. with `git-pull
+          --rebase=false`.
 
   * A topic branch
 
@@ -141,9 +142,28 @@ suggestions for improvements always welcome:
       *** is branched by the contributor from `master' when he starts
           working on the topic.
 
-      *** is merged by the maintainer into `master' when he is convinced
-	  that the topic has matured enough to form a solid foundation
-          for others to base their work upon.
+      *** is completed by marking it with a signed tag.
+
+      *** is merged via a signed tag by the maintainer into `master' when he is
+          convinced that the topic has matured enough to form a solid
+          foundation for others to base their work upon.
+
+    ** OPTIONAL
+
+      *** is deleted shortly after its work was aborted or completed.
+
+  * A signed tag
+
+    ** REQUIRED
+
+      *** pointing to a completed topic branch is not made public by pushing it
+          to a public repository but by merging it into the main branch of that
+          topic branch.
+
+    ** OPTIONAL
+
+      *** pointing to a completed topic branch is deleted shortly after it was
+          merged into the main branch of that topic branch.
 
 [bibliography]
 == Bibliography
