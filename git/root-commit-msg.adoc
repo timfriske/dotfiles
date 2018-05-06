@@ -42,8 +42,16 @@ $ git checkout --orphan <new_branch>
 
 $ git commit --allow-empty --no-edit --file="$this_document" \
 > --signoff --gpg-sign
-(new empty root commit with this document as message created)
+(new empty root commit with this document as message created) <1> <2>
 ----
+<1> It is *recommended* to make this document the commit message of
+every otherwise empty root commit because it provides a thorough
+explanation on the topic of _Creating independent commit histories with
+the help of non-empty orphaned branches with empty root commits_.
+<2> It is *recommended* to use _GnuPG_ to sign the root commit itself
+because this commit is directly made on the orphaned branch and not
+merged via a signed tag from another branch.  For this to work a _GnuPG_
+private key must exist and made known to _Git_ in advance.
 
 === Alternative
 
