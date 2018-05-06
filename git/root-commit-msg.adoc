@@ -18,3 +18,15 @@ commit is made.
 Whether an ordinary or empty commit becomes the root commit of an
 orphaned branch does not matter.  The only thing that matters is a
 non-empty orphaned branch for the _Git_ commands to function.
+
+== Solution
+
+Initialize an empty orphaned branch with an empty root commit in order
+to make the non functioning _Git_ commands work again as they normally
+would when there were commits they could operate on.
+
+Start a new commit history with an empty root commit upon which the
+history can evolve with every new child commit leading back through the
+directed acyclic graph of ancestor commits to that oldest parent commit
+eventually.  All these commits live on an orphaned branch, i.e. a branch
+totally disconnected from all other orphans.
