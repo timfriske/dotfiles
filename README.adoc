@@ -156,7 +156,7 @@ suggestions for improvements always welcome:
   * [[[gpl-3.0]]] The _GPLv3_ authors, _GPLv3 GNU General Public License
     Version 3_, Free Software Foundation Incorporated,
     http://www.gnu.org/licenses/gpl-3.0.md[online version],
-    link:Documentation/license/gpl-3.0.md[offline version]
+    link:Documentation/license/gpl-3.0/gpl-3.0.md[offline version]
 
   * [[[pro-git]]] Scott Chacon & Ben Straub, _Pro Git 2nd Edition_,
     APRESS, ISBN-13: 978-1-4842-0077-3, https://git-scm.com/book[online
