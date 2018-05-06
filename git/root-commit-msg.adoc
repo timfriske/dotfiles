@@ -31,6 +31,20 @@ directed acyclic graph of ancestor commits to that oldest parent commit
 eventually.  All these commits live on an orphaned branch, i.e. a branch
 totally disconnected from all other orphans.
 
+An orphaned branch, i.e. an independent commit history, can be created
+by running the following commands; of which several ones may come into
+existence as needed:
+
+.Independent Commit History Creation
+----
+$ git checkout --orphan <new_branch>
+(new orphaned branch <new_branch> created)
+
+$ git commit --allow-empty --no-edit --file="$this_document" \
+> --signoff --gpg-sign
+(new empty root commit with this document as message created)
+----
+
 === Alternative
 
 Technically seen some arbitrary non-empty commit could become the root
