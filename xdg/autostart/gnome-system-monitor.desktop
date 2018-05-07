@@ -1,0 +1,27 @@
+# = Autostart of GNOME's System Monitor
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+Type=Application
+Name=System Monitor
+Name[de]=Systemmonitor
+GenericName=System monitoring
+GenericName[de]=Systemüberwachung
+Comment=Monitors state of processes and overall system health
+Comment[de]=Überwacht Zustand der Prozesse und Gesundheit des Systems
+Icon=utilities-system-monitor
+OnlyShowIn=GNOME
+DBusActivatable=true
+TryExec=gnome-system-monitor
+Exec=gnome-system-monitor 
+Terminal=false
+Categories=GNOME;GTK;System;Monitor;
+Keywords=Monitor;System;Process;CPU;Memory;Network;History;Usage;Performance;Task;Manager;
+Keywords[de]=Überwachung;System;Prozess;CPU;Speicher;Netzwerk;Chronik;Last;Leistung;Aufgabe;Dienst;Verwaltung;
+StartupNotify=true
+
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=system-monitor
+X-GNOME-Bugzilla-Component=general
+X-GNOME-Bugzilla-Version=3.24.0
+
