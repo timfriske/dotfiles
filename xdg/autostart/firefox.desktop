@@ -1,0 +1,26 @@
+# = Autostart of Mozilla's Firefox
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+Type=Application
+Name=Firefox
+Name[de]=Firefox
+GenericName=Web Browser
+GenericName[de]=Web Browser
+Comment=Browses the Internet
+Comment[de]=Surft im Internet
+Icon=firefox
+TryExec=firefox
+Exec=firefox %u
+Categories=Network;WebBrowser;GTK;
+Encoding=UTF-8
+Terminal=false
+StartupNotify=true
+MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;application/x-xpinstall;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
+
+Actions=PrivateBrowsing;
+
+[Desktop Action PrivateBrowsing]
+Name=New Private Browsing Window
+Exec=firefox --private-window %u
+
