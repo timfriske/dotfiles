@@ -36,4 +36,12 @@ elif [[ -z "$key_fpr" ]]; then
   # Upon first run:
   # Generate one certification-only Ed25519 primary key.
   gpg --quick-generate-key "$user_id" ed25519 cert 2y
+else
+  # Upon second run:
+  # Generate one signature-only Ed25519 secondary key.
+  gpg --quick-add-key "$key_fpr" ed25519 sign 2y
+  # Generate one encryption-only Cv25519 secondary key.
+  gpg --quick-add-key "$key_fpr" cv25519 encr 2y
+  # Generate one authentication-only Ed25519 secondary key.
+  gpg --quick-add-key "$key_fpr" ed25519 auth 2y
 fi
