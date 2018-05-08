@@ -17,3 +17,6 @@
 
 # Terminate execution on first error and abort this program.
 set -o errexit
+
+# Output _GPG_ version with which _OpenPGP_ keys are generated.
+gpg --version
