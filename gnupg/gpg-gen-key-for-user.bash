@@ -20,3 +20,14 @@ set -o errexit
 
 # Output _GPG_ version with which _OpenPGP_ keys are generated.
 gpg --version
+
+# User ID *must* be given as first parameter.
+user_id="${user_id-$1}"
+
+if [[ -z "$user_id" ]]; then
+  echo 'Please specify a user ID of the form'
+  echo '"Real Name (Comment) <real.name@example.com>"'
+  echo 'where "Real Name" and "(Comment)" are optional.'
+  echo 'An email address alone must be given without "<>".'
+  exit 1
+fi
