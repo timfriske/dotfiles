@@ -23,6 +23,8 @@ gpg --version
 
 # User ID *must* be given as first parameter.
 user_id="${user_id-$1}"
+# Key fingerprint *may* be given as second parameter.
+key_fpr="${key_fpr-$2}"
 
 if [[ -z "$user_id" ]]; then
   echo 'Please specify a user ID of the form'
@@ -30,4 +32,8 @@ if [[ -z "$user_id" ]]; then
   echo 'where "Real Name" and "(Comment)" are optional.'
   echo 'An email address alone must be given without "<>".'
   exit 1
+elif [[ -z "$key_fpr" ]]; then
+  # Upon first run:
+  # Generate one certification-only Ed25519 primary key.
+  gpg --quick-generate-key "$user_id" ed25519 cert 2y
 fi
