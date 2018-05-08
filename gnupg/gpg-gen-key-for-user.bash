@@ -14,3 +14,6 @@
 #   . One signature-only Ed25519 secondary key.
 #   . One encryption-only Cv25519 secondary key.
 #   . One authentication-only Ed25519 secondary key.
+
+# Terminate execution on first error and abort this program.
+set -o errexit
