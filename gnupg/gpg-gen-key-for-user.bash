@@ -14,6 +14,11 @@
 #   . One signature-only Ed25519 secondary key.
 #   . One encryption-only Cv25519 secondary key.
 #   . One authentication-only Ed25519 secondary key.
+#
+# Upon the first run when given a user ID alone only the primary key is
+# generated.  Only when given the user ID *and* fingerprint of the
+# previously generated primary key the three secondary keys are
+# generated for the key with that fingerprint on the second run.
 
 # Terminate execution on first error and abort this program.
 set -o errexit
