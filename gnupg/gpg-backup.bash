@@ -14,3 +14,11 @@ set -o errexit
 
 # Output _GPG_ version with which _OpenPGP_ keys are generated.
 gpg --version
+
+# Backup file *must* be given as first parameter.
+backup_name="${backup_name-$1}"
+
+if [[ -z "$backup_name" ]]; then
+  echo 'Please specify a backup name.'
+  exit 1
+fi
