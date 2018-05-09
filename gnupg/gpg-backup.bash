@@ -34,5 +34,11 @@ function backup_file {
       echo "File '$file_to_backup' must be readable."
       exit 2
     fi
+    # Back up the latest backup file which will be replaced by a new
+    # one under the same name.
+    chmod u=r,go= -- "$file_to_backup"
+    cp --force --backup=numbered --archive \
+      -- "$file_to_backup" "$file_to_backup"
+    rm --force -- "$file_to_backup"
   fi
 }
