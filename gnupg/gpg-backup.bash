@@ -22,3 +22,17 @@ if [[ -z "$backup_name" ]]; then
   echo 'Please specify a backup name.'
   exit 1
 fi
+
+function backup_file {
+  local file_to_backup="$1"
+  if [[ -e "$file_to_backup" ]]; then
+    if [[ ! -f "$file_to_backup" ]]; then
+      echo "File '$file_to_backup' must be a regular file."
+      exit 2
+    fi
+    if [[ ! -r "$file_to_backup" ]]; then
+      echo "File '$file_to_backup' must be readable."
+      exit 2
+    fi
+  fi
+}
