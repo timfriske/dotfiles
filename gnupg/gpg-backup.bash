@@ -8,3 +8,6 @@
 # names.  The backup is written in _GnuPG's_ binary format to the backup
 # file given as the first argument.  Any further arguments are treated
 # as the names of the keys to back up.
+
+# Terminate execution on first error and abort this program.
+set -o errexit
