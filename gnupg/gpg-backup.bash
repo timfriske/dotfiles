@@ -42,3 +42,26 @@ function backup_file {
     rm --force -- "$file_to_backup"
   fi
 }
+
+# Back up either all keys or those of the given names:
+# Public keys
+backup_file "$backup_name.pub.gpg"
+gpg --export \
+  --export-options backup \
+  --output "$backup_name.pub.gpg" \
+  ${@:2}
+chmod u=r,go= -- "$backup_name.pub.gpg"
+# Secret keys
+backup_file "$backup_name.sec.gpg"
+gpg --export-secret-keys \
+  --export-options backup \
+  --output "$backup_name.sec.gpg" \
+  ${@:2}
+chmod u=r,go= -- "$backup_name.sec.gpg"
+# Secret sub-keys
+backup_file "$backup_name.ssb.gpg"
+gpg --export-secret-subkeys \
+  --export-options backup \
+  --output "$backup_name.ssb.gpg" \
+  ${@:2}
+chmod u=r,go= -- "$backup_name.ssb.gpg"
