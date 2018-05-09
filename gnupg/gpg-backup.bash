@@ -65,3 +65,9 @@ gpg --export-secret-subkeys \
   --output "$backup_name.ssb.gpg" \
   ${@:2}
 chmod u=r,go= -- "$backup_name.ssb.gpg"
+
+# Backup the owner trusts in order to be able to restore the Web of
+# Trust database later:
+backup_file "$backup_name.ownertrust.txt"
+gpg --export-ownertrust > "$backup_name.ownertrust.txt"
+chmod u=r,go= -- "$backup_name.ownertrust.txt"
