@@ -14,3 +14,13 @@
 # Tip: Run this program with `sudo` as another user to generate
 # _OpenSSH_ keys for that user on-the-fly, i.e. without to to log in as
 # that user and out again.
+
+# Defines and creates a non-standard folder below which the public and
+# private user key pairs are stored.  By doing so unintended overwrites
+# by standard invocations of `ssh-keygen` become less probable.  It
+# should also hint others that the owner spent some thoughts on the
+# topic of `key generation' and took special care when creating those
+# user keys.
+#
+key_folder=~/.ssh/user/key
+mkdir --verbose --parents "$key_folder"
