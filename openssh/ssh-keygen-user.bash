@@ -40,4 +40,30 @@ mkdir --verbose --parents "$key_folder"
 #      the _RSA_ _Rivest, Shamir and Adleman_ public-key cryptography
 #      algorithm as a second best choice compared to the _Ed25519_ key.
 #
+# Makes use of the following non-standard options:
+#
+#   1. Output file (f): Makes it clear that the owner took special care
+#      when generating the keys.
+#
+#   2. Type (t): Generates the safest type of pair of keys.
+#
+#   3. Comment (C): Only includes the user name of the current user as
+#      opposed to also the appended FQDN fully qualified domain name of
+#      the current host because the user should be able to reuse the key
+#      pair from any host where he has an account.
+#
+#   4. New-format private key (o): Saves the private key in the new file
+#      format that makes the key harder for attackers to disclose and
+#      corrput.  The `-o` flag is implicitly set for an _Ed25519_ key
+#      but should be explicitly set for any Protocol 2 key.
+#
+#   5. KDF rounds (a): Increases the KDF key derivation function rounds
+#      in order to make it harder to verify and thus to brute-force
+#      crack the passphrase.
+#
 key_purpose="${1:+${1}_}"
+ssh-keygen \
+  -f "$key_folder/${key_purpose}ed25519" \
+  -t ed25519 \
+  -C "$USER" \
+  -a 100
