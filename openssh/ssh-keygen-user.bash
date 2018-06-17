@@ -39,3 +39,5 @@ mkdir --verbose --parents "$key_folder"
 #   2. RSA: Generates a public and private key pair encoded according to
 #      the _RSA_ _Rivest, Shamir and Adleman_ public-key cryptography
 #      algorithm as a second best choice compared to the _Ed25519_ key.
+#
+key_purpose="${1:+${1}_}"
