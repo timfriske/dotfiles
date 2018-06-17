@@ -47,17 +47,20 @@ mkdir --verbose --parents "$key_folder"
 #
 #   2. Type (t): Generates the safest type of pair of keys.
 #
-#   3. Comment (C): Only includes the user name of the current user as
+#   3. Key size (b): Increases the key size to make the key even more
+#      secure.
+#
+#   4. Comment (C): Only includes the user name of the current user as
 #      opposed to also the appended FQDN fully qualified domain name of
 #      the current host because the user should be able to reuse the key
 #      pair from any host where he has an account.
 #
-#   4. New-format private key (o): Saves the private key in the new file
+#   5. New-format private key (o): Saves the private key in the new file
 #      format that makes the key harder for attackers to disclose and
 #      corrput.  The `-o` flag is implicitly set for an _Ed25519_ key
 #      but should be explicitly set for any Protocol 2 key.
 #
-#   5. KDF rounds (a): Increases the KDF key derivation function rounds
+#   6. KDF rounds (a): Increases the KDF key derivation function rounds
 #      in order to make it harder to verify and thus to brute-force
 #      crack the passphrase.
 #
@@ -66,4 +69,11 @@ ssh-keygen \
   -f "$key_folder/${key_purpose}ed25519" \
   -t ed25519 \
   -C "$USER" \
+  -a 100
+ssh-keygen \
+  -f "$key_folder/${key_purpose}rsa4096" \
+  -t rsa \
+  -b 4096 \
+  -C "$USER" \
+  -o \
   -a 100
