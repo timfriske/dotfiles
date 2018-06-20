@@ -53,16 +53,19 @@ mkdir --verbose --parents "$key_folder"
 #
 #   2. Type (t): Generates the safest type of pair of keys.
 #
-#   3. Comment (C): Includes the FQDN fully qualified domain name of the
+#   3. Key size (b): Increases the key size to make the key even more
+#      secure.
+#
+#   4. Comment (C): Includes the FQDN fully qualified domain name of the
 #      current host in order to be able to identify the host key and to
 #      differentiate it from other keys.
 #
-#   4. New-format private key (o): Saves the private key in the new file
+#   5. New-format private key (o): Saves the private key in the new file
 #      format that makes the key harder for attackers to disclose and
 #      corrput.  The `-o` flag is implicitly set for an _Ed25519_ key
 #      but should be explicitly set for any Protocol 2 key.
 #
-#   5. New passphrase (N): Uses an empty passphrase, i.e. no passphrase
+#   6. New passphrase (N): Uses an empty passphrase, i.e. no passphrase
 #      at all because host keys cannot have one.  Because the file
 #      storing the private part of a host key cannot be protected by a
 #      passphrase it is of utterly importance that only the user `root'
@@ -75,5 +78,14 @@ ssh-keygen \
   -f  "$key_file" \
   -t ed25519 \
   -C "$HOST" \
+  -N ''
+chmod --changes u=r,go= "$key_file"
+key_file="$key_folder/${key_purpose}rsa4096"
+ssh-keygen \
+  -f  "$key_file" \
+  -t rsa \
+  -b 4096 \
+  -C "$HOST" \
+  -o \
   -N ''
 chmod --changes u=r,go= "$key_file"
