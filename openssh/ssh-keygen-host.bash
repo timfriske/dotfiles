@@ -40,4 +40,40 @@ mkdir --verbose --parents "$key_folder"
 #      the _RSA_ _Rivest, Shamir and Adleman_ public-key cryptography
 #      algorithm as a second best choice compared to the _Ed25519_ key.
 #
+# Important note: Because the files storing the private parts of host
+# keys cannot be protected by passphrases they are secured with very
+# restrictive file permissions instead such that only the owning user
+# `root' may read these but no one else is able to access them in any
+# way.
+#
+# Makes use of the following non-standard options:
+#
+#   1. Output file (f): Makes it clear that the owner took special care
+#      when generating the keys.
+#
+#   2. Type (t): Generates the safest type of pair of keys.
+#
+#   3. Comment (C): Includes the FQDN fully qualified domain name of the
+#      current host in order to be able to identify the host key and to
+#      differentiate it from other keys.
+#
+#   4. New-format private key (o): Saves the private key in the new file
+#      format that makes the key harder for attackers to disclose and
+#      corrput.  The `-o` flag is implicitly set for an _Ed25519_ key
+#      but should be explicitly set for any Protocol 2 key.
+#
+#   5. New passphrase (N): Uses an empty passphrase, i.e. no passphrase
+#      at all because host keys cannot have one.  Because the file
+#      storing the private part of a host key cannot be protected by a
+#      passphrase it is of utterly importance that only the user `root'
+#      can read this file.  Also any write permissions to this file
+#      should be withdrawn; even for the owning user `root'.
+#
 key_purpose="${1:+${1}_}"
+key_file="$key_folder/${key_purpose}ed25519"
+ssh-keygen \
+  -f  "$key_file" \
+  -t ed25519 \
+  -C "$HOST" \
+  -N ''
+chmod --changes u=r,go= "$key_file"
