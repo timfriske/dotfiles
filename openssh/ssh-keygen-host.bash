@@ -24,3 +24,18 @@
 #
 key_folder=/etc/ssh/host/key
 mkdir --verbose --parents "$key_folder"
+
+# Generates the following types of _OpenSSH_ keys:
+#
+#   1. Ed25519: Generates a public and private key pair encoded
+#      according to the _EdDSA_ _Edwards-curve Digital Signature
+#      Algorithm_ public-key cryptography algorithm because it seems to
+#      be the type of key with the most secure and also fastest digital
+#      signature scheme currently supported by _OpenSSH_.  Other
+#      advantages are that an _Ed25519_ key is of fixed length and also
+#      relatively short, e.g.  when compared to variable length types of
+#      keys such as _RSA_.
+#
+#   2. RSA: Generates a public and private key pair encoded according to
+#      the _RSA_ _Rivest, Shamir and Adleman_ public-key cryptography
+#      algorithm as a second best choice compared to the _Ed25519_ key.
