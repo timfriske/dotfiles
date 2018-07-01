@@ -38,3 +38,16 @@
 # to bottom.
 #
 Host *
+
+  # Make known hosts, i.e. their DNS names and IP adresses, unreadable
+  # by letting _SSH_ remember them in their hashed form only.  This
+  # prevents others from getting to know the hosts the user tried to
+  # connect to and potentially has access to.
+  #
+  # Important note: Hosts that were known before hashing known hosts
+  # will not be retroactively replaced by their hashed form.  For _SSH_
+  # to remember them in their hashed form too run `ssh-keygen -H`.
+  #
+  # Default: HashKnownHosts no
+  #
+  HashKnownHosts yes
