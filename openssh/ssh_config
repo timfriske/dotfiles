@@ -30,3 +30,11 @@
 # Guidelines for OpenSSH].  For details on choosing safe curves for
 # elliptic-curve cryptography see https://safecurves.cr.yp.to[Safe
 # Curves].
+
+# The default host section must be defined at the end of this
+# configuration file in order to not overrule the settings from more
+# host-specific sections.  Further host sections may be defined with
+# more specific sections listed before less specific sections from top
+# to bottom.
+#
+Host *
