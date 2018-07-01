@@ -164,3 +164,23 @@ Host *
   #   aes256-cbc
   #
   Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+
+  # Send the following trusted environment variables to a server making
+  # them part of the user's login session if the server accepts them.
+  #
+  # The lanugage- and locale-specific environment variables let the user
+  # continue to work on the server in her/his language and locale s/he
+  # is already using on the client.
+  #
+  # The editor-specific environment variables let the user continue to
+  # work on the server with her/his editors s/he is already using on the
+  # client.
+  #
+  # Default: <none>
+  #
+  # Language and locale:
+  SendEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY
+  SendEnv LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE
+  SendEnv LC_MEASUREMENT LC_IDENTIFICATION LC_ALL
+  # Editors:
+  SendEnv EDITOR VISUAL
