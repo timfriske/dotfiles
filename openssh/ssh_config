@@ -81,3 +81,24 @@ Host *
   #   keyboard-interactive,\
   #   password
   PreferredAuthentications publickey,keyboard-interactive,hostbased,gssapi-with-mic,password
+
+  # Allow only the safest host key algorithms to be used in the order
+  # from safest to less safe but still acceptable.  Leave out any weak
+  # or untrusted algorithms.
+  #
+  # Run `ssh -Q key` to list the currently supported host key
+  # algorithms.
+  #
+  # Default: HostKeyAlgorithms \
+  #   ecdsa-sha2-nistp256-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp384-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp521-cert-v01@openssh.com,\
+  #   ssh-ed25519-cert-v01@openssh.com,\
+  #   ssh-rsa-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp256,\
+  #   ecdsa-sha2-nistp384,\
+  #   ecdsa-sha2-nistp521,\
+  #   ssh-ed25519,\
+  #   ssh-rsa
+  #
+  HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
