@@ -51,3 +51,33 @@ Host *
   # Default: HashKnownHosts no
   #
   HashKnownHosts yes
+
+  # Specify the order of authentication methods in which the client
+  # should try to authenticate against a server in the order from most
+  # to least preferred.
+  #
+  # Since public-key authentication is one of the most secure methods it
+  # should be tried first if supported by the server.  If combined with
+  # multifactor authentication (`keyboard-interactive`) it is the most
+  # secure authentication method one can think of.
+  #
+  # Host-based authentication is considered to be less frequently used
+  # than public-key or multifactor authentication but still more
+  # frequently used than the _GSSAPI_ _General Security Services API_
+  # (e.g. via _Kerberos_).
+  #
+  # Password-based authentication on the other hand, if used alone, i.e.
+  # if not part of a multifactor authentication, is considered the least
+  # secure method considering weak passwords and brute-force dictionary
+  # attacks.
+  #
+  # Run `ssh -Q cipher-auth` to list the currently supported
+  # authentication methods.
+  #
+  # Default: PreferredAuthentications \
+  #   gssapi-with-mic,\
+  #   hostbased,\
+  #   publickey,\
+  #   keyboard-interactive,\
+  #   password
+  PreferredAuthentications publickey,keyboard-interactive,hostbased,gssapi-with-mic,password
