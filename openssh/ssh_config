@@ -23,3 +23,10 @@
 # specific patterns.  The most general section `Host *`, i.e. the one
 # with the least host-specific pattern, must be the last section of this
 # configuration file.
+#
+# Important note: With regards to security sensitive settings this
+# configuration file mainly follows the advices given by the
+# https://infosec.mozilla.org/guidelines/openssh[Mozilla Security
+# Guidelines for OpenSSH].  For details on choosing safe curves for
+# elliptic-curve cryptography see https://safecurves.cr.yp.to[Safe
+# Curves].
