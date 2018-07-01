@@ -1,2 +1,25 @@
 # = Configuration of OpenSSH SSH client
 # Tim Friske <me@tifr.de>
+#
+# Configures the _OpenSSH_ _SSH_ _Secure SHell_ client.
+#
+# The _SSH_ client program obtains its configuration from the below
+# sources in the following order:
+#
+#   . Command line options.
+#
+#   . User configuration file (`~/.ssh/config`).
+#
+#   . System configuration file (`/etc/ssh/ssh_config`).
+#
+# For each setting only the first encountered value will be used.  The
+# configuration files contain sections separated by `Host` name patterns
+# and a setting from that section with a pattern which best matches a
+# given host is chosen.  The host name is usually given on the command
+# line (see the `CanonicalizeHostname` option for exceptions).
+#
+# Since only the first obtained value for each setting is used, sections
+# with more host-specific patterns must come before ones with less
+# specific patterns.  The most general section `Host *`, i.e. the one
+# with the least host-specific pattern, must be the last section of this
+# configuration file.
