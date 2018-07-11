@@ -75,6 +75,7 @@ ssh-keygen \
   -t ed25519 \
   -C "$key_comment" \
   -a 100
+echo Choose options of SSH RSA-4096 public/private key pair.
 ssh-keygen \
   -f "$key_folder/${key_purpose}rsa4096" \
   -t rsa \
