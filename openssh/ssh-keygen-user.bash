@@ -9,9 +9,9 @@
 # accept or overwrite.
 #
 # Imprtant note: For increased security and performance you should
-# prefer the modern _Ed25519_ key whenever possible.  For backwards
-# compatibility with older _SSH_ clients and servers you can fallback to
-# the dated but widely supported _RSA-4096_ key.
+# prefer the modern _Ed25519_ key whenever possible.  For compatibility
+# with older _SSH_ implementations you can fallback to the dated but
+# widely supported _RSA-4096_ key.
 #
 # Tip: Run this program with `sudo` as another user to generate
 # _OpenSSH_ keys for that user on-the-fly, i.e. without to to log in as
