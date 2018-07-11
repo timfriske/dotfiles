@@ -3,8 +3,10 @@
 # = SSH user key generation
 # Tim Friske <me@tifr.de>
 #
-# This program generates _OpenSSH_ keys for the current user.  It
-# generates two keys, one _Ed25519_ key and one _RSA-4096_ key.
+# This interactive program generates _SSH_ keys for the current user.
+# It generates two keys, one _Ed25519_ key and one _RSA-4096_ key.  Any
+# options are presented to the user whose default values s/he can either
+# accept or overwrite.
 #
 # Imprtant note: For increased security and performance you should
 # prefer the modern _Ed25519_ key whenever possible.  For backwards
