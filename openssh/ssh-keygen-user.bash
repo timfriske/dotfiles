@@ -13,9 +13,9 @@
 # with older _SSH_ implementations you can fallback to the dated but
 # widely supported _RSA-4096_ key.
 #
-# Tip: Run this program with `sudo` as another user to generate
-# _OpenSSH_ keys for that user on-the-fly, i.e. without to to log in as
-# that user and out again.
+# Tip: Run this program with `sudo` as another user to generate _SSH_
+# keys for that user on-the-fly, i.e. without logging in as that user
+# and out again.
 
 echo Choose folder common to all SSH key pairs for the user.
 key_folder=~/.ssh
