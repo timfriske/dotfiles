@@ -64,8 +64,11 @@ mkdir --verbose --parents -- "$key_folder"
 #
 key_purpose="${1:+${1}_}"
 echo Choose options of SSH Ed25519 public/private key pair.
+key_file="id_ed25519"
+read -p 'Key file: ' -e -i "$key_file" key_file
+key_path="$key_folder/$key_file"
 ssh-keygen \
-  -f "$key_folder/${key_purpose}ed25519" \
+  -f "$key_path" \
   -t ed25519 \
   -C "$USER" \
   -a 100
