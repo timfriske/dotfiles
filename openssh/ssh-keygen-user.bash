@@ -63,6 +63,7 @@ mkdir --verbose --parents -- "$key_folder"
 #      crack the passphrase.
 #
 key_purpose="${1:+${1}_}"
+echo Choose options of SSH Ed25519 public/private key pair.
 ssh-keygen \
   -f "$key_folder/${key_purpose}ed25519" \
   -t ed25519 \
