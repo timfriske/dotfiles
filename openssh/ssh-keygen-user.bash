@@ -78,11 +78,14 @@ ssh-keygen \
 echo Choose options of SSH RSA-4096 public/private key pair.
 key_file="id_rsa"
 read -p 'Key file: ' -e -i "$key_file" key_file
+key_comment="SSH RSA-4096 key of user $USER created on \
+$(date --iso-8601)."
+read -p 'Key comment: ' -e -i "$key_comment" key_comment
 key_path="$key_folder/$key_file"
 ssh-keygen \
   -f "$key_path" \
   -t rsa \
   -b 4096 \
-  -C "$USER" \
+  -C "$key_comment" \
   -o \
   -a 100
