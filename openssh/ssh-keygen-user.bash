@@ -57,10 +57,11 @@ mkdir --verbose --parents -- "$key_folder"
 #      pair in order to be able to identify the key pair and to
 #      differentiate it from others.
 #
-#   5. New-format private key (o): Saves the private key in the new file
-#      format that makes the key harder for attackers to disclose and
-#      corrput.  The `-o` flag is implicitly set for an _Ed25519_ key
-#      but should be explicitly set for any Protocol 2 key.
+#   5. New-format private key (o): Save the private key in _OpenSSH's_
+#      new file format that makes the private key harder for attackers
+#      to disclose and corrupt.  The `-o` flag is already the default
+#      for an _Ed25519_ key but should be explicitly set for any other
+#      protocol version 2 key.
 #
 #   6. KDF rounds (a): Increases the KDF key derivation function rounds
 #      in order to make it harder to verify and thus to brute-force
