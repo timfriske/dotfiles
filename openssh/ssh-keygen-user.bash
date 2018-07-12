@@ -53,10 +53,9 @@ mkdir --verbose --parents -- "$key_folder"
 #   3. Key size (b): Increase the key size to make the public/private
 #      key pair even more secure.
 #
-#   4. Comment (C): Only includes the user name of the current user as
-#      opposed to also the appended FQDN fully qualified domain name of
-#      the current host because the user should be able to reuse the key
-#      pair from any host where he has an account.
+#   4. Comment (C): Embed the given comment into the public/private key
+#      pair in order to be able to identify the key pair and to
+#      differentiate it from others.
 #
 #   5. New-format private key (o): Saves the private key in the new file
 #      format that makes the key harder for attackers to disclose and
