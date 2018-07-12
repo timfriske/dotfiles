@@ -72,7 +72,6 @@ mkdir --verbose --parents -- "$key_folder"
 # private key files may only be read and written by the owning user and
 # the public key files additionally read by the group and others.
 #
-key_purpose="${1:+${1}_}"
 echo Choose options of SSH Ed25519 public/private key pair.
 key_file="id_ed25519"
 read -p 'Key file: ' -e -i "$key_file" key_file
