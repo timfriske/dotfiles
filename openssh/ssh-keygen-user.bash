@@ -42,7 +42,7 @@ mkdir --verbose --parents -- "$key_folder"
 #      algorithm as a second best choice compared to the _Ed25519_ key
 #      mainly for compatibility with older _SSH_ implementations.
 #
-# Makes use of the following non-standard options:
+# Make use of the following non-standard options for below reasons:
 #
 #   1. Output file (f): Makes it clear that the owner took special care
 #      when generating the keys.
