@@ -1,79 +1,105 @@
 #!/usr/bin/env bash
 #
-# = OpenSSH user key generation
+# = SSH user key generation
 # Tim Friske <me@tifr.de>
 #
-# This program generates _OpenSSH_ keys for the current user.  It
-# generates two keys, one _Ed25519_ key and one _RSA-4096_ key.
+# This interactive program generates _SSH_ keys for the current user.
+# It generates two keys, one _Ed25519_ key and one _RSA-4096_ key.  Any
+# options are presented to the user whose default values s/he can either
+# accept or overwrite.
 #
 # Imprtant note: For increased security and performance you should
-# prefer the modern _Ed25519_ key whenever possible.  For backwards
-# compatibility with older _SSH_ clients and servers you can fallback to
-# the dated but widely supported _RSA-4096_ key.
+# prefer the modern _Ed25519_ key whenever possible.  For compatibility
+# with older _SSH_ implementations you can fallback to the dated but
+# widely supported _RSA-4096_ key.
 #
-# Tip: Run this program with `sudo` as another user to generate
-# _OpenSSH_ keys for that user on-the-fly, i.e. without to to log in as
-# that user and out again.
+# Tip: Run this program with `sudo` as another user to generate _SSH_
+# keys for that user on-the-fly, i.e. without logging in as that user
+# and out again.
 
-# Defines and creates a non-standard folder below which the public and
-# private user key pairs are stored.  By doing so unintended overwrites
-# by standard invocations of `ssh-keygen` become less probable.  It
-# should also hint others that the owner spent some thoughts on the
-# topic of `key generation' and took special care when creating those
-# user keys.
-#
-key_folder=~/.ssh/user/key
-mkdir --verbose --parents "$key_folder"
+# Terminate execution on first error and abort this program.
+set -o errexit
 
-# Generates the following types of _OpenSSH_ keys:
+echo Choose folder common to all SSH key pairs for the user.
+key_folder=~/.ssh
+read -p 'Key folder: ' -e -i "$key_folder" key_folder
+key_folder=${key_folder:-.}
+mkdir --verbose --parents -- "$key_folder"
+
+# Generate the following types of _SSH_ keys for below reasons:
 #
 #   1. Ed25519: Generates a public and private key pair encoded
 #      according to the _EdDSA_ _Edwards-curve Digital Signature
 #      Algorithm_ public-key cryptography algorithm because it seems to
 #      be the type of key with the most secure and also fastest digital
-#      signature scheme currently supported by _OpenSSH_.  Other
-#      advantages are that an _Ed25519_ key is of fixed length and also
-#      relatively short, e.g.  when compared to variable length types of
-#      keys such as _RSA_.
+#      signature scheme currently supported by _SSH_ implementations
+#      such as _OpenSSH_.  Other advantages are that an _Ed25519_ key is
+#      of fixed length and also relatively short, e.g.  when compared to
+#      variable length types of keys such as _RSA_.
 #
 #   2. RSA: Generates a public and private key pair encoded according to
 #      the _RSA_ _Rivest, Shamir and Adleman_ public-key cryptography
-#      algorithm as a second best choice compared to the _Ed25519_ key.
+#      algorithm as a second best choice compared to the _Ed25519_ key
+#      mainly for compatibility with older _SSH_ implementations.
 #
-# Makes use of the following non-standard options:
+# Make use of the following non-standard options for below reasons:
 #
-#   1. Output file (f): Makes it clear that the owner took special care
-#      when generating the keys.
+#   1. Output file (f): Write the public/private key pair into files
+#      with the given name prefix.
 #
-#   2. Type (t): Generates the safest type of pair of keys.
+#   2. Type (t): Generate the public/private key pair with the most
+#      secure/compatible types of algorithms.
 #
-#   3. Key size (b): Increases the key size to make the key even more
-#      secure.
+#   3. Key size (b): Increase the key size to make the public/private
+#      key pair even more secure.
 #
-#   4. Comment (C): Only includes the user name of the current user as
-#      opposed to also the appended FQDN fully qualified domain name of
-#      the current host because the user should be able to reuse the key
-#      pair from any host where he has an account.
+#   4. Comment (C): Embed the given comment into the public/private key
+#      pair in order to be able to identify the key pair and to
+#      differentiate it from others.
 #
-#   5. New-format private key (o): Saves the private key in the new file
-#      format that makes the key harder for attackers to disclose and
-#      corrput.  The `-o` flag is implicitly set for an _Ed25519_ key
-#      but should be explicitly set for any Protocol 2 key.
+#   5. New-format private key (o): Save the private key in _OpenSSH's_
+#      new file format that makes the private key harder for attackers
+#      to disclose and corrupt.  The `-o` flag is already the default
+#      for an _Ed25519_ key but should be explicitly set for any other
+#      protocol version 2 key.
 #
-#   6. KDF rounds (a): Increases the KDF key derivation function rounds
-#      in order to make it harder to verify and thus to brute-force
-#      crack the passphrase.
+#   6. KDF rounds (a): Increase the _KDF_ _Key Derivation Function_
+#      rounds in order to make it harder to brute-force crack the
+#      passphrase of the private key.
 #
-key_purpose="${1:+${1}_}"
+# Important note: As an additional security measure the file permissions
+# of the public/private key pairs are further restricted such that the
+# private key files may only be read and written by the owning user and
+# the public key files additionally read by the group and others.
+#
+echo Choose options of SSH Ed25519 public/private key pair.
+key_file="id_ed25519"
+read -p 'Key file: ' -e -i "$key_file" key_file
+key_comment="SSH Ed25519 key of user $USER created on \
+$(date --iso-8601)."
+read -p 'Key comment: ' -e -i "$key_comment" key_comment
+key_path="$key_folder/$key_file"
 ssh-keygen \
-  -f "$key_folder/${key_purpose}ed25519" \
+  -f "$key_path" \
   -t ed25519 \
-  -C "$USER" \
+  -C "$key_comment" \
   -a 100
+chmod --changes a=,u=rw -- "$key_path"
+chmod --changes a=r,u=rw -- "$key_path.pub"
+
+echo Choose options of SSH RSA-4096 public/private key pair.
+key_file="id_rsa"
+read -p 'Key file: ' -e -i "$key_file" key_file
+key_comment="SSH RSA-4096 key of user $USER created on \
+$(date --iso-8601)."
+read -p 'Key comment: ' -e -i "$key_comment" key_comment
+key_path="$key_folder/$key_file"
 ssh-keygen \
-  -f "$key_folder/${key_purpose}rsa4096" \
+  -f "$key_path" \
   -t rsa \
   -b 4096 \
-  -C "$USER" \
+  -C "$key_comment" \
   -o \
   -a 100
+chmod --changes a=,u=rw -- "$key_path"
+chmod --changes a=r,u=rw -- "$key_path.pub"
