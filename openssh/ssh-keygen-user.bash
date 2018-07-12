@@ -63,9 +63,9 @@ mkdir --verbose --parents -- "$key_folder"
 #      for an _Ed25519_ key but should be explicitly set for any other
 #      protocol version 2 key.
 #
-#   6. KDF rounds (a): Increases the KDF key derivation function rounds
-#      in order to make it harder to verify and thus to brute-force
-#      crack the passphrase.
+#   6. KDF rounds (a): Increase the _KDF_ _Key Derivation Function_
+#      rounds in order to make it harder to brute-force crack the
+#      passphrase of the private key.
 #
 key_purpose="${1:+${1}_}"
 echo Choose options of SSH Ed25519 public/private key pair.
