@@ -17,6 +17,9 @@
 # keys for this host on-the-fly, i.e. without logging in as that user
 # and out again.
 
+# Terminate execution on first error and abort this program.
+set -o errexit
+
 echo Choose folder common to all SSH key pairs for the host.
 key_folder=/etc/ssh
 read -p 'Key folder: ' -e -i "$key_folder" key_folder
