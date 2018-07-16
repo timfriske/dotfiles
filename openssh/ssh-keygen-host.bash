@@ -72,6 +72,7 @@ mkdir --verbose --parents -- "$key_folder"
 #
 key_purpose="${1:+${1}_}"
 key_file="$key_folder/${key_purpose}ed25519"
+echo Choose options of SSH Ed25519 public/private key pair.
 ssh-keygen \
   -f  "$key_file" \
   -t ed25519 \
