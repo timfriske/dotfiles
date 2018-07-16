@@ -48,7 +48,7 @@ mkdir --verbose --parents -- "$key_folder"
 # `root' may read these but no one else is able to access them in any
 # way.
 #
-# Makes use of the following non-standard options:
+# Make use of the following non-standard options for below reasons:
 #
 #   1. Output file (f): Makes it clear that the owner took special care
 #      when generating the keys.
