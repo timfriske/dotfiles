@@ -26,7 +26,7 @@ read -p 'Key folder: ' -e -i "$key_folder" key_folder
 key_folder=${key_folder:-.}
 mkdir --verbose --parents -- "$key_folder"
 
-# Generates the following types of _OpenSSH_ keys:
+# Generate the following types of _SSH_ keys for below reasons:
 #
 #   1. Ed25519: Generates a public and private key pair encoded
 #      according to the _EdDSA_ _Edwards-curve Digital Signature
