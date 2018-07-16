@@ -17,15 +17,11 @@
 # keys for this host on-the-fly, i.e. without using `su` to to log in as
 # user `root' and out again.
 
-# Defines and creates a non-standard folder below which the public and
-# private host key pairs are stored.  By doing so unintended overwrites
-# by standard invocations of `ssh-keygen` become less probable.  It
-# should also hint others that the owner spent some thoughts on the
-# topic of `key generation' and took special care when creating those
-# host keys.
-#
-key_folder=/etc/ssh/host/key
-mkdir --verbose --parents "$key_folder"
+echo Choose folder common to all SSH key pairs for the host.
+key_folder=/etc/ssh
+read -p 'Key folder: ' -e -i "$key_folder" key_folder
+key_folder=${key_folder:-.}
+mkdir --verbose --parents -- "$key_folder"
 
 # Generates the following types of _OpenSSH_ keys:
 #
