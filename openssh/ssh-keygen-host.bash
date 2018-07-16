@@ -85,6 +85,7 @@ ssh-keygen \
   -N ''
 chmod --changes u=r,go= "$key_path"
 key_file="$key_folder/${key_purpose}rsa4096"
+echo Choose options of SSH RSA-4096 public/private key pair.
 ssh-keygen \
   -f  "$key_file" \
   -t rsa \
