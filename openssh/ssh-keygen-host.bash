@@ -56,8 +56,8 @@ mkdir --verbose --parents -- "$key_folder"
 #   2. Type (t): Generate the public/private key pair with the most
 #      secure/compatible types of algorithms.
 #
-#   3. Key size (b): Increases the key size to make the key even more
-#      secure.
+#   3. Key size (b): Increase the key size to make the public/private
+#      key pair even more secure.
 #
 #   4. Comment (C): Includes the FQDN fully qualified domain name of the
 #      current host in order to be able to identify the host key and to
