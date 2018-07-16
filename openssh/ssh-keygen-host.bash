@@ -53,7 +53,8 @@ mkdir --verbose --parents -- "$key_folder"
 #   1. Output file (f): Write the public/private key pair into files
 #      with the given name prefix.
 #
-#   2. Type (t): Generates the safest type of pair of keys.
+#   2. Type (t): Generate the public/private key pair with the most
+#      secure/compatible types of algorithms.
 #
 #   3. Key size (b): Increases the key size to make the key even more
 #      secure.
