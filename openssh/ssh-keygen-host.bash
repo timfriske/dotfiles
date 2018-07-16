@@ -50,8 +50,8 @@ mkdir --verbose --parents -- "$key_folder"
 #
 # Make use of the following non-standard options for below reasons:
 #
-#   1. Output file (f): Makes it clear that the owner took special care
-#      when generating the keys.
+#   1. Output file (f): Write the public/private key pair into files
+#      with the given name prefix.
 #
 #   2. Type (t): Generates the safest type of pair of keys.
 #
