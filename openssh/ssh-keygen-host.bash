@@ -13,9 +13,9 @@
 # with older _SSH_ implementations you can fallback to the dated but
 # widely supported _RSA-4096_ key.
 #
-# Tip: Run this program with `sudo` as user `root' to generate _OpenSSH_
-# keys for this host on-the-fly, i.e. without using `su` to to log in as
-# user `root' and out again.
+# Tip: Run this program with `sudo` as user `root` to generate _SSH_
+# keys for this host on-the-fly, i.e. without logging in as that user
+# and out again.
 
 echo Choose folder common to all SSH key pairs for the host.
 key_folder=/etc/ssh
