@@ -71,14 +71,16 @@ mkdir --verbose --parents -- "$key_folder"
 #      should be withdrawn; even for the owning user `root'.
 #
 key_purpose="${1:+${1}_}"
-key_file="$key_folder/${key_purpose}ed25519"
 echo Choose options of SSH Ed25519 public/private key pair.
+key_file="id_ed25519"
+read -p 'Key file: ' -e -i "$key_file" key_file
+key_path="$key_folder/$key_file"
 ssh-keygen \
-  -f  "$key_file" \
+  -f  "$key_path" \
   -t ed25519 \
   -C "$HOST" \
   -N ''
-chmod --changes u=r,go= "$key_file"
+chmod --changes u=r,go= "$key_path"
 key_file="$key_folder/${key_purpose}rsa4096"
 ssh-keygen \
   -f  "$key_file" \
