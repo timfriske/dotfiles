@@ -69,12 +69,11 @@ mkdir --verbose --parents -- "$key_folder"
 #      for an _Ed25519_ key but should be explicitly set for any other
 #      protocol version 2 key.
 #
-#   6. New passphrase (N): Uses an empty passphrase, i.e. no passphrase
-#      at all because host keys cannot have one.  Because the file
-#      storing the private part of a host key cannot be protected by a
-#      passphrase it is of utterly importance that only the user `root'
-#      can read this file.  Also any write permissions to this file
-#      should be withdrawn; even for the owning user `root'.
+#   6. New passphrase (N): Use an empty passphrase, i.e. no passphrase
+#      at all because a private host key cannot have one.  Therefore it
+#      is of utterly importance that access to this file is restricted
+#      as much as possible.  Only the user `root' must be able to read
+#      and write this file.
 #
 key_purpose="${1:+${1}_}"
 echo Choose options of SSH Ed25519 public/private key pair.
