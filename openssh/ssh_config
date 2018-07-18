@@ -39,11 +39,8 @@
 # elliptic-curve cryptography see https://safecurves.cr.yp.to[Safe
 # Curves].
 
-# The default host section must be defined at the end of this
-# configuration file in order to not overrule the settings from more
-# host-specific sections.  Further host sections may be defined with
-# more specific sections listed before less specific sections from top
-# to bottom.
+# The global section must be defined at the end of this file in order to
+# not overrule settings from more specific sections.
 #
 Host *
 
