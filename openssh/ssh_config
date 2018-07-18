@@ -49,9 +49,10 @@ Host *
   # This prevents others from getting to know the hosts the user tried
   # to connect to and potentially has access to.
   #
-  # Important note: Hosts that were known before hashing known hosts
-  # will not be retroactively replaced by their hashed form.  For _SSH_
-  # to remember them in their hashed form too run `ssh-keygen -H`.
+  # Important note: Hosts that were stored in plaintext will not be
+  # automatically replaced by their hash values with the option
+  # `HashKnownHosts` set to `yes`.  In order convert and store them in
+  # their hashed form run `ssh-keygen -H` once manually.
   #
   # Default: HashKnownHosts no
   #
