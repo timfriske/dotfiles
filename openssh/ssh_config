@@ -164,7 +164,8 @@ Host *
   # safest to less safe but still acceptable.  Leave out any weak or
   # untrusted algorithms.
   #
-  # Run `ssh -Q cipher` to list the currently supported ciphers.
+  # Run `ssh -Q cipher` to list the currently supported cipher
+  # algorithms.
   #
   # Default: Ciphers \
   #   chacha20-poly1305@openssh.com,\
