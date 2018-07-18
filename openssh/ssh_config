@@ -199,3 +199,27 @@ Host *
   SendEnv LC_MEASUREMENT LC_IDENTIFICATION LC_ALL
   # Editors:
   SendEnv EDITOR VISUAL
+
+  # Enable automatic sharing of multiple _SSH_ sessions over a single
+  # network connection to a remote host.
+  #
+  # Try to reuse an already existing connection.  If there is none
+  # establish a new one.  Keep the connection open for the given
+  # duration after the last _SSH_ session was closed just in case a new
+  # session is opened during that time in order to prevent too many new
+  # connections.
+  #
+  # A connection can only be reused for logging in with the same remote
+  # user to the same remote host and on the same remote port.  This is
+  # why it is necessary to include that information in the file name of
+  # each socket file.
+  #
+  # Default: ControlMaster no
+  #
+  # Default: ControlPath none
+  #
+  # Default: ControlPersist no
+  #
+  ControlMaster auto
+  ControlPath ~/.ssh/%r-%h-%p.socket
+  ControlPersist 30m
