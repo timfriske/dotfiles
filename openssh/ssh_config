@@ -116,6 +116,10 @@ Host *
   # Run `ssh -Q kex` to list the currently supported key exchange
   # algorithms.
   #
+  # Consider the minimum accepted bit length of 1024 bits in RFC-4419
+  # mode for the _DH group_ parameter `p` as insecure.  Raise the
+  # minimum to 2048 bits which corresponds to the minimum bit length in
+  # FIPS mode.
   #
   # Default: KexAlgorithms \
   #   curve25519-sha256,\
@@ -130,7 +134,11 @@ Host *
   #   diffie-hellman-group14-sha256,\
   #   diffie-hellman-group14-sha1
   #
+  # Default: KexDHMin 1024 (insecure, RFC-4419 mode)
+  # Default: KexDHMin 2048 (more secure, FIPS mode)
+  #
   KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+  KexDHMin 2048
 
   # Allow only the safest _MAC_ _Message Authentication Code_ algorithms
   # to be used in the order from safest to less safe but still
