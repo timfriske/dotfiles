@@ -17,17 +17,20 @@
 #
 #   . System configuration file (`/etc/ssh/ssh_config`).
 #
-# For each setting only the first encountered value will be used.  The
-# configuration files contain sections separated by `Host` name patterns
-# and a setting from that section with a pattern which best matches a
-# given host is chosen.  The host name is usually given on the command
-# line (see the `CanonicalizeHostname` option for exceptions).
+# The configuration file is divided into sections.  Each section starts
+# with a `Match` or `Host` expression that ends at the next section or
+# global section at the end of file.  A section defines the settings
+# specific to that one.
 #
-# Since only the first obtained value for each setting is used, sections
-# with more host-specific patterns must come before ones with less
-# specific patterns.  The most general section `Host *`, i.e. the one
-# with the least host-specific pattern, must be the last section of this
-# configuration file.
+# For each setting only the one of the first matching section in the
+# direction from top to bottom is applied.  Therefore more specific
+# sections must be defined before less specific ones for their settings
+# to become effective.
+#
+# Fallback settings may be defined in either the global section `Match
+# all` or `Host *`.  Such a setting becomes effective if no setting was
+# found in a more specific section.  The global section must be defined
+# at the end of this file.
 #
 # Important note: With regards to security sensitive settings this
 # configuration file mainly follows the advices given by the
