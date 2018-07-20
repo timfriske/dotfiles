@@ -3,6 +3,11 @@
 #
 # Configures the _OpenSSH_ _SSH_ _Secure SHell_ client.
 #
+# Empty lines are ignored but may be used to divide the content of this
+# configuration file into logical blocks.  Lines whose first
+# non-whitespace character is the `#` hash sign are ignored but may be
+# used as comments.
+#
 # The _SSH_ client program obtains its configuration from the below
 # sources in the following order:
 #
@@ -12,17 +17,20 @@
 #
 #   . System configuration file (`/etc/ssh/ssh_config`).
 #
-# For each setting only the first encountered value will be used.  The
-# configuration files contain sections separated by `Host` name patterns
-# and a setting from that section with a pattern which best matches a
-# given host is chosen.  The host name is usually given on the command
-# line (see the `CanonicalizeHostname` option for exceptions).
+# The configuration file is divided into sections.  Each section starts
+# with a `Match` or `Host` expression that ends at the next section or
+# global section at the end of file.  A section defines the settings
+# specific to that one.
 #
-# Since only the first obtained value for each setting is used, sections
-# with more host-specific patterns must come before ones with less
-# specific patterns.  The most general section `Host *`, i.e. the one
-# with the least host-specific pattern, must be the last section of this
-# configuration file.
+# For each setting only the one of the first matching section in the
+# direction from top to bottom is applied.  Therefore more specific
+# sections must be defined before less specific ones for their settings
+# to become effective.
+#
+# Fallback settings may be defined in either the global section `Match
+# all` or `Host *`.  Such a setting becomes effective if no setting was
+# found in a more specific section.  The global section must be defined
+# at the end of this file.
 #
 # Important note: With regards to security sensitive settings this
 # configuration file mainly follows the advices given by the
@@ -31,22 +39,136 @@
 # elliptic-curve cryptography see https://safecurves.cr.yp.to[Safe
 # Curves].
 
-# The default host section must be defined at the end of this
-# configuration file in order to not overrule the settings from more
-# host-specific sections.  Further host sections may be defined with
-# more specific sections listed before less specific sections from top
-# to bottom.
+# The global section must be defined at the end of this file in order to
+# not overrule settings from more specific sections.
 #
 Host *
 
-  # Make known hosts, i.e. their DNS names and IP adresses, unreadable
-  # by letting _SSH_ remember them in their hashed form only.  This
-  # prevents others from getting to know the hosts the user tried to
-  # connect to and potentially has access to.
+  # Enable automatic sharing of multiple _SSH_ sessions over a single
+  # network connection to a remote host.
   #
-  # Important note: Hosts that were known before hashing known hosts
-  # will not be retroactively replaced by their hashed form.  For _SSH_
-  # to remember them in their hashed form too run `ssh-keygen -H`.
+  # Try to reuse an already existing connection.  If there is none
+  # establish a new one.  Keep the connection open for the given
+  # duration after the last _SSH_ session was closed just in case a new
+  # session is opened during that time in order to prevent too many new
+  # connections.
+  #
+  # A connection can only be reused for logging in with the same remote
+  # user to the same remote host and on the same remote port.  This is
+  # why it is necessary to include that information in the file name of
+  # each socket file.
+  #
+  # Default: ControlMaster no
+  #
+  # Default: ControlPath none
+  #
+  # Default: ControlPersist no
+  #
+  ControlMaster auto
+  ControlPath ~/.ssh/%r-%h-%p.socket
+  ControlPersist 30m
+
+  # Allow only the safest key exchange algorithms to be used in the
+  # order from safest to less safe but still acceptable.  Leave out any
+  # weak or untrusted algorithms.
+  #
+  # Run `ssh -Q kex` to list the currently supported key exchange
+  # algorithms.
+  #
+  # Consider the minimum accepted bit length of 1024 bits in RFC-4419
+  # mode for the _DH group_ parameter `p` as insecure.  Raise the
+  # minimum to 2048 bits which corresponds to the minimum bit length in
+  # FIPS mode.
+  #
+  # Default: KexAlgorithms \
+  #   curve25519-sha256,\
+  #   curve25519-sha256@libssh.org,\
+  #   ecdh-sha2-nistp256,\
+  #   ecdh-sha2-nistp384,\
+  #   ecdh-sha2-nistp521,\
+  #   diffie-hellman-group-exchange-sha256,\
+  #   diffie-hellman-group16-sha512,\
+  #   diffie-hellman-group18-sha512,\
+  #   diffie-hellman-group-exchange-sha1,\
+  #   diffie-hellman-group14-sha256,\
+  #   diffie-hellman-group14-sha1
+  #
+  # Default: KexDHMin 1024 (insecure, RFC-4419 mode)
+  # Default: KexDHMin 2048 (more secure, FIPS mode)
+  #
+  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+  KexDHMin 2048
+
+  # Allow only the safest host key algorithms to be used in the order
+  # from safest to less safe but still acceptable.  Leave out any weak
+  # or untrusted algorithms.
+  #
+  # Run `ssh -Q key` to list the currently supported host key
+  # algorithms.
+  #
+  # Default: HostKeyAlgorithms \
+  #   ecdsa-sha2-nistp256-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp384-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp521-cert-v01@openssh.com,\
+  #   ssh-ed25519-cert-v01@openssh.com,\
+  #   ssh-rsa-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp256,\
+  #   ecdsa-sha2-nistp384,\
+  #   ecdsa-sha2-nistp521,\
+  #   ssh-ed25519,\
+  #   ssh-rsa
+  #
+  HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+
+  # Allow only the safest cipher algorithms to be used in the order from
+  # safest to less safe but still acceptable.  Leave out any weak or
+  # untrusted algorithms.
+  #
+  # Run `ssh -Q cipher` to list the currently supported cipher
+  # algorithms.
+  #
+  # Default: Ciphers \
+  #   chacha20-poly1305@openssh.com,\
+  #   aes128-ctr,\
+  #   aes192-ctr,\
+  #   aes256-ctr,\
+  #   aes128-gcm@openssh.com,\
+  #   aes256-gcm@openssh.com,\
+  #   aes128-cbc,\
+  #   aes192-cbc,\
+  #   aes256-cbc
+  #
+  Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+
+  # Allow only the safest _MAC_ _Message Authentication Code_ algorithms
+  # to be used in the order from safest to less safe but still
+  # acceptable.  Leave out any weak or untrusted algorithms.
+  #
+  # Run `ssh -Q mac` to list the currently supported _MAC_ algorithms.
+  #
+  # Default: MACs \
+  #  umac-64-etm@openssh.com,\
+  #  umac-128-etm@openssh.com,\
+  #  hmac-sha2-256-etm@openssh.com,\
+  #  hmac-sha2-512-etm@openssh.com,\
+  #  hmac-sha1-etm@openssh.com,\
+  #  umac-64@openssh.com,\
+  #  umac-128@openssh.com,\
+  #  hmac-sha2-256,\
+  #  hmac-sha2-512,\
+  #  hmac-sha1
+  #
+  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+
+  # Make known hosts unreadable, i.e. their _DNS_ names and _IP_
+  # addresses, by letting _SSH_ remember them in their hashed form only.
+  # This prevents others from getting to know the hosts the user tried
+  # to connect to and potentially has access to.
+  #
+  # Important note: Hosts that were stored in plaintext will not be
+  # automatically replaced by their hash values with the option
+  # `HashKnownHosts` set to `yes`.  In order convert and store them in
+  # their hashed form run `ssh-keygen -H` once manually.
   #
   # Default: HashKnownHosts no
   #
@@ -82,14 +204,14 @@ Host *
   #   password
   PreferredAuthentications publickey,keyboard-interactive,hostbased,gssapi-with-mic,password
 
-  # Allow only the safest host key algorithms to be used in the order
+  # Allow only the safest public key algorithms to be used in the order
   # from safest to less safe but still acceptable.  Leave out any weak
   # or untrusted algorithms.
   #
   # Run `ssh -Q key` to list the currently supported host key
   # algorithms.
   #
-  # Default: HostKeyAlgorithms \
+  # Default: PubkeyAcceptedKeyTypes \
   #   ecdsa-sha2-nistp256-cert-v01@openssh.com,\
   #   ecdsa-sha2-nistp384-cert-v01@openssh.com,\
   #   ecdsa-sha2-nistp521-cert-v01@openssh.com,\
@@ -101,69 +223,30 @@ Host *
   #   ssh-ed25519,\
   #   ssh-rsa
   #
-  HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+  PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
 
-  # Allow only the safest key exchange algorithms to be used in the
-  # order from safest to less safe but still acceptable.  Leave out any
-  # weak or untrusted algorithms.
+  # Allow only the private key files with the safest public key
+  # algorithms to be used in the order from safest to less safe but
+  # still acceptable.  Leave out any weak or untrusted algorithms.
   #
-  # Run `ssh -Q kex` to list the currently supported key exchange
-  # algorithms.
+  # Add each private key read from an existing file listed below to a
+  # running _SSH_ agent compliant implementation such as _SSH's_
+  # `ssh-agent` or _GnuPG's_ `gpg-agent`.  This is done for the user's
+  # convenience by letting an _SSH_ agent cache the passphrases of the
+  # just added private keys and thus to alleviate the user from having
+  # to enter these passphrases too often.
   #
+  # Default: AddKeysToAgent no
   #
-  # Default: KexAlgorithms \
-  #   curve25519-sha256,\
-  #   curve25519-sha256@libssh.org,\
-  #   ecdh-sha2-nistp256,\
-  #   ecdh-sha2-nistp384,\
-  #   ecdh-sha2-nistp521,\
-  #   diffie-hellman-group-exchange-sha256,\
-  #   diffie-hellman-group16-sha512,\
-  #   diffie-hellman-group18-sha512,\
-  #   diffie-hellman-group-exchange-sha1,\
-  #   diffie-hellman-group14-sha256,\
-  #   diffie-hellman-group14-sha1
+  # Default:
+  #   IdentityFile ~/.ssh/id_dsa
+  #   IdentityFile ~/.ssh/id_ecdsa
+  #   IdentityFile ~/.ssh/id_ed25519
+  #   IdentityFile ~/.ssh/id_rsa
   #
-  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-
-  # Allow only the safest _MAC_ _Message Authentication Code_ algorithms
-  # to be used in the order from safest to less safe but still
-  # acceptable.  Leave out any weak or untrusted algorithms.
-  #
-  # Run `ssh -Q mac` to list the currently supported _MAC_ algorithms.
-  #
-  # Default: MACs \
-  #  umac-64-etm@openssh.com,\
-  #  umac-128-etm@openssh.com,\
-  #  hmac-sha2-256-etm@openssh.com,\
-  #  hmac-sha2-512-etm@openssh.com,\
-  #  hmac-sha1-etm@openssh.com,\
-  #  umac-64@openssh.com,\
-  #  umac-128@openssh.com,\
-  #  hmac-sha2-256,\
-  #  hmac-sha2-512,\
-  #  hmac-sha1
-  #
-  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
-
-  # Allow only the safest cipher algorithms to be used in the order from
-  # safest to less safe but still acceptable.  Leave out any weak or
-  # untrusted algorithms.
-  #
-  # Run `ssh -Q cipher` to list the currently supported ciphers.
-  #
-  # Default: Ciphers \
-  #   chacha20-poly1305@openssh.com,\
-  #   aes128-ctr,\
-  #   aes192-ctr,\
-  #   aes256-ctr,\
-  #   aes128-gcm@openssh.com,\
-  #   aes256-gcm@openssh.com,\
-  #   aes128-cbc,\
-  #   aes192-cbc,\
-  #   aes256-cbc
-  #
-  Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+  IdentityFile ~/.ssh/id_rsa
 
   # Send the following trusted environment variables to a server making
   # them part of the user's login session if the server accepts them.
@@ -176,7 +259,7 @@ Host *
   # work on the server with her/his editors s/he is already using on the
   # client.
   #
-  # Default: <none>
+  # Default: SendEnv <none>
   #
   # Language and locale:
   SendEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY
