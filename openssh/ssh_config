@@ -44,6 +44,122 @@
 #
 Host *
 
+  # Enable automatic sharing of multiple _SSH_ sessions over a single
+  # network connection to a remote host.
+  #
+  # Try to reuse an already existing connection.  If there is none
+  # establish a new one.  Keep the connection open for the given
+  # duration after the last _SSH_ session was closed just in case a new
+  # session is opened during that time in order to prevent too many new
+  # connections.
+  #
+  # A connection can only be reused for logging in with the same remote
+  # user to the same remote host and on the same remote port.  This is
+  # why it is necessary to include that information in the file name of
+  # each socket file.
+  #
+  # Default: ControlMaster no
+  #
+  # Default: ControlPath none
+  #
+  # Default: ControlPersist no
+  #
+  ControlMaster auto
+  ControlPath ~/.ssh/%r-%h-%p.socket
+  ControlPersist 30m
+
+  # Allow only the safest key exchange algorithms to be used in the
+  # order from safest to less safe but still acceptable.  Leave out any
+  # weak or untrusted algorithms.
+  #
+  # Run `ssh -Q kex` to list the currently supported key exchange
+  # algorithms.
+  #
+  # Consider the minimum accepted bit length of 1024 bits in RFC-4419
+  # mode for the _DH group_ parameter `p` as insecure.  Raise the
+  # minimum to 2048 bits which corresponds to the minimum bit length in
+  # FIPS mode.
+  #
+  # Default: KexAlgorithms \
+  #   curve25519-sha256,\
+  #   curve25519-sha256@libssh.org,\
+  #   ecdh-sha2-nistp256,\
+  #   ecdh-sha2-nistp384,\
+  #   ecdh-sha2-nistp521,\
+  #   diffie-hellman-group-exchange-sha256,\
+  #   diffie-hellman-group16-sha512,\
+  #   diffie-hellman-group18-sha512,\
+  #   diffie-hellman-group-exchange-sha1,\
+  #   diffie-hellman-group14-sha256,\
+  #   diffie-hellman-group14-sha1
+  #
+  # Default: KexDHMin 1024 (insecure, RFC-4419 mode)
+  # Default: KexDHMin 2048 (more secure, FIPS mode)
+  #
+  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+  KexDHMin 2048
+
+  # Allow only the safest host key algorithms to be used in the order
+  # from safest to less safe but still acceptable.  Leave out any weak
+  # or untrusted algorithms.
+  #
+  # Run `ssh -Q key` to list the currently supported host key
+  # algorithms.
+  #
+  # Default: HostKeyAlgorithms \
+  #   ecdsa-sha2-nistp256-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp384-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp521-cert-v01@openssh.com,\
+  #   ssh-ed25519-cert-v01@openssh.com,\
+  #   ssh-rsa-cert-v01@openssh.com,\
+  #   ecdsa-sha2-nistp256,\
+  #   ecdsa-sha2-nistp384,\
+  #   ecdsa-sha2-nistp521,\
+  #   ssh-ed25519,\
+  #   ssh-rsa
+  #
+  HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+
+  # Allow only the safest cipher algorithms to be used in the order from
+  # safest to less safe but still acceptable.  Leave out any weak or
+  # untrusted algorithms.
+  #
+  # Run `ssh -Q cipher` to list the currently supported cipher
+  # algorithms.
+  #
+  # Default: Ciphers \
+  #   chacha20-poly1305@openssh.com,\
+  #   aes128-ctr,\
+  #   aes192-ctr,\
+  #   aes256-ctr,\
+  #   aes128-gcm@openssh.com,\
+  #   aes256-gcm@openssh.com,\
+  #   aes128-cbc,\
+  #   aes192-cbc,\
+  #   aes256-cbc
+  #
+  Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+
+  # Allow only the safest _MAC_ _Message Authentication Code_ algorithms
+  # to be used in the order from safest to less safe but still
+  # acceptable.  Leave out any weak or untrusted algorithms.
+  #
+  # Run `ssh -Q mac` to list the currently supported _MAC_ algorithms.
+  #
+  # Default: MACs \
+  #  umac-64-etm@openssh.com,\
+  #  umac-128-etm@openssh.com,\
+  #  hmac-sha2-256-etm@openssh.com,\
+  #  hmac-sha2-512-etm@openssh.com,\
+  #  hmac-sha1-etm@openssh.com,\
+  #  umac-64@openssh.com,\
+  #  umac-128@openssh.com,\
+  #  hmac-sha2-256,\
+  #  hmac-sha2-512,\
+  #  hmac-sha1
+  #
+  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+
   # Make known hosts unreadable, i.e. their _DNS_ names and _IP_
   # addresses, by letting _SSH_ remember them in their hashed form only.
   # This prevents others from getting to know the hosts the user tried
@@ -88,27 +204,6 @@ Host *
   #   password
   PreferredAuthentications publickey,keyboard-interactive,hostbased,gssapi-with-mic,password
 
-  # Allow only the safest host key algorithms to be used in the order
-  # from safest to less safe but still acceptable.  Leave out any weak
-  # or untrusted algorithms.
-  #
-  # Run `ssh -Q key` to list the currently supported host key
-  # algorithms.
-  #
-  # Default: HostKeyAlgorithms \
-  #   ecdsa-sha2-nistp256-cert-v01@openssh.com,\
-  #   ecdsa-sha2-nistp384-cert-v01@openssh.com,\
-  #   ecdsa-sha2-nistp521-cert-v01@openssh.com,\
-  #   ssh-ed25519-cert-v01@openssh.com,\
-  #   ssh-rsa-cert-v01@openssh.com,\
-  #   ecdsa-sha2-nistp256,\
-  #   ecdsa-sha2-nistp384,\
-  #   ecdsa-sha2-nistp521,\
-  #   ssh-ed25519,\
-  #   ssh-rsa
-  #
-  HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
-
   # Allow only the safest public key algorithms to be used in the order
   # from safest to less safe but still acceptable.  Leave out any weak
   # or untrusted algorithms.
@@ -129,97 +224,6 @@ Host *
   #   ssh-rsa
   #
   PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
-
-  # Allow only the safest key exchange algorithms to be used in the
-  # order from safest to less safe but still acceptable.  Leave out any
-  # weak or untrusted algorithms.
-  #
-  # Run `ssh -Q kex` to list the currently supported key exchange
-  # algorithms.
-  #
-  # Consider the minimum accepted bit length of 1024 bits in RFC-4419
-  # mode for the _DH group_ parameter `p` as insecure.  Raise the
-  # minimum to 2048 bits which corresponds to the minimum bit length in
-  # FIPS mode.
-  #
-  # Default: KexAlgorithms \
-  #   curve25519-sha256,\
-  #   curve25519-sha256@libssh.org,\
-  #   ecdh-sha2-nistp256,\
-  #   ecdh-sha2-nistp384,\
-  #   ecdh-sha2-nistp521,\
-  #   diffie-hellman-group-exchange-sha256,\
-  #   diffie-hellman-group16-sha512,\
-  #   diffie-hellman-group18-sha512,\
-  #   diffie-hellman-group-exchange-sha1,\
-  #   diffie-hellman-group14-sha256,\
-  #   diffie-hellman-group14-sha1
-  #
-  # Default: KexDHMin 1024 (insecure, RFC-4419 mode)
-  # Default: KexDHMin 2048 (more secure, FIPS mode)
-  #
-  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-  KexDHMin 2048
-
-  # Allow only the safest _MAC_ _Message Authentication Code_ algorithms
-  # to be used in the order from safest to less safe but still
-  # acceptable.  Leave out any weak or untrusted algorithms.
-  #
-  # Run `ssh -Q mac` to list the currently supported _MAC_ algorithms.
-  #
-  # Default: MACs \
-  #  umac-64-etm@openssh.com,\
-  #  umac-128-etm@openssh.com,\
-  #  hmac-sha2-256-etm@openssh.com,\
-  #  hmac-sha2-512-etm@openssh.com,\
-  #  hmac-sha1-etm@openssh.com,\
-  #  umac-64@openssh.com,\
-  #  umac-128@openssh.com,\
-  #  hmac-sha2-256,\
-  #  hmac-sha2-512,\
-  #  hmac-sha1
-  #
-  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
-
-  # Allow only the safest cipher algorithms to be used in the order from
-  # safest to less safe but still acceptable.  Leave out any weak or
-  # untrusted algorithms.
-  #
-  # Run `ssh -Q cipher` to list the currently supported cipher
-  # algorithms.
-  #
-  # Default: Ciphers \
-  #   chacha20-poly1305@openssh.com,\
-  #   aes128-ctr,\
-  #   aes192-ctr,\
-  #   aes256-ctr,\
-  #   aes128-gcm@openssh.com,\
-  #   aes256-gcm@openssh.com,\
-  #   aes128-cbc,\
-  #   aes192-cbc,\
-  #   aes256-cbc
-  #
-  Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-
-  # Send the following trusted environment variables to a server making
-  # them part of the user's login session if the server accepts them.
-  #
-  # The lanugage- and locale-specific environment variables let the user
-  # continue to work on the server in her/his language and locale s/he
-  # is already using on the client.
-  #
-  # The editor-specific environment variables let the user continue to
-  # work on the server with her/his editors s/he is already using on the
-  # client.
-  #
-  # Default: SendEnv <none>
-  #
-  # Language and locale:
-  SendEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY
-  SendEnv LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE
-  SendEnv LC_MEASUREMENT LC_IDENTIFICATION LC_ALL
-  # Editors:
-  SendEnv EDITOR VISUAL
 
   # Allow only the private key files with the safest public key
   # algorithms to be used in the order from safest to less safe but
@@ -244,26 +248,22 @@ Host *
   IdentityFile ~/.ssh/id_ed25519
   IdentityFile ~/.ssh/id_rsa
 
-  # Enable automatic sharing of multiple _SSH_ sessions over a single
-  # network connection to a remote host.
+  # Send the following trusted environment variables to a server making
+  # them part of the user's login session if the server accepts them.
   #
-  # Try to reuse an already existing connection.  If there is none
-  # establish a new one.  Keep the connection open for the given
-  # duration after the last _SSH_ session was closed just in case a new
-  # session is opened during that time in order to prevent too many new
-  # connections.
+  # The lanugage- and locale-specific environment variables let the user
+  # continue to work on the server in her/his language and locale s/he
+  # is already using on the client.
   #
-  # A connection can only be reused for logging in with the same remote
-  # user to the same remote host and on the same remote port.  This is
-  # why it is necessary to include that information in the file name of
-  # each socket file.
+  # The editor-specific environment variables let the user continue to
+  # work on the server with her/his editors s/he is already using on the
+  # client.
   #
-  # Default: ControlMaster no
+  # Default: SendEnv <none>
   #
-  # Default: ControlPath none
-  #
-  # Default: ControlPersist no
-  #
-  ControlMaster auto
-  ControlPath ~/.ssh/%r-%h-%p.socket
-  ControlPersist 30m
+  # Language and locale:
+  SendEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY
+  SendEnv LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE
+  SendEnv LC_MEASUREMENT LC_IDENTIFICATION LC_ALL
+  # Editors:
+  SendEnv EDITOR VISUAL
