@@ -17,3 +17,8 @@
 #   . Command line options.
 #
 #   . System configuration file (`/etc/ssh/sshd_config`).
+#
+# The configuration file is divided into sections.  Each section starts
+# with a `Match` expression that ends at the next section or global
+# section at the end of file.  A section defines the settings specific
+# to that one.
