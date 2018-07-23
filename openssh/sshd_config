@@ -5,3 +5,8 @@
 # daemon is used in combination with a _SSH_ compatible client to
 # establish a secure connection between two untrusted hosts over an
 # insecure network.
+#
+# Empty lines are ignored but may be used to divide the content of this
+# configuration file into logical blocks.  Lines whose first
+# non-whitespace character is the `#` hash sign are ignored but may be
+# used as comments.
