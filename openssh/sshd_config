@@ -22,3 +22,13 @@
 # with a `Match` expression that ends at the next section or global
 # section at the end of file.  A section defines the settings specific
 # to that one.
+#
+# For each setting only the one of the first matching section in the
+# direction from top to bottom is applied.  Therefore more specific
+# sections must be defined before less specific ones for their settings
+# to become effective.
+#
+# Fallback settings may be defined in either the global section without
+# `Match` expression or `Match all`.  Such a setting becomes effective
+# if no setting was found in a more specific section.  The global
+# section must be defined at the end of this file.
