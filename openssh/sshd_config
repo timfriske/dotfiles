@@ -147,3 +147,30 @@ AuthenticationMethods publickey
 #
 HostKey /etc/ssh/ssh_host_ed25519_key
 HostKey /etc/ssh/ssh_host_rsa_key
+
+# Prevent users from gaining super user rights by logging into the
+# account of the well-known system administrator `root`.
+#
+# Root-login is also disabled for auditing reasons because it is
+# difficult to track which process belongs to which `root` user.
+#
+# An attacker would only need to guess the password or have stolen the
+# private key in order to break into not only the account of the user
+# `root` but also into the server or even the entire network whereas for
+# any normal user s/he would need to have guessed/stolen the user's
+# login credentials, i.e. the user's name as well as password/private
+# key.
+#
+# A slightly less secure but still very restrictive value for this
+# option would be `forced-command-only` in order to allow automated
+# processes requiring super user privileges to login but only run a
+# certain command.  But this shouldn't be the default and instead
+# specifically configured in `Match` sections for scenarios that
+# actually require it.
+#
+# The available values for this option are: `yes`, `prohibit-password`,
+# `forced-command-only`, `no`.
+#
+# Default: PermitRootLogin yes
+#
+PermitRootLogin no
