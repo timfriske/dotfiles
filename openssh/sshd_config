@@ -174,3 +174,27 @@ HostKey /etc/ssh/ssh_host_rsa_key
 # Default: PermitRootLogin yes
 #
 PermitRootLogin no
+
+# Only allow users to login which are members of the groups below in
+# order to reduce the attack surface by having explicitly to grant this
+# right only to those who actually require it.
+#
+# In comparison to the similar option `AllowUsers`, the option
+# `AllowGroups` is preferred because its value and thus this
+# configuration file does not need to be adjusted everytime a user
+# should be granted the right to login via _SSH_.  All a system
+# adiminstrator has to do is to add a user to any one of the groups
+# listed below.
+#
+# Compared to the similar options `DenyUsers` and `DenyGroups` which
+# blacklist users and groups its better to whitelist them because then
+# only explicitly listed ones are allowed.  In order to add exceptions
+# to the whitelisted groups the options `DenyUsers` and `DenyGroups` may
+# be used in combination.
+#
+# Important note: The allow/deny directives are processed in the order
+# of `DenyUsers`, `AllowUsers`, `DenyGroups`, `AllowGroups`.
+#
+# Default: AllowGroups <all groups allowed>
+#
+AllowGroups ssh-login
