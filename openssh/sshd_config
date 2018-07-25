@@ -135,3 +135,15 @@ MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@op
 # Default: AuthenticationMethods any
 #
 AuthenticationMethods publickey
+
+# Allow only the private key files with the safest public key algorithms
+# to be used in the order from safest to less safe but still acceptable.
+# Leave out any weak or untrusted algorithms.
+#
+# Default:
+#   HostKey /etc/ssh/ssh_host_ecdsa_key
+#   HostKey /etc/ssh/ssh_host_ed25519_key
+#   HostKey /etc/ssh/ssh_host_rsa_key
+#
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
