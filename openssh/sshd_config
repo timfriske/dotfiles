@@ -80,3 +80,22 @@ KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
 #   ssh-rsa
 #
 HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+
+# Allow only the safest cipher algorithms to be used in the order from
+# safest to less safe but still acceptable.  Leave out any weak or
+# untrusted algorithms.
+#
+# Run `ssh -Q cipher` to list the currently supported cipher algorithms.
+#
+# Default: Ciphers \
+#   chacha20-poly1305@openssh.com,\
+#   aes128-ctr,\
+#   aes192-ctr,\
+#   aes256-ctr,\
+#   aes128-gcm@openssh.com,\
+#   aes256-gcm@openssh.com,\
+#   aes128-cbc,\
+#   aes192-cbc,\
+#   aes256-cbc
+#
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
