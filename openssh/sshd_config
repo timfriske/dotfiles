@@ -1,0 +1,238 @@
+# = Configuration of OpenSSH daemon
+# Tim Friske <me@tifr.de>
+#
+# Configures _OpenSSH's_ _Secure SHell_ daemon program.  The _OpenSSH_
+# daemon is used in combination with a _SSH_ compatible client to
+# establish a secure connection between two untrusted hosts over an
+# insecure network.
+#
+# Empty lines are ignored but may be used to divide the content of this
+# configuration file into logical blocks.  Lines whose first
+# non-whitespace character is the `#` hash sign are ignored but may be
+# used as comments.
+#
+# The _OpenSSH_ daemon obtains its configuration from the below sources
+# in the following order:
+#
+#   . Command line options.
+#
+#   . System configuration file (`/etc/ssh/sshd_config`).
+#
+# The configuration file is divided into sections.  Each section starts
+# with a `Match` expression that ends at the next section or global
+# section at the end of file.  A section defines the settings specific
+# to that one.
+#
+# For each setting only the one of the first matching section in the
+# direction from top to bottom is applied.  Therefore more specific
+# sections must be defined before less specific ones for their settings
+# to become effective.
+#
+# Fallback settings may be defined in either the global section without
+# `Match` expression or `Match all`.  Such a setting becomes effective
+# if no setting was found in a more specific section.  The global
+# section must be defined at the end of this file.
+#
+# Important note: With regards to security sensitive settings this
+# configuration file mainly follows the advices given by the
+# https://infosec.mozilla.org/guidelines/openssh[Mozilla Security
+# Guidelines for OpenSSH].  For details on choosing safe curves for
+# elliptic-curve cryptography see https://safecurves.cr.yp.to[Safe
+# Curves].
+
+# Allow only the safest key exchange algorithms to be used in the order
+# from safest to less safe but still acceptable.  Leave out any weak or
+# untrusted algorithms.
+#
+# Run `ssh -Q kex` to list the currently supported key exchange
+# algorithms.
+#
+# Consider the minimum accepted bit length of 1024 bits in RFC-4419 mode
+# for the _DH group_ parameter `p` as insecure.  Raise the minimum to
+# 2048 bits which corresponds to the minimum bit length in FIPS mode.
+#
+# Default: KexAlgorithms \
+#   curve25519-sha256,\
+#   curve25519-sha256@libssh.org,\
+#   ecdh-sha2-nistp256,\
+#   ecdh-sha2-nistp384,\
+#   ecdh-sha2-nistp521,\
+#   diffie-hellman-group-exchange-sha256,\
+#   diffie-hellman-group16-sha512,\
+#   diffie-hellman-group18-sha512,\
+#   diffie-hellman-group14-sha256,\
+#   diffie-hellman-group14-sha1
+#
+# Default: KexDHMin 1024 (insecure, RFC-4419 mode)
+# Default: KexDHMin 2048 (more secure, FIPS mode)
+#
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+KexDHMin 2048
+
+# Allow only the safest host key algorithms to be used in the order from
+# safest to less safe but still acceptable.  Leave out any weak or
+# untrusted algorithms.
+#
+# Run `ssh -Q key` to list the currently supported host key algorithms.
+#
+# Default: HostKeyAlgorithms \
+#   ecdsa-sha2-nistp256-cert-v01@openssh.com,\
+#   ecdsa-sha2-nistp384-cert-v01@openssh.com,\
+#   ecdsa-sha2-nistp521-cert-v01@openssh.com,\
+#   ssh-ed25519-cert-v01@openssh.com,\
+#   ssh-rsa-cert-v01@openssh.com,\
+#   ecdsa-sha2-nistp256,\
+#   ecdsa-sha2-nistp384,\
+#   ecdsa-sha2-nistp521,\
+#   ssh-ed25519,\
+#   ssh-rsa
+#
+HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+
+# Allow only the safest cipher algorithms to be used in the order from
+# safest to less safe but still acceptable.  Leave out any weak or
+# untrusted algorithms.
+#
+# Run `ssh -Q cipher` to list the currently supported cipher algorithms.
+#
+# Default: Ciphers \
+#   chacha20-poly1305@openssh.com,\
+#   aes128-ctr,\
+#   aes192-ctr,\
+#   aes256-ctr,\
+#   aes128-gcm@openssh.com,\
+#   aes256-gcm@openssh.com,\
+#   aes128-cbc,\
+#   aes192-cbc,\
+#   aes256-cbc
+#
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+
+# Allow only the safest _MAC_ _Message Authentication Code_ algorithms
+# to be used in the order from safest to less safe but still acceptable.
+# Leave out any weak or untrusted algorithms.
+#
+# Run `ssh -Q mac` to list the currently supported _MAC_ algorithms.
+#
+# Default: MACs \
+#  umac-64-etm@openssh.com,\
+#  umac-128-etm@openssh.com,\
+#  hmac-sha2-256-etm@openssh.com,\
+#  hmac-sha2-512-etm@openssh.com,\
+#  hmac-sha1-etm@openssh.com,\
+#  umac-64@openssh.com,\
+#  umac-128@openssh.com,\
+#  hmac-sha2-256,\
+#  hmac-sha2-512,\
+#  hmac-sha1
+#
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+
+# Allow only the safest authentication methods that must be successfully
+# completed for a user to be granted access in the order from safest to
+# less safe but still acceptable.  Leave out any weak or untrusted
+# methods.
+#
+# This option must be followed by one or more comma-separated lists of
+# authentication method names, or by the single string `any` to indicate
+# the default behavior of accepting any single authentication method.
+#
+# The available authentication methods are: `gssapi-with-mic`,
+# `hostbased`, `keyboard-interactive`, `none`, `password`, `publickey`.
+#
+# Default: AuthenticationMethods any
+#
+AuthenticationMethods publickey
+
+# Allow only the private key files with the safest public key algorithms
+# to be used in the order from safest to less safe but still acceptable.
+# Leave out any weak or untrusted algorithms.
+#
+# Default:
+#   HostKey /etc/ssh/ssh_host_ecdsa_key
+#   HostKey /etc/ssh/ssh_host_ed25519_key
+#   HostKey /etc/ssh/ssh_host_rsa_key
+#
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+# Prevent users from gaining super user rights by logging into the
+# account of the well-known system administrator `root`.
+#
+# Root-login is also disabled for auditing reasons because it is
+# difficult to track which process belongs to which `root` user.
+#
+# An attacker would only need to guess the password or have stolen the
+# private key in order to break into not only the account of the user
+# `root` but also into the server or even the entire network whereas for
+# any normal user s/he would need to have guessed/stolen the user's
+# login credentials, i.e. the user's name as well as password/private
+# key.
+#
+# A slightly less secure but still very restrictive value for this
+# option would be `forced-command-only` in order to allow automated
+# processes requiring super user privileges to login but only run a
+# certain command.  But this shouldn't be the default and instead
+# specifically configured in `Match` sections for scenarios that
+# actually require it.
+#
+# The available values for this option are: `yes`, `prohibit-password`,
+# `forced-command-only`, `no`.
+#
+# Default: PermitRootLogin yes
+#
+PermitRootLogin no
+
+# Only allow users to login which are members of the groups below in
+# order to reduce the attack surface by having explicitly to grant this
+# right only to those who actually require it.
+#
+# In comparison to the similar option `AllowUsers`, the option
+# `AllowGroups` is preferred because its value and thus this
+# configuration file does not need to be adjusted everytime a user
+# should be granted the right to login via _SSH_.  All a system
+# adiminstrator has to do is to add a user to any one of the groups
+# listed below.
+#
+# Compared to the similar options `DenyUsers` and `DenyGroups` which
+# blacklist users and groups its better to whitelist them because then
+# only explicitly listed ones are allowed.  In order to add exceptions
+# to the whitelisted groups the options `DenyUsers` and `DenyGroups` may
+# be used in combination.
+#
+# Important note: The allow/deny directives are processed in the order
+# of `DenyUsers`, `AllowUsers`, `DenyGroups`, `AllowGroups`.
+#
+# Default: AllowGroups <all groups allowed>
+#
+AllowGroups ssh-login
+
+# Receive the following trusted environment variables from a client
+# making them part of the user's login session if the client sent them.
+#
+# The lanugage- and locale-specific environment variables let the user
+# continue to work on the server in her/his language and locale s/he is
+# already using on the client.
+#
+# The editor-specific environment variables let the user continue to
+# work on the server with her/his editors s/he is already using on the
+# client.
+#
+# Default: SendEnv <none>
+#
+# Language and locale:
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY
+AcceptEnv LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE
+AcceptEnv LC_MEASUREMENT LC_IDENTIFICATION LC_ALL
+# Editors:
+AcceptEnv EDITOR VISUAL
+
+# Register the _SFTP_ _Secure File Transport Protocol_ daemon as an
+# external subsystem of the _OpenSSH_ daemon to let _SFTP_ clients
+# transfer files to this server.
+#
+# Log _SFTP_ file access that would not be easily logged otherwise.
+#
+# Default: Subsystem <none>
+#
+Subsystem sftp /usr/lib/ssh/sftp-server -f AUTHPRIV -l INFO
