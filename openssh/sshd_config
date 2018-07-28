@@ -198,3 +198,33 @@ PermitRootLogin no
 # Default: AllowGroups <all groups allowed>
 #
 AllowGroups ssh-login
+
+# Receive the following trusted environment variables from a client
+# making them part of the user's login session if the client sent them.
+#
+# The lanugage- and locale-specific environment variables let the user
+# continue to work on the server in her/his language and locale s/he is
+# already using on the client.
+#
+# The editor-specific environment variables let the user continue to
+# work on the server with her/his editors s/he is already using on the
+# client.
+#
+# Default: SendEnv <none>
+#
+# Language and locale:
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY
+AcceptEnv LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE
+AcceptEnv LC_MEASUREMENT LC_IDENTIFICATION LC_ALL
+# Editors:
+AcceptEnv EDITOR VISUAL
+
+# Register the _SFTP_ _Secure File Transport Protocol_ daemon as an
+# external subsystem of the _OpenSSH_ daemon to let _SFTP_ clients
+# transfer files to this server.
+#
+# Log _SFTP_ file access that would not be easily logged otherwise.
+#
+# Default: Subsystem <none>
+#
+Subsystem sftp /usr/lib/ssh/sftp-server -f AUTHPRIV -l INFO
