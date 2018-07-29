@@ -81,7 +81,7 @@ mkdir --verbose --parents -- "$key_folder"
 # the public key files additionally read by the group and others.
 #
 echo Choose options of SSH Ed25519 public/private key pair.
-key_file="id_ed25519"
+key_file="ssh_host_ed25519_key"
 read -p 'Key file: ' -e -i "$key_file" key_file
 key_comment="SSH Ed25519 key of host $(hostname) created on \
 $(date --iso-8601)."
