@@ -96,7 +96,7 @@ chmod --changes a=,u=rw -- "$key_path"
 chmod --changes a=r,u=rw -- "$key_path.pub"
 
 echo Choose options of SSH RSA-4096 public/private key pair.
-key_file="id_rsa"
+key_file="ssh_host_rsa_key"
 read -p 'Key file: ' -e -i "$key_file" key_file
 key_comment="SSH RSA-4096 key of host $(hostname) created on \
 $(date --iso-8601)."
