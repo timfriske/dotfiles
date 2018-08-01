@@ -87,8 +87,6 @@ ssh-keygen \
   -t ed25519 \
   -C "$key_comment" \
   -N ''
-chmod --changes a=,u=rw -- "$key_path"
-chmod --changes a=r,u=rw -- "$key_path.pub"
 
 echo Choose options of SSH RSA-4096 public/private key pair.
 key_file="ssh_host_rsa_key"
