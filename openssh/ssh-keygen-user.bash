@@ -67,11 +67,6 @@ mkdir --verbose --parents -- "$key_folder"
 #      rounds in order to make it harder to brute-force crack the
 #      passphrase of the private key.
 #
-# Important note: As an additional security measure the file permissions
-# of the public/private key pairs are further restricted such that the
-# private key files may only be read and written by the owning user and
-# the public key files additionally read by the group and others.
-#
 echo Choose options of SSH Ed25519 public/private key pair.
 key_file="id_ed25519"
 read -p 'Key file: ' -e -i "$key_file" key_file
