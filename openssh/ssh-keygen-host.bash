@@ -75,11 +75,6 @@ mkdir --verbose --parents -- "$key_folder"
 #      as much as possible.  Only the user `root' must be able to read
 #      and write this file.
 #
-# Important note: As an additional security measure the file permissions
-# of the public/private key pairs are further restricted such that the
-# private key files may only be read and written by the owning user and
-# the public key files additionally read by the group and others.
-#
 echo Choose options of SSH Ed25519 public/private key pair.
 key_file="ssh_host_ed25519_key"
 read -p 'Key file: ' -e -i "$key_file" key_file
