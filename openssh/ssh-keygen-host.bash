@@ -102,5 +102,3 @@ ssh-keygen \
   -C "$key_comment" \
   -o \
   -N ''
-chmod --changes a=,u=rw -- "$key_path"
-chmod --changes a=r,u=rw -- "$key_path.pub"
