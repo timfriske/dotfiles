@@ -225,9 +225,9 @@ Host *
   #
   PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
 
-  # Allow only the private key files with the safest public key
-  # algorithms to be used in the order from safest to less safe but
-  # still acceptable.  Leave out any weak or untrusted algorithms.
+  # Try to authenticate with the least number of private keys in order
+  # to keep below the maximum number of authentication tries a _SSH_
+  # daemon permits.
   #
   # Add each private key read from an existing file listed below to a
   # running _SSH_ agent compliant implementation such as _SSH's_
@@ -236,17 +236,12 @@ Host *
   # just added private keys and thus to alleviate the user from having
   # to enter these passphrases too often.
   #
+  # Default: IdentitiesOnly no
+  #
   # Default: AddKeysToAgent no
   #
-  # Default:
-  #   IdentityFile ~/.ssh/id_dsa
-  #   IdentityFile ~/.ssh/id_ecdsa
-  #   IdentityFile ~/.ssh/id_ed25519
-  #   IdentityFile ~/.ssh/id_rsa
-  #
+  IdentitiesOnly yes
   AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_ed25519
-  IdentityFile ~/.ssh/id_rsa
 
   # Send the following trusted environment variables to a server making
   # them part of the user's login session if the server accepts them.
