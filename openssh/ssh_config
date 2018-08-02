@@ -229,18 +229,19 @@ Host *
   # to keep below the maximum number of authentication tries a _SSH_
   # daemon permits.
   #
-  # Add each private key read from an existing file listed below to a
-  # running _SSH_ agent compliant implementation such as _SSH's_
-  # `ssh-agent` or _GnuPG's_ `gpg-agent`.  This is done for the user's
-  # convenience by letting an _SSH_ agent cache the passphrases of the
-  # just added private keys and thus to alleviate the user from having
-  # to enter these passphrases too often.
   #
   # Default: IdentitiesOnly no
   #
+  IdentitiesOnly yes
+
+  # Add a private key to a running _SSH_ agent upon the first time it is
+  # actually tried for authentication.  This is done for the user's
+  # convenience by letting a _SSH_ agent cache the passphrases of the
+  # just added private keys hereby alleviating the user from having to
+  # enter their passphrases too often.
+  #
   # Default: AddKeysToAgent no
   #
-  IdentitiesOnly yes
   AddKeysToAgent yes
 
   # Send the following trusted environment variables to a server making
