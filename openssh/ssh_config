@@ -229,6 +229,9 @@ Host *
   # to keep below the maximum number of authentication tries a _SSH_
   # daemon permits.
   #
+  # Only offer those private keys to a _SSH_ daemon for authentication
+  # whose public keys are explicitly listed in the user configuration
+  # file of _OpenSSH's_ client.
   #
   # Default: IdentitiesOnly no
   #
