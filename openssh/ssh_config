@@ -245,6 +245,20 @@ Host *
   #   IdentityFile ~/.ssh/id_ed25519.pub
   # ----
   #
+  # Otherwise if using multiple private keys for authenticating against
+  # different remote hosts the user must list the correct public key
+  # file for each host separately but *not* for all hosts in the global
+  # section:
+  #
+  # .One _SSH_ key per host or group of hosts
+  # ----
+  # Host foobar foobar.example.com
+  #   IdentityFile ~/.ssh/id_ed25519-foobar.pub
+  #
+  # Host *.galaxy.example.com
+  #   IdentityFile ~/.ssh/id_ed25519-for-all-stars.pub
+  # ----
+  #
   # Default: IdentitiesOnly no
   #
   IdentitiesOnly yes
