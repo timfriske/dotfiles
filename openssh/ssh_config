@@ -259,6 +259,14 @@ Host *
   #   IdentityFile ~/.ssh/id_ed25519-for-all-stars.pub
   # ----
   #
+  # Note: In combination with a _SSH_ agent the above configurations
+  # *only work* if the `IdentitiesOnly` option is set to `yes`.  Should
+  # _GnuPG's_ _GPG_ agent also offer _SSH_ keys and the key in question
+  # is an authentication-capable _OpenPGP_ key it is important to once
+  # export the public part of it, store its file next to the other _SSH_
+  # public keys and list its file path with the `IdentityFile` option as
+  # shown above.
+  #
   # Default: IdentitiesOnly no
   #
   IdentitiesOnly yes
