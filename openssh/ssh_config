@@ -205,6 +205,7 @@ Host *
   #   publickey,\
   #   keyboard-interactive,\
   #   password
+  #
   PreferredAuthentications publickey,keyboard-interactive,hostbased,gssapi-with-mic,password
 
   # Allow only the safest public key algorithms to be used in the order
