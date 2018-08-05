@@ -1,7 +1,10 @@
-# = Configuration of OpenSSH SSH client
+# = Configuration of OpenSSH client
 # Tim Friske <me@tifr.de>
 #
-# Configures the _OpenSSH_ _SSH_ _Secure SHell_ client.
+# Configures _OpenSSH's_ _Secure SHell_ client program.  The _OpenSSH_
+# client is used in combination with a _SSH_ compatible daemon to
+# establish a secure connection between two untrusted hosts over an
+# insecure network.
 #
 # Empty lines are ignored but may be used to divide the content of this
 # configuration file into logical blocks.  Lines whose first
@@ -202,6 +205,7 @@ Host *
   #   publickey,\
   #   keyboard-interactive,\
   #   password
+  #
   PreferredAuthentications publickey,keyboard-interactive,hostbased,gssapi-with-mic,password
 
   # Allow only the safest public key algorithms to be used in the order
@@ -225,28 +229,61 @@ Host *
   #
   PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
 
-  # Allow only the private key files with the safest public key
-  # algorithms to be used in the order from safest to less safe but
-  # still acceptable.  Leave out any weak or untrusted algorithms.
+  # Try to authenticate with the least number of private keys in order
+  # to keep below the maximum number of authentication tries a _SSH_
+  # daemon permits.
   #
-  # Add each private key read from an existing file listed below to a
-  # running _SSH_ agent compliant implementation such as _SSH's_
-  # `ssh-agent` or _GnuPG's_ `gpg-agent`.  This is done for the user's
-  # convenience by letting an _SSH_ agent cache the passphrases of the
-  # just added private keys and thus to alleviate the user from having
-  # to enter these passphrases too often.
+  # Only offer those private keys to a _SSH_ daemon for authentication
+  # whose public keys are explicitly listed in the user configuration
+  # file of _OpenSSH's_ client.
+  #
+  # In case the user is only using one private key to authenticate
+  # against all remote hosts s/he must list the public key file of the
+  # private key in the global section of her/his _OpenSSH_ client
+  # configuration file (`~/.ssh/config`) with the `IdentityFile` option
+  # as follows:
+  #
+  # .The only _SSH_ key for all hosts
+  # ----
+  # Host *
+  #   IdentityFile ~/.ssh/id_ed25519.pub
+  # ----
+  #
+  # Otherwise if using multiple private keys for authenticating against
+  # different remote hosts the user must list the correct public key
+  # file for each host separately but *not* for all hosts in the global
+  # section:
+  #
+  # .One _SSH_ key per host or group of hosts
+  # ----
+  # Host foobar foobar.example.com
+  #   IdentityFile ~/.ssh/id_ed25519-foobar.pub
+  #
+  # Host *.galaxy.example.com
+  #   IdentityFile ~/.ssh/id_ed25519-for-all-stars.pub
+  # ----
+  #
+  # Note: In combination with a _SSH_ agent the above configurations
+  # *only work* if the `IdentitiesOnly` option is set to `yes`.  Should
+  # _GnuPG's_ _GPG_ agent also offer _SSH_ keys and the key in question
+  # is an authentication-capable _OpenPGP_ key it is important to once
+  # export the public part of it, store its file next to the other _SSH_
+  # public keys and list its file path with the `IdentityFile` option as
+  # shown above.
+  #
+  # Default: IdentitiesOnly no
+  #
+  IdentitiesOnly yes
+
+  # Add a private key to a running _SSH_ agent upon the first time it is
+  # actually tried for authentication.  This is done for the user's
+  # convenience by letting a _SSH_ agent cache the passphrases of the
+  # just added private keys hereby alleviating the user from having to
+  # enter their passphrases too often.
   #
   # Default: AddKeysToAgent no
   #
-  # Default:
-  #   IdentityFile ~/.ssh/id_dsa
-  #   IdentityFile ~/.ssh/id_ecdsa
-  #   IdentityFile ~/.ssh/id_ed25519
-  #   IdentityFile ~/.ssh/id_rsa
-  #
   AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_ed25519
-  IdentityFile ~/.ssh/id_rsa
 
   # Send the following trusted environment variables to a server making
   # them part of the user's login session if the server accepts them.
