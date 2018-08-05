@@ -1,7 +1,10 @@
 # = Configuration of OpenSSH client
 # Tim Friske <me@tifr.de>
 #
-# Configures the _OpenSSH_ _SSH_ _Secure SHell_ client.
+# Configures _OpenSSH's_ _Secure SHell_ client program.  The _OpenSSH_
+# client is used in combination with a _SSH_ compatible daemon to
+# establish a secure connection between two untrusted hosts over an
+# insecure network.
 #
 # Empty lines are ignored but may be used to divide the content of this
 # configuration file into logical blocks.  Lines whose first
