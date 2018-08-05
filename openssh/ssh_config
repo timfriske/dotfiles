@@ -1,4 +1,4 @@
-# = Configuration of OpenSSH SSH client
+# = Configuration of OpenSSH client
 # Tim Friske <me@tifr.de>
 #
 # Configures the _OpenSSH_ _SSH_ _Secure SHell_ client.
