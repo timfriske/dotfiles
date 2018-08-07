@@ -19,3 +19,8 @@
 #   . User configuration file (`~/.ssh/config`).
 #
 #   . System configuration file (`/etc/ssh/ssh_config`).
+#
+# The configuration file is divided into sections.  Each section starts
+# with a `Match` or `Host` expression that ends at the next section or
+# global section at the end of file.  A section defines the settings
+# specific to that one.
