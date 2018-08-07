@@ -46,3 +46,15 @@
 # not overrule settings from more specific sections.
 #
 Host *
+
+  # Try to authenticate with the least number of private keys in order
+  # to keep below the maximum number of authentication tries a _SSH_
+  # daemon permits.
+  #
+  # Default:
+  #   IdentityFile ~/.ssh/id_dsa
+  #   IdentityFile ~/.ssh/id_ecdsa
+  #   IdentityFile ~/.ssh/id_ed25519
+  #   IdentityFile ~/.ssh/id_rsa
+  #
+  IdentityFile ~/.ssh/id_ed25519.pub
