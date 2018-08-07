@@ -1,0 +1,98 @@
+# = Configuration of OpenSSH client
+# Tim Friske <me@tifr.de>
+#
+# Configures _OpenSSH's_ _Secure SHell_ client program.  The _OpenSSH_
+# client is used in combination with a _SSH_ compatible daemon to
+# establish a secure connection between two untrusted hosts over an
+# insecure network.
+#
+# Empty lines are ignored but may be used to divide the content of this
+# configuration file into logical blocks.  Lines whose first
+# non-whitespace character is the `#` hash sign are ignored but may be
+# used as comments.
+#
+# The _OpenSSH_ client obtains its configuration from the below sources
+# in the following order:
+#
+#   . Command line options.
+#
+#   . User configuration file (`~/.ssh/config`).
+#
+#   . System configuration file (`/etc/ssh/ssh_config`).
+#
+# The configuration file is divided into sections.  Each section starts
+# with a `Match` or `Host` expression that ends at the next section or
+# global section at the end of file.  A section defines the settings
+# specific to that one.
+#
+# For each setting only the one of the first matching section in the
+# direction from top to bottom is applied.  Therefore more specific
+# sections must be defined before less specific ones for their settings
+# to become effective.
+#
+# Fallback settings may be defined in either the global section `Match
+# all` or `Host *`.  Such a setting becomes effective if no setting was
+# found in a more specific section.  The global section must be defined
+# at the end of this file.
+#
+# Important note: With regards to security sensitive settings this
+# configuration file mainly follows the advices given by the
+# https://infosec.mozilla.org/guidelines/openssh[Mozilla Security
+# Guidelines for OpenSSH].  For details on choosing safe curves for
+# elliptic-curve cryptography see https://safecurves.cr.yp.to[Safe
+# Curves].
+
+# The global section must be defined at the end of this file in order to
+# not overrule settings from more specific sections.
+#
+Host *
+
+  # Try to authenticate with the least number of private keys in order
+  # to keep below the maximum number of authentication tries a _SSH_
+  # daemon permits.
+  #
+  # Only offer those private keys to a _SSH_ daemon for authentication
+  # whose public keys are explicitly listed in the user configuration
+  # file of _OpenSSH's_ client.
+  #
+  # In case the user is only using one private key to authenticate
+  # against all remote hosts s/he must list the public key file of the
+  # private key in the global section of her/his _OpenSSH_ client
+  # configuration file (`~/.ssh/config`) with the `IdentityFile` option
+  # as follows:
+  #
+  # .The only _SSH_ key for all hosts
+  # ----
+  # Host *
+  #   IdentityFile ~/.ssh/id_ed25519.pub
+  # ----
+  #
+  # Otherwise if using multiple private keys for authenticating against
+  # different remote hosts the user must list the correct public key
+  # file for each host separately but *not* for all hosts in the global
+  # section:
+  #
+  # .One _SSH_ key per host or group of hosts
+  # ----
+  # Host foobar foobar.example.com
+  #   IdentityFile ~/.ssh/id_ed25519-foobar.pub
+  #
+  # Host *.galaxy.example.com
+  #   IdentityFile ~/.ssh/id_ed25519-for-all-stars.pub
+  # ----
+  #
+  # Note: In combination with a _SSH_ agent the above configurations
+  # *only work* if the `IdentitiesOnly` option is set to `yes`.  Should
+  # _GnuPG's_ _GPG_ agent also offer _SSH_ keys and the key in question
+  # is an authentication-capable _OpenPGP_ key it is important to once
+  # export the public part of it, store its file next to the other _SSH_
+  # public keys and list its file path with the `IdentityFile` option as
+  # shown above.
+  #
+  # Default:
+  #   IdentityFile ~/.ssh/id_dsa
+  #   IdentityFile ~/.ssh/id_ecdsa
+  #   IdentityFile ~/.ssh/id_ed25519
+  #   IdentityFile ~/.ssh/id_rsa
+  #
+  IdentityFile ~/.ssh/id_ed25519.pub
