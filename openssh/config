@@ -29,3 +29,8 @@
 # direction from top to bottom is applied.  Therefore more specific
 # sections must be defined before less specific ones for their settings
 # to become effective.
+#
+# Fallback settings may be defined in either the global section `Match
+# all` or `Host *`.  Such a setting becomes effective if no setting was
+# found in a more specific section.  The global section must be defined
+# at the end of this file.
