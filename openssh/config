@@ -24,3 +24,8 @@
 # with a `Match` or `Host` expression that ends at the next section or
 # global section at the end of file.  A section defines the settings
 # specific to that one.
+#
+# For each setting only the one of the first matching section in the
+# direction from top to bottom is applied.  Therefore more specific
+# sections must be defined before less specific ones for their settings
+# to become effective.
