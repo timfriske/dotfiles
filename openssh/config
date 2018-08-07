@@ -55,6 +55,18 @@ Host *
   # whose public keys are explicitly listed in the user configuration
   # file of _OpenSSH's_ client.
   #
+  # In case the user is only using one private key to authenticate
+  # against all remote hosts s/he must list the public key file of the
+  # private key in the global section of her/his _OpenSSH_ client
+  # configuration file (`~/.ssh/config`) with the `IdentityFile` option
+  # as follows:
+  #
+  # .The only _SSH_ key for all hosts
+  # ----
+  # Host *
+  #   IdentityFile ~/.ssh/id_ed25519.pub
+  # ----
+  #
   # Default:
   #   IdentityFile ~/.ssh/id_dsa
   #   IdentityFile ~/.ssh/id_ecdsa
