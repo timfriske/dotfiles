@@ -41,3 +41,8 @@
 # Guidelines for OpenSSH].  For details on choosing safe curves for
 # elliptic-curve cryptography see https://safecurves.cr.yp.to[Safe
 # Curves].
+
+# The global section must be defined at the end of this file in order to
+# not overrule settings from more specific sections.
+#
+Host *
