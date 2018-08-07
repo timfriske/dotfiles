@@ -10,3 +10,12 @@
 # configuration file into logical blocks.  Lines whose first
 # non-whitespace character is the `#` hash sign are ignored but may be
 # used as comments.
+#
+# The _OpenSSH_ client obtains its configuration from the below sources
+# in the following order:
+#
+#   . Command line options.
+#
+#   . User configuration file (`~/.ssh/config`).
+#
+#   . System configuration file (`/etc/ssh/ssh_config`).
