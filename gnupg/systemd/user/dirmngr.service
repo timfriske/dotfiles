@@ -14,3 +14,6 @@ Description=\
   provider access, and X.509 certificate and CRL management.
 Documentation=man:dirmngr(8)
 Requires=dirmngr.socket
+
+[Service]
+ExecStart=/usr/bin/dirmngr --supervised
