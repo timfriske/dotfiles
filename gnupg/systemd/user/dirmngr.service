@@ -13,3 +13,4 @@ Description=\
   GnuPG Dirmngr daemon; program for OpenPGP key server and OCSP \
   provider access, and X.509 certificate and CRL management.
 Documentation=man:dirmngr(8)
+Requires=dirmngr.socket
