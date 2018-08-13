@@ -14,3 +14,4 @@
 Description=GnuPG Agent daemon for private key management and \
   passphrase caching.
 Documentation=man:gpg-agent(1)
+Requires=gpg-agent.socket
