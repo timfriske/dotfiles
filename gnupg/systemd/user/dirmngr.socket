@@ -10,3 +10,4 @@
 
 [Unit]
 Description=GnuPG Dirmngr daemon; socket access for clients.
+Documentation=man:dirmngr(8)
