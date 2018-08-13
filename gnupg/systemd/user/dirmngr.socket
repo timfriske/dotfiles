@@ -14,3 +14,4 @@ Documentation=man:dirmngr(8)
 
 [Socket]
 ListenStream=%t/gnupg/S.dirmngr
+SocketMode=0600
