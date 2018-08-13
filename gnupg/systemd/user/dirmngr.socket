@@ -7,3 +7,6 @@
 # The _GnuPG_ _Dirmngr_ daemon provides access to _OpenPGP_ key servers
 # and _OCSP_ _Online Certificate Status Protocol_ providers, and manages
 # X.509 certificates and their _CRLs_ _Certificate Revocation Lists_.
+
+[Unit]
+Description=GnuPG Dirmngr daemon; socket access for clients.
