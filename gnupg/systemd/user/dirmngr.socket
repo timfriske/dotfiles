@@ -3,3 +3,7 @@
 #
 # Activates _GnuPG's_ _Dirmngr_ daemon via a socket controlled and
 # supervised by _Systemd_.
+#
+# The _GnuPG_ _Dirmngr_ daemon provides access to _OpenPGP_ key servers
+# and _OCSP_ _Online Certificate Status Protocol_ providers, and manages
+# X.509 certificates and their _CRLs_ _Certificate Revocation Lists_.
