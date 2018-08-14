@@ -1,2 +1,5 @@
 # = GnuPG Agent daemon access for SSH clients
 # Tim Friske <me@tifr.de>
+#
+# Activates _GnuPG's_ _Agent_ daemon via a socket controlled and
+# supervised by _Systemd_.
