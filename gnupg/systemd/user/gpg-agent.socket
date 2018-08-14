@@ -12,3 +12,4 @@
 
 [Unit]
 Description=GnuPG Agent daemon; socket access for GnuPG clients.
+Documentation=man:gpg-agent(1)
