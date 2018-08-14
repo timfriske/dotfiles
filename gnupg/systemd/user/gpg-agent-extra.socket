@@ -20,3 +20,6 @@ FileDescriptorName=extra
 Service=gpg-agent.service
 SocketMode=0600
 DirectoryMode=0700
+
+[Install]
+WantedBy=sockets.target
