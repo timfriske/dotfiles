@@ -19,3 +19,4 @@ ListenStream=%t/gnupg/S.gpg-agent.extra
 FileDescriptorName=extra
 Service=gpg-agent.service
 SocketMode=0600
+DirectoryMode=0700
