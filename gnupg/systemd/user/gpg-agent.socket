@@ -3,3 +3,9 @@
 #
 # Activates _GnuPG's_ _Agent_ daemon via a socket controlled and
 # supervised by _Systemd_ for access by clients.
+#
+# The _GnuPG_ _Agent_ daemon manages _OpenPGP_ and _SSH_ private keys and
+# offers its clients to cryptographically sign data with them.  It protects
+# these keys with their passphrases against unauthorized access.  These
+# passphrases may be cached for a configurable amount of time in order to
+# alleviate the user from having to enter them upon each private key access.
