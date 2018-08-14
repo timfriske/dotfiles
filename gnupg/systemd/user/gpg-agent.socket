@@ -17,3 +17,4 @@ Documentation=man:gpg-agent(1)
 [Socket]
 ListenStream=%t/gnupg/S.gpg-agent
 FileDescriptorName=std
+SocketMode=0600
