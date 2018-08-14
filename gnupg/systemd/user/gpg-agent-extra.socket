@@ -16,3 +16,4 @@ Documentation=man:gpg-agent(1)
 
 [Socket]
 ListenStream=%t/gnupg/S.gpg-agent.extra
+FileDescriptorName=extra
