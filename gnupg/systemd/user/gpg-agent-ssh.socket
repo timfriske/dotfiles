@@ -13,3 +13,6 @@
 [Unit]
 Description=GnuPG Agent daemon; socket access for SSH clients.
 Documentation=man:gpg-agent(1) man:ssh-add(1) man:ssh-agent(1) man:ssh(1)
+
+[Socket]
+ListenStream=%t/gnupg/S.gpg-agent.ssh
