@@ -17,3 +17,4 @@ Documentation=man:gpg-agent(1) man:ssh-add(1) man:ssh-agent(1) man:ssh(1)
 [Socket]
 ListenStream=%t/gnupg/S.gpg-agent.ssh
 ExecStartPost=/usr/bin/systemctl --user set-environment SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh
+FileDescriptorName=ssh
