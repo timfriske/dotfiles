@@ -9,9 +9,8 @@
 # X.509 certificates and their _CRLs_ _Certificate Revocation Lists_.
 
 [Unit]
-Description=\
-  GnuPG Dirmngr daemon; program for OpenPGP key server and OCSP \
-  provider access, and X.509 certificate and CRL management.
+Description=GnuPG Dirmngr daemon; program for OpenPGP key server and\
+OCSP provider access, and X.509 certificate and CRL management.
 Documentation=man:dirmngr(8)
 Requires=dirmngr.socket
 
