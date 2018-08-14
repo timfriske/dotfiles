@@ -9,3 +9,6 @@
 # these keys with their passphrases against unauthorized access.  These
 # passphrases may be cached for a configurable amount of time in order to
 # alleviate the user from having to enter them upon each private key access.
+
+[Unit]
+Description=GnuPG Agent daemon; socket access for browsers.
