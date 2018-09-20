@@ -9,6 +9,10 @@
 #   * man:cp[1]
 
 function bk {
+  if [[ "$#" != 1 || ! -f "$1" ]]; then
+    echo 'usage: bk <file>'
+    exit 1
+  fi
 }
 
 bk "$@"
