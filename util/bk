@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Numbered backup of single file
+# ==============================
+# Tim Friske <me@tifr.de>
