@@ -3,3 +3,7 @@
 # Numbered backup of single file
 # ==============================
 # Tim Friske <me@tifr.de>
+#
+# See also:
+#   * man:bash[1]
+#   * man:cp[1]
