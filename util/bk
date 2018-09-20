@@ -13,6 +13,7 @@ function bk {
     echo 'usage: bk <file>'
     exit 1
   fi
+  cp --force --backup=numbered --verbose -- "$1" "$1"
 }
 
 bk "$@"
