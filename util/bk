@@ -7,3 +7,8 @@
 # See also:
 #   * man:bash[1]
 #   * man:cp[1]
+
+function bk {
+}
+
+bk "$@"
