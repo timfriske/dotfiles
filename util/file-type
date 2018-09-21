@@ -9,6 +9,9 @@
 #   * man:file[1]
 
 function file-type {
+  if [[ "$#" == 0 ]]; then
+    echo 'usage: file-type <file (on path)>...'
+  fi
 }
 
 file-type "$@"
