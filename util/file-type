@@ -18,6 +18,9 @@ function file-type {
       file "$file"
     else
       file="$(type -P $file)"
+      if [[ -n "$file" ]]; then
+        file "$file"
+      fi
     fi
   done
 }
