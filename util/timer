@@ -9,6 +9,10 @@
 #   * man:date[1]
 
 function timer {
+  if [[ "$#" != 0 ]]; then
+    echo 'usage: timer'
+    exit 1
+  fi
 }
 
 timer "$@"
