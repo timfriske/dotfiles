@@ -16,6 +16,8 @@ function file-type {
   for file in "$@"; do
     if [[ -e "$file" ]]; then
       file "$file"
+    else
+      file="$(type -P $file)"
     fi
   done
 }
