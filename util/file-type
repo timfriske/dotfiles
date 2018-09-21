@@ -12,6 +12,12 @@ function file-type {
   if [[ "$#" == 0 ]]; then
     echo 'usage: file-type <file (on path)>...'
   fi
+  local file
+  for file in "$@"; do
+    if [[ -e "$file" ]]; then
+      file "$file"
+    fi
+  done
 }
 
 file-type "$@"
