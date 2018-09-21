@@ -8,11 +8,17 @@
 #   * man:bash[1]
 #   * man:date[1]
 
+function timestamp {
+  date +%s
+}
+
 function timer {
   if [[ "$#" != 0 ]]; then
     echo 'usage: timer'
     exit 1
   fi
+  local ts_started="$(timestamp)"
+  local ts_stopped="$(timestamp)"
 }
 
 timer "$@"
