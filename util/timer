@@ -7,3 +7,8 @@
 # See also:
 #   * man:bash[1]
 #   * man:date[1]
+
+function timer {
+}
+
+timer "$@"
