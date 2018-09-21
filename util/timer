@@ -3,3 +3,7 @@
 # Simple timer program
 # ====================
 # Tim Friske <me@tifr.de>
+#
+# See also:
+#   * man:bash[1]
+#   * man:date[1]
