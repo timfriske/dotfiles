@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Simple file type detection
+# ==========================
+# Tim Friske <me@tifr.de>
+#
+# See also:
+#   * man:bash[1]
+#   * man:file[1]
+
+function file-type {
+  if [[ "$#" == 0 ]]; then
+    echo 'usage: file-type <file (on path)>...'
+  fi
+  local file
+  for file in "$@"; do
+    if [[ -e "$file" ]]; then
+      file "$file"
+    else
+      file="$(type -P $file)"
+      if [[ -n "$file" ]]; then
+        file "$file"
+      fi
+    fi
+  done
+}
+
+file-type "$@"
