@@ -3,3 +3,7 @@
 # Simple file type detection
 # ==========================
 # Tim Friske <me@tifr.de>
+#
+# See also:
+#   * man:bash[1]
+#   * man:file[1]
