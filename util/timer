@@ -12,13 +12,19 @@ function timestamp {
   date +%s
 }
 
+function timestamp_to_date {
+  date --date=@"$1"
+}
+
 function timer {
   if [[ "$#" != 0 ]]; then
     echo 'usage: timer'
     exit 1
   fi
   local ts_started="$(timestamp)"
+  echo timer started: "$(timestamp_to_date $ts_started)"
   local ts_stopped="$(timestamp)"
+  echo timer stopped: "$(timestamp_to_date $ts_stopped)"
 }
 
 timer "$@"
