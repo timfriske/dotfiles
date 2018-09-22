@@ -3,3 +3,6 @@
 # Management of $PATH environment variable
 # ========================================
 # Tim Friske <me@tifr.de>
+#
+# See also:
+#   * man:bash[1]
