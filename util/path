@@ -7,7 +7,14 @@
 # See also:
 #   * man:bash[1]
 
+function path_raw {
+  echo "$PATH"
+}
+
 function path {
+  case "$1" in
+    raw) path_raw "${@:2}" ;;
+  esac
 }
 
 path "$@"
