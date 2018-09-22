@@ -51,6 +51,11 @@ function path_removed {
   echo "$path_reduced"
 }
 
+function path_usage {
+  echo 'usage: path (raw|pretty)'
+  echo 'usage: path (appended|prepended|removed) <path>'
+}
+
 function path_contains {
   [[ -z "$1" || "$PATH" =~ (^|.*:)"$1"($|:.*) ]]
 }
@@ -62,6 +67,7 @@ function path {
     appended) path_appended "${@:2}" ;;
     prepended) path_prepended "${@:2}" ;;
     removed) path_removed "${@:2}" ;;
+    *) path_usage "${@:2}" ;;
   esac
 }
 
