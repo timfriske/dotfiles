@@ -23,11 +23,20 @@ function path_appended {
   fi
 }
 
+function path_prepended {
+  if [[ -z "$1" || "$PATH" =~ (^|.*:)"$1"($|:.*) ]]; then
+    echo "$PATH"
+  else
+    echo "$1:$PATH"
+  fi
+}
+
 function path {
   case "$1" in
     raw) path_raw "${@:2}" ;;
     pretty) path_pretty "${@:2}" ;;
     appended) path_appended "${@:2}" ;;
+    prepended) path_prepended "${@:2}" ;;
   esac
 }
 
