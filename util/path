@@ -11,9 +11,14 @@ function path_raw {
   echo "$PATH"
 }
 
+function path_pretty {
+  echo -e "${PATH//:/\\n}"
+}
+
 function path {
   case "$1" in
     raw) path_raw "${@:2}" ;;
+    pretty) path_pretty "${@:2}" ;;
   esac
 }
 
