@@ -6,3 +6,8 @@
 #
 # See also:
 #   * man:bash[1]
+
+function path {
+}
+
+path "$@"
