@@ -37,6 +37,8 @@ function path_removed {
     return
   fi
   local path_reduced="$PATH"
+  if [[ "$path_reduced" =~ (^|.*:)"$1"($|:.*) ]]; then
+  fi
   echo "$path_reduced"
 }
 
