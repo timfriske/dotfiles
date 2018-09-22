@@ -42,6 +42,8 @@ function path_removed {
     local path_suffix="${BASH_REMATCH[4]}"
     if [[ -z "$path_prefix" ]]; then
       path_reduced="$path_suffix"
+    elif [[ -z "$path_suffix" ]]; then
+      path_reduced="$path_prefix"
     fi
   fi
   echo "$path_reduced"
