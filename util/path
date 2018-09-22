@@ -36,6 +36,8 @@ function path_removed {
     echo "$PATH"
     return
   fi
+  local path_reduced="$PATH"
+  echo "$path_reduced"
 }
 
 function path_contains {
