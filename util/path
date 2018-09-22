@@ -44,6 +44,8 @@ function path_removed {
       path_reduced="$path_suffix"
     elif [[ -z "$path_suffix" ]]; then
       path_reduced="$path_prefix"
+    else
+      path_reduced="$path_prefix:$path_suffix"
     fi
   fi
   echo "$path_reduced"
