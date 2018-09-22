@@ -15,10 +15,19 @@ function path_pretty {
   echo -e "${PATH//:/\\n}"
 }
 
+function path_appended {
+  if [[ -z "$1" || "$PATH" =~ (^|.*:)"$1"($|:.*) ]]; then
+    echo "$PATH"
+  else
+    echo "$PATH:$1"
+  fi
+}
+
 function path {
   case "$1" in
     raw) path_raw "${@:2}" ;;
     pretty) path_pretty "${@:2}" ;;
+    appended) path_appended "${@:2}" ;;
   esac
 }
 
