@@ -37,7 +37,7 @@ function path_removed {
     return
   fi
   local path_reduced="$PATH"
-  if [[ "$path_reduced" =~ (^|(.*):)"$1"($|:(.*)) ]]; then
+  while [[ "$path_reduced" =~ (^|(.*):)"$1"($|:(.*)) ]]; do
     local path_prefix="${BASH_REMATCH[2]}"
     local path_suffix="${BASH_REMATCH[4]}"
     if [[ -z "$path_prefix" ]]; then
@@ -47,7 +47,7 @@ function path_removed {
     else
       path_reduced="$path_prefix:$path_suffix"
     fi
-  fi
+  done
   echo "$path_reduced"
 }
 
