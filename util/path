@@ -31,6 +31,9 @@ function path_prepended {
   fi
 }
 
+function path_removed {
+}
+
 function path_contains {
   [[ -z "$1" || "$PATH" =~ (^|.*:)"$1"($|:.*) ]]
 }
@@ -41,6 +44,7 @@ function path {
     pretty) path_pretty "${@:2}" ;;
     appended) path_appended "${@:2}" ;;
     prepended) path_prepended "${@:2}" ;;
+    removed) path_removed "${@:2}" ;;
   esac
 }
 
