@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Management of $PATH environment variable
+# ========================================
+# Tim Friske <me@tifr.de>
