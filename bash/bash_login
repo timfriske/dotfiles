@@ -28,3 +28,9 @@
 
 # Environment variables
 # ---------------------
+
+# Remember up to 100,000 one hundred thousand commands in memory and on
+# disk.
+#
+export HISTSIZE=100000
+export HISTFILESIZE="$HISTSIZE"
