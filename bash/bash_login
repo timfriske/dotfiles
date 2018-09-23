@@ -46,3 +46,10 @@ export HISTCONTROL='ignorespace:erasedups'
 export HISTIGNORE=''
 HISTIGNORE+='+([![:space:]])*([[:space:]]):'
 HISTIGNORE+='*@(help|version)*'
+
+# Tell programs to open files in favorite text editor _Vim_ _Vi
+# Improved_.  Don't care about line-oriented vs. visual editors just
+# assign both `$EDITOR` and `$VISUAL` the same editor.
+#
+export EDITOR='vim'
+export VISUAL='vim'
