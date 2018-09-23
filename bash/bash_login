@@ -10,3 +10,7 @@
 # `~/.profile` it encounters in that order.  When a login shell is
 # exited _Bash_ reads and executes commands from its user-specific
 # shutdown file `~/.bash_logout`.
+#
+# This configuration file shall contain only non-default settings
+# specific to login shells in order to keep it lean and thus easy to
+# understand and maintain.
