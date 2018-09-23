@@ -57,3 +57,4 @@ export VISUAL='vim'
 # Define default options for pager _Less_.
 #
 export LESS=''
+LESS+='--quit-if-one-screen '
