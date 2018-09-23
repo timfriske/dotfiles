@@ -58,3 +58,4 @@ export VISUAL='vim'
 #
 export LESS=''
 LESS+='--quit-if-one-screen '
+LESS+='--ignore-case '
