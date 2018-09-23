@@ -76,3 +76,12 @@ LS_X_OPTIONS+='--group-directories-first '
 # Add _Git's_ commit message footer line `Signed-off-by`.
 #
 export GIT_X_SIGNOFF='--signoff'
+
+# Interactive login shells
+# ------------------------
+
+# Test if interactive shell and its startup file is readable.
+if [[ "$-" == *i* && -f ~/.bashrc && -r ~/.bashrc ]]; then
+  # Read and execute commands from its startup file.
+  source ~/.bashrc
+fi
