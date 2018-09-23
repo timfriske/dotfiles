@@ -33,9 +33,11 @@
 # disk.  Record the time when each command entered history as an
 # ISO-8601 timestamp.  Exclude commands starting with whitespace from
 # history.  Erase all duplicate commands from history before the same
-# command is appended to history.
+# command is appended to history.  Exclude any command from history
+# which matches one of the patterns specified in the ignore list.
 #
 export HISTSIZE=100000
 export HISTFILESIZE="$HISTSIZE"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTCONTROL='ignorespace:erasedups'
+export HISTIGNORE=''
