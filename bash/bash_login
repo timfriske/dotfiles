@@ -17,3 +17,6 @@
 # started this startup file shall read and execute the commands from
 # _Bash's_ user-specific startup file for interactive shells, namely
 # `~/.bashrc`.
+#
+# See also:
+#   * man:bash[1]
