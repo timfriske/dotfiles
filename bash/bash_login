@@ -72,3 +72,7 @@ LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
 LS_X_OPTIONS+='--color=auto '
 LS_X_OPTIONS+='--group-directories-first '
+
+# Add _Git's_ commit message footer line `Signed-off-by`.
+#
+export GIT_X_SIGNOFF='--signoff'
