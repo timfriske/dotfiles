@@ -20,3 +20,7 @@
 #
 # See also:
 #   * man:bash[1]
+#   * link:{system-home}/profile
+#   * link:{user-home}/.bash_profile
+#   * link:{user-home}/.bash_login
+#   * link:{user-home}/.bash_logout
