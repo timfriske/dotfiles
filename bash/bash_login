@@ -64,3 +64,7 @@ LESS+='--RAW-CONTROL-CHARS '
 LESS+='--hilite-unread '
 LESS+='--tabs=4 '
 LESS+='--no-init '
+
+# Define `ls` program options common to all `ls` aliases.
+#
+export LS_X_OPTIONS=''
