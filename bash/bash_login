@@ -24,3 +24,4 @@
 #   * link:{user-home}/.bash_profile
 #   * link:{user-home}/.bash_login
 #   * link:{user-home}/.bash_logout
+#   * link:{user-home}/.bashrc
