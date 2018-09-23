@@ -53,3 +53,7 @@ HISTIGNORE+='*@(help|version)*'
 #
 export EDITOR='vim'
 export VISUAL='vim'
+
+# Define default options for pager _Less_.
+#
+export LESS=''
