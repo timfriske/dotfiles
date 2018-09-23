@@ -35,11 +35,14 @@
 # history.  Erase all duplicate commands from history before the same
 # command is appended to history.  Exclude any command from history
 # which matches one of the patterns specified in the ignore list.  In
-# other words a simple command that is spanning only one word.
+# other words either a simple command that is spanning only one word, or
+# ends in either one of the long options or subcommands `help` or
+# `version`.
 #
 export HISTSIZE=100000
 export HISTFILESIZE="$HISTSIZE"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTCONTROL='ignorespace:erasedups'
 export HISTIGNORE=''
-HISTIGNORE+='+([![:space:]])*([[:space:]])'
+HISTIGNORE+='+([![:space:]])*([[:space:]]):'
+HISTIGNORE+='*@(help|version)*'
