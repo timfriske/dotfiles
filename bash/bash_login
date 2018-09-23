@@ -1,0 +1,87 @@
+# Startup file for Bash login shells
+# ==================================
+# Tim Friske <me@tifr.de>
+#
+# The _Bash_ _Bourne Again Shell_ reads and executes commands from its
+# configuration files but only if these exist and are readable.  When
+# started as a login shell it first reads its system-wide startup file
+# `/etc/profile`.  It then continues to read the first of its user-
+# specific startup files `~/.bash_profile`, `~/bash_login` and
+# `~/.profile` it encounters in that order.  When a login shell is
+# exited _Bash_ reads and executes commands from its user-specific
+# shutdown file `~/.bash_logout`.
+#
+# This configuration file shall contain only non-default settings
+# specific to login shells in order to keep it lean and thus easy to
+# understand and maintain.  In case an interactive login shell is
+# started this startup file shall read and execute the commands from
+# _Bash's_ user-specific startup file for interactive shells, namely
+# `~/.bashrc`.
+#
+# See also:
+#   * man:bash[1]
+#   * link:{system-home}/profile
+#   * link:{user-home}/.bash_profile
+#   * link:{user-home}/.bash_login
+#   * link:{user-home}/.bash_logout
+#   * link:{user-home}/.bashrc
+
+# Environment variables
+# ---------------------
+
+# Remember up to 100,000 one hundred thousand commands in memory and on
+# disk.  Record the time when each command entered history as an
+# ISO-8601 timestamp.  Exclude commands starting with whitespace from
+# history.  Erase all duplicate commands from history before the same
+# command is appended to history.  Exclude any command from history
+# which matches one of the patterns specified in the ignore list.  In
+# other words either a simple command that is spanning only one word, or
+# ends in either one of the long options or subcommands `help` or
+# `version`.
+#
+export HISTSIZE=100000
+export HISTFILESIZE="$HISTSIZE"
+export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
+export HISTCONTROL='ignorespace:erasedups'
+export HISTIGNORE=''
+HISTIGNORE+='+([![:space:]])*([[:space:]]):'
+HISTIGNORE+='*@(help|version)*'
+
+# Tell programs to open files in favorite text editor _Vim_ _Vi
+# Improved_.  Don't care about line-oriented vs. visual editors just
+# assign both `$EDITOR` and `$VISUAL` the same editor.
+#
+export EDITOR='vim'
+export VISUAL='vim'
+
+# Define default options for pager _Less_.
+#
+export LESS=''
+LESS+='--quit-if-one-screen '
+LESS+='--ignore-case '
+LESS+='--LONG-PROMPT '
+LESS+='--RAW-CONTROL-CHARS '
+LESS+='--hilite-unread '
+LESS+='--tabs=4 '
+LESS+='--no-init '
+
+# Define `ls` program options common to all `ls` aliases.
+#
+export LS_X_OPTIONS=''
+LS_X_OPTIONS+='--si '
+LS_X_OPTIONS+='--classify '
+LS_X_OPTIONS+='--color=auto '
+LS_X_OPTIONS+='--group-directories-first '
+
+# Add _Git's_ commit message footer line `Signed-off-by`.
+#
+export GIT_X_SIGNOFF='--signoff'
+
+# Interactive login shells
+# ------------------------
+
+# Test if interactive shell and its startup file is readable.
+if [[ "$-" == *i* && -f ~/.bashrc && -r ~/.bashrc ]]; then
+  # Read and execute commands from its startup file.
+  source ~/.bashrc
+fi
