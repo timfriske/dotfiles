@@ -31,8 +31,10 @@
 
 # Remember up to 100,000 one hundred thousand commands in memory and on
 # disk.  Record the time when each command entered history as an
-# ISO-8601 timestamp.
+# ISO-8601 timestamp.  Exclude commands starting with whitespace from
+# history.
 #
 export HISTSIZE=100000
 export HISTFILESIZE="$HISTSIZE"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
+export HISTCONTROL='ignorespace'
