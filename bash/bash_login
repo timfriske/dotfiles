@@ -1,3 +1,12 @@
 # Startup file for Bash login shells
 # ==================================
 # Tim Friske <me@tifr.de>
+#
+# The _Bash_ _Bourne Again Shell_ reads and executes commands from its
+# configuration files but only if these exist and are readable.  When
+# started as a login shell it first reads its system-wide startup file
+# `/etc/profile`.  It then continues to read the first of its user-
+# specific startup files `~/.bash_profile`, `~/bash_login` and
+# `~/.profile` it encounters in that order.  When a login shell is
+# exited _Bash_ reads and executes commands from its user-specific
+# shutdown file `~/.bash_logout`.
