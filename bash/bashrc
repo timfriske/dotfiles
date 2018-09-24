@@ -30,3 +30,7 @@
 # Edit commands with Vi- instead of Emacs-like key bindings.
 #
 shopt -os vi
+
+# Make it easy to name and navigate directories.
+#
+shopt -s autocd cdable_vars cdspell dirspell
