@@ -51,3 +51,8 @@ shopt -s checkwinsize
 # adapt them later on, e.g. in case of syntax errors.
 #
 shopt -s cmdhist lithist
+
+# Recognize extended set of patterns during pattern matching and path
+# name expansion.
+#
+shopt -s extglob globstar
