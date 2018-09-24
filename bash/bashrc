@@ -18,3 +18,5 @@
 #
 # See also:
 #   * man:bash[1]
+#   * link:{system-home}/bash.bashrc
+#   * link:{user-home}/.bashrc
