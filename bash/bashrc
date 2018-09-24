@@ -7,3 +7,7 @@
 # started as an interactive shell it first reads its system-wide startup
 # file `/etc/bash.bashrc`.  It then continues to read its user-specific
 # startup file `~/.bashrc`.
+#
+# This configuration file shall contain only non-default settings
+# specific to interactive shells in order to keep it lean and thus easy
+# to understand and maintain.
