@@ -15,3 +15,6 @@
 # the first of _Bash's_ user-specific startup files for login shells
 # that _Bash_ encounters, that is `~/.bash_profile`, `~/.bash_login` or
 # `~/.profile`.
+#
+# See also:
+#   * man:bash[1]
