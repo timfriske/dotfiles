@@ -26,3 +26,7 @@
 
 # Shell options
 # -------------
+
+# Edit commands with Vi- instead of Emacs-like key bindings.
+#
+shopt -os vi
