@@ -42,3 +42,7 @@ shopt -s autocd cdable_vars cdspell dirspell
 # exit reports that there are a number of stopped jobs.
 #
 shopt -s checkjobs
+
+# Update window size after each command.
+#
+shopt -s checkwinsize
