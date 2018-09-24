@@ -34,3 +34,11 @@ shopt -os vi
 # Make it easy to name and navigate directories.
 #
 shopt -s autocd cdable_vars cdspell dirspell
+
+# List any stopped and running jobs before exiting an interactive shell
+# in order to not kill important jobs unintentionally but exit them
+# manually, e.g. by saving their data first.  To list the remaining jobs
+# is what most users would usually do if the shell they are about to
+# exit reports that there are a number of stopped jobs.
+#
+shopt -s checkjobs
