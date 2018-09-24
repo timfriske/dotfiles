@@ -20,3 +20,6 @@
 #   * man:bash[1]
 #   * link:{system-home}/bash.bashrc
 #   * link:{user-home}/.bashrc
+#   * link:{user-home}/.bash_profile
+#   * link:{user-home}/.bash_login
+#   * link:{user-home}/.profile
