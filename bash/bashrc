@@ -1,3 +1,9 @@
 # Startup file for Bash interactive shells
 # ========================================
 # Tim Friske <me@tifr.de>
+#
+# The _Bash_ _Bourne Again Shell_ reads and executes commands from its
+# configuration files but only if these exist and are readable.  When
+# started as an interactive shell it first reads its system-wide startup
+# file `/etc/bash.bashrc`.  It then continues to read its user-specific
+# startup file `~/.bashrc`.
