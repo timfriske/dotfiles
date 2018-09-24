@@ -46,3 +46,8 @@ shopt -s checkjobs
 # Update window size after each command.
 #
 shopt -s checkwinsize
+
+# Also store multi-line commands in history in case the user wants to
+# adapt them later on, e.g. in case of syntax errors.
+#
+shopt -s cmdhist lithist
