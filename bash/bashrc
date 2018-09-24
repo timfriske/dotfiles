@@ -10,4 +10,8 @@
 #
 # This configuration file shall contain only non-default settings
 # specific to interactive shells in order to keep it lean and thus easy
-# to understand and maintain.
+# to understand and maintain.  In case an interactive login shell is
+# started this startup file shall be read and its commands executed by
+# the first of _Bash's_ user-specific startup files for login shells
+# that _Bash_ encounters, that is `~/.bash_profile`, `~/.bash_login` or
+# `~/.profile`.
