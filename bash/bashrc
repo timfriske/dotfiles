@@ -105,6 +105,8 @@ alias ll='ls --format=long'
 alias lla='ls --format=long --almost-all'
 alias llh='ls --format=long --almost-all --ignore="*"'
 
-# Show human-readable file system sizes in powers of 1,000.
+# Show human-readable file system sizes in powers of 1,000.  Exclude
+# neglectable types of file systems.
 #
 alias df='df --si'
+alias dff='df -x devtmpfs -x tmpfs'
