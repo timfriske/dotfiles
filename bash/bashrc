@@ -99,3 +99,4 @@ alias rd='rmdir --parents --verbose'
 # List files and directories.
 #
 alias ls='ls $LS_X_OPTIONS'
+alias la='ls --almost-all'
