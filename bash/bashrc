@@ -82,3 +82,10 @@ shopt -s nocaseglob nocasematch
 # Allow aliases to be run as another user/group, e.g. super user `root'.
 #
 alias sudo='sudo '
+
+# Ask the user before files are overwritten or deleted in order to
+# prevent accidental data loss.
+#
+alias cp='cp --interactive --verbose'
+alias mv='mv --interactive --verbose'
+alias rm='rm --interactive=once --verbose'
