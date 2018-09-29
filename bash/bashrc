@@ -118,3 +118,7 @@ alias du='du --si'
 alias dud='du --max-depth=1 | sort --human-numeric-sort --reverse'
 alias duf='du --all --max-depth=1 | sort --human-numeric-sort --reverse'
 alias dus='du --summarize'
+
+# Show _UTC_ _Universal Time Coordinated_.
+#
+alias utc='date --utc'
