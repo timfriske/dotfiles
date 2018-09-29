@@ -126,3 +126,9 @@ alias utc='date --utc'
 # Show (calendar) week of year.
 #
 alias week='date +"week %V"'
+
+# Run given command on every argument usually read from pipe.  The alias
+# `map` resembles the well-known mathematical term `mapping' also known
+# as `map'.
+#
+alias map='xargs --max-args=1'
