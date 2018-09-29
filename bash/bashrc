@@ -56,3 +56,7 @@ shopt -s cmdhist lithist
 # name expansion.
 #
 shopt -s extglob globstar
+
+# Make command history more accessible.
+#
+shopt -s histappend histreedit histverify
