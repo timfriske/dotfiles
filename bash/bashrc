@@ -1,0 +1,77 @@
+# Startup file for Bash interactive shells
+# ========================================
+# Tim Friske <me@tifr.de>
+#
+# The _Bash_ _Bourne Again Shell_ reads and executes commands from its
+# configuration files but only if these exist and are readable.  When
+# started as an interactive shell it first reads its system-wide startup
+# file `/etc/bash.bashrc`.  It then continues to read its user-specific
+# startup file `~/.bashrc`.
+#
+# This configuration file shall contain only non-default settings
+# specific to interactive shells in order to keep it lean and thus easy
+# to understand and maintain.  In case an interactive login shell is
+# started this startup file shall be read and its commands executed by
+# the first of _Bash's_ user-specific startup files for login shells
+# that _Bash_ encounters, that is `~/.bash_profile`, `~/.bash_login` or
+# `~/.profile`.
+#
+# See also:
+#   * man:bash[1]
+#   * link:{system-home}/bash.bashrc
+#   * link:{user-home}/.bashrc
+#   * link:{user-home}/.bash_profile
+#   * link:{user-home}/.bash_login
+#   * link:{user-home}/.profile
+
+# Shell options
+# -------------
+
+# Edit commands with Vi- instead of Emacs-like key bindings.
+#
+shopt -os vi
+
+# Make it easy to name and navigate directories.
+#
+shopt -s autocd cdable_vars cdspell dirspell
+
+# List any stopped and running jobs before exiting an interactive shell
+# in order to not kill important jobs unintentionally but exit them
+# manually, e.g. by saving their data first.  To list the remaining jobs
+# is what most users would usually do if the shell they are about to
+# exit reports that there are a number of stopped jobs.
+#
+shopt -s checkjobs
+
+# Update window size after each command.
+#
+shopt -s checkwinsize
+
+# Also store multi-line commands in history in case the user wants to
+# adapt them later on, e.g. in case of syntax errors.
+#
+shopt -s cmdhist lithist
+
+# Recognize extended set of patterns during pattern matching and path
+# name expansion.
+#
+shopt -s extglob globstar
+
+# Make command history more accessible.
+#
+shopt -s histappend histreedit histverify
+
+# Don't overwrite files with `>` file redirection operator.  This
+# setting may be overruled adhoc by using the `>|` operator.
+#
+shopt -os noclobber
+
+# Attempt to complete commands once a non-empty prefix is given in order
+# to not list the entire arsenal of commands but an already reduced list.
+#
+shopt -s no_empty_cmd_completion
+
+# Ignore upper- and lower case during path name expansion and pattern
+# matching.
+#
+shopt -s nocaseglob nocasematch
