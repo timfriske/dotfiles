@@ -65,3 +65,8 @@ shopt -s histappend histreedit histverify
 # setting may be overruled adhoc by using the `>|` operator.
 #
 shopt -os noclobber
+
+# Attempt to complete commands once a non-empty prefix is given in order
+# to not list the entire arsenal of commands but an already reduced list.
+#
+shopt -s no_empty_cmd_completion
