@@ -78,3 +78,7 @@ shopt -s nocaseglob nocasematch
 
 # Shell aliases
 # -------------
+
+# Allow aliases to be run as another user/group, e.g. super user `root'.
+#
+alias sudo='sudo '
