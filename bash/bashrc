@@ -60,3 +60,8 @@ shopt -s extglob globstar
 # Make command history more accessible.
 #
 shopt -s histappend histreedit histverify
+
+# Don't overwrite files with `>` file redirection operator.  This
+# setting may be overruled adhoc by using the `>|` operator.
+#
+shopt -os noclobber
