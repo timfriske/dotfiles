@@ -110,3 +110,7 @@ alias llh='ls --format=long --almost-all --ignore="*"'
 #
 alias df='df --si'
 alias dff='df -x devtmpfs -x tmpfs'
+
+# Show human-readable file and directory sizes in powers of 1,000.
+#
+alias du='du --si'
