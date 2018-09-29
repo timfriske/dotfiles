@@ -95,3 +95,7 @@ alias rm='rm --interactive=once --verbose'
 #
 alias md='mkdir --parents --verbose'
 alias rd='rmdir --parents --verbose'
+
+# List files and directories.
+#
+alias ls='ls $LS_X_OPTIONS'
