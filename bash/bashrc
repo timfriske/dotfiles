@@ -75,3 +75,6 @@ shopt -s no_empty_cmd_completion
 # matching.
 #
 shopt -s nocaseglob nocasematch
+
+# Shell aliases
+# -------------
