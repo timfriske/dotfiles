@@ -122,3 +122,7 @@ alias dus='du --summarize'
 # Show _UTC_ _Universal Time Coordinated_.
 #
 alias utc='date --utc'
+
+# Show (calendar) week of year.
+#
+alias week='date +"week %V"'
