@@ -89,3 +89,9 @@ alias sudo='sudo '
 alias cp='cp --interactive --verbose'
 alias mv='mv --interactive --verbose'
 alias rm='rm --interactive=once --verbose'
+
+# Alleviate the user from having to manually create or delete every
+# intermediate directory.
+#
+alias md='mkdir --parents --verbose'
+alias rd='rmdir --parents --verbose'
