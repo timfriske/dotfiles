@@ -70,3 +70,8 @@ shopt -os noclobber
 # to not list the entire arsenal of commands but an already reduced list.
 #
 shopt -s no_empty_cmd_completion
+
+# Ignore upper- and lower case during path name expansion and pattern
+# matching.
+#
+shopt -s nocaseglob nocasematch
