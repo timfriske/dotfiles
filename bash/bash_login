@@ -100,11 +100,16 @@ GREP_X_OPTIONS+=('--color=auto')
 #     consists of lower-case characters only.  Let it perform a case-
 #     sensitive search if the pattern contains upper-case characters.
 #
+#   hilite-unread::
+#     Let _Less_ give the user visual guidance as to where s/he left off
+#     reading after paging through a screen worth of output.
+#
 export LESS_X_OPTIONS=()
 LESS_X_OPTIONS+=('--no-init')
 LESS_X_OPTIONS+=('--tabs=4')
 LESS_X_OPTIONS+=('--LONG-PROMPT')
 LESS_X_OPTIONS+=('--ignore-case')
+LESS_X_OPTIONS+=('--hilite-unread')
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
