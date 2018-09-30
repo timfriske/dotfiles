@@ -181,7 +181,8 @@ alias 755='chmod --changes 755'
 # first time this function is called it dynamically defines one _Bash_
 # alias for each _Git_ alias that is defined in one of _Git's_
 # configuration files.  It then executes the `git` command with all the
-# given arguments as if this function had never existed.
+# given arguments as if this function had never existed.  Once completed
+# it eventually makes way for the `git` command by undefining itself.
 #
 function git {
   alias g='git'
@@ -192,4 +193,5 @@ function git {
     alias "g$git_alias=git $git_alias"
   done;
   command git "$@"
+  unset -f git
 }
