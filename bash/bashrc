@@ -132,3 +132,15 @@ alias week='date +"week %V"'
 # as `map'.
 #
 alias map='xargs --max-args=1'
+
+# Make full-text searches with the _Grep_ program more pleasant by
+# default in the following ways:
+#
+#   directories=recurse::
+#     If given no files search all files in the current directory and
+#     below in a recursive manner.  Otherwise _Grep_ would read from
+#     standard input or if given a directory tell the user that it is
+#     one.  _Grep's_ default behavior is simply not what users most
+#     likely expect it to be.
+#
+alias grep='grep --directories=recurse'
