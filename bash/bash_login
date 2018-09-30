@@ -79,9 +79,13 @@ LESS+='--no-init '
 #   binary-file=without-match::
 #     If _Grep_ encounters binary files just ignore them.
 #
+#   devices=skip::
+#     If _Grep_ encounters devices just ignore them.
+#
 export GREP_X_OPTIONS=()
 GREP_X_OPTIONS+=('--directories=recurse')
 GREP_X_OPTIONS+=('--binary-files=without-match')
+GREP_X_OPTIONS+=('--devices=skip')
 
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
