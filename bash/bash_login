@@ -66,7 +66,15 @@ LESS+='--hilite-unread '
 LESS+='--tabs=4 '
 LESS+='--no-init '
 
-# Make listing directories with the _Ls_ program more pleasant by default.
+# Make listing directories with the _Ls_ program more pleasant by default in
+# the following ways:
+#
+#   si::
+#     Let _Ls_ display file sizes as human-readable numbers in powers of
+#     1,000 with their units in the _SI_-system, the _International
+#     System of Units_ (Système International (d'unités)), e.g. KB, MB,
+#     TB etc.  The _SI_-system is also the system in which most storage
+#     device capacities are advertised.
 #
 export LS_X_OPTIONS=''
 LS_X_OPTIONS+='--si '
@@ -74,6 +82,7 @@ LS_X_OPTIONS+='--classify '
 LS_X_OPTIONS+='--color=auto '
 LS_X_OPTIONS+='--group-directories-first '
 export LS_Y_OPTIONS=()
+LS_Y_OPTIONS+=('--si')
 
 # Add _Git's_ commit message footer line `Signed-off-by`.
 #
