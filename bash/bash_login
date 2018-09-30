@@ -76,8 +76,12 @@ LESS+='--no-init '
 #     one.  _Grep's_ default behavior is simply not what users most
 #     likely expect it to be.
 #
+#   binary-file=without-match::
+#     If _Grep_ encounters binary files just ignore them.
+#
 export GREP_X_OPTIONS=()
 GREP_X_OPTIONS+=('--directories=recurse')
+GREP_X_OPTIONS+=('--binary-files=without-match')
 
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
