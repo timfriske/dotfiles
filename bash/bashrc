@@ -146,4 +146,7 @@ alias map='xargs --max-args=1'
 #   binary-file=without-match::
 #     If _Grep_ encounters binary files just ignore them.
 #
-alias grep='grep --directories=recurse --binary-files=without-match'
+#   devices=skip::
+#     If _Grep_ encounters devices just ignore them.
+#
+alias grep='grep --directories=recurse --binary-files=without-match --devices=skip'
