@@ -104,12 +104,17 @@ GREP_X_OPTIONS+=('--color=auto')
 #     Let _Less_ give the user visual guidance as to where s/he left off
 #     reading after paging through a screen worth of output.
 #
+#   RAW-CONTROL-CHARS::
+#     Let _Less_ output colors and escape the rest of `raw' control
+#     characters in order to not mess up the terminal screen.
+#
 export LESS_X_OPTIONS=()
 LESS_X_OPTIONS+=('--no-init')
 LESS_X_OPTIONS+=('--tabs=4')
 LESS_X_OPTIONS+=('--LONG-PROMPT')
 LESS_X_OPTIONS+=('--ignore-case')
 LESS_X_OPTIONS+=('--hilite-unread')
+LESS_X_OPTIONS+=('--RAW-CONTROL-CHARS')
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
