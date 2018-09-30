@@ -76,6 +76,11 @@ LESS+='--no-init '
 #     TB etc.  The _SI_-system is also the system in which most storage
 #     device capacities are advertised.
 #
+#   classify::
+#     Let _Ls_ append an indicator sign to each type of file to help the
+#     user identify its file type, e.g. `/` for directories or `*` for
+#     executable files.
+#
 export LS_X_OPTIONS=''
 LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
@@ -83,6 +88,7 @@ LS_X_OPTIONS+='--color=auto '
 LS_X_OPTIONS+='--group-directories-first '
 export LS_Y_OPTIONS=()
 LS_Y_OPTIONS+=('--si')
+LS_Y_OPTIONS+=('--classify')
 
 # Add _Git's_ commit message footer line `Signed-off-by`.
 #
