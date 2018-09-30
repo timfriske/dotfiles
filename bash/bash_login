@@ -66,6 +66,11 @@ LESS+='--hilite-unread '
 LESS+='--tabs=4 '
 LESS+='--no-init '
 
+# Make full-text searches with the _Grep_ program more pleasant by
+# default.
+#
+export GREP_X_OPTIONS=()
+ 
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
 #
