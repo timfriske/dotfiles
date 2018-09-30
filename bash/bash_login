@@ -108,6 +108,11 @@ GREP_X_OPTIONS+=('--color=auto')
 #     Let _Less_ output colors and escape the rest of `raw' control
 #     characters in order to not mess up the terminal screen.
 #
+#   quit-if-one-screen::
+#     Let _Less_ display automatically quit itself if there is less than
+#     a screen full of output to display.  Don't let the user have to do
+#     that every time.
+#
 export LESS_X_OPTIONS=()
 LESS_X_OPTIONS+=('--no-init')
 LESS_X_OPTIONS+=('--tabs=4')
@@ -115,6 +120,7 @@ LESS_X_OPTIONS+=('--LONG-PROMPT')
 LESS_X_OPTIONS+=('--ignore-case')
 LESS_X_OPTIONS+=('--hilite-unread')
 LESS_X_OPTIONS+=('--RAW-CONTROL-CHARS')
+LESS_X_OPTIONS+=('--quit-if-one-screen')
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
