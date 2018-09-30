@@ -153,3 +153,5 @@ alias map='xargs --max-args=1'
 #     If _Grep_ output is to a terminal colorize it.
 #
 alias grep='grep --directories=recurse --binary-files=without-match --devices=skip --color=auto'
+alias egrep='grep --extended-regexp'
+alias fgrep='grep --fixed-strings'
