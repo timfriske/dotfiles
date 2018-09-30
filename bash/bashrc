@@ -155,3 +155,16 @@ alias map='xargs --max-args=1'
 alias grep='grep --directories=recurse --binary-files=without-match --devices=skip --color=auto'
 alias egrep='grep --extended-regexp'
 alias fgrep='grep --fixed-strings'
+
+# Simplify data exchange between CLI and GUI via clipboard.
+#
+if type -p xclip &> /dev/null; then
+  alias pbc='xclip -selection clipboard -in'
+  alias pbp='xclip -selection clipboard -out'
+elif type -p xsel &> /dev/null; then
+  alias pbc='xsel --clipboard --input'
+  alias pbp='xsel --clipboard --output'
+elif ! type -p pbcopy pbpaste &> /devl/null; then
+  alias pbc='echo Please install xclip, xsel or pbcopy.'
+  alias pbp='echo Please install xclip, xsel or pbpaste.'
+fi
