@@ -168,3 +168,9 @@ elif ! type -p pbcopy pbpaste &> /devl/null; then
   alias pbc='echo Please install xclip, xsel or pbcopy.'
   alias pbp='echo Please install xclip, xsel or pbpaste.'
 fi
+
+# Define aliases for the most common file permission changes.
+#
+alias 600='chmod --changes 600'
+alias 644='chmod --changes 644'
+alias 755='chmod --changes 755'
