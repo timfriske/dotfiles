@@ -80,8 +80,10 @@ GREP_X_OPTIONS+=('--binary-files=without-match')
 GREP_X_OPTIONS+=('--devices=skip')
 GREP_X_OPTIONS+=('--color=auto')
 
-# Define default options for pager _Less_.
+# Make paging with the _Less_ program more pleasant by default.
 #
+#
+export LESS_X_OPTIONS=()
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
