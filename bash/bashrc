@@ -180,4 +180,5 @@ alias 755='chmod --changes 755'
 # and defined as _Bash_ aliases by the `git` function below.
 #
 function git {
+  alias g='git'
 }
