@@ -96,9 +96,10 @@ alias rm='rm --interactive=once --verbose'
 alias md='mkdir --parents --verbose'
 alias rd='rmdir --parents --verbose'
 
-# List files and directories.
+# Make listing directories with the _Ls_ program more pleasant by
+# configuring its default behavior.
 #
-alias ls='ls $LS_X_OPTIONS'
+alias ls='ls "${LS_Y_OPTIONS[@]}"'
 alias la='ls --almost-all'
 alias lh='ls --almost-all --ignore="*"'
 alias ll='ls --format=long'
