@@ -81,6 +81,9 @@ LESS+='--no-init '
 #     user identify its file type, e.g. `/` for directories or `*` for
 #     executable files.
 #
+#   clolor=auto::
+#     Let _Ls_ colorize its output if it goes to a terminal.
+#
 export LS_X_OPTIONS=''
 LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
@@ -89,6 +92,7 @@ LS_X_OPTIONS+='--group-directories-first '
 export LS_Y_OPTIONS=()
 LS_Y_OPTIONS+=('--si')
 LS_Y_OPTIONS+=('--classify')
+LS_Y_OPTIONS+=('--color=auto')
 
 # Add _Git's_ commit message footer line `Signed-off-by`.
 #
