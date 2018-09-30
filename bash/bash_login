@@ -80,10 +80,16 @@ GREP_X_OPTIONS+=('--binary-files=without-match')
 GREP_X_OPTIONS+=('--devices=skip')
 GREP_X_OPTIONS+=('--color=auto')
 
-# Make paging with the _Less_ program more pleasant by default.
+# Make paging with the _Less_ program more pleasant by default in the
+# following ways:
 #
+#   no-init::
+#     Prevent _Less_ from clearing the terminal screen when it quits.
+#     This way the user has a chance to refer to the last screen full of
+#     output even after _Less_ exited.
 #
 export LESS_X_OPTIONS=()
+LESS_X_OPTIONS+=('--no-init')
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
