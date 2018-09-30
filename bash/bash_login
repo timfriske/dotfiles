@@ -66,13 +66,14 @@ LESS+='--hilite-unread '
 LESS+='--tabs=4 '
 LESS+='--no-init '
 
-# Define `ls` program options common to all `ls` aliases.
+# Make listing directories with the _Ls_ program more pleasant by default.
 #
 export LS_X_OPTIONS=''
 LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
 LS_X_OPTIONS+='--color=auto '
 LS_X_OPTIONS+='--group-directories-first '
+export LS_Y_OPTIONS=()
 
 # Add _Git's_ commit message footer line `Signed-off-by`.
 #
