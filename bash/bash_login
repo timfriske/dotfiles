@@ -89,16 +89,11 @@ LESS+='--no-init '
 #     e.g. regular files, symbolic links etc. because such directory
 #     listings might be easier on the eye and therefore to comprehend.
 #
-export LS_X_OPTIONS=''
-LS_X_OPTIONS+='--si '
-LS_X_OPTIONS+='--classify '
-LS_X_OPTIONS+='--color=auto '
-LS_X_OPTIONS+='--group-directories-first '
-export LS_Y_OPTIONS=()
-LS_Y_OPTIONS+=('--si')
-LS_Y_OPTIONS+=('--classify')
-LS_Y_OPTIONS+=('--color=auto')
-LS_Y_OPTIONS+=('--group-directories-first')
+export LS_X_OPTIONS=()
+LS_X_OPTIONS+=('--si')
+LS_X_OPTIONS+=('--classify')
+LS_X_OPTIONS+=('--color=auto')
+LS_X_OPTIONS+=('--group-directories-first')
 
 # Add _Git's_ commit message footer line `Signed-off-by`.
 #
