@@ -75,3 +75,123 @@ shopt -s no_empty_cmd_completion
 # matching.
 #
 shopt -s nocaseglob nocasematch
+
+# Shell aliases
+# -------------
+
+# Allow aliases to be run as another user/group, e.g. super user `root'.
+#
+alias sudo='sudo '
+
+# Ask the user before files are overwritten or deleted in order to
+# prevent accidental data loss.
+#
+alias cp='cp --interactive --verbose'
+alias mv='mv --interactive --verbose'
+alias rm='rm --interactive=once --verbose'
+
+# Alleviate the user from having to manually create or delete every
+# intermediate directory.
+#
+alias md='mkdir --parents --verbose'
+alias rd='rmdir --parents --verbose'
+
+# List files and directories.
+#
+alias ls='ls $LS_X_OPTIONS'
+alias la='ls --almost-all'
+alias lh='ls --almost-all --ignore="*"'
+alias ll='ls --format=long'
+alias lla='ls --format=long --almost-all'
+alias llh='ls --format=long --almost-all --ignore="*"'
+
+# Show human-readable file system sizes in powers of 1,000.  Exclude
+# neglectable types of file systems.
+#
+alias df='df --si'
+alias dff='df -x devtmpfs -x tmpfs'
+
+# Show human-readable file and directory sizes in powers of 1,000.
+# Summarize files and directories up to the current directory.
+#
+alias du='du --si'
+alias dud='du --max-depth=1 | sort --human-numeric-sort --reverse'
+alias duf='du --all --max-depth=1 | sort --human-numeric-sort --reverse'
+alias dus='du --summarize'
+
+# Show _UTC_ _Universal Time Coordinated_.
+#
+alias utc='date --utc'
+
+# Show (calendar) week of year.
+#
+alias week='date +"week %V"'
+
+# Run given command on every argument usually read from pipe.  The alias
+# `map` resembles the well-known mathematical term `mapping' also known
+# as `map'.
+#
+alias map='xargs --max-args=1'
+
+# Make full-text searches with the _Grep_ program more pleasant by
+# default in the following ways:
+#
+#   directories=recurse::
+#     If given no files search all files in the current directory and
+#     below in a recursive manner.  Otherwise _Grep_ would read from
+#     standard input or if given a directory tell the user that it is
+#     one.  _Grep's_ default behavior is simply not what users most
+#     likely expect it to be.
+#
+#   binary-file=without-match::
+#     If _Grep_ encounters binary files just ignore them.
+#
+#   devices=skip::
+#     If _Grep_ encounters devices just ignore them.
+#
+#   color=auto::
+#     If _Grep_ output is to a terminal colorize it.
+#
+alias grep='grep --directories=recurse --binary-files=without-match --devices=skip --color=auto'
+alias egrep='grep --extended-regexp'
+alias fgrep='grep --fixed-strings'
+
+# Simplify data exchange between CLI and GUI via clipboard.
+#
+if type -p xclip &> /dev/null; then
+  alias pbc='xclip -selection clipboard -in'
+  alias pbp='xclip -selection clipboard -out'
+elif type -p xsel &> /dev/null; then
+  alias pbc='xsel --clipboard --input'
+  alias pbp='xsel --clipboard --output'
+elif ! type -p pbcopy pbpaste &> /devl/null; then
+  alias pbc='echo Please install xclip, xsel or pbcopy.'
+  alias pbp='echo Please install xclip, xsel or pbpaste.'
+fi
+
+# Define aliases for the most common file permission changes.
+#
+alias 600='chmod --changes 600'
+alias 644='chmod --changes 644'
+alias 755='chmod --changes 755'
+
+# Define _Git_ itself as well as all of its aliases as _Bash_ aliases
+# with the prefix letter `g`.  The _Git_ aliases will be lazily loaded
+# and defined as _Bash_ aliases by the `git` function below.  Upon the
+# first time this function is called it dynamically defines one _Bash_
+# alias for each _Git_ alias that is defined in one of _Git's_
+# configuration files.  It then executes the `git` command with all the
+# given arguments as if this function had never existed.  Once completed
+# it eventually makes way for the `git` command by undefining itself.
+#
+function git {
+  alias g='git'
+  local git_alias
+  for git_alias in $(command git config --list --name-only \
+      | grep '^alias.' -- - \
+      | cut --delimiter=. --fields=2); do
+    alias "g$git_alias=git $git_alias"
+  done;
+  command git "$@"
+  unset -f git
+}
