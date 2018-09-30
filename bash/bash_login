@@ -92,9 +92,13 @@ GREP_X_OPTIONS+=('--color=auto')
 #     Let _Less_ display each tabulator four spaces wide in order to let
 #     its output consume less space on the screen.
 #
+#   LONG-PROMPT::
+#     Let _Less_ to prompt even more verbosely than _More_.
+#
 export LESS_X_OPTIONS=()
 LESS_X_OPTIONS+=('--no-init')
 LESS_X_OPTIONS+=('--tabs=4')
+LESS_X_OPTIONS+=('--LONG-PROMPT')
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
