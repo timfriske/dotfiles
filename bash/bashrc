@@ -96,9 +96,10 @@ alias rm='rm --interactive=once --verbose'
 alias md='mkdir --parents --verbose'
 alias rd='rmdir --parents --verbose'
 
-# List files and directories.
+# Make listing directories with the _Ls_ program more pleasant by
+# configuring its default behavior.
 #
-alias ls='ls $LS_X_OPTIONS'
+alias ls='ls "${LS_X_OPTIONS[@]}"'
 alias la='ls --almost-all'
 alias lh='ls --almost-all --ignore="*"'
 alias ll='ls --format=long'
@@ -134,25 +135,9 @@ alias week='date +"week %V"'
 alias map='xargs --max-args=1'
 
 # Make full-text searches with the _Grep_ program more pleasant by
-# default in the following ways:
+# configuring its default behavior.
 #
-#   directories=recurse::
-#     If given no files search all files in the current directory and
-#     below in a recursive manner.  Otherwise _Grep_ would read from
-#     standard input or if given a directory tell the user that it is
-#     one.  _Grep's_ default behavior is simply not what users most
-#     likely expect it to be.
-#
-#   binary-file=without-match::
-#     If _Grep_ encounters binary files just ignore them.
-#
-#   devices=skip::
-#     If _Grep_ encounters devices just ignore them.
-#
-#   color=auto::
-#     If _Grep_ output is to a terminal colorize it.
-#
-alias grep='grep --directories=recurse --binary-files=without-match --devices=skip --color=auto'
+alias grep='grep "${GREP_X_OPTIONS[@]}"'
 alias egrep='grep --extended-regexp'
 alias fgrep='grep --fixed-strings'
 
