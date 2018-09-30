@@ -149,4 +149,7 @@ alias map='xargs --max-args=1'
 #   devices=skip::
 #     If _Grep_ encounters devices just ignore them.
 #
-alias grep='grep --directories=recurse --binary-files=without-match --devices=skip'
+#   color=auto::
+#     If _Grep_ output is to a terminal colorize it.
+#
+alias grep='grep --directories=recurse --binary-files=without-match --devices=skip --color=auto'
