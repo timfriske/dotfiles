@@ -121,14 +121,7 @@ LESS_X_OPTIONS+=('--ignore-case')
 LESS_X_OPTIONS+=('--hilite-unread')
 LESS_X_OPTIONS+=('--RAW-CONTROL-CHARS')
 LESS_X_OPTIONS+=('--quit-if-one-screen')
-export LESS=''
-LESS+='--quit-if-one-screen '
-LESS+='--ignore-case '
-LESS+='--LONG-PROMPT '
-LESS+='--RAW-CONTROL-CHARS '
-LESS+='--hilite-unread '
-LESS+='--tabs=4 '
-LESS+='--no-init '
+export LESS="${LESS_X_OPTIONS[@]}"
 
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
