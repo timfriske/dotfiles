@@ -95,10 +95,16 @@ GREP_X_OPTIONS+=('--color=auto')
 #   LONG-PROMPT::
 #     Let _Less_ to prompt even more verbosely than _More_.
 #
+#   ignore-case::
+#     Let _Less_ search smarter by ignoring the case if the pattern
+#     consists of lower-case characters only.  Let it perform a case-
+#     sensitive search if the pattern contains upper-case characters.
+#
 export LESS_X_OPTIONS=()
 LESS_X_OPTIONS+=('--no-init')
 LESS_X_OPTIONS+=('--tabs=4')
 LESS_X_OPTIONS+=('--LONG-PROMPT')
+LESS_X_OPTIONS+=('--ignore-case')
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
