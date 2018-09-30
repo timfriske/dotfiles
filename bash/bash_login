@@ -88,8 +88,13 @@ GREP_X_OPTIONS+=('--color=auto')
 #     This way the user has a chance to refer to the last screen full of
 #     output even after _Less_ exited.
 #
+#   tabs=4::
+#     Let _Less_ display each tabulator four spaces wide in order to let
+#     its output consume less space on the screen.
+#
 export LESS_X_OPTIONS=()
 LESS_X_OPTIONS+=('--no-init')
+LESS_X_OPTIONS+=('--tabs=4')
 export LESS=''
 LESS+='--quit-if-one-screen '
 LESS+='--ignore-case '
