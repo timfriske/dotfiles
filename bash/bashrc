@@ -143,4 +143,7 @@ alias map='xargs --max-args=1'
 #     one.  _Grep's_ default behavior is simply not what users most
 #     likely expect it to be.
 #
-alias grep='grep --directories=recurse'
+#   binary-file=without-match::
+#     If _Grep_ encounters binary files just ignore them.
+#
+alias grep='grep --directories=recurse --binary-files=without-match'
