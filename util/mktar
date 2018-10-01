@@ -24,6 +24,10 @@ function mktar {
   echo '# Archiving files ...'
   echo '# ==================='
   case "$program" in
+    mktar)
+      archive+=".tar"
+      tar --create --file="$archive" --verbose -- "$1"
+      ;;
     *)
       echo 'error: must be one of mktar, mktbz, mktgz, mktxz!'
       exit 2
