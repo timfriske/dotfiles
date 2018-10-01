@@ -21,6 +21,8 @@ function mktar {
   fi
   local program="${0##*/}"
   local archive="${1%/}"
+  echo '# Archiving files ...'
+  echo '# ==================='
 }
 
 mktar "$@"
