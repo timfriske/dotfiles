@@ -20,6 +20,7 @@ function mktar {
     exit 1
   fi
   local program="${0##*/}"
+  local archive="${1%/}"
 }
 
 mktar "$@"
