@@ -36,6 +36,10 @@ function mktar {
       archive+=".tar.gz"
       tar --create --gzip --file="$archive" --verbose -- "$1"
       ;;
+    mktxz)
+      archive+=".tar.xz"
+      tar --create --xz --file="$archive" --verbose -- "$1"
+      ;;
     *)
       echo 'error: must be one of mktar, mktbz, mktgz, mktxz!'
       exit 2
