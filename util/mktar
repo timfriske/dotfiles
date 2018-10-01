@@ -45,6 +45,10 @@ function mktar {
       exit 2
       ;;
   esac
+  local message="... files archived in $archive"
+  local msg_sep="$(eval printf '=%.0s' {1..${#message}})"
+  echo "# $msg_sep"
+  echo "# $message"
 }
 
 mktar "$@"
