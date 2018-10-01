@@ -23,6 +23,12 @@ function mktar {
   local archive="${1%/}"
   echo '# Archiving files ...'
   echo '# ==================='
+  case "$program" in
+    *)
+      echo 'error: must be one of mktar, mktbz, mktgz, mktxz!'
+      exit 2
+      ;;
+  esac
 }
 
 mktar "$@"
