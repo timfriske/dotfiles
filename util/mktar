@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# TAR Tape Archive creation
+# =========================
+# Tim Friske <me@tifr.de>
+#
+# See also:
+#   * man:bash[1]
+#   * man:tar[1]
+#   * man:bzip2[1]
+#   * man:gzip[1]
+#   * man:xz[1]
+
+function mktar {
+  if [[ "$#" != 1 || ! -e "$1" ]]; then
+    echo 'usage: mktar <file>|<directory>'
+    echo 'usage: mktbz <file>|<directory>'
+    echo 'usage: mktgz <file>|<directory>'
+    echo 'usage: mktxz <file>|<directory>'
+    exit 1
+  fi
+  local program="${0##*/}"
+  local archive="${1%/}"
+  echo '# Archiving files ...'
+  echo '# ==================='
+  case "$program" in
+    mktar)
+      archive+=".tar"
+      tar --create --file="$archive" --verbose -- "$1"
+      ;;
+    mktbz)
+      archive+=".tar.bz2"
+      tar --create --bzip2 --file="$archive" --verbose -- "$1"
+      ;;
+    mktgz)
+      archive+=".tar.gz"
+      tar --create --gzip --file="$archive" --verbose -- "$1"
+      ;;
+    mktxz)
+      archive+=".tar.xz"
+      tar --create --xz --file="$archive" --verbose -- "$1"
+      ;;
+    *)
+      echo 'error: must be one of mktar, mktbz, mktgz, mktxz!'
+      exit 2
+      ;;
+  esac
+  local message="... files archived in $archive"
+  local msg_sep="$(eval printf '=%.0s' {1..${#message}})"
+  echo "# $msg_sep"
+  echo "# $message"
+}
+
+mktar "$@"
