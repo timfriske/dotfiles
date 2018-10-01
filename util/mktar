@@ -10,3 +10,8 @@
 #   * man:bzip2[1]
 #   * man:gzip[1]
 #   * man:xz[1]
+
+function mktar {
+}
+
+mktar "$@"
