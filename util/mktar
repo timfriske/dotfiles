@@ -19,6 +19,7 @@ function mktar {
     echo 'usage: mktxz <file>|<directory>'
     exit 1
   fi
+  local program="${0##*/}"
 }
 
 mktar "$@"
