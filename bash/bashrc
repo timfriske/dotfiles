@@ -108,6 +108,7 @@ alias ls='ls $LS_X_OPTIONS'
 alias la='ls --almost-all'
 alias lh='ls --almost-all --ignore="*"'
 alias ll='ls --format=long'
+alias lt='ls --sort=time'
 alias lla='ll --almost-all'
 alias llh='ll --almost-all --ignore="*"'
 
