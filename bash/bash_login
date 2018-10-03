@@ -100,6 +100,11 @@ GREP_X_OPTIONS+=('--color=auto')
 #     consists of lower-case characters only.  Let it perform a case-
 #     sensitive search if the pattern contains upper-case characters.
 #
+#   jump-target=.5::
+#     Let _Less_ position the next or previous line that matches a
+#     search pattern in the center of the terminal screen.  This should
+#     give the user enough context, i.e. lines surrounding that line.
+#
 #   hilite-unread::
 #     Let _Less_ give the user visual guidance as to where s/he left off
 #     reading after paging through a screen worth of output.
@@ -118,6 +123,7 @@ LESS_X_OPTIONS+=('--no-init')
 LESS_X_OPTIONS+=('--tabs=4')
 LESS_X_OPTIONS+=('--LONG-PROMPT')
 LESS_X_OPTIONS+=('--ignore-case')
+LESS_X_OPTIONS+=('--jump-target=.5')
 LESS_X_OPTIONS+=('--hilite-unread')
 LESS_X_OPTIONS+=('--RAW-CONTROL-CHARS')
 LESS_X_OPTIONS+=('--quit-if-one-screen')
