@@ -87,14 +87,19 @@ alias sudo='sudo '
 # prevent accidental data loss.
 #
 alias cp='cp --interactive --verbose'
+alias ln='ln --interactive --verbose'
 alias mv='mv --interactive --verbose'
 alias rm='rm --interactive=once --verbose'
 
 # Alleviate the user from having to manually create or delete every
-# intermediate directory.
+# intermediate directory.  Introduce the aliases `md` for `mkdir` and
+# `rd` for `rmdir` for consistency with the other notorious two-letter
+# commands such as `cp`, `mv` or `rm`.
 #
-alias md='mkdir --parents --verbose'
-alias rd='rmdir --parents --verbose'
+alias mkdir='mkdir --parents --verbose'
+alias md='mkdir'
+alias rmdir='rmdir --parents --verbose'
+alias rd='rmdir'
 
 # Make listing directories with the _Ls_ program more pleasant by
 # configuring its default behavior.
@@ -103,8 +108,16 @@ alias ls='ls $LS_X_OPTIONS'
 alias la='ls --almost-all'
 alias lh='ls --almost-all --ignore="*"'
 alias ll='ls --format=long'
-alias lla='ls --format=long --almost-all'
-alias llh='ls --format=long --almost-all --ignore="*"'
+alias lt='ls --sort=time'
+alias lv='ls --sort=version'
+alias lx='ls --sort=extension'
+alias lz='ls --sort=size'
+alias lla='ll --almost-all'
+alias llh='ll --almost-all --ignore="*"'
+alias llt='ll --sort=time'
+alias llv='ll --sort=version'
+alias llx='ll --sort=extension'
+alias llz='ll --sort=size'
 
 # Show human-readable file system sizes in powers of 1,000.  Exclude
 # neglectable types of file systems.
