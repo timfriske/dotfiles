@@ -111,6 +111,7 @@ alias ll='ls --format=long'
 alias lt='ls --sort=time'
 alias lv='ls --sort=version'
 alias lx='ls --sort=extension'
+alias lz='ls --sort=size'
 alias lla='ll --almost-all'
 alias llh='ll --almost-all --ignore="*"'
 
