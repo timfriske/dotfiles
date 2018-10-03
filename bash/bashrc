@@ -108,8 +108,8 @@ alias ls='ls $LS_X_OPTIONS'
 alias la='ls --almost-all'
 alias lh='ls --almost-all --ignore="*"'
 alias ll='ls --format=long'
-alias lla='ls --format=long --almost-all'
-alias llh='ls --format=long --almost-all --ignore="*"'
+alias lla='ll --almost-all'
+alias llh='ll --almost-all --ignore="*"'
 
 # Show human-readable file system sizes in powers of 1,000.  Exclude
 # neglectable types of file systems.
