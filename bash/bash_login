@@ -43,10 +43,9 @@ export HISTSIZE=100000
 export HISTFILESIZE="$HISTSIZE"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTCONTROL='ignorespace:erasedups'
-export HIST_X_IGNORE=()
-HIST_X_IGNORE+=('+([![:space:]])*([[:space:]])')
-HIST_X_IGNORE+=('*@(help|version)*')
-export HISTIGNORE="$(IFS=:; echo "${HIST_X_IGNORE[*]}")"
+export HISTIGNORE=''
+HISTIGNORE+='+([![:space:]])*([[:space:]]):'
+HISTIGNORE+='*@(help|version)*'
 
 # Tell programs to open files in favorite text editor _Vim_ _Vi
 # Improved_.  Don't care about line-oriented vs. visual editors just
@@ -78,11 +77,11 @@ export PAGER='less'
 #   color=auto::
 #     If _Grep_ output is to a terminal colorize it.
 #
-export GREP_X_OPTIONS=()
-GREP_X_OPTIONS+=('--directories=recurse')
-GREP_X_OPTIONS+=('--binary-files=without-match')
-GREP_X_OPTIONS+=('--devices=skip')
-GREP_X_OPTIONS+=('--color=auto')
+export GREP_X_OPTIONS=''
+GREP_X_OPTIONS+='--directories=recurse '
+GREP_X_OPTIONS+='--binary-files=without-match '
+GREP_X_OPTIONS+='--devices=skip '
+GREP_X_OPTIONS+='--color=auto '
 
 # Make paging with the _Less_ program more pleasant by default in the
 # following ways:
@@ -122,16 +121,15 @@ GREP_X_OPTIONS+=('--color=auto')
 #     a screen full of output to display.  Don't let the user have to do
 #     that every time.
 #
-export LESS_X_OPTIONS=()
-LESS_X_OPTIONS+=('--no-init')
-LESS_X_OPTIONS+=('--tabs=4')
-LESS_X_OPTIONS+=('--LONG-PROMPT')
-LESS_X_OPTIONS+=('--ignore-case')
-LESS_X_OPTIONS+=('--jump-target=.5')
-LESS_X_OPTIONS+=('--hilite-unread')
-LESS_X_OPTIONS+=('--RAW-CONTROL-CHARS')
-LESS_X_OPTIONS+=('--quit-if-one-screen')
-export LESS="${LESS_X_OPTIONS[@]}"
+export LESS=''
+LESS+='--no-init '
+LESS+='--tabs=4 '
+LESS+='--LONG-PROMPT '
+LESS+='--ignore-case '
+LESS+='--jump-target=.5 '
+LESS+='--hilite-unread '
+LESS+='--RAW-CONTROL-CHARS '
+LESS+='--quit-if-one-screen '
 
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
@@ -156,11 +154,11 @@ export LESS="${LESS_X_OPTIONS[@]}"
 #     e.g. regular files, symbolic links etc. because such directory
 #     listings might be easier on the eye and therefore to comprehend.
 #
-export LS_X_OPTIONS=()
-LS_X_OPTIONS+=('--si')
-LS_X_OPTIONS+=('--classify')
-LS_X_OPTIONS+=('--color=auto')
-LS_X_OPTIONS+=('--group-directories-first')
+export LS_X_OPTIONS=''
+LS_X_OPTIONS+='--si '
+LS_X_OPTIONS+='--classify '
+LS_X_OPTIONS+='--color=auto '
+LS_X_OPTIONS+='--group-directories-first '
 
 # Let _Git_ skip reading settings from its system-wide configuration
 # file `{system-home}/gitconfig`.  Assume that the user is a power user
