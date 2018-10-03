@@ -116,6 +116,7 @@ alias lla='ll --almost-all'
 alias llh='ll --almost-all --ignore="*"'
 alias llt='ll --sort=time'
 alias llv='ll --sort=version'
+alias llx='ll --sort=extension'
 
 # Show human-readable file system sizes in powers of 1,000.  Exclude
 # neglectable types of file systems.
