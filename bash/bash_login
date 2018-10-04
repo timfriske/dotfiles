@@ -149,6 +149,12 @@ LESS+='--quit-if-one-screen '
 #   clolor=auto::
 #     Let _Ls_ colorize its output if it goes to a terminal.
 #
+#   time-style::
+#     Let _Ls_ display the date-time in ISO-8601 `long' format.  Due to
+#     the format's fixed-width pattern `+%Y-%m-%d %H:%M` it should be
+#     more readable and independent from the current locale.  With up to
+#     the minute precision it should be good enough for everyday use.
+#
 #   group-directories-first::
 #     Let _Ls_ list all directories before all other kinds of files,
 #     e.g. regular files, symbolic links etc. because such directory
@@ -158,6 +164,7 @@ export LS_X_OPTIONS=''
 LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
 LS_X_OPTIONS+='--color=auto '
+LS_X_OPTIONS+='--time-style=long-iso '
 LS_X_OPTIONS+='--group-directories-first '
 
 # Let _Git_ skip reading settings from its system-wide configuration
