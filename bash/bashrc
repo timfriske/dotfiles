@@ -187,6 +187,12 @@ alias 600='chmod --changes 600'
 alias 644='chmod --changes 644'
 alias 755='chmod --changes 755'
 
+# Define aliases to quickly control the system and user units, e.g.
+# services, mounts, timers etc., managed and supervised by _Systemd_.
+#
+alias sds='systemctl --system'
+alias sdu='systemctl --user'
+
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
 # with the prefix letter `g`.  The _Git_ aliases will be lazily loaded
 # and defined as _Bash_ aliases by the `git` function below.  Upon the
