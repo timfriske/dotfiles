@@ -82,6 +82,9 @@ export PAGER='less'
 #    Whitespace usually doesn't change the meaning of the content of a
 #    file for most file formats.
 #
+#  color=auto::
+#    If _Diff_ output is to a terminal colorize it.
+#
 export DIFF_X_OPTIONS=''
 DIFF_X_OPTIONS+='--unified '
 DIFF_X_OPTIONS+='--ignore-tab-expansion '
@@ -89,6 +92,7 @@ DIFF_X_OPTIONS+='--ignore-space-change '
 DIFF_X_OPTIONS+='--ignore-trailing-space '
 DIFF_X_OPTIONS+='--ignore-blank-lines '
 DIFF_X_OPTIONS+='--ignore-all-space '
+DIFF_X_OPTIONS+='--color=auto '
 
 # Make full-text searches with the _Grep_ program more pleasant by
 # default in the following ways:
