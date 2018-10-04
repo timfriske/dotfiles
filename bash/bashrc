@@ -161,6 +161,11 @@ alias week='date +"week %V"'
 #
 alias map='xargs --max-args=1'
 
+# Make comparing differences between files and directories with the
+# _Diff_ program more pleasant by configuring its default behavior.
+#
+alias diff='diff $DIFF_X_OPTIONS'
+
 # Make full-text searches with the _Grep_ program more pleasant by
 # configuring its default behavior.
 #
