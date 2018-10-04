@@ -24,6 +24,15 @@
 #   * link:{user-home}/.bash_login
 #   * link:{user-home}/.profile
 
+# Terminal settings
+# -----------------
+
+# Disable `CTRL-S` and `CTRL-Q` to stop and start terminal output
+# because this function is not very useful and just confuses most users.
+# The previously bound hot keys can be assigned new functions hereafter.
+#
+stty -ixon
+
 # Shell options
 # -------------
 
