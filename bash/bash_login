@@ -29,6 +29,12 @@
 # Environment variables
 # ---------------------
 
+# Save space for the actual command line by showing only the trailing
+# number of path components of the working directory in the command
+# prompt.  The rest of the path is represented by an ellipsis.
+#
+export PROMPT_DIRTRIM=3
+
 # Remember up to 100,000 one hundred thousand commands in memory and on
 # disk.  Record the time when each command entered history as an
 # ISO-8601 timestamp.  Exclude commands starting with whitespace from
@@ -149,6 +155,12 @@ LESS+='--quit-if-one-screen '
 #   clolor=auto::
 #     Let _Ls_ colorize its output if it goes to a terminal.
 #
+#   time-style::
+#     Let _Ls_ display the date-time in ISO-8601 `long' format.  Due to
+#     the format's fixed-width pattern `+%Y-%m-%d %H:%M` it should be
+#     more readable and independent from the current locale.  With up to
+#     the minute precision it should be good enough for everyday use.
+#
 #   group-directories-first::
 #     Let _Ls_ list all directories before all other kinds of files,
 #     e.g. regular files, symbolic links etc. because such directory
@@ -158,6 +170,7 @@ export LS_X_OPTIONS=''
 LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
 LS_X_OPTIONS+='--color=auto '
+LS_X_OPTIONS+='--time-style=long-iso '
 LS_X_OPTIONS+='--group-directories-first '
 
 # Let _Git_ skip reading settings from its system-wide configuration
