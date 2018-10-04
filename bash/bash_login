@@ -75,6 +75,7 @@ export PAGER='less'
 #
 #  ignore-tab-expansion::
 #  ignore-space-change::
+#  ignore-trailing-space::
 #    Don't get distracted from any kind of changes in whitespace.
 #    Whitespace usually doesn't change the meaning of the content of a
 #    file for most file formats.
@@ -83,6 +84,7 @@ export DIFF_X_OPTIONS=''
 DIFF_X_OPTIONS+='--unified '
 DIFF_X_OPTIONS+='--ignore-tab-expansion '
 DIFF_X_OPTIONS+='--ignore-space-change '
+DIFF_X_OPTIONS+='--ignore-trailing-space '
 
 # Make full-text searches with the _Grep_ program more pleasant by
 # default in the following ways:
