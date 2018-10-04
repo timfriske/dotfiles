@@ -73,8 +73,14 @@ export PAGER='less'
 #    default `normal' format.  The `unified' format is also the default
 #    format used by _Git_.
 #
+#  ignore-tab-expansion::
+#    Don't get distracted from any kind of changes in whitespace.
+#    Whitespace usually doesn't change the meaning of the content of a
+#    file for most file formats.
+#
 export DIFF_X_OPTIONS=''
 DIFF_X_OPTIONS+='--unified '
+DIFF_X_OPTIONS+='--ignore-tab-expansion '
 
 # Make full-text searches with the _Grep_ program more pleasant by
 # default in the following ways:
