@@ -142,6 +142,11 @@ alias dud='du --max-depth=1 | sort --human-numeric-sort --reverse'
 alias duf='du --all --max-depth=1 | sort --human-numeric-sort --reverse'
 alias dus='du --summarize'
 
+# Show human-readable memory sizes in powers of 1,000 of free and used
+# physical and swap memory.
+#
+alias free='free --human --si'
+
 # Show _UTC_ _Universal Time Coordinated_.
 #
 alias utc='date --utc'
