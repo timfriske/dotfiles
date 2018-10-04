@@ -64,6 +64,11 @@ export VISUAL='vim'
 #
 export PAGER='less'
 
+# Make comparing differences between files and directories with the
+# _Diff_ program more pleasant by default.
+#
+export DIFF_X_OPTIONS=''
+
 # Make full-text searches with the _Grep_ program more pleasant by
 # default in the following ways:
 #
