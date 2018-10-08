@@ -69,3 +69,8 @@ set enable-bracketed-paste on
 # namely by appending the `/` slash sign, during file name completion.
 #
 set mark-symlinked-directories on
+
+# Match dot/hidden files implicitly when completing file names, i.e.
+# without having the user to prefix them with the `.` dot sign.
+#
+set match-hidden-files off
