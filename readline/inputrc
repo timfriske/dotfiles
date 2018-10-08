@@ -118,3 +118,6 @@ set visible-stats on
 
 # Mode specific settings
 # ----------------------
+
+$if mode=vi
+$endif
