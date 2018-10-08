@@ -23,3 +23,8 @@
 
 # Global settings
 # ---------------
+
+# Raise the user's attention by `ringing' a visual bell instead of an
+# audible bell, e.g. on error or incomplete tab completion.
+#
+set bell-style visible
