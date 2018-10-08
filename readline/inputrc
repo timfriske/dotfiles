@@ -131,4 +131,6 @@ $if mode=vi
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   set keymap vi-insert
 
+  Control-l: clear-screen
+
 $endif
