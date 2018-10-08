@@ -105,3 +105,8 @@ set skip-completed-text on
 # with the given string.
 #
 set vi-cmd-mode-string [C]
+
+# Indicate that the editing buffer is currently in _Vi's_ _Insert_ mode
+# with the given string.
+#
+set vi-ins-mode-string [I]
