@@ -28,3 +28,8 @@
 # audible bell, e.g. on error or incomplete tab completion.
 #
 set bell-style visible
+
+# Display the common prefix among possible word completions in different
+# colors.  The colors are taken from the `$LS_COLORS` variable.
+#
+set colored-completion-prefix on
