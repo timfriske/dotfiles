@@ -64,3 +64,8 @@ set editing-mode vi
 # interpreted as editing commands.
 #
 set enable-bracketed-paste on
+
+# Mark symbolically linked directories the same as ordinary directories,
+# namely by appending the `/` slash sign, during file name completion.
+#
+set mark-symlinked-directories on
