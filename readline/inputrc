@@ -33,3 +33,9 @@ set bell-style visible
 # colors.  The colors are taken from the `$LS_COLORS` variable.
 #
 set colored-completion-prefix on
+
+# Display possible word completions in different colors to indicate
+# their file types.  The colors are taken from the `$LS_COLORS`
+# variable.
+#
+set colored-stats on
