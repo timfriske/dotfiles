@@ -1,3 +1,6 @@
 # Readline configuration
 # ======================
 # Tim Friske <me@tifr.de>
+#
+# Configures the behavior of _GNU's_ _Readline_ library used for example
+# by the _Bash_ shell in its interactive mode for line editing.
