@@ -115,3 +115,6 @@ set vi-ins-mode-string [I]
 # appending a type discriminator sign, during file name completion.
 #
 set visible-stats on
+
+# Mode specific settings
+# ----------------------
