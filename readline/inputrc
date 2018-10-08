@@ -74,3 +74,8 @@ set mark-symlinked-directories on
 # without having the user to prefix them with the `.` dot sign.
 #
 set match-hidden-files off
+
+# Display the common prefix of possible completions before cycling
+# through them.
+#
+set menu-complete-display-prefix on
