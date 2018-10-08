@@ -43,3 +43,8 @@ set colored-stats on
 # Complete words, e.g. file names, case-insensitively.
 #
 set completion-ignore-case on
+
+# Complete words, e.g. file names, with `_` underscore signs as if they
+# contained `-` hyphen signs.
+#
+set completion-map-case on
