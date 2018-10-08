@@ -100,3 +100,8 @@ set show-mode-in-prompt on
 # by moving the cursor over them.
 #
 set skip-completed-text on
+
+# Indicate that the editing buffer is currently in _Vi's_ _Command_ mode
+# with the given string.
+#
+set vi-cmd-mode-string [C]
