@@ -48,3 +48,7 @@ set completion-ignore-case on
 # contained `-` hyphen signs.
 #
 set completion-map-case on
+
+# Echo control characters such as `CTRL-C` as `^C`.
+#
+set echo-control-characters off
