@@ -10,3 +10,6 @@
 # exist and are readable.  It first reads its system-wide config file
 # `/etc/inputrc`.  It then continues to read its user-specific config
 # file `~/.inputrc`.
+#
+# This config file shall contain only non-default settings in order to
+# keep it lean and thus easy to understand and maintain.
