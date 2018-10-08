@@ -4,3 +4,9 @@
 #
 # Configures the behavior of _GNU's_ _Readline_ library used for example
 # by the _Bash_ shell in its interactive mode for line editing.
+#
+# When a program which uses the _Readline_ library starts up, _Readline_
+# reads and executes commands from its config files but only if these
+# exist and are readable.  It first reads its system-wide config file
+# `/etc/inputrc`.  It then continues to read its user-specific config
+# file `~/.inputrc`.
