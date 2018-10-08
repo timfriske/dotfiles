@@ -52,3 +52,9 @@ set completion-map-case on
 # Echo control characters such as `CTRL-C` as `^C`.
 #
 set echo-control-characters off
+
+# Switch editing mode of the command line to _Vi_-mode for all programs.
+# Assume that the user is well versed in most key bindings of the _Vi_
+# text editor or one of its compatible clones such as _Vim_.
+#
+set editing-mode vi
