@@ -39,3 +39,7 @@ set colored-completion-prefix on
 # variable.
 #
 set colored-stats on
+
+# Complete words, e.g. file names, case-insensitively.
+#
+set completion-ignore-case on
