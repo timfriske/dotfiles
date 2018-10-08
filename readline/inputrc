@@ -90,3 +90,7 @@ set show-all-if-ambiguous on
 # bell.
 #
 set show-all-if-unmodified on
+
+# Indicate in which mode the editing buffer is currently in.
+#
+set show-mode-in-prompt on
