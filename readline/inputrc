@@ -58,3 +58,9 @@ set echo-control-characters off
 # text editor or one of its compatible clones such as _Vim_.
 #
 set editing-mode vi
+
+# Yank killed text into the editing buffer as single string and not
+# multiple characters hereby preventing individual characters from being
+# interpreted as editing commands.
+#
+set enable-bracketed-paste on
