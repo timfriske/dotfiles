@@ -1,0 +1,136 @@
+# Readline configuration
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Configures the behavior of _GNU's_ _Readline_ library used for example
+# by the _Bash_ shell in its interactive mode for line editing.
+#
+# When a program which uses the _Readline_ library starts up, _Readline_
+# reads and executes commands from its config files but only if these
+# exist and are readable.  It first reads its system-wide config file
+# `/etc/inputrc`.  It then continues to read its user-specific config
+# file `~/.inputrc`.
+#
+# This config file shall contain only non-default settings in order to
+# keep it lean and thus easy to understand and maintain.
+#
+# See also:
+#   * info:readline
+#   * man:bash[1]
+#   * $INPUTRC
+#   * {system-home}/inputrc
+#   * {user-home}/.inputrc
+
+# Global settings
+# ---------------
+
+# Raise the user's attention by `ringing' a visual bell instead of an
+# audible bell, e.g. on error or incomplete tab completion.
+#
+set bell-style visible
+
+# Display the common prefix among possible word completions in different
+# colors.  The colors are taken from the `$LS_COLORS` variable.
+#
+set colored-completion-prefix on
+
+# Display possible word completions in different colors to indicate
+# their file types.  The colors are taken from the `$LS_COLORS`
+# variable.
+#
+set colored-stats on
+
+# Complete words, e.g. file names, case-insensitively.
+#
+set completion-ignore-case on
+
+# Complete words, e.g. file names, with `_` underscore signs as if they
+# contained `-` hyphen signs.
+#
+set completion-map-case on
+
+# Echo control characters such as `CTRL-C` as `^C`.
+#
+set echo-control-characters off
+
+# Switch editing mode of the command line to _Vi_-mode for all programs.
+# Assume that the user is well versed in most key bindings of the _Vi_
+# text editor or one of its compatible clones such as _Vim_.
+#
+set editing-mode vi
+
+# Yank killed text into the editing buffer as single string and not
+# multiple characters hereby preventing individual characters from being
+# interpreted as editing commands.
+#
+set enable-bracketed-paste on
+
+# Mark symbolically linked directories the same as ordinary directories,
+# namely by appending the `/` slash sign, during file name completion.
+#
+set mark-symlinked-directories on
+
+# Match dot/hidden files implicitly when completing file names, i.e.
+# without having the user to prefix them with the `.` dot sign.
+#
+set match-hidden-files off
+
+# Display the common prefix of possible completions before cycling
+# through them.
+#
+set menu-complete-display-prefix on
+
+# Words which have several possible completions cause these to be
+# immediately listed instead of ringing the bell.
+#
+set show-all-if-ambiguous on
+
+# Words which have several possible completions without any partial
+# completion cause these to be immediately listed instead of ringing the
+# bell.
+#
+set show-all-if-unmodified on
+
+# Indicate in which mode the editing buffer is currently in.
+#
+set show-mode-in-prompt on
+
+# When the cursor is in the middle of a word while completing it treat
+# its trailing characters as part of the completion and just skip them
+# by moving the cursor over them.
+#
+set skip-completed-text on
+
+# Indicate that the editing buffer is currently in _Vi's_ _Command_ mode
+# with the given string.
+#
+set vi-cmd-mode-string [C]
+
+# Indicate that the editing buffer is currently in _Vi's_ _Insert_ mode
+# with the given string.
+#
+set vi-ins-mode-string [I]
+
+# Indicate the file types when listing possible completions, namely by
+# appending a type discriminator sign, during file name completion.
+#
+set visible-stats on
+
+# Mode specific settings
+# ----------------------
+
+$if mode=vi
+
+  # Key bindings for _Vi_ _Command_ mode
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  set keymap vi-command
+
+  Control-l: clear-screen
+
+  # Key bindings for _Vi_ _Insert_ mode
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  set keymap vi-insert
+
+  Control-l: clear-screen
+
+$endif
