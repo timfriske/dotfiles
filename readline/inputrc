@@ -17,3 +17,6 @@
 # See also:
 #   * info:readline
 #   * man:bash[1]
+#   * $INPUTRC
+#   * {system-home}/inputrc
+#   * {user-home}/.inputrc
