@@ -13,3 +13,6 @@
 #
 # This config file shall contain only non-default settings in order to
 # keep it lean and thus easy to understand and maintain.
+#
+# See also:
+#   * info:readline
