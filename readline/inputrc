@@ -110,3 +110,8 @@ set vi-cmd-mode-string [C]
 # with the given string.
 #
 set vi-ins-mode-string [I]
+
+# Indicate the file types when listing possible completions, namely by
+# appending a type discriminator sign, during file name completion.
+#
+set visible-stats on
