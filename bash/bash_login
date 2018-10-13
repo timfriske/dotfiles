@@ -50,8 +50,7 @@ export HISTFILESIZE="$HISTSIZE"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTCONTROL='ignorespace:erasedups'
 export HISTIGNORE=''
-HISTIGNORE+='+([![:space:]])*([[:space:]]):'
-HISTIGNORE+='*@(help|version)*'
+HISTIGNORE+='+([[:alnum:]])*([[:space:]])'
 
 # Tell programs to open files in favorite text editor _Vim_ _Vi
 # Improved_.  Don't care about line-oriented vs. visual editors just
