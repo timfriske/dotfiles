@@ -41,6 +41,16 @@ export PROMPT_DIRTRIM=3
 # history.  Erase all duplicate commands from history before the same
 # command is appended to history.
 #
+# By enabling the `$HISTCONTROL` option `erasedups` the history is kept
+# free from duplicate commands which would otherwise clutter up the
+# history.  With this option enabled the `$HISTIGNORE` list of command
+# patterns to ignore becomes less useful because trivial commands such
+# as `cd`, `ls`, etc. which the user would usually want to be excluded
+# now appear at most once in the history.  Exlcluding any command from
+# history would actually complicate recalling past commands because the
+# user had to think twice whether a command really entered the history.
+# Therefore the `$HISTIGNORE` variable should be left unspecified.
+#
 export HISTSIZE=100000
 export HISTFILESIZE="$HISTSIZE"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
