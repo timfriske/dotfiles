@@ -186,6 +186,8 @@ elif ! type -p pbcopy pbpaste &> /dev/null; then
   alias pbp='echo Please install xclip, xsel or pbpaste.'
 fi
 
+alias chgrp='chgrp --preserve-root --changes'
+
 # Define aliases to quickly control the system and user units, e.g.
 # services, mounts, timers etc., managed and supervised by _Systemd_.
 #
