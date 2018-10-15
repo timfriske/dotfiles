@@ -121,10 +121,6 @@ set visible-stats on
 
 $if mode=vi
 
-  # Key bindings for _Vi_ _Command_ mode
-  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  set keymap vi-command
-
   # Key bindings for _Vi_ _Insert_ mode
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   set keymap vi-insert
