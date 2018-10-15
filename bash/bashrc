@@ -181,16 +181,19 @@ if type -p xclip &> /dev/null; then
 elif type -p xsel &> /dev/null; then
   alias pbc='xsel --clipboard --input'
   alias pbp='xsel --clipboard --output'
-elif ! type -p pbcopy pbpaste &> /devl/null; then
+elif ! type -p pbcopy pbpaste &> /dev/null; then
   alias pbc='echo Please install xclip, xsel or pbcopy.'
   alias pbp='echo Please install xclip, xsel or pbpaste.'
 fi
 
-# Define aliases for the most common file permission changes.
+# Never start from the root directory because this would almost always
+# mean to *destroy* the *entire* root file system and *all* file systems
+# mounted below.  Report only when and which files and directories
+# actually changed.
 #
-alias 600='chmod --changes 600'
-alias 644='chmod --changes 644'
-alias 755='chmod --changes 755'
+alias chgrp='chgrp --preserve-root --changes'
+alias chmod='chmod --preserve-root --changes'
+alias chown='chown --preserve-root --changes'
 
 # Define aliases to quickly control the system and user units, e.g.
 # services, mounts, timers etc., managed and supervised by _Systemd_.
