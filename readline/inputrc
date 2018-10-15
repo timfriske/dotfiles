@@ -121,15 +121,16 @@ set visible-stats on
 
 $if mode=vi
 
-  # Key bindings for _Vi_ _Command_ mode
-  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  set keymap vi-command
-
-  Control-l: clear-screen
-
   # Key bindings for _Vi_ _Insert_ mode
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   set keymap vi-insert
+
+  # Expand the preceding history expression upon entering the next space
+  # character such that the user can verify the value of the evaluated
+  # expression and thus the overall correctness of the command line
+  # before executing it.
+  #
+  Space: magic-space
 
   Control-l: clear-screen
 
