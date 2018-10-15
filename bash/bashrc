@@ -186,6 +186,10 @@ elif ! type -p pbcopy pbpaste &> /dev/null; then
   alias pbp='echo Please install xclip, xsel or pbpaste.'
 fi
 
+# Never start from the root directory because this would almost always
+# mean to *destroy* the *entire* root file system and *all* file systems
+# mounted below.
+#
 alias chgrp='chgrp --preserve-root --changes'
 alias chmod='chmod --preserve-root --changes'
 alias chown='chown --preserve-root --changes'
