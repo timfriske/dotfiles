@@ -205,6 +205,9 @@ alias sdu='systemctl --user'
 #
 alias sed='sed --regexp-extended'
 
+# List Vi-like key bindings in different modes.
+#
+
 # Define aliases to ease access to the terminal multiplexer program
 # _Tmux_.
 #
