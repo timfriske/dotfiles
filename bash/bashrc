@@ -201,6 +201,18 @@ alias chown='chown --preserve-root --changes'
 alias sds='systemctl --system'
 alias sdu='systemctl --user'
 
+# Define aliases to ease access to the terminal multiplexer program
+# _Tmux_.
+#
+if type -p tmux &> /dev/null; then
+  # Expect terminals can display 256 colors.
+  alias tmux='tmux -2'
+  alias tm='tmux'
+  alias tma='tm attach-session'
+  alias tml='tm list-sessions'
+  alias tmn='tm new-session'
+fi
+
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
 # with the prefix letter `g`.  The _Git_ aliases will be lazily loaded
 # and defined as _Bash_ aliases by the `git` function below.  Upon the
@@ -221,3 +233,12 @@ function git {
   command git "$@"
   unset -f git
 }
+
+# Test if neither _Tmux_ nor _Screen_ is running.
+if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
+  # Test if _Tmux_ is on the `$PATH`.
+  if type -p tmux &> /dev/null; then
+    # Try to attach to latest unattached session or start a new one.
+    { tmux attach-session || tmux new-session; } &> /dev/null
+  fi
+fi
