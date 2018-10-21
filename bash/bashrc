@@ -226,10 +226,10 @@ function git {
   alias g='git'
   local git_alias
   for git_alias in $(command git config --list --name-only \
-      | grep '^alias.' -- - \
-      | cut --delimiter=. --fields=2); do
+      | command grep '^alias\.' \
+      | command cut --delimiter=. --fields=2); do
     alias "g$git_alias=git $git_alias"
-  done;
+  done
   command git "$@"
   unset -f git
 }
