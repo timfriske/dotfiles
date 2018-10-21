@@ -227,7 +227,7 @@ function git {
   local git_alias
   for git_alias in $(command git config --list --name-only \
       | command grep '^alias\.' \
-      | cut --delimiter=. --fields=2); do
+      | command cut --delimiter=. --fields=2); do
     alias "g$git_alias=git $git_alias"
   done;
   command git "$@"
