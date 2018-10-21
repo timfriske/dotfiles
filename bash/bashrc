@@ -236,4 +236,7 @@ function git {
 
 # Test if neither _Tmux_ nor _Screen_ is running.
 if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
+  # Test if _Tmux_ is on the `$PATH`.
+  if type -p tmux &> /dev/null; then
+  fi
 fi
