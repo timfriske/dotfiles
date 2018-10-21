@@ -209,6 +209,7 @@ alias sed='sed --regexp-extended'
 #
 alias vi-command='bind -m vi-command -p \
   | \grep --extended-regexp --invert-match "^#|self-insert$"'
+alias vi-command-all='bind -m vi-command -p'
 
 # Define aliases to ease access to the terminal multiplexer program
 # _Tmux_.
