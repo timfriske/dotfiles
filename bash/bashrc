@@ -212,6 +212,7 @@ alias vi-command='bind -m vi-command -p \
 alias vi-command-all='bind -m vi-command -p'
 alias vi-insert='bind -m vi-insert -p \
   | \grep --extended-regexp --invert-match "^#|self-insert$"'
+alias vi-insert-all='bind -m vi-insert -p'
 
 # Define aliases to ease access to the terminal multiplexer program
 # _Tmux_.
