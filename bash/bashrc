@@ -210,6 +210,7 @@ if type -p tmux &> /dev/null; then
   alias tm='tmux'
   alias tma='tm attach-session'
   alias tml='tm list-sessions'
+  alias tmn='tm new-session'
 fi
 
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
