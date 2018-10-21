@@ -233,3 +233,7 @@ function git {
   command git "$@"
   unset -f git
 }
+
+# Test if neither _Tmux_ nor _Screen_ is running.
+if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
+fi
