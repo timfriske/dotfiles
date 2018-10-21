@@ -201,6 +201,12 @@ alias chown='chown --preserve-root --changes'
 alias sds='systemctl --system'
 alias sdu='systemctl --user'
 
+# Define aliases to ease access to the terminal multiplexer program
+# _Tmux_.
+#
+if type -p tmux &> /dev/null; then
+fi
+
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
 # with the prefix letter `g`.  The _Git_ aliases will be lazily loaded
 # and defined as _Bash_ aliases by the `git` function below.  Upon the
