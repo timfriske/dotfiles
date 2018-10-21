@@ -205,6 +205,8 @@ alias sdu='systemctl --user'
 # _Tmux_.
 #
 if type -p tmux &> /dev/null; then
+  # Expect terminals can display 256 colors.
+  alias tmux='tmux -2'
 fi
 
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
