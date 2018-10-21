@@ -229,7 +229,7 @@ function git {
       | command grep '^alias\.' \
       | command cut --delimiter=. --fields=2); do
     alias "g$git_alias=git $git_alias"
-  done;
+  done
   command git "$@"
   unset -f git
 }
