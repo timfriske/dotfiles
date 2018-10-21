@@ -239,6 +239,6 @@ if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
   # Test if _Tmux_ is on the `$PATH`.
   if type -p tmux &> /dev/null; then
     # Try to attach to latest unattached session or start a new one.
-    tmux attach-session || tmux new-session
+    { tmux attach-session || tmux new-session; } &> /dev/null
   fi
 fi
