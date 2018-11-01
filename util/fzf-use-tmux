@@ -11,6 +11,7 @@
 set -o nounset -o pipefail -o errexit -o errtrace
 
 function fzf_use_tmux {
+  [[ "${FZF_TMUX:-0}" -ne 0 ]]
 }
 
 fzf_use_tmux "$@"
