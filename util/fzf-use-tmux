@@ -3,3 +3,7 @@
 # Determine whether to use Tmux with Fzf
 # ======================================
 # Tim Friske <me@tifr.de>
+#
+# See also:
+#   * man:bash[1]
+#   * man:fzf[1]
