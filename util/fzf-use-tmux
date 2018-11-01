@@ -7,3 +7,5 @@
 # See also:
 #   * man:bash[1]
 #   * man:fzf[1]
+
+set -o nounset -o pipefail -o errexit -o errtrace
