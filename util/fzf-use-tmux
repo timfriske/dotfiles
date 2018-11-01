@@ -9,3 +9,8 @@
 #   * man:fzf[1]
 
 set -o nounset -o pipefail -o errexit -o errtrace
+
+function fzf_use_tmux {
+}
+
+fzf_use_tmux "$@"
