@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Determine whether to use Tmux with Fzf
+# ======================================
+# Tim Friske <me@tifr.de>
