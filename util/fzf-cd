@@ -46,3 +46,8 @@ function select_dir {
   options+="--no-multi "
   FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
+
+function fzf_cd {
+}
+
+fzf_cd "$@"
