@@ -38,3 +38,8 @@ function sort_dirs {
 function sort_dirs_default {
   sort --sort=numeric
 }
+
+function select_dir {
+  local options="${FZF_DEFAULT_OPTS:-} "
+  FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
+}
