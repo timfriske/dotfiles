@@ -18,5 +18,5 @@ function find_dirs {
 }
 
 function find_dirs_default {
-  find -L -mindepth 1 -type d
+  find -L -mindepth 1 -path '*/\.*' -prune -o -type d -print
 }
