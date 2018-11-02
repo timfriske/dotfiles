@@ -12,6 +12,9 @@
 set -o nounset -o pipefail -o errexit -o errtrace
 
 function fzf_cmd {
+  if fzf-use-tmux; then
+    echo fzf-tmux -d"${FZF_TMUX_HEIGHT:-40%}" "$@"
+  fi
 }
 
 fzf_cmd "$@"
