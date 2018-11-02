@@ -30,3 +30,10 @@ function find_dirs_default {
     -o -type d \
     -print
 }
+
+function sort_dirs {
+  ${FZF_CD_SORT_DIRS_CMD:-sort_dirs_default}
+}
+
+function sort_dirs_default {
+}
