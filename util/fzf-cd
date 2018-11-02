@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Change directories with fuzzy finder
+# ====================================
+# Tim Friske <me@tifr.de>
