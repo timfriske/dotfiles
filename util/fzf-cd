@@ -43,5 +43,6 @@ function select_dir {
   local options=''
   options+="--height ${FZF_TMUX_HEIGHT:-40%} "
   options+="${FZF_DEFAULT_OPTS:-} ${FZF_CD_FZF_OPTS:-} "
+  options+="--no-multi "
   FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
