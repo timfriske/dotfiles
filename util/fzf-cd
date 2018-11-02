@@ -49,6 +49,9 @@ function select_dir {
 
 function fzf_cd {
   local dir="$(find_dirs | sort_dirs | select_dir)"
+  if [[ -n "$dir" ]]; then
+    printf 'cd -- %q' "$dir"
+  fi
 }
 
 fzf_cd "$@"
