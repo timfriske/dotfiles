@@ -18,4 +18,5 @@ function find_dirs {
 }
 
 function find_dirs_default {
+  find -type d
 }
