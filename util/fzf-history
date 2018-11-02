@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Retrieve command from history with fuzzy finder
+# ===============================================
+# Tim Friske <me@tifr.de>
