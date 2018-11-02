@@ -12,3 +12,10 @@
 #   * fzf-cmd
 
 set -o nounset -o pipefail -o errexit -o errtrace
+
+function find_dirs {
+  ${FZF_CD_FIND_DIRS_CMD:-find_dirs_default} 2> /dev/null
+}
+
+function find_dirs_default {
+}
