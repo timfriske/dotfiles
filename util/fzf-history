@@ -13,6 +13,10 @@ shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
 function fzf_history {
+  if [[ -t 0 ]]; then
+    echo 'usage: HISTTIMEFORMAT= history | fzf-history' 1>&2
+    exit
+  fi
 }
 
 fzf_history "$@"
