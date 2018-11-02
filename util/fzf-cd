@@ -18,5 +18,15 @@ function find_dirs {
 }
 
 function find_dirs_default {
-  find -L -mindepth 1 -path '*/\.*' -prune -o -type d -print
+  find -L -mindepth 1 \
+    \( \
+      -path '*/\.*' \
+      -o -fstype sysfs \
+      -o -fstype devfs \
+      -o -fstype devtmpfs \
+      -o -fstype proc \
+    \) \
+    -prune \
+    -o -type d \
+    -print
 }
