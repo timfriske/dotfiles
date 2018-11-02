@@ -10,3 +10,8 @@
 #   * fzf-use-tmux
 
 set -o nounset -o pipefail -o errexit -o errtrace
+
+function fzf_cmd {
+}
+
+fzf_cmd "$@"
