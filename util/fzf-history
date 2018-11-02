@@ -18,7 +18,7 @@ function fzf_history {
     exit
   fi
 
-  local options="${FZF_DEFAULT_OPTS:-} "
+  local options="${FZF_DEFAULT_OPTS:-} ${FZF_HISTORY_FZF_OPTS:-} "
   FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
 
