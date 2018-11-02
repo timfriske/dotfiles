@@ -20,7 +20,9 @@ function fzf_history {
 
   local options=''
   options+="--height ${FZF_TMUX_HEIGHT:-40%} "
-  options+="${FZF_DEFAULT_OPTS:-} ${FZF_HISTORY_FZF_OPTS:-} "
+  options+="${FZF_DEFAULT_OPTS:-} "
+  options+="--tac "
+  options+="${FZF_HISTORY_FZF_OPTS:-} "
   FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
 
