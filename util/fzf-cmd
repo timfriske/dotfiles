@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Run Fzf in appropriate environment
+# ==================================
+# Tim Friske <me@tifr.de>
