@@ -18,5 +18,5 @@ function find_dirs {
 }
 
 function find_dirs_default {
-  find -type d
+  find -L -mindepth 1 -type d
 }
