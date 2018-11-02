@@ -36,4 +36,5 @@ function sort_dirs {
 }
 
 function sort_dirs_default {
+  sort --sort=numeric
 }
