@@ -10,3 +10,5 @@
 #   * man:fzf[1]
 #   * man:sort[1]
 #   * fzf-cmd
+
+set -o nounset -o pipefail -o errexit -o errtrace
