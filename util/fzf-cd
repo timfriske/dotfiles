@@ -48,6 +48,7 @@ function select_dir {
 }
 
 function fzf_cd {
+  local dir="$(find_dirs | sort_dirs | select_dir)"
 }
 
 fzf_cd "$@"
