@@ -40,6 +40,6 @@ function sort_dirs_default {
 }
 
 function select_dir {
-  local options="${FZF_DEFAULT_OPTS:-} "
+  local options="${FZF_DEFAULT_OPTS:-} ${FZF_CD_FZF_OPTS:-} "
   FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
