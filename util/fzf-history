@@ -11,3 +11,8 @@
 
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
+
+function fzf_history {
+}
+
+fzf_history "$@"
