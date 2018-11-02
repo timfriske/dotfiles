@@ -17,6 +17,9 @@ function fzf_history {
     echo 'usage: HISTTIMEFORMAT= history | fzf-history' 1>&2
     exit
   fi
+
+  local options="${FZF_DEFAULT_OPTS:-} "
+  FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
 
 fzf_history "$@"
