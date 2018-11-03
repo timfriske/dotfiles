@@ -9,7 +9,7 @@
 #   * man:fzf[1]
 #   * fzf-use-tmux
 
-set -o nounset -o pipefail -o errexit -o errtrace
+shopt -os nounset pipefail errexit errtrace
 
 function fzf_cmd {
   if fzf-use-tmux; then

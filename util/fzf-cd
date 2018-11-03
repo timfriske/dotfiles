@@ -11,7 +11,7 @@
 #   * man:sort[1]
 #   * fzf-cmd
 
-set -o nounset -o pipefail -o errexit -o errtrace
+shopt -os nounset pipefail errexit errtrace
 
 function find_dirs {
   ${FZF_CD_FIND_DIRS_CMD:-find_dirs_default} 2> /dev/null
