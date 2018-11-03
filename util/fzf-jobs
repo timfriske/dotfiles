@@ -13,3 +13,8 @@
 
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
+
+function fzf_jobs {
+}
+
+fzf_jobs "$@"
