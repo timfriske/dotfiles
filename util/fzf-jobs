@@ -12,3 +12,4 @@
 #   * fzf-cmd
 
 shopt -os nounset pipefail errexit errtrace
+shopt -s extglob globstar
