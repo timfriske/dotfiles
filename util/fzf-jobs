@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# Manage jobs with fuzzy finder
+# =============================
+# Tim Friske <me@tifr.de>
+#
+# List, background and foreground jobs.
