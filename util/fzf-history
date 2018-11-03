@@ -21,11 +21,11 @@ function fzf_history {
   local options=''
   options+="--height ${FZF_TMUX_HEIGHT:-40%} "
   options+="${FZF_DEFAULT_OPTS:-} "
-  options+="--tac -n2..,.. --tiebreak=index --multi "
+  options+="--tac -n2..,.. --tiebreak=index --multi --print0 "
   options+="${FZF_HISTORY_FZF_OPTS:-} "
 
   local cmd='' cmds=()
-  while read -r cmd; do
+  while read -r -d '' cmd; do
     cmds+=("${cmd/#+([[:digit:]])+([[:space:]])/}")
   done < <(FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)")
   if [[ "${#cmds[*]}" -gt 0 ]]; then
