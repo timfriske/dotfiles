@@ -23,7 +23,10 @@ function fzf_history {
   options+="${FZF_DEFAULT_OPTS:-} "
   options+="--tac -n2..,.. --tiebreak=index "
   options+="${FZF_HISTORY_FZF_OPTS:-} "
-  FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
+  local cmd="$(FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)")"
+  if [[ -n "$cmd" ]]; then
+    printf '%s\n' "$cmd"
+  fi
 }
 
 fzf_history "$@"
