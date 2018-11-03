@@ -25,7 +25,7 @@ function fzf_history {
   options+="${FZF_HISTORY_FZF_OPTS:-} "
   local cmd="$(FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)")"
   if [[ -n "$cmd" ]]; then
-    printf '%s\n' "$cmd"
+    printf '%s\n' "${cmd/#+([[:space:]])+([[:digit:]])+([[:space:]])/}"
   fi
 }
 
