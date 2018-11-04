@@ -226,6 +226,12 @@ if type -p tmux &> /dev/null; then
   alias tmn='tm new-session'
 fi
 
+# Define aliases and functions to ease job control.
+#
+if type -p fzf fzf-jobs &> /dev/null; then
+else
+fi
+
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
 # with the prefix letter `g`.  The _Git_ aliases will be lazily loaded
 # and defined as _Bash_ aliases by the `git` function below.  Upon the
