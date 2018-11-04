@@ -30,9 +30,9 @@ function print_job_cmd_line {
 
 function fzf_jobs {
   if [[ -t 0 ]]; then
-    print_usage 'jj' 'jobs'
     print_usage 'jb' 'bg'
     print_usage 'jf' 'fg'
+    print_usage 'jj' 'jobs'
     exit
   elif [[ "$#" -gt 0 ]]; then
     print_job_cmd_line "$@"
