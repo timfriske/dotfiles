@@ -30,11 +30,18 @@ function fzf_jobs {
   local options=''
   options+="--height ${FZF_TMUX_HEIGHT:-40%} "
   options+="${FZF_DEFAULT_OPTS:-} ${FZF_JOBS_FZF_OPTS:-} "
+  options+="--multi "
 
-  local job="$(FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)")"
-  if [[ "$job" =~ ^\[([[:digit:]]+)\] ]]; then
+  local job='' jobspecs=()
+  while read -r job; do
+    if [[ "$job" =~ ^\[([[:digit:]]+)\] ]]; then
+      jobspecs+=("%${BASH_REMATCH[1]}")
+    fi
+  done < <(FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)")
+
+  if [[ "${#jobspecs[@]}" -gt 0 ]]; then
     printf '%s -- ' "${0##*/fzf-}"
-    printf '%%%s ' "${BASH_REMATCH[1]}"
+    printf '%s ' "${jobspecs[@]}"
     printf '\n'
   fi
 }
