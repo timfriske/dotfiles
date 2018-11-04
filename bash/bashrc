@@ -230,6 +230,7 @@ fi
 #
 if type -p fzf fzf-jobs &> /dev/null; then
   function jj { eval "$(jobs | fzf-jobs "$@")"; }
+  function jb { eval "$(jobs | fzf-bg "$@")"; }
 else
 fi
 
