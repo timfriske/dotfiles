@@ -235,6 +235,7 @@ if type -p fzf fzf-jobs &> /dev/null; then
 else
   alias jj='jobs'
   alias jb='bg'
+  alias jf='fg'
 fi
 
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
