@@ -41,7 +41,6 @@ function fzf_jobs {
   fi
 
   local options=''
-  options+="--height ${FZF_TMUX_HEIGHT:-40%} "
   options+="${FZF_DEFAULT_OPTS:-} ${FZF_JOBS_FZF_OPTS:-} "
   options+="--multi --print0 "
 
