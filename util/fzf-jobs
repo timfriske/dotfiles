@@ -24,7 +24,7 @@ function print_usage {
 
 function print_job_cmd_line {
   [[ "$#" -eq 0 ]] && return
-  printf '%s -- ' "${0##*/fzf-}"
+  printf '%s ' "${0##*/fzf-}"
   printf '%s ' "$@"
   printf '\n'
 }
