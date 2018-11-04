@@ -229,6 +229,7 @@ fi
 # Define aliases and functions to ease job control.
 #
 if type -p fzf fzf-jobs &> /dev/null; then
+  function jj { eval "$(jobs | fzf-jobs "$@")"; }
 else
 fi
 
