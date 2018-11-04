@@ -42,7 +42,7 @@ function fzf_jobs {
 
   local options=''
   options+="${FZF_DEFAULT_OPTS:-} ${FZF_JOBS_FZF_OPTS:-} "
-  options+="--multi --print0 "
+  options+="--print0 "
 
   local job='' jobspecs=()
   while read -r -d '' job; do
