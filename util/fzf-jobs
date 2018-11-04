@@ -14,11 +14,19 @@
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
+function print_usage {
+  {
+    printf 'usage: '
+    printf 'function %s { eval "$(jobs | fzf-%s "$@")"; } ' "$1" "$2"
+    printf '\n'
+  } 1>&2
+}
+
 function fzf_jobs {
   if [[ -t 0 ]]; then
-    echo 'usage: jj() { eval "$(jobs | fzf-jobs "$@")"; }' 1>&2
-    echo 'usage: jb() { eval "$(jobs | fzf-bg "$@")"; }' 1>&2
-    echo 'usage: jf() { eval "$(jobs | fzf-fg "$@")"; }' 1>&2
+    print_usage 'jj' 'jobs'
+    print_usage 'jb' 'bg'
+    print_usage 'jf' 'fg'
     exit
   elif [[ "$#" -gt 0 ]]; then
     printf '%s -- ' "${0##*/fzf-}"
