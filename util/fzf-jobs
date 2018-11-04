@@ -26,6 +26,9 @@ function fzf_jobs {
     printf '\n'
     exit
   fi
+
+  local options="${FZF_DEFAULT_OPTS:-} "
+  FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
 
 fzf_jobs "$@"
