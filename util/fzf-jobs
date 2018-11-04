@@ -14,23 +14,35 @@
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
+function print_usage {
+  {
+    printf 'usage: '
+    printf 'function %s { eval "$(jobs | fzf-%s "$@")"; } ' "$1" "$2"
+    printf '\n'
+  } 1>&2
+}
+
+function print_job_cmd_line {
+  [[ "$#" -eq 0 ]] && return
+  printf '%s ' "${0##*/fzf-}"
+  printf '%s ' "$@"
+  printf '\n'
+}
+
 function fzf_jobs {
   if [[ -t 0 ]]; then
-    echo 'usage: jj() { eval $(jobs | fzf-jobs "$@"); }' 1>&2
-    echo 'usage: jb() { eval $(jobs | fzf-bg "$@"); }' 1>&2
-    echo 'usage: jf() { eval $(jobs | fzf-fg "$@"); }' 1>&2
+    print_usage 'jj' 'jobs'
+    print_usage 'jb' 'bg'
+    print_usage 'jf' 'fg'
     exit
   elif [[ "$#" -gt 0 ]]; then
-    printf '%s -- ' "${0##*/fzf-}"
-    printf '%s ' "$@"
-    printf '\n'
+    print_job_cmd_line "$@"
     exit
   fi
 
   local options=''
-  options+="--height ${FZF_TMUX_HEIGHT:-40%} "
   options+="${FZF_DEFAULT_OPTS:-} ${FZF_JOBS_FZF_OPTS:-} "
-  options+="--multi --print0 "
+  options+="--print0 "
 
   local job='' jobspecs=()
   while read -r -d '' job; do
@@ -39,11 +51,7 @@ function fzf_jobs {
     fi
   done < <(FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)")
 
-  if [[ "${#jobspecs[@]}" -gt 0 ]]; then
-    printf '%s -- ' "${0##*/fzf-}"
-    printf '%s ' "${jobspecs[@]}"
-    printf '\n'
-  fi
+  print_job_cmd_line "${jobspecs[@]}"
 }
 
 fzf_jobs "$@"
