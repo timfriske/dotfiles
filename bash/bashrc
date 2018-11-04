@@ -234,6 +234,7 @@ if type -p fzf fzf-jobs &> /dev/null; then
   function jf { eval "$(jobs | fzf-fg "$@")"; }
 else
   alias jj='jobs'
+  alias jb='bg'
 fi
 
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
