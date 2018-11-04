@@ -39,16 +39,17 @@ function fzf_jobs {
     exit
   fi
 
-  local options=''
-  options+="${FZF_DEFAULT_OPTS:-} ${FZF_JOBS_FZF_OPTS:-} "
-  options+="--print0 "
+  local fzf_options=''
+  fzf_options+="${FZF_DEFAULT_OPTS:-} "
+  fzf_options+="${FZF_JOBS_FZF_OPTS:-} "
+  fzf_options+="--print0 "
 
   local job='' jobspecs=()
   while read -r -d '' job; do
     if [[ "$job" =~ ^\[([[:digit:]]+)\] ]]; then
       jobspecs+=("%${BASH_REMATCH[1]}")
     fi
-  done < <(fzf $options)
+  done < <(fzf $fzf_options)
 
   print_job_cmd_line "${jobspecs[@]}"
 }
