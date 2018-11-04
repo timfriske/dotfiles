@@ -16,9 +16,9 @@ shopt -s extglob globstar
 
 function fzf_jobs {
   if [[ -t 0 ]]; then
-    echo 'usage: jj() { eval $(jobs | fzf-jobs "$@"); }' 1>&2
-    echo 'usage: jb() { eval $(jobs | fzf-bg "$@"); }' 1>&2
-    echo 'usage: jf() { eval $(jobs | fzf-fg "$@"); }' 1>&2
+    echo 'usage: jj() { eval "$(jobs | fzf-jobs "$@")"; }' 1>&2
+    echo 'usage: jb() { eval "$(jobs | fzf-bg "$@")"; }' 1>&2
+    echo 'usage: jf() { eval "$(jobs | fzf-fg "$@")"; }' 1>&2
     exit
   elif [[ "$#" -gt 0 ]]; then
     printf '%s -- ' "${0##*/fzf-}"
