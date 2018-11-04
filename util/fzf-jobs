@@ -27,7 +27,7 @@ function fzf_jobs {
     exit
   fi
 
-  local options="${FZF_DEFAULT_OPTS:-} "
+  local options="${FZF_DEFAULT_OPTS:-} ${FZF_JOBS_FZF_OPTS:-} "
   FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
 }
 
