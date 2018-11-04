@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# Manage jobs with fuzzy finder
+# =============================
+# Tim Friske <me@tifr.de>
+#
+# List, background and foreground jobs.
+#
+# See also:
+#   * man:bash[1]
+#   * man:fzf[1]
+#   * fzf-cmd
+
+shopt -os nounset pipefail errexit errtrace
+shopt -s extglob globstar
+
+function fzf_jobs {
+  if [[ -t 0 ]]; then
+    echo 'usage: jj() { eval $(jobs | fzf-jobs "$@"); }' 1>&2
+    echo 'usage: jb() { eval $(jobs | fzf-bg "$@"); }' 1>&2
+    echo 'usage: jf() { eval $(jobs | fzf-fg "$@"); }' 1>&2
+    exit
+  elif [[ "$#" -gt 0 ]]; then
+    printf '%s -- ' "${0##*/fzf-}"
+    printf '%s ' "$@"
+    printf '\n'
+    exit
+  fi
+
+  local options=''
+  options+="--height ${FZF_TMUX_HEIGHT:-40%} "
+  options+="${FZF_DEFAULT_OPTS:-} ${FZF_JOBS_FZF_OPTS:-} "
+  options+="--multi --print0 "
+
+  local job='' jobspecs=()
+  while read -r -d '' job; do
+    if [[ "$job" =~ ^\[([[:digit:]]+)\] ]]; then
+      jobspecs+=("%${BASH_REMATCH[1]}")
+    fi
+  done < <(FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)")
+
+  if [[ "${#jobspecs[@]}" -gt 0 ]]; then
+    printf '%s -- ' "${0##*/fzf-}"
+    printf '%s ' "${jobspecs[@]}"
+    printf '\n'
+  fi
+}
+
+fzf_jobs "$@"
