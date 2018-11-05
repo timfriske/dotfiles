@@ -262,6 +262,7 @@ if type -p fzf fzf-jobs &> /dev/null; then
   }
 else
   alias jb='bg'
+  alias jd='disown'
   alias jf='fg'
   alias jj='jobs'
 fi
