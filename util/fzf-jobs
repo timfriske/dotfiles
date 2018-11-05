@@ -14,9 +14,9 @@
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
-function print_usage {
+function print_help {
   1>&2 cat \
-<<'USAGE'
+<<'HELP'
 usage:
 
   function jb {
@@ -30,7 +30,7 @@ usage:
   function jj {
     eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
   }
-USAGE
+HELP
 }
 
 function print_job_cmd_line {
@@ -41,7 +41,7 @@ function print_job_cmd_line {
 
 function fzf_jobs {
   if [[ -t 0 ]]; then
-    print_usage
+    print_help
     exit
   elif [[ "$#" -gt 0 ]]; then
     print_job_cmd_line "$@"
