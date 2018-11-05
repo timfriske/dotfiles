@@ -266,6 +266,7 @@ else
   alias jdh='disown -h'
   alias jf='fg'
   alias jj='jobs'
+  alias jkc='kill -SIGCONT'
 fi
 
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
