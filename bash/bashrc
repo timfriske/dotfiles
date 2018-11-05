@@ -229,13 +229,46 @@ fi
 # Define aliases and functions to ease job control.
 #
 if type -p fzf fzf-jobs &> /dev/null; then
-  function jj { eval "$(jobs | fzf-jobs "$@")"; }
-  function jb { eval "$(jobs | fzf-bg "$@")"; }
-  function jf { eval "$(jobs | fzf-fg "$@")"; }
+  function jb {
+    eval "$(jobs | cmd='bg' fzf-jobs "$@")"
+  }
+
+  function jd {
+    eval "$(jobs | cmd='disown' fzf-jobs "$@")"
+  }
+
+  function jdh {
+    eval "$(jobs | cmd='disown -h' fzf-jobs "$@")"
+  }
+
+  function jf {
+    eval "$(jobs | cmd='fg' fzf-jobs "$@")"
+  }
+
+  function jj {
+    eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
+  }
+
+  function jkc {
+    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
+  }
+
+  function jkk {
+    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
+  }
+
+  function jkt {
+    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "$@")"
+  }
 else
-  alias jj='jobs'
   alias jb='bg'
+  alias jd='disown'
+  alias jdh='disown -h'
   alias jf='fg'
+  alias jj='jobs'
+  alias jkc='kill -SIGCONT'
+  alias jkk='kill -SIGKILL'
+  alias jkt='kill -SIGTERM'
 fi
 
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
