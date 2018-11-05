@@ -23,6 +23,10 @@ usage:
     eval "$(jobs | cmd='bg' fzf-jobs "$@")"
   }
 
+  function jd {
+    eval "$(jobs | cmd='disown' fzf-jobs "$@")"
+  }
+
   function jf {
     eval "$(jobs | cmd='fg' fzf-jobs "$@")"
   }
