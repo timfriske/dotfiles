@@ -23,12 +23,32 @@ usage:
     eval "$(jobs | cmd='bg' fzf-jobs "$@")"
   }
 
+  function jd {
+    eval "$(jobs | cmd='disown' fzf-jobs "$@")"
+  }
+
+  function jdh {
+    eval "$(jobs | cmd='disown -h' fzf-jobs "$@")"
+  }
+
   function jf {
     eval "$(jobs | cmd='fg' fzf-jobs "$@")"
   }
 
   function jj {
     eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
+  }
+
+  function jkc {
+    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
+  }
+
+  function jkk {
+    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
+  }
+
+  function jkt {
+    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "$@")"
   }
 HELP
 }
@@ -60,9 +80,7 @@ function fzf_jobs {
     fi
   done < <(fzf "${fzf_options[@]}")
 
-  if [[ "${#jobspecs[@]}" -gt 0 ]]; then
-    print_job_cmd_line "${jobspecs[@]}"
-  fi
+  print_job_cmd_line "${jobspecs[@]}"
 }
 
 fzf_jobs "$@"
