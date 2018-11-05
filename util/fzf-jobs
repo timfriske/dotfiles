@@ -60,9 +60,7 @@ function fzf_jobs {
     fi
   done < <(fzf "${fzf_options[@]}")
 
-  if [[ "${#jobspecs[@]}" -gt 0 ]]; then
-    print_job_cmd_line "${jobspecs[@]}"
-  fi
+  print_job_cmd_line "${jobspecs[@]}"
 }
 
 fzf_jobs "$@"
