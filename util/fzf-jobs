@@ -38,6 +38,10 @@ usage:
   function jj {
     eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
   }
+
+  function jkk {
+    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
+  }
 HELP
 }
 
