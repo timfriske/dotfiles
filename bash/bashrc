@@ -233,7 +233,10 @@ if type -p fzf fzf-jobs &> /dev/null; then
     eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
   }
 
-  function jb { eval "$(jobs | fzf-bg "$@")"; }
+  function jb {
+    eval "$(jobs | cmd='bg' fzf-jobs "$@")"
+  }
+
   function jf { eval "$(jobs | fzf-fg "$@")"; }
 else
   alias jj='jobs'
