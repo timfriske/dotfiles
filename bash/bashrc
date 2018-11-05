@@ -249,6 +249,10 @@ if type -p fzf fzf-jobs &> /dev/null; then
     eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
   }
 
+  function jkc {
+    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
+  }
+
 else
   alias jb='bg'
   alias jf='fg'
