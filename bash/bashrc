@@ -229,10 +229,6 @@ fi
 # Define aliases and functions to ease job control.
 #
 if type -p fzf fzf-jobs &> /dev/null; then
-  function jj {
-    eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
-  }
-
   function jb {
     eval "$(jobs | cmd='bg' fzf-jobs "$@")"
   }
@@ -241,10 +237,14 @@ if type -p fzf fzf-jobs &> /dev/null; then
     eval "$(jobs | cmd='fg' fzf-jobs "$@")"
   }
 
+  function jj {
+    eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
+  }
+
 else
-  alias jj='jobs'
   alias jb='bg'
   alias jf='fg'
+  alias jj='jobs'
 fi
 
 # Define _Git_ itself as well as all of its aliases as _Bash_ aliases
