@@ -39,6 +39,10 @@ usage:
     eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
   }
 
+  function jkc {
+    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
+  }
+
   function jkk {
     eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
   }
