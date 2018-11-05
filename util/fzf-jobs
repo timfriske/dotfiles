@@ -16,15 +16,15 @@ shopt -s extglob globstar
 function print_usage {
   {
     printf 'usage: '
-    printf 'function %s { eval "$(jobs | fzf-%s "$@")"; } ' "$1" "$2"
+    printf 'function %s { eval "$(jobs | cmd=%s fzf-jobs "$@")"; } ' \
+      "$1" "'$2'"
     printf '\n'
   } 1>&2
 }
 
 function print_job_cmd_line {
   [[ "$#" -eq 0 ]] && return
-  printf '%s ' "${0##*/fzf-}"
-  printf '%s ' "$@"
+  printf '%s ' "${cmd:-${0##*/fzf-}}" "$@"
   printf '\n'
 }
 
