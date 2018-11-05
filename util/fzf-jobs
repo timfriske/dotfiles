@@ -27,6 +27,10 @@ usage:
     eval "$(jobs | cmd='disown' fzf-jobs "$@")"
   }
 
+  function jdh {
+    eval "$(jobs | cmd='disown -h' fzf-jobs "$@")"
+  }
+
   function jf {
     eval "$(jobs | cmd='fg' fzf-jobs "$@")"
   }
