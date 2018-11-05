@@ -9,30 +9,39 @@
 # See also:
 #   * man:bash[1]
 #   * man:fzf[1]
+#   * man:cat[1]
 
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
-function print_usage {
-  {
-    printf 'usage: '
-    printf 'function %s { eval "$(jobs | fzf-%s "$@")"; } ' "$1" "$2"
-    printf '\n'
-  } 1>&2
+function print_help {
+  1>&2 cat \
+<<'HELP'
+usage:
+
+  function jb {
+    eval "$(jobs | cmd='bg' fzf-jobs "$@")"
+  }
+
+  function jf {
+    eval "$(jobs | cmd='fg' fzf-jobs "$@")"
+  }
+
+  function jj {
+    eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
+  }
+HELP
 }
 
 function print_job_cmd_line {
   [[ "$#" -eq 0 ]] && return
-  printf '%s ' "${0##*/fzf-}"
-  printf '%s ' "$@"
+  printf '%s ' "${cmd:-${0##*/fzf-}}" "$@"
   printf '\n'
 }
 
 function fzf_jobs {
   if [[ -t 0 ]]; then
-    print_usage 'jb' 'bg'
-    print_usage 'jf' 'fg'
-    print_usage 'jj' 'jobs'
+    print_help
     exit
   elif [[ "$#" -gt 0 ]]; then
     print_job_cmd_line "$@"
@@ -51,7 +60,9 @@ function fzf_jobs {
     fi
   done < <(fzf "${fzf_options[@]}")
 
-  print_job_cmd_line "${jobspecs[@]}"
+  if [[ "${#jobspecs[@]}" -gt 0 ]]; then
+    print_job_cmd_line "${jobspecs[@]}"
+  fi
 }
 
 fzf_jobs "$@"
