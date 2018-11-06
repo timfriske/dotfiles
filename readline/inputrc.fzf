@@ -4,3 +4,11 @@
 
 # Mode specific settings
 # ----------------------
+
+$if mode=vi
+
+  # Key bindings for _Vi_ _Insert_ mode
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  set keymap vi-insert
+
+$endif
