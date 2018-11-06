@@ -14,5 +14,6 @@ $if mode=vi
   "\C-x\C-a": vi-movement-mode
   "\C-x\C-e": shell-expand-line
   "\C-x\C-r": redraw-current-line
+  "\C-x^": history-expand-line
 
 $endif
