@@ -157,6 +157,12 @@ GREP_X_OPTIONS+='--color=auto '
 #     Let _Less_ output colors and escape the rest of `raw' control
 #     characters in order to not mess up the terminal screen.
 #
+#   chop-long-lines::
+#     Let _Less_ truncate overlong lines to the left and right but make
+#     them horizontally scrollable instead.  Line wrapping works well
+#     with continuous text such as text in paragraphs of text documents
+#     but breaks structured text such as text arranged in table columns.
+#
 #   quit-if-one-screen::
 #     Let _Less_ display automatically quit itself if there is less than
 #     a screen full of output to display.  Don't let the user have to do
@@ -170,6 +176,7 @@ LESS+='--ignore-case '
 LESS+='--jump-target=.5 '
 LESS+='--hilite-unread '
 LESS+='--RAW-CONTROL-CHARS '
+LESS+='--chop-long-lines '
 LESS+='--quit-if-one-screen '
 
 # Make listing directories with the _Ls_ program more pleasant by default in
