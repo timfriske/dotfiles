@@ -1,0 +1,28 @@
+# Readline configuration for Fzf
+# ==============================
+# Tim Friske <me@tifr.de>
+
+# Mode specific settings
+# ----------------------
+
+$if mode=vi
+
+  # Key bindings for _Vi_ _Insert_ mode
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  set keymap vi-insert
+
+  "\C-x\C-a": vi-movement-mode
+  "\C-x\C-e": shell-expand-line
+  "\C-x\C-r": redraw-current-line
+  "\C-x^": history-expand-line
+  "\C-r": "\C-x\C-addi$(HISTTIMEFORMAT= history | fzf-history)\C-x\C-e\C-x\C-r\C-x^\C-x\C-a$a"
+  "\ec": "\C-x\C-addi$(fzf-cd)\C-x\C-e\C-x\C-r\C-m"
+
+  # Key bindings for _Vi_ _Command_ mode
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  set keymap vi-command
+
+  "\C-r": "i\C-r"
+  "\ec": "i\ec"
+
+$endif
