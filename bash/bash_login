@@ -228,6 +228,12 @@ export GIT_CONFIG_NOSYSTEM=true
 #
 export GIT_X_SIGNOFF='--signoff'
 
+# Test if login shell has startup file with local overrides.
+if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
+  # Read and execute commands from that startup file.
+  source ~/.bash_login.local
+fi
+
 # Interactive login shells
 # ------------------------
 
