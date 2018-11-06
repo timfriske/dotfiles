@@ -179,6 +179,8 @@ LESS+='--RAW-CONTROL-CHARS '
 LESS+='--chop-long-lines '
 LESS+='--quit-if-one-screen '
 
+export SYSTEMD_LESS="$LESS"
+
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
 #
