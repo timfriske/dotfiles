@@ -22,4 +22,6 @@ $if mode=vi
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   set keymap vi-command
 
+  "\C-r": "i\C-r"
+
 $endif
