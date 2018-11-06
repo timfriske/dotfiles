@@ -11,4 +11,6 @@ $if mode=vi
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   set keymap vi-insert
 
+  "\C-x\C-a": vi-movement-mode
+
 $endif
