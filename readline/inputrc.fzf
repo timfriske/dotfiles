@@ -12,5 +12,6 @@ $if mode=vi
   set keymap vi-insert
 
   "\C-x\C-a": vi-movement-mode
+  "\C-x\C-e": shell-expand-line
 
 $endif
