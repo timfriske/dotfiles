@@ -16,5 +16,6 @@ $if mode=vi
   "\C-x\C-r": redraw-current-line
   "\C-x^": history-expand-line
   "\C-r": "\C-x\C-addi$(HISTTIMEFORMAT= history | fzf-history)\C-x\C-e\C-x\C-r\C-x^\C-x\C-a$a"
+  "\ec": "\C-x\C-addi$(fzf-cd)\C-x\C-e\C-x\C-r\C-m"
 
 $endif
