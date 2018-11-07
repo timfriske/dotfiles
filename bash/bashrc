@@ -297,6 +297,15 @@ function git {
   unset -f git
 }
 
+# Test if fuzzy finder program _Fzf_ is installed.
+if type -p fzf &> /dev/null; then
+  # Test if _Fzf_ specific _Readline_ file is readable.
+  if [[ -f ~/.inputrc.fzf && -r ~/.inputrc.fzf ]]; then
+    # Make _Fzf_ available through _Readline_ key bindings.
+    bind -f ~/.inputrc.fzf
+  fi
+fi
+
 # Test if neither _Tmux_ nor _Screen_ is running.
 if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
   # Test if _Tmux_ is on the `$PATH`.
