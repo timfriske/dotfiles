@@ -306,6 +306,12 @@ if type -p fzf &> /dev/null; then
   fi
 fi
 
+# Test if interactive shell has startup file with local overrides.
+if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
+  # Read and execute commands from that startup file.
+  source ~/.bashrc.local
+fi
+
 # Test if neither _Tmux_ nor _Screen_ is running.
 if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
   # Test if _Tmux_ is on the `$PATH`.
