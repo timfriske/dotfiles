@@ -147,6 +147,11 @@ alias dus='du --summarize'
 #
 alias free='free --human --si'
 
+# Use Vi-like key bindings in _Info_ program because it is assumed that
+# the user knows the _Vim_ editor by heart.
+#
+alias info='info --vi-keys'
+
 # Show _UTC_ _Universal Time Coordinated_.
 #
 alias utc='date --utc'
@@ -291,6 +296,21 @@ function git {
   command git "$@"
   unset -f git
 }
+
+# Test if fuzzy finder program _Fzf_ is installed.
+if type -p fzf &> /dev/null; then
+  # Test if _Fzf_ specific _Readline_ file is readable.
+  if [[ -f ~/.inputrc.fzf && -r ~/.inputrc.fzf ]]; then
+    # Make _Fzf_ available through _Readline_ key bindings.
+    bind -f ~/.inputrc.fzf
+  fi
+fi
+
+# Test if interactive shell has startup file with local overrides.
+if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
+  # Read and execute commands from that startup file.
+  source ~/.bashrc.local
+fi
 
 # Test if neither _Tmux_ nor _Screen_ is running.
 if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
