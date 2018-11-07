@@ -55,7 +55,7 @@ HELP
 
 function print_job_cmd_line {
   [[ "$#" -eq 0 ]] && return
-  printf '%s ' "${cmd:-${0##*/fzf-}}" "$@"
+  printf '%s ' "$cmd" "$@"
   printf '\n'
 }
 
