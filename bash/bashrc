@@ -147,6 +147,11 @@ alias dus='du --summarize'
 #
 alias free='free --human --si'
 
+# Use Vi-like key bindings in _Info_ program because it is assumed that
+# the user knows the _Vim_ editor by heart.
+#
+alias info='info --vi-keys'
+
 # Show _UTC_ _Universal Time Coordinated_.
 #
 alias utc='date --utc'
