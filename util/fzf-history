@@ -27,16 +27,16 @@ function fzf_history {
     exit
   fi
 
-  local options=''
-  options+="${FZF_DEFAULT_OPTS:-} "
-  options+="--tac -n2..,.. --tiebreak=index "
-  options+="${FZF_HISTORY_FZF_OPTS:-} "
-  options+="--print0 "
+  local fzf_options=''
+  fzf_options+="${FZF_DEFAULT_OPTS:-} "
+  fzf_options+="--tac -n2..,.. --tiebreak=index "
+  fzf_options+="${FZF_HISTORY_FZF_OPTS:-} "
+  fzf_options+="--print0 "
 
   local cmd='' cmds=()
   while read -r -d '' cmd; do
     cmds+=("${cmd/#+([[:digit:]])+([[:space:]])/}")
-  done < <(fzf "$options")
+  done < <(fzf "$fzf_options")
   if [[ "${#cmds[*]}" -gt 0 ]]; then
     (IFS=';'; printf '%s\n' "${cmds[*]}")
   fi
