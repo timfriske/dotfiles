@@ -30,7 +30,7 @@ function fzf_history {
 
   local options=''
   options+="${FZF_DEFAULT_OPTS:-} "
-  options+="--tac -n2..,.. --tiebreak=index --multi --print0 "
+  options+="--tac -n2..,.. --tiebreak=index --print0 "
   options+="${FZF_HISTORY_FZF_OPTS:-} "
 
   local cmd='' cmds=()
