@@ -30,8 +30,9 @@ function fzf_history {
 
   local options=''
   options+="${FZF_DEFAULT_OPTS:-} "
-  options+="--tac -n2..,.. --tiebreak=index --print0 "
+  options+="--tac -n2..,.. --tiebreak=index "
   options+="${FZF_HISTORY_FZF_OPTS:-} "
+  options+="--print0 "
 
   local cmd='' cmds=()
   while read -r -d '' cmd; do
