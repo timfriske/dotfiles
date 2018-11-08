@@ -13,18 +13,18 @@
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
-function print_usage {
+function print_help {
   1>&2 cat \
-<<'USAGE'
+<<'HELP'
 usage:
 
   HISTTIMEFORMAT= history | fzf-history
-USAGE
+HELP
 }
 
 function fzf_history {
   if [[ -t 0 ]]; then
-    print_usage
+    print_help
     exit
   fi
 
