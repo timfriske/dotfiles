@@ -38,6 +38,10 @@ Examples
 --------
 ._Fzf-cd_ key bindings in `"$HOME/.bashrc"`
 ----
+if [[ -o emacs ]]; then
+  bind '"\er": redraw-current-line'
+  bind '"\ec": " \C-e\C-u$(fzf-cd)\e\C-e\er\C-m"'
+fi
 ----
 HELP
 }
