@@ -15,6 +15,12 @@ shopt -os nounset pipefail errexit errtrace
 function print_help {
   1>&2 cat \
 <<'HELP'
+Help
+====
+`Fzf-cd` offers the user to quickly select the directory from all the
+directories below the current directory to change into.  By default only
+visible and numerically sorted directories are presented.  For ease of
+use the `Fzf-cd` command should be bound to hot keys, such as `Alt-c`.
 HELP
 }
 
