@@ -12,6 +12,9 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+function print_help {
+}
+
 function find_dirs {
   ${FZF_CD_FIND_DIRS_CMD:-find_dirs_default} 2> /dev/null
 }
@@ -48,6 +51,10 @@ function select_dir {
 }
 
 function fzf_cd {
+  if [[ "${1:-}" == '--help' ]]; then
+    print_help
+    exit
+  fi
   local dir="$(find_dirs | sort_dirs | select_dir)"
   if [[ -n "$dir" ]]; then
     printf 'cd -- %q' "$dir"
