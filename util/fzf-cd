@@ -34,6 +34,11 @@ Options
 --help::
   Print this program's help text.
 
+Examples
+--------
+._Fzf-cd_ key bindings in `"$HOME/.bashrc"`
+----
+----
 HELP
 }
 
