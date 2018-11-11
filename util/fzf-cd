@@ -39,11 +39,12 @@ function sort_dirs_default {
 }
 
 function select_dir {
-  local fzf_options=''
-  fzf_options+="--read0 "
-  fzf_options+="${FZF_DEFAULT_OPTS:-} ${FZF_CD_FZF_OPTS:-} "
-  fzf_options+="--no-multi "
-  fzf $fzf_options
+  local fzf_options=()
+  fzf_options+=('--read0')
+  fzf_options+=(${FZF_DEFAULT_OPTS:-})
+  fzf_options+=(${FZF_CD_FZF_OPTS:-})
+  fzf_options+=('--no-multi')
+  fzf "${fzf_options[@]}"
 }
 
 function fzf_cd {
