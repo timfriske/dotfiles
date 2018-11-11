@@ -9,7 +9,6 @@
 #   * man:find[1]
 #   * man:fzf[1]
 #   * man:sort[1]
-#   * fzf-cmd
 
 shopt -os nounset pipefail errexit errtrace
 
@@ -45,7 +44,7 @@ function select_dir {
   options+="--height ${FZF_TMUX_HEIGHT:-40%} "
   options+="${FZF_DEFAULT_OPTS:-} ${FZF_CD_FZF_OPTS:-} "
   options+="--no-multi "
-  FZF_DEFAULT_OPTS="$options" "$(fzf-cmd)"
+  fzf $options
 }
 
 function fzf_cd {
