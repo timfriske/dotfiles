@@ -41,6 +41,12 @@ Examples
 if [[ -o emacs ]]; then
   bind '"\er": redraw-current-line'
   bind '"\ec": " \C-e\C-u$(fzf-cd)\e\C-e\er\C-m"'
+elif [[ -o vi ]]; then
+  bind '"\C-x\C-a": vi-movement-mode'
+  bind '"\C-x\C-e": shell-expand-line'
+  bind '"\C-x\C-r": redraw-current-line'
+  bind '"\ec": "\C-x\C-aS$(fzf-cd)\C-x\C-e\C-x\C-r\C-m"'
+  bind -m vi-command '"\ec": "i\ec"'
 fi
 ----
 HELP
