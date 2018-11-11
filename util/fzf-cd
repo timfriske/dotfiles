@@ -41,7 +41,6 @@ function sort_dirs_default {
 function select_dir {
   local options=''
   options+="--read0 "
-  options+="--height ${FZF_TMUX_HEIGHT:-40%} "
   options+="${FZF_DEFAULT_OPTS:-} ${FZF_CD_FZF_OPTS:-} "
   options+="--no-multi "
   fzf $options
