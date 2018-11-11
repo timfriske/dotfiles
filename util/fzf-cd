@@ -21,6 +21,13 @@ Help
 directories below the current directory to change into.  By default only
 visible and numerically sorted directories are presented.  For ease of
 use the `Fzf-cd` command should be bound to hot keys, such as `Alt-c`.
+
+Usage
+-----
+.Command line syntax
+----
+fzf-cd [--help]
+----
 HELP
 }
 
