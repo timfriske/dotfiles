@@ -28,6 +28,12 @@ Usage
 ----
 fzf-cd [--help]
 ----
+
+Options
+-------
+--help::
+  Print this program's help text.
+
 HELP
 }
 
