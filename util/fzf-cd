@@ -13,6 +13,9 @@
 shopt -os nounset pipefail errexit errtrace
 
 function print_help {
+  1>&2 cat \
+<<'HELP'
+HELP
 }
 
 function find_dirs {
