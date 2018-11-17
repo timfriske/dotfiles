@@ -15,6 +15,18 @@ function print_help {
 Help
 ====
 Sort records with _Sort_ for _Fzf_.
+
+Usage
+-----
+.Command line syntax
+----
+fzf-sort [--help]
+----
+
+Options
+-------
+--help::
+  Print this program's help text.
 HELP
 }
 
