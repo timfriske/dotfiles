@@ -3,3 +3,6 @@
 # Sort records w/ Sort for Fzf
 # ============================
 # Tim Friske <me@tifr.de>
+#
+# Dependencies::
+#   _Bash_
