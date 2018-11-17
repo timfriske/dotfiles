@@ -31,11 +31,22 @@ Options
 The _Fzf-sort_ program reads records from the standard input stream,
 sorts them alphabetically and writes them to the standard output stream
 in that sort order.
+
+This program prints one record per line and quotes it when connected to
+a terminal for readability.  But when its output is redirected, e.g.
+piped through another program for further processing, it prints unquoted
+but null-terminated records instead to make them securely processible.
 HELP
 }
 
 function sort_records {
-  sort
+
+  local opt_null_term=()
+  if [[ ! -t 0 && ! -t 1 ]]; then
+    opt_null_term=('--zero-terminated')
+  fi
+
+  sort -- "${opt_null_term[@]}"
 }
 
 function fzf_sort {
@@ -44,7 +55,15 @@ function fzf_sort {
     exit
   fi
 
-  sort_records
+  if [[ -t 0 && -t 1 ]]; then
+    sort_records
+    exit
+  fi
+
+  local record=''
+  while IFS= read -r -d '' record; do
+    printf '%q\n' "$record"
+  done < <(sort_records)
 }
 
 fzf_sort "$@"
