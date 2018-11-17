@@ -38,10 +38,20 @@ those in which the user doesn't search for objects on a regular basis
 are excluded from search and therefore their contents not printed.
 These are currently `sysfs`, `devfs`, `devtmpfs` and `proc`.
 
+This program prints the name of one file system object per line and
+quotes that name when connected to a terminal for readability.  But when
+its output is redirected, e.g.  piped through another program for
+further processing, it prints unquoted but null-terminated entries
+instead to make them securely processible.
 HELP
 }
 
 function find_fs_objects {
+  local opt_print=('-print')
+  if [[ ! -t 1 ]]; then
+    opt_print=('-print0')
+  fi
+
   find -L -mindepth 1 \
     \( \
       -path '*/.*' \
@@ -51,7 +61,7 @@ function find_fs_objects {
       -o -fstype proc \
     \) \
     -prune \
-    -o -print
+    "${opt_print[@]}"
 }
 
 function fzf_find {
@@ -60,7 +70,15 @@ function fzf_find {
     exit
   fi
 
-  find_fs_objects
+  if [[ ! -t 1 ]]; then
+    find_fs_objects
+    exit
+  fi
+
+  local fs_object=''
+  while IFS= read -r -d '' fs_object; do
+    printf '%q\n' "$fs_object"
+  done < <(find_fs_objects)
 }
 
 fzf_find "$@"
