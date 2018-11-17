@@ -5,7 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies::
-#   _Bash_, _Cat_
+#   _Bash_, _Cat_, _Find_
 
 shopt -os nounset pipefail errexit errtrace
 
