@@ -12,6 +12,9 @@ shopt -os nounset pipefail errexit errtrace
 function print_help {
   1>&2 cat \
 <<'HELP'
+Help
+====
+Find file system objects with _Find_ for _Fzf_.
 HELP
 }
 }
