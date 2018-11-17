@@ -21,6 +21,10 @@ Usage
 .Command line syntax
 ----
 fzf-sort [--help]
+
+[<variable>=<value>]... fzf-sort
+
+[order=month|numeric[-general|-human]|random|version] fzf-sort
 ----
 
 Options
@@ -28,9 +32,12 @@ Options
 --help::
   Print this program's help text.
 
+order=month|numeric[-general|-human|random|version::
+  Sort records by the given order.
+
 The _Fzf-sort_ program reads records from the standard input stream,
-sorts them alphabetically and writes them to the standard output stream
-in that sort order.
+sorts them either alphabetically or ascendingly in the given order and
+writes them to the standard output stream in that sort order.
 
 This program prints one record per line and quotes it when connected to
 a terminal for readability.  But when its output is redirected, e.g.
@@ -40,13 +47,23 @@ HELP
 }
 
 function sort_records {
+  local opt_sort=()
+  case "${order:-}" in
+    month) opt_sort=('--sort' 'month');;
+    numeric) opt_sort=('--sort' 'numeric');;
+    numeric-general) opt_sort=('--sort' 'general-numeric');;
+    numeric-human) opt_sort=('--sort' 'human-numeric');;
+    random) opt_sort=('--sort' 'random');;
+    version) opt_sort=('--sort' 'version');;
+    *);;
+  esac
 
   local opt_null_term=()
   if [[ ! -t 0 && ! -t 1 ]]; then
     opt_null_term=('--zero-terminated')
   fi
 
-  sort -- "${opt_null_term[@]}"
+  sort -- "${opt_sort[@]}" "${opt_null_term[@]}"
 }
 
 function fzf_sort {
