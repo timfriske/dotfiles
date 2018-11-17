@@ -9,7 +9,14 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+function print_help {
+}
+
 function fzf_find {
+  if [[ "${1:-}" == '--help' ]]; then
+    print_help
+    exit
+  fi
 }
 
 fzf_find "$@"
