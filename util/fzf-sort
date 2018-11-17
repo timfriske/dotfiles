@@ -25,6 +25,8 @@ fzf-sort [--help]
 [<variable>=<value>]... fzf-sort
 
 [order=month|numeric[-general|-human]|random|version] fzf-sort
+
+[reverse=1|true] fzf-sort
 ----
 
 Options
@@ -35,9 +37,14 @@ Options
 order=month|numeric[-general|-human|random|version::
   Sort records by the given order.
 
+reverse=1|true::
+  Sort records in reverse order.
+
 The _Fzf-sort_ program reads records from the standard input stream,
 sorts them either alphabetically or ascendingly in the given order and
-writes them to the standard output stream in that sort order.
+writes them to the standard output stream in that sort order.  With
+_Fzf-sort's_ `reverse` variable set to either `1` or `true` the records
+are sorted in reverse order.
 
 This program prints one record per line and quotes it when connected to
 a terminal for readability.  But when its output is redirected, e.g.
@@ -58,12 +65,17 @@ function sort_records {
     *);;
   esac
 
+  local opt_reverse=()
+  if [[ "${reverse:-}" =~ 1|true ]]; then
+    opt_reverse=('--reverse')
+  fi
+
   local opt_null_term=()
   if [[ ! -t 0 && ! -t 1 ]]; then
     opt_null_term=('--zero-terminated')
   fi
 
-  sort -- "${opt_sort[@]}" "${opt_null_term[@]}"
+  sort -- "${opt_sort[@]}" "${opt_reverse[@]}" "${opt_null_term[@]}"
 }
 
 function fzf_sort {
