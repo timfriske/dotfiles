@@ -27,7 +27,15 @@ Options
 -------
 --help::
   Print this program's help text.
+
+The _Fzf-sort_ program reads records from the standard input stream,
+sorts them alphabetically and writes them to the standard output stream
+in that sort order.
 HELP
+}
+
+function sort_records {
+  sort
 }
 
 function fzf_sort {
@@ -35,6 +43,8 @@ function fzf_sort {
     print_help
     exit
   fi
+
+  sort_records
 }
 
 fzf_sort "$@"
