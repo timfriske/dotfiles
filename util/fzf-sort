@@ -34,7 +34,7 @@ Options
 --help::
   Print this program's help text.
 
-order=month|numeric[-general|-human|random|version::
+order=month|numeric[-general|-human]|random|version::
   Sort records by the given order.
 
 reverse=1|true::
