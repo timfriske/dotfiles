@@ -15,6 +15,18 @@ function print_help {
 Help
 ====
 Find file system objects with _Find_ for _Fzf_.
+
+Usage
+-----
+.Command line syntax
+----
+fzf-find [--help]
+----
+
+Options
+-------
+--help::
+  Print this program's help text.
 HELP
 }
 }
