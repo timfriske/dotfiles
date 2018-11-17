@@ -75,7 +75,7 @@ function sort_records {
     opt_null_term=('--zero-terminated')
   fi
 
-  sort -- "${opt_sort[@]}" "${opt_reverse[@]}" "${opt_null_term[@]}"
+  sort "${opt_sort[@]}" "${opt_reverse[@]}" "${opt_null_term[@]}"
 }
 
 function fzf_sort {
