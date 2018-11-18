@@ -15,6 +15,18 @@ function print_help {
 Help
 ====
 Fuzzy-find and pick records with _Fzf_.
+
+Usage
+-----
+.Command line syntax
+----
+fzf-pick [--help]
+----
+
+Options
+-------
+--help::
+  Print this program's help text.
 HELP
 }
 
