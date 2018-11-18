@@ -3,3 +3,6 @@
 # Fuzzy-find and pick records w/ Fzf
 # ==================================
 # Tim Friske <me@tifr.de>
+#
+# Dependencies::
+#   _Bash_
