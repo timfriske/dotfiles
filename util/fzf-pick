@@ -21,6 +21,10 @@ Usage
 .Command line syntax
 ----
 fzf-pick [--help]
+
+[<variable>=<value>]... fzf-pick
+
+[opts="<fzf-opt-1> <fzf-opt-2> ..."] fzf-pick
 ----
 
 Options
@@ -52,7 +56,10 @@ function pick_records {
     opt_print=('--print0')
   fi
 
+  local prg_opts=(${opts:-})
+
   fzf \
+    "${prg_opts[@]}" \
     "${opt_read[@]}" \
     "${opt_print[@]}"
 }
