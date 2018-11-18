@@ -56,7 +56,9 @@ function pick_records {
     opt_print=('--print0')
   fi
 
-  local env_opts=(${FZF_DEFAULT_OPTS:-})
+  local env_opts=()
+  env_opts+=(${FZF_DEFAULT_OPTS:-})
+  env_opts+=(${FZF_PICK_FZF_OPTS:-})
 
   local prg_opts=(${opts:-})
 
