@@ -8,3 +8,8 @@
 #   _Bash_
 
 shopt -os nounset pipefail errexit errtrace
+
+function fzf_pick {
+}
+
+fzf_pick "$@"
