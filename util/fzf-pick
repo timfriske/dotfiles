@@ -5,7 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies::
-#   _Bash_, _Cat_
+#   _Bash_, _Cat_, _Fzf_
 
 shopt -os nounset pipefail errexit errtrace
 
@@ -27,7 +27,17 @@ Options
 -------
 --help::
   Print this program's help text.
+
+The program _Fzf-pick_ reads records from the standard input stream,
+presents them in an interactive search screen to the user and waits for
+her/him to fuzzy-find and pick the records s/he is interested in.  Once
+the user made her/his selection _Fzf-pick_ writes the selected records
+to the standard output stream.
 HELP
+}
+
+function pick_records {
+  fzf
 }
 
 function fzf_pick {
@@ -35,6 +45,8 @@ function fzf_pick {
     print_help
     exit
   fi
+
+  pick_records
 }
 
 fzf_pick "$@"
