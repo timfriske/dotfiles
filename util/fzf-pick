@@ -6,3 +6,5 @@
 #
 # Dependencies::
 #   _Bash_
+
+shopt -os nounset pipefail errexit errtrace
