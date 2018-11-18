@@ -5,7 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies::
-#   _Bash_, _Cat_, _Fzf_
+#   _Bash_, _Cat_, _Fzf_, _Xargs_
 
 shopt -os nounset pipefail errexit errtrace
 
@@ -69,6 +69,16 @@ function pick_records {
     "${opt_print[@]}"
 }
 
+function print_cmd_line {
+  if [[ -n "${cmd:-}" ]]; then
+    pick_records \
+      | xargs --null --replace={} --no-run-if-empty -- \
+        bash -c "printf '%s\n' \"${cmd:-}\"; printf '%q\n' {}"
+  else
+    pick_records
+  fi
+}
+
 function fzf_pick {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
@@ -76,14 +86,14 @@ function fzf_pick {
   fi
 
   if [[ -t 0 || ! -t 1 ]]; then
-    pick_records
+    print_cmd_line
     exit
   fi
 
   local record=''
   while IFS= read -r -d '' record; do
     printf '%q\0' "$record"
-  done | pick_records
+  done | print_cmd_line
 }
 
 fzf_pick "$@"
