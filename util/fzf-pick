@@ -33,11 +33,28 @@ presents them in an interactive search screen to the user and waits for
 her/him to fuzzy-find and pick the records s/he is interested in.  Once
 the user made her/his selection _Fzf-pick_ writes the selected records
 to the standard output stream.
+
+This program prints one record per line and quotes it when connected to
+a terminal for readability.  But when its output is redirected, e.g.
+piped through another program for further processing, it prints unquoted
+but null-terminated records instead to make them securely processible.
 HELP
 }
 
 function pick_records {
-  fzf
+  local opt_read=()
+  if [[ ! -t 0 ]]; then
+    opt_read=('--read0')
+  fi
+
+  local opt_print=()
+  if [[ ! -t 1 ]]; then
+    opt_print=('--print0')
+  fi
+
+  fzf \
+    "${opt_read[@]}" \
+    "${opt_print[@]}"
 }
 
 function fzf_pick {
@@ -46,7 +63,15 @@ function fzf_pick {
     exit
   fi
 
-  pick_records
+  if [[ -t 0 || ! -t 1 ]]; then
+    pick_records
+    exit
+  fi
+
+  local record=''
+  while IFS= read -r -d '' record; do
+    printf '%q\0' "$record"
+  done | pick_records
 }
 
 fzf_pick "$@"
