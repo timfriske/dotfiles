@@ -72,16 +72,6 @@ function pick_records {
     "${opt_print[@]}"
 }
 
-function print_cmd_line {
-  if [[ -n "${cmd:-}" ]]; then
-    pick_records \
-      | xargs --null --replace={} --no-run-if-empty -- \
-        bash -c "printf '%s\n' \"${cmd:-}\"; printf '%q\n' {}"
-  else
-    pick_records
-  fi
-}
-
 function fzf_pick {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
@@ -107,7 +97,7 @@ function fzf_pick {
   local record=''
   while IFS= read -r -d '' record; do
     printf '%q\0' "$record"
-  done | print_cmd_line
+  done | pick_records
 }
 
 fzf_pick "$@"
