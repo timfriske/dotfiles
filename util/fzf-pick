@@ -100,6 +100,10 @@ function fzf_pick {
     exit
   fi
 
+  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
+    pick_records
+  fi
+
   local record=''
   while IFS= read -r -d '' record; do
     printf '%q\0' "$record"
