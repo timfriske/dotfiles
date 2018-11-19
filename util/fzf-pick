@@ -32,6 +32,9 @@ Options
 --help::
   Print this program's help text.
 
+opts="<fzf-opt-1> <fzf-opt-2> ..."::
+  Set options for _Fzf_.
+
 The program _Fzf-pick_ reads records from the standard input stream,
 presents them in an interactive search screen to the user and waits for
 her/him to fuzzy-find and pick the records s/he is interested in.  Once
@@ -46,6 +49,12 @@ HELP
 }
 
 function pick_records {
+  local env_opts=()
+  env_opts+=(${FZF_DEFAULT_OPTS:-})
+  env_opts+=(${FZF_PICK_FZF_OPTS:-})
+
+  local prg_opts=(${opts:-})
+
   local opt_read=()
   if [[ ! -t 0 ]]; then
     opt_read=('--read0')
@@ -56,27 +65,11 @@ function pick_records {
     opt_print=('--print0')
   fi
 
-  local env_opts=()
-  env_opts+=(${FZF_DEFAULT_OPTS:-})
-  env_opts+=(${FZF_PICK_FZF_OPTS:-})
-
-  local prg_opts=(${opts:-})
-
   fzf \
     "${env_opts[@]}" \
     "${prg_opts[@]}" \
     "${opt_read[@]}" \
     "${opt_print[@]}"
-}
-
-function print_cmd_line {
-  if [[ -n "${cmd:-}" ]]; then
-    pick_records \
-      | xargs --null --replace={} --no-run-if-empty -- \
-        bash -c "printf '%s\n' \"${cmd:-}\"; printf '%q\n' {}"
-  else
-    pick_records
-  fi
 }
 
 function fzf_pick {
@@ -85,15 +78,27 @@ function fzf_pick {
     exit
   fi
 
-  if [[ -t 0 || ! -t 1 ]]; then
-    print_cmd_line
+  local fmt='%q' sep='\n'
+  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
+    fmt='%s'; sep='\0'
+  fi
+
+  if [[ -n "${cmd:-}" ]]; then
+    pick_records \
+      | xargs --null --replace={} --no-run-if-empty -- \
+        bash -c "printf "%s$sep" \"${cmd:-}\"; printf "$fmt$sep" {}"
+    exit
+  fi
+
+  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
+    pick_records
     exit
   fi
 
   local record=''
   while IFS= read -r -d '' record; do
     printf '%q\0' "$record"
-  done | print_cmd_line
+  done | pick_records
 }
 
 fzf_pick "$@"
