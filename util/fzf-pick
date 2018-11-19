@@ -92,6 +92,7 @@ function fzf_pick {
 
   if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
     pick_records
+    exit
   fi
 
   local record=''
