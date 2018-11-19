@@ -32,6 +32,9 @@ Options
 --help::
   Print this program's help text.
 
+opts="<fzf-opt-1> <fzf-opt-2> ..."::
+  Set options for _Fzf_.
+
 The program _Fzf-pick_ reads records from the standard input stream,
 presents them in an interactive search screen to the user and waits for
 her/him to fuzzy-find and pick the records s/he is interested in.  Once
