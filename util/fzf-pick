@@ -88,8 +88,10 @@ function fzf_pick {
     exit
   fi
 
-  if [[ -t 0 || ! -t 1 ]]; then
-    print_cmd_line
+  if [[ -n "${cmd:-}" ]]; then
+    pick_records \
+      | xargs --null --replace={} --no-run-if-empty -- \
+        bash -c "printf '%s\n' \"${cmd:-}\"; printf "%q\n" {}"
     exit
   fi
 
