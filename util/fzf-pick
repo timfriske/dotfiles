@@ -88,10 +88,15 @@ function fzf_pick {
     exit
   fi
 
+  local fmt='%q' sep='\n'
+  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
+    fmt='%s'; sep='\0'
+  fi
+
   if [[ -n "${cmd:-}" ]]; then
     pick_records \
       | xargs --null --replace={} --no-run-if-empty -- \
-        bash -c "printf '%s\n' \"${cmd:-}\"; printf "%q\n" {}"
+        bash -c "printf "%s$sep" \"${cmd:-}\"; printf "$fmt$sep" {}"
     exit
   fi
 
