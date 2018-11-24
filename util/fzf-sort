@@ -26,7 +26,7 @@ fzf-sort [--help]
 
 [order=month|numeric[-general|-human]|random|version] fzf-sort
 
-[reverse=1|true] fzf-sort
+[reversed=1|true] fzf-sort
 ----
 
 Options
@@ -37,13 +37,13 @@ Options
 order=month|numeric[-general|-human]|random|version::
   Sort records by the given order.
 
-reverse=1|true::
+reversed=1|true::
   Sort records in reverse order.
 
 The _Fzf-sort_ program reads records from the standard input stream,
 sorts them either alphabetically or ascendingly in the given order and
 writes them to the standard output stream in that sort order.  With
-_Fzf-sort's_ `reverse` variable set to either `1` or `true` the records
+_Fzf-sort's_ `reversed` variable set to either `1` or `true` the records
 are sorted in reverse order.
 
 This program prints one record per line and quotes it when connected to
@@ -66,7 +66,7 @@ function sort_records {
   esac
 
   local opt_reverse=()
-  if [[ "${reverse:-}" =~ 1|true ]]; then
+  if [[ "${reversed:-}" =~ 1|true ]]; then
     opt_reverse=('--reverse')
   fi
 
@@ -89,10 +89,21 @@ function fzf_sort {
     exit
   fi
 
+  local fmt='%q' sep='\n'
+  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
+    fmt='%s'; sep='\0'
+  fi
+
   local record=''
-  while IFS= read -r -d '' record; do
-    printf '%q\n' "$record"
-  done < <(sort_records)
+  if [[ -t 0 ]]; then
+    while read -r record; do
+      printf "$fmt$sep" "$record"
+    done < <(sort_records)
+  else
+    while IFS= read -r -d '' record; do
+      printf "$fmt$sep" "$record"
+    done < <(sort_records)
+  fi
 }
 
 fzf_sort "$@"
