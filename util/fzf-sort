@@ -90,9 +90,15 @@ function fzf_sort {
   fi
 
   local record=''
-  while IFS= read -r -d '' record; do
-    printf '%q\n' "$record"
-  done < <(sort_records)
+  if [[ -t 0 ]]; then
+    while read -r record; do
+      printf '%q\n' "$record"
+    done < <(sort_records)
+  else
+    while IFS= read -r -d '' record; do
+      printf '%q\n' "$record"
+    done < <(sort_records)
+  fi
 }
 
 fzf_sort "$@"
