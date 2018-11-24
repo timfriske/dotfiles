@@ -101,7 +101,7 @@ function fzf_find {
     exit
   fi
 
-  if [[ ! -t 1 ]]; then
+  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
     find_fs_objects
     exit
   fi
