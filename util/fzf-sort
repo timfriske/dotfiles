@@ -89,14 +89,19 @@ function fzf_sort {
     exit
   fi
 
+  local fmt='%q' sep='\n'
+  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
+    fmt='%s'; sep='\0'
+  fi
+
   local record=''
   if [[ -t 0 ]]; then
     while read -r record; do
-      printf '%q\n' "$record"
+      printf "$fmt$sep" "$record"
     done < <(sort_records)
   else
     while IFS= read -r -d '' record; do
-      printf '%q\n' "$record"
+      printf "$fmt$sep" "$record"
     done < <(sort_records)
   fi
 }
