@@ -5,7 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies::
-#   _Bash_, _Cat_, _Sort_
+#   _Bash_, _Cat_, _Sort_, _Tr_
 
 shopt -os nounset pipefail errexit errtrace
 
@@ -27,6 +27,10 @@ fzf-sort [--help]
 [order=month|numeric[-general|-human]|random|version] fzf-sort
 
 [reversed=1|true] fzf-sort
+
+[read=1|true] fzf-sort
+
+[write=1|true] fzf-sort
 ----
 
 Options
@@ -40,16 +44,30 @@ order=month|numeric[-general|-human]|random|version::
 reversed=1|true::
   Sort records in reverse order.
 
+read=1|true::
+  Read new-line-terminated records.
+
+write=1|true::
+  Write new-line-terminated records.
+
 The _Fzf-sort_ program reads records from the standard input stream,
 sorts them either alphabetically or ascendingly in the given order and
 writes them to the standard output stream in that sort order.  With
 _Fzf-sort's_ `reversed` variable set to either `1` or `true` the records
 are sorted in reverse order.
 
-This program prints one record per line and quotes it when connected to
-a terminal for readability.  But when its output is redirected, e.g.
-piped through another program for further processing, it prints unquoted
-but null-terminated records instead to make them securely processible.
+When _Fzf-sort's_ standard input stream is connected to a terminal it
+expects each record to appear on a new line.  Otherwise, e.g. when
+_Fzf-sort_ reads from a file or another program, it assumes each record
+to be terminated with a `\0` null character.  The latter assumption may
+be overridden by passing _Fzf-sort's_ `read` variable set to either `1`
+or `true`.
+
+When _Fzf-sort's_ standard output stream is connected to a terminal it
+writes each record on a new line.  Otherwise, e.g. when _Fzf-sort_
+writes to a file or another program, it terminates each record with a
+`\0` null character.  The latter decision may be overridden by passing
+_Fzf-sort's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
@@ -70,12 +88,19 @@ function sort_records {
     opt_reverse=('--reverse')
   fi
 
-  local opt_null_term=()
-  if [[ ! -t 0 && ! -t 1 ]]; then
-    opt_null_term=('--zero-terminated')
+  local cmd_read='cat'
+  if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
+    cmd_read='tr "\n" "\0"'
   fi
 
-  sort "${opt_sort[@]}" "${opt_reverse[@]}" "${opt_null_term[@]}"
+  local cmd_write='cat'
+  if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
+      cmd_write='tr "\0" "\n"'
+  fi
+
+  eval "$cmd_read" \
+    | sort "${opt_sort[@]}" "${opt_reverse[@]}" --zero-terminated \
+    | eval "$cmd_write"
 }
 
 function fzf_sort {
@@ -84,26 +109,7 @@ function fzf_sort {
     exit
   fi
 
-  if [[ -t 0 && -t 1 ]]; then
-    sort_records
-    exit
-  fi
-
-  local fmt='%q' sep='\n'
-  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
-    fmt='%s'; sep='\0'
-  fi
-
-  local record=''
-  if [[ -t 0 ]]; then
-    while read -r record; do
-      printf "$fmt$sep" "$record"
-    done < <(sort_records)
-  else
-    while IFS= read -r -d '' record; do
-      printf "$fmt$sep" "$record"
-    done < <(sort_records)
-  fi
+  sort_records
 }
 
 fzf_sort "$@"
