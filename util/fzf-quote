@@ -67,7 +67,7 @@ function fzf_quote {
   fi
 
   local quoted_fmt='%q\0'
-  if [[ -t 1 || "${print:-}" =~ 1|true ]]; then
+  if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
     quoted_fmt='%q\n'
   fi
 
