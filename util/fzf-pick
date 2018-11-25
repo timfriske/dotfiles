@@ -41,10 +41,15 @@ her/him to fuzzy-find and pick the records s/he is interested in.  Once
 the user made her/his selection _Fzf-pick_ writes the selected records
 to the standard output stream.
 
-This program prints one record per line and quotes it when connected to
-a terminal for readability.  But when its output is redirected, e.g.
-piped through another program for further processing, it prints unquoted
-but null-terminated records instead to make them securely processible.
+When _Fzf-pick's_ standard input stream is connected to a terminal it
+expects each record to appear on a new line.  Otherwise, e.g. when
+_Fzf-pick_ reads from a file or another program, it assumes each record
+to be terminated with a `\0` null character.
+
+When _Fzf-pick's_ standard output stream is connected to a terminal it
+writes each record on a new line.  Otherwise, e.g. when _Fzf-pick_
+writes to a file or another program, it terminates each record with a
+`\0` null character.
 HELP
 }
 
@@ -78,27 +83,18 @@ function fzf_pick {
     exit
   fi
 
-  local fmt='%q' sep='\n'
-  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
-    fmt='%s'; sep='\0'
-  fi
-
   if [[ -n "${cmd:-}" ]]; then
+    local fmt='%s\0'
+    if [[ -t 1 ]]; then
+      fmt='%s\n'
+    fi
     pick_records \
       | xargs --null --replace={} --no-run-if-empty -- \
-        bash -c "printf "%s$sep" \"${cmd:-}\"; printf "$fmt$sep" {}"
+        bash -c printf "$fmt" "${cmd:-}" {}
     exit
   fi
 
-  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
-    pick_records
-    exit
-  fi
-
-  local record=''
-  while IFS= read -r -d '' record; do
-    printf '%q\0' "$record"
-  done | pick_records
+  pick_records
 }
 
 fzf_pick "$@"
