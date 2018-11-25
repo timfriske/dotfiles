@@ -25,6 +25,8 @@ fzf-quote [--help]
 [<variable>=<value>]... fzf-quote
 
 [read=1|true] fzf-quote
+
+[write=1|true] fzf-quote
 ----
 
 Options
@@ -34,6 +36,9 @@ Options
 
 [read=1|true]::
   Read new-line-terminated records.
+
+[write=1|true]::
+  Write new-line-terminated records.
 
 The program _Fzf-quote_ reads unquoted records from the standard input
 stream, quotes all special characters it finds in these records and
@@ -49,7 +54,9 @@ set to either `1` or `true`.
 When _Fzf-quote's_ standard output stream is connected to a terminal it
 writes each quoted record on a new line.  Otherwise, for example when
 _Fzf-quote_ writes to a file or another program, it terminates each
-quoted record with a `\0` null character.
+quoted record with a `\0` null character.  The latter decision may be
+overridden by passing _Fzf-quote's_ `write` variable set to either `1`
+or `true`.
 HELP
 }
 
@@ -60,7 +67,7 @@ function fzf_quote {
   fi
 
   local quoted_fmt='%q\0'
-  if [[ -t 1 ]]; then
+  if [[ -t 1 || "${print:-}" =~ 1|true ]]; then
     quoted_fmt='%q\n'
   fi
 
