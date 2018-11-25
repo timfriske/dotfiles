@@ -46,10 +46,15 @@ writes them to the standard output stream in that sort order.  With
 _Fzf-sort's_ `reversed` variable set to either `1` or `true` the records
 are sorted in reverse order.
 
-This program prints one record per line and quotes it when connected to
-a terminal for readability.  But when its output is redirected, e.g.
-piped through another program for further processing, it prints unquoted
-but null-terminated records instead to make them securely processible.
+When _Fzf-sort's_ standard input stream is connected to a terminal it
+expects each record to appear on a new line.  Otherwise, e.g. when
+_Fzf-sort_ reads from a file or another program, it assumes each record
+to be terminated with a `\0` null character.
+
+When _Fzf-sort's_ standard output stream is connected to a terminal it
+writes each record on a new line.  Otherwise, e.g. when _Fzf-sort_
+writes to a file or another program, it terminates each record with a
+`\0` null character.
 HELP
 }
 
@@ -84,26 +89,7 @@ function fzf_sort {
     exit
   fi
 
-  if [[ -t 0 && -t 1 ]]; then
-    sort_records
-    exit
-  fi
-
-  local fmt='%q' sep='\n'
-  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
-    fmt='%s'; sep='\0'
-  fi
-
-  local record=''
-  if [[ -t 0 ]]; then
-    while read -r record; do
-      printf "$fmt$sep" "$record"
-    done < <(sort_records)
-  else
-    while IFS= read -r -d '' record; do
-      printf "$fmt$sep" "$record"
-    done < <(sort_records)
-  fi
+  sort_records
 }
 
 fzf_sort "$@"
