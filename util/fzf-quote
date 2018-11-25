@@ -5,11 +5,14 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies::
-#   _Bash_
+#   _Bash_, _Cat_
 
 shopt -os nounset pipefail errexit errtrace
 
 function print_help {
+  1>&2 cat \
+<<'HELP'
+HELP
 }
 
 function fzf_quote {
