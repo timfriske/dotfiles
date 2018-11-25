@@ -45,6 +45,11 @@ when _Fzf-quote_ reads from a file or another program, it assumes each
 unquoted record to be terminated with a `\0` null character.  The latter
 assumption may be overridden by passing _Fzf-quote's_ `read` variable
 set to either `1` or `true`.
+
+When _Fzf-quote's_ standard output stream is connected to a terminal it
+writes each quoted record on a new line.  Otherwise, for example when
+_Fzf-quote_ writes to a file or another program, it terminates each
+quoted record with a `\0` null character.
 HELP
 }
 
@@ -54,14 +59,19 @@ function fzf_quote {
     exit
   fi
 
+  local quoted_fmt='%q\0'
+  if [[ -t 1 ]]; then
+    quoted_fmt='%q\n'
+  fi
+
   local record=''
   if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
     while IFS='' read -r record; do
-      printf '%q\n' "$record"
+      printf "$quoted_fmt" "$record"
     done
   else
     while IFS='' read -r -d '' record; do
-      printf '%q\n' "$record"
+      printf "$quoted_fmt" "$record"
     done
   fi
 }
