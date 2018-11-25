@@ -31,6 +31,11 @@ Options
 The program _Fzf-quote_ reads unquoted records from the standard input
 stream, quotes all special characters it finds in these records and
 writes them in quoted form back to the standard output stream.
+
+When _Fzf-quote's_ standard input stream is connected to a terminal it
+expects each unquoted record to appear on a new line.  Otherwise, e.g.
+when _Fzf-quote_ reads from a file or another program, it assumes each
+unquoted record to be terminated with a `\0` null character.
 HELP
 }
 
@@ -41,9 +46,15 @@ function fzf_quote {
   fi
 
   local record=''
-  while IFS='' read -r record; do
-    printf '%q\n' "$record"
-  done
+  if [[ -t 0 ]]; then
+    while IFS='' read -r record; do
+      printf '%q\n' "$record"
+    done
+  else
+    while IFS='' read -r -d '' record; do
+      printf '%q\n' "$record"
+    done
+  fi
 }
 
 fzf_quote "$@"
