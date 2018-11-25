@@ -24,6 +24,8 @@ fzf-pick [--help]
 
 [<variable>=<value>]... fzf-pick
 
+[read=1|true] fzf-pick
+
 [opts="<fzf-opt-1> <fzf-opt-2> ..."] fzf-pick
 ----
 
@@ -31,6 +33,9 @@ Options
 -------
 --help::
   Print this program's help text.
+
+read=1|true::
+  Read new-line-terminated records.
 
 opts="<fzf-opt-1> <fzf-opt-2> ..."::
   Set options for _Fzf_.
@@ -44,7 +49,9 @@ to the standard output stream.
 When _Fzf-pick's_ standard input stream is connected to a terminal it
 expects each record to appear on a new line.  Otherwise, e.g. when
 _Fzf-pick_ reads from a file or another program, it assumes each record
-to be terminated with a `\0` null character.
+to be terminated with a `\0` null character.  The latter assumption may
+be overridden by passing _Fzf-pick's_ `read` variable set to either `1`
+or `true`.
 
 When _Fzf-pick's_ standard output stream is connected to a terminal it
 writes each record on a new line.  Otherwise, e.g. when _Fzf-pick_
@@ -61,7 +68,7 @@ function pick_records {
   local prg_opts=(${opts:-})
 
   local opt_read=()
-  if [[ ! -t 0 ]]; then
+  if [[ ! -t 0  && ! "${read:-}" =~ 1|true ]]; then
     opt_read=('--read0')
   fi
 
