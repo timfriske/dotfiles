@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+#
+# Quote records w/ Bash for Fzf
+# =============================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies::
+#   _Bash_, _Cat_
+
+shopt -os nounset pipefail errexit errtrace
+
+function print_help {
+  1>&2 cat \
+<<'HELP'
+Help
+====
+Quote records with _Bash_ for _Fzf_.
+
+Usage
+-----
+.Command line syntax
+----
+fzf-quote [--help]
+
+[<variable>=<value>]... fzf-quote
+
+[read=1|true] fzf-quote
+
+[write=1|true] fzf-quote
+----
+
+Options
+-------
+--help::
+  Print this program's help text.
+
+read=1|true::
+  Read new-line-terminated records.
+
+write=1|true::
+  Write new-line-terminated records.
+
+The program _Fzf-quote_ reads unquoted records from the standard input
+stream, quotes all special characters it finds in these records and
+writes them in quoted form back to the standard output stream.
+
+When _Fzf-quote's_ standard input stream is connected to a terminal it
+expects each unquoted record to appear on a new line.  Otherwise, e.g.
+when _Fzf-quote_ reads from a file or another program, it assumes each
+unquoted record to be terminated with a `\0` null character.  The latter
+assumption may be overridden by passing _Fzf-quote's_ `read` variable
+set to either `1` or `true`.
+
+When _Fzf-quote's_ standard output stream is connected to a terminal it
+writes each quoted record on a new line.  Otherwise, for example when
+_Fzf-quote_ writes to a file or another program, it terminates each
+quoted record with a `\0` null character.  The latter decision may be
+overridden by passing _Fzf-quote's_ `write` variable set to either `1`
+or `true`.
+HELP
+}
+
+function fzf_quote {
+  if [[ "${1:-}" == '--help' ]]; then
+    print_help
+    exit
+  fi
+
+  local quoted_fmt='%q\0'
+  if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
+    quoted_fmt='%q\n'
+  fi
+
+  local record=''
+  if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
+    while IFS='' read -r record; do
+      printf "$quoted_fmt" "$record"
+    done
+  else
+    while IFS='' read -r -d '' record; do
+      printf "$quoted_fmt" "$record"
+    done
+  fi
+}
+
+fzf_quote "$@"
