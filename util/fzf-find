@@ -56,11 +56,10 @@ those in which the user doesn't search for objects on a regular basis
 are excluded from search and therefore their contents not printed.
 These are currently `sysfs`, `devfs`, `devtmpfs` and `proc`.
 
-This program prints the name of one file system object per line and
-quotes that name when connected to a terminal for readability.  But when
-its output is redirected, e.g.  piped through another program for
-further processing, it prints unquoted but null-terminated entries
-instead to make them securely processible.
+When _Fzf-find's_ standard output stream is connected to a terminal it
+writes each object on a new line.  Otherwise, e.g. when _Fzf-find_
+writes to a file or another program, it terminates each object with a
+`\0` null character.
 HELP
 }
 
@@ -78,9 +77,9 @@ function find_fs_objects {
     *);;
   esac
 
-  local opt_print=('-print')
-  if [[ ! -t 1 ]]; then
-    opt_print=('-print0')
+  local opt_print=('-print0')
+  if [[ -t 1 ]]; then
+    opt_print=('-print')
   fi
 
   find -L -mindepth 1 \
@@ -102,15 +101,7 @@ function fzf_find {
     exit
   fi
 
-  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
-    find_fs_objects
-    exit
-  fi
-
-  local fs_object=''
-  while IFS= read -r -d '' fs_object; do
-    printf '%q\n' "$fs_object"
-  done < <(find_fs_objects)
+  find_fs_objects
 }
 
 fzf_find "$@"
