@@ -12,6 +12,9 @@ shopt -os nounset pipefail errexit errtrace
 function print_help {
   1>&2 cat \
 <<'HELP'
+Help
+====
+Quote records with _Bash_ for _Fzf_.
 HELP
 }
 
