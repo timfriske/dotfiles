@@ -5,7 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies::
-#   _Bash_, _Cat_, _Sort_
+#   _Bash_, _Cat_, _Sort_, _Tr_
 
 shopt -os nounset pipefail errexit errtrace
 
@@ -27,6 +27,8 @@ fzf-sort [--help]
 [order=month|numeric[-general|-human]|random|version] fzf-sort
 
 [reversed=1|true] fzf-sort
+
+[read=1|true] fzf-sort
 ----
 
 Options
@@ -40,6 +42,9 @@ order=month|numeric[-general|-human]|random|version::
 reversed=1|true::
   Sort records in reverse order.
 
+read=1|true::
+  Read new-line-terminated records.
+
 The _Fzf-sort_ program reads records from the standard input stream,
 sorts them either alphabetically or ascendingly in the given order and
 writes them to the standard output stream in that sort order.  With
@@ -49,7 +54,9 @@ are sorted in reverse order.
 When _Fzf-sort's_ standard input stream is connected to a terminal it
 expects each record to appear on a new line.  Otherwise, e.g. when
 _Fzf-sort_ reads from a file or another program, it assumes each record
-to be terminated with a `\0` null character.
+to be terminated with a `\0` null character.  The latter assumption may
+be overridden by passing _Fzf-sort's_ `read` variable set to either `1`
+or `true`.
 
 When _Fzf-sort's_ standard output stream is connected to a terminal it
 writes each record on a new line.  Otherwise, e.g. when _Fzf-sort_
@@ -75,12 +82,13 @@ function sort_records {
     opt_reverse=('--reverse')
   fi
 
-  local opt_null_term=()
-  if [[ ! -t 0 && ! -t 1 ]]; then
-    opt_null_term=('--zero-terminated')
+  local cmd_read='cat'
+  if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
+    cmd_read='tr "\n" "\0"'
   fi
 
-  sort "${opt_sort[@]}" "${opt_reverse[@]}" "${opt_null_term[@]}"
+  eval "$cmd_read" \
+    | sort "${opt_sort[@]}" "${opt_reverse[@]}" --zero-terminated
 }
 
 function fzf_sort {
