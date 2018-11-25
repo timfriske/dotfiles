@@ -26,6 +26,8 @@ fzf-pick [--help]
 
 [read=1|true] fzf-pick
 
+[write=1|true] fzf-pick
+
 [opts="<fzf-opt-1> <fzf-opt-2> ..."] fzf-pick
 ----
 
@@ -36,6 +38,9 @@ Options
 
 read=1|true::
   Read new-line-terminated records.
+
+write=1|true::
+  Write new-line-terminated records.
 
 opts="<fzf-opt-1> <fzf-opt-2> ..."::
   Set options for _Fzf_.
@@ -56,7 +61,8 @@ or `true`.
 When _Fzf-pick's_ standard output stream is connected to a terminal it
 writes each record on a new line.  Otherwise, e.g. when _Fzf-pick_
 writes to a file or another program, it terminates each record with a
-`\0` null character.
+`\0` null character.  The latter decision may be overridden by passing
+_Fzf-pick's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
@@ -73,7 +79,7 @@ function pick_records {
   fi
 
   local opt_print=()
-  if [[ ! -t 1 ]]; then
+  if [[ ! -t 1  && ! "${write:-}" =~ 1|true ]]; then
     opt_print=('--print0')
   fi
 
@@ -92,10 +98,10 @@ function fzf_pick {
 
   if [[ -n "${cmd:-}" ]]; then
     local fmt='%s\0'
-    if [[ -t 1 ]]; then
+    if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
       fmt='%s\n'
     fi
-    pick_records \
+    write='' pick_records \
       | xargs --null --replace={} --no-run-if-empty -- \
         bash -c printf "$fmt" "${cmd:-}" {}
     exit
