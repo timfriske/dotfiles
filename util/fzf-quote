@@ -34,10 +34,10 @@ Options
 --help::
   Print this program's help text.
 
-[read=1|true]::
+read=1|true::
   Read new-line-terminated records.
 
-[write=1|true]::
+write=1|true::
   Write new-line-terminated records.
 
 The program _Fzf-quote_ reads unquoted records from the standard input
