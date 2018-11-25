@@ -27,6 +27,10 @@ Options
 -------
 --help::
   Print this program's help text.
+
+The program _Fzf-quote_ reads unquoted records from the standard input
+stream, quotes all special characters it finds in these records and
+writes them in quoted form back to the standard output stream.
 HELP
 }
 
@@ -35,6 +39,11 @@ function fzf_quote {
     print_help
     exit
   fi
+
+  local record=''
+  while IFS='' read -r record; do
+    printf '%q\n' "$record"
+  done
 }
 
 fzf_quote "$@"
