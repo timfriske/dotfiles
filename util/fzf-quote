@@ -15,6 +15,18 @@ function print_help {
 Help
 ====
 Quote records with _Bash_ for _Fzf_.
+
+Usage
+-----
+.Command line syntax
+----
+fzf-quote [--help]
+----
+
+Options
+-------
+--help::
+  Print this program's help text.
 HELP
 }
 
