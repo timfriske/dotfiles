@@ -27,6 +27,8 @@ fzf-find [--help]
 [hidden=1|true] fzf-find
 
 [kind=file|folder|link] fzf-find
+
+[write=1|true] fzf-find
 ----
 
 Options
@@ -40,6 +42,9 @@ hidden=1|true::
 
 kind=file|folder|link::
   Find either files, folders or links only.
+
+write=1|true::
+  Write new-line-terminated objects.
 
 The program _Fzf-find_ finds file system objects below the current
 folder with _Find_ for further consumption by _Fzf_.  By default it will
@@ -59,7 +64,8 @@ These are currently `sysfs`, `devfs`, `devtmpfs` and `proc`.
 When _Fzf-find's_ standard output stream is connected to a terminal it
 writes each object on a new line.  Otherwise, e.g. when _Fzf-find_
 writes to a file or another program, it terminates each object with a
-`\0` null character.
+`\0` null character.  The latter decision may be overridden by passing
+_Fzf-find's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
@@ -78,7 +84,7 @@ function find_fs_objects {
   esac
 
   local opt_print=('-print0')
-  if [[ -t 1 ]]; then
+  if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
     opt_print=('-print')
   fi
 
