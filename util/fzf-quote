@@ -3,3 +3,6 @@
 # Quote records w/ Bash for Fzf
 # =============================
 # Tim Friske <me@tifr.de>
+#
+# Dependencies::
+#   _Bash_
