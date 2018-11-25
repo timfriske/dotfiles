@@ -24,6 +24,10 @@ fzf-pick [--help]
 
 [<variable>=<value>]... fzf-pick
 
+[read=1|true] fzf-pick
+
+[write=1|true] fzf-pick
+
 [opts="<fzf-opt-1> <fzf-opt-2> ..."] fzf-pick
 ----
 
@@ -31,6 +35,12 @@ Options
 -------
 --help::
   Print this program's help text.
+
+read=1|true::
+  Read new-line-terminated records.
+
+write=1|true::
+  Write new-line-terminated records.
 
 opts="<fzf-opt-1> <fzf-opt-2> ..."::
   Set options for _Fzf_.
@@ -41,10 +51,18 @@ her/him to fuzzy-find and pick the records s/he is interested in.  Once
 the user made her/his selection _Fzf-pick_ writes the selected records
 to the standard output stream.
 
-This program prints one record per line and quotes it when connected to
-a terminal for readability.  But when its output is redirected, e.g.
-piped through another program for further processing, it prints unquoted
-but null-terminated records instead to make them securely processible.
+When _Fzf-pick's_ standard input stream is connected to a terminal it
+expects each record to appear on a new line.  Otherwise, e.g. when
+_Fzf-pick_ reads from a file or another program, it assumes each record
+to be terminated with a `\0` null character.  The latter assumption may
+be overridden by passing _Fzf-pick's_ `read` variable set to either `1`
+or `true`.
+
+When _Fzf-pick's_ standard output stream is connected to a terminal it
+writes each record on a new line.  Otherwise, e.g. when _Fzf-pick_
+writes to a file or another program, it terminates each record with a
+`\0` null character.  The latter decision may be overridden by passing
+_Fzf-pick's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
@@ -56,12 +74,12 @@ function pick_records {
   local prg_opts=(${opts:-})
 
   local opt_read=()
-  if [[ ! -t 0 ]]; then
+  if [[ ! -t 0  && ! "${read:-}" =~ 1|true ]]; then
     opt_read=('--read0')
   fi
 
   local opt_print=()
-  if [[ ! -t 1 ]]; then
+  if [[ ! -t 1  && ! "${write:-}" =~ 1|true ]]; then
     opt_print=('--print0')
   fi
 
@@ -78,27 +96,18 @@ function fzf_pick {
     exit
   fi
 
-  local fmt='%q' sep='\n'
-  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
-    fmt='%s'; sep='\0'
-  fi
-
   if [[ -n "${cmd:-}" ]]; then
-    pick_records \
+    local fmt='%s\0'
+    if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
+      fmt='%s\n'
+    fi
+    write='' pick_records \
       | xargs --null --replace={} --no-run-if-empty -- \
-        bash -c "printf "%s$sep" \"${cmd:-}\"; printf "$fmt$sep" {}"
+        bash -c printf "$fmt" "${cmd:-}" {}
     exit
   fi
 
-  if [[ ! -t 1 && ! "${quoted:-}" =~ 1|true ]]; then
-    pick_records
-    exit
-  fi
-
-  local record=''
-  while IFS= read -r -d '' record; do
-    printf '%q\0' "$record"
-  done | pick_records
+  pick_records
 }
 
 fzf_pick "$@"
