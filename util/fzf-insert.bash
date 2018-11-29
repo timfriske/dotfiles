@@ -22,3 +22,6 @@
 #
 # Dependencies::
 #   _Bash_
+
+function fzf_insert {
+}
