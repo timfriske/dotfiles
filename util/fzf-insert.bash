@@ -9,3 +9,7 @@
 # through _Fzf_ for the user to fuzzy-find and select the records s/he
 # is interested in.  Once the user made her/his selection the function
 # inserts those records into the editing buffer.
+#
+# For _Fzf-insert_ to work it must have direct access to the user's
+# _Bash_ shell.  Therefore this script must be sourced by _Bash_ such
+# that its definitions become part of the shell.
