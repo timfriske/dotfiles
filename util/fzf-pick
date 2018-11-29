@@ -103,7 +103,7 @@ function fzf_pick {
     fi
     write='' pick_records \
       | xargs --null --replace={} --no-run-if-empty -- \
-        bash -c printf "$fmt" "${cmd:-}" {}
+        bash -c "printf \"$fmt\" \"${cmd:-}\" {}"
     exit
   fi
 
