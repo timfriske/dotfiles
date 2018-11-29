@@ -19,3 +19,6 @@
 # ----
 # source fzf-insert.bash &> /dev/null
 # ----
+#
+# Dependencies::
+#   _Bash_
