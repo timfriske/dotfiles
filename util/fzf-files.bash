@@ -4,3 +4,7 @@
 #
 # Dependencies::
 #   _Bash_
+
+function fzf_files {
+  :
+}
