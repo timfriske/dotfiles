@@ -24,4 +24,5 @@
 #   _Bash_
 
 function fzf_insert {
+  local selected="$(eval "$cmd")"
 }
