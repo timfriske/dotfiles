@@ -12,4 +12,10 @@
 #
 # For _Fzf-insert_ to work it must have direct access to the user's
 # _Bash_ shell.  Therefore this script must be sourced by _Bash_ such
-# that its definitions become part of the shell.
+# that its definitions become part of the shell.  For example by adding
+# the following code to _Bash's_ startup file for interactive shells:
+#
+# .Example: Try to find script in `$PATH` and source it
+# ----
+# source fzf-insert.bash &> /dev/null
+# ----
