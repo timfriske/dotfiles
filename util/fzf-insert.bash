@@ -23,10 +23,23 @@
 # Dependencies::
 #   _Bash_
 
+function space {
+  if [[ -n "$1" && ! "$1" =~ ^[[:space:]]$ ]]; then
+    printf ' '
+  fi
+}
+
 function fzf_insert {
-  local selected="$(eval "$cmd")"
+  local evaluated="$(eval "$cmd")"
 
   local rl="$READLINE_LINE" rp="$READLINE_POINT"
-  READLINE_LINE="${rl:0:$rp}$selected${rl:$rp}"
-  READLINE_POINT=$(( rp + ${#selected} ))
+  local left="${rl:0:$rp}" right="${rl:$rp}"
+
+  local insertion=''
+  insertion+="$(space "${left:0-1}")"
+  insertion+="$evaluated"
+  insertion+="$(space "${right:0:1}")"
+
+  READLINE_LINE="${left}${insertion}${right}"
+  READLINE_POINT=$(( rp + ${#insertion} + 1 ))
 }
