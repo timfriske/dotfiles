@@ -24,9 +24,9 @@
 #   _Bash_
 
 function fzf_insert {
-  local selected="$(eval "$cmd")"
+  local evaluated="$(eval "$cmd")"
 
   local rl="$READLINE_LINE" rp="$READLINE_POINT"
-  READLINE_LINE="${rl:0:$rp}$selected${rl:$rp}"
-  READLINE_POINT=$(( rp + ${#selected} ))
+  READLINE_LINE="${rl:0:$rp}$evaluated${rl:$rp}"
+  READLINE_POINT=$(( rp + ${#evaluated} ))
 }
