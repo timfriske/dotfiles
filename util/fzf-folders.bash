@@ -3,8 +3,8 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies::
-#   _Bash_
+#   _Bash_, _Fzf-insert_
 
 function fzf_folders {
-  :
+  cmd="" fzf_insert
 }
