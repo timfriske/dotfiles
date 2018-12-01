@@ -305,6 +305,10 @@ if type -p fzf &> /dev/null; then
     bind -f ~/.inputrc.fzf
   fi
   source fzf-insert.bash &> /dev/null
+  if source fzf-files.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-af": "fzf_files"'
+    bind -m vi-command '"\C-af": "i\C-af"'
+  fi
 fi
 
 # Test if interactive shell has startup file with local overrides.
