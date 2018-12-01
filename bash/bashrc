@@ -304,6 +304,7 @@ if type -p fzf &> /dev/null; then
     # Make _Fzf_ available through _Readline_ key bindings.
     bind -f ~/.inputrc.fzf
   fi
+  source fzf-insert.bash &> /dev/null
 fi
 
 # Test if interactive shell has startup file with local overrides.
