@@ -18,12 +18,12 @@
 #   * man:bash[1]
 #   * man:cp[1]
 
-function bk {
+function file_backup {
   if [[ "$#" != 1 || ! -f "$1" ]]; then
-    echo 'usage: bk <file>'
+    echo 'usage: file-backup <file>'
     exit 1
   fi
   cp --force --backup=numbered --verbose -- "$1" "$1"
 }
 
-bk "$@"
+file_backup "$@"
