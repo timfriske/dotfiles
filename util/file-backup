@@ -11,6 +11,9 @@
 # over time the files `foobar.txt~1~`, `foobar.txt~2~` etc. come into
 # existence.
 #
+# Think about aliasing this helper program as e.g. `bk` (`backup`)
+# should you be using it frequently.
+#
 # See also:
 #   * man:bash[1]
 #   * man:cp[1]
