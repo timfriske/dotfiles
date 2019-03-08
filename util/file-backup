@@ -18,6 +18,8 @@
 #   * man:bash[1]
 #   * man:cp[1]
 
+shopt -os nounset pipefail errexit errtrace
+
 function file_backup {
   if [[ "$#" != 1 || ! -f "$1" ]]; then
     echo 'usage: file-backup <file>'
