@@ -16,6 +16,8 @@
 #   * man:bash[1]
 #   * man:file[1]
 
+shopt -os nounset pipefail errexit errtrace
+
 function file_type {
   if [[ "$#" == 0 ]]; then
     echo 'usage: file-type <file (on path)>...'
