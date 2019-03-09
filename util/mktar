@@ -25,6 +25,8 @@
 #   * man:xz[1]
 #   * man:zstd[1]
 
+shopt -os nounset pipefail errexit errtrace
+
 function mktar {
   if [[ "$#" != 1 || ! -e "$1" ]]; then
     echo 'usage: mktar <file>|<directory>'
