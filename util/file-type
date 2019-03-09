@@ -16,7 +16,7 @@
 #   * man:bash[1]
 #   * man:file[1]
 
-function file-type {
+function file_type {
   if [[ "$#" == 0 ]]; then
     echo 'usage: file-type <file (on path)>...'
   fi
@@ -33,4 +33,4 @@ function file-type {
   done
 }
 
-file-type "$@"
+file_type "$@"
