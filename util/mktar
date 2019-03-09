@@ -4,6 +4,11 @@
 # =========================
 # Tim Friske <me@tifr.de>
 #
+# Simple tape archive (TAR) creation utility which archives and
+# optionally compresses a given folder by creating an archive file with
+# the folder contents, folder name as base name and the appropriate file
+# extension.
+#
 # See also:
 #   * man:bash[1]
 #   * man:tar[1]
