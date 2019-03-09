@@ -9,6 +9,9 @@
 # is searched in the directories listed in the `PATH` environment
 # variable and the first match is returned if any.
 #
+# Think about aliasing this helper program as e.g. `ft` (file type)
+# should you be using it frequently.
+#
 # See also:
 #   * man:bash[1]
 #   * man:file[1]
