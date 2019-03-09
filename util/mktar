@@ -9,6 +9,13 @@
 # the folder contents, folder name as base name and the appropriate file
 # extension.
 #
+# Depending under which name this program is invoked it either creates
+# an uncompressed TAR archive or one with different compression
+# algorithms.  To achieve that this program must be installed as `mktar`
+# together with the symbolic links `mktbz`, `mktgz`, `mktxz` pointing at
+# it.  Thereby each of the symbolic links represents the different
+# compression algorithms with which to compress the resulting TAR file.
+#
 # See also:
 #   * man:bash[1]
 #   * man:tar[1]
