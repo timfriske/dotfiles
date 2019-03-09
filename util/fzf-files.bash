@@ -2,6 +2,11 @@
 # ==========================================
 # Tim Friske <me@tifr.de>
 #
+# This utility program searches below the current folder for files and
+# if found, quotes any special characters in their names, sorts them by
+# version and let the user fuzzy-find and pick one or more of them
+# interactively.
+#
 # Dependencies::
 #   _Bash_, _Fzf-find_, _Fzf-insert_, _Fzf-pick_, _Fzf-quote_,
 #   _Fzf-sort_
