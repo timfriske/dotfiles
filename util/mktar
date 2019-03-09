@@ -12,9 +12,10 @@
 # Depending under which name this program is invoked it either creates
 # an uncompressed TAR archive or one with different compression
 # algorithms.  To achieve that this program must be installed as `mktar`
-# together with the symbolic links `mktbz`, `mktgz`, `mktxz` pointing at
-# it.  Thereby each of the symbolic links represents the different
-# compression algorithms with which to compress the resulting TAR file.
+# together with the symbolic links `mktbz`, `mktgz`, `mktxz`, `mktzst`
+# pointing at it.  Thereby each of the symbolic links represents the
+# different compression algorithms with which to compress the resulting
+# TAR file.
 #
 # See also:
 #   * man:bash[1]
@@ -22,6 +23,7 @@
 #   * man:bzip2[1]
 #   * man:gzip[1]
 #   * man:xz[1]
+#   * man:zstd[1]
 
 function mktar {
   if [[ "$#" != 1 || ! -e "$1" ]]; then
@@ -29,6 +31,7 @@ function mktar {
     echo 'usage: mktbz <file>|<directory>'
     echo 'usage: mktgz <file>|<directory>'
     echo 'usage: mktxz <file>|<directory>'
+    echo 'usage: mktzst <file>|<directory>'
     exit 1
   fi
   local program="${0##*/}"
@@ -51,6 +54,10 @@ function mktar {
     mktxz)
       archive+=".tar.xz"
       tar --create --xz --file="$archive" --verbose -- "$1"
+      ;;
+    mktzst)
+      archive+=".tar.zst"
+      tar --create --zstd --file="$archive" --verbose -- "$1"
       ;;
     *)
       echo 'error: must be one of mktar, mktbz, mktgz, mktxz!'
