@@ -8,3 +8,8 @@
 # perform actions on those s/he is interested in.
 
 shopt -os nounset pipefail errexit errtrace
+
+function fzf_git_branch {
+}
+
+fzf_git_branch "$@"
