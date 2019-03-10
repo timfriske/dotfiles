@@ -6,3 +6,5 @@
 #
 # Program to let the user list _Git_ branches, fuzzy-find, pick and
 # perform actions on those s/he is interested in.
+
+shopt -os nounset pipefail errexit errtrace
