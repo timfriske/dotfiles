@@ -20,9 +20,11 @@ function fzf_git_branch {
   fzf_keys+=('alt-c:execute(git checkout {})+abort')
   fzf_keys+=('alt-d:execute(git branch --delete {+})+abort')
   fzf_keys+=('alt-f:execute(git branch --delete --force {+})+abort')
+  local fzf_keys_csv="$(IFS=','; printf '%s\n' "${fzf_keys[*]}")"
 
   local fzf_options=()
   fzf_options+=(${FZF_DEFAULT_OPTS:-})
+  fzf_options+=("--bind=$fzf_keys_csv")
   fzf_options+=(${FZF_GIT_BRANCH_FZF_OPTS:-})
   fzf_options+=(${fzf_opts:-})
 }
