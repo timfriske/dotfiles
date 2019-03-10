@@ -22,6 +22,9 @@
 #   if type -p fzf-git-branch &> /dev/null; then
 #     bind -m vi-insert -x '"\C-gb": "fzf-git-branch"'
 #     bind -m vi-command '"\C-gb": "i\C-gb"'
+#     bind -m vi-insert -x \
+#       '"\C-gr": "branch_opts=--remotes fzf-git-branch"'
+#     bind -m vi-command '"\C-gr": "i\C-gr"'
 #   fi
 # fi
 # ----
