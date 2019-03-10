@@ -10,6 +10,9 @@
 # identificaiton.  Each branch is hereby displayed on its own line.
 # The branches are sorted by version under the assumption that they
 # might contain version identfiers.
+#
+# Note that this program is intended for interactive use.  For quick
+# access it should be bound to a hot key.
 
 shopt -os nounset pipefail errexit errtrace
 
