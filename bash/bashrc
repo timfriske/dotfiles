@@ -314,6 +314,8 @@ if type -p fzf &> /dev/null; then
     bind -m vi-command '"\C-ad": "i\C-ad"'
   fi
   if type -p fzf-git-branch &> /dev/null; then
+    bind -m vi-insert -x '"\C-gb": "fzf-git-branch"'
+    bind -m vi-command '"\C-gb": "i\C-gb"'
   fi
 fi
 
