@@ -15,6 +15,11 @@ function fzf_git_branch {
   branch_options+=('--format=%(refname:short)')
   branch_options+=('--sort=version:refname')
   branch_options+=(${branch_opts:-})
+
+  local fzf_options=()
+  fzf_options+=(${FZF_DEFAULT_OPTS:-})
+  fzf_options+=(${FZF_GIT_BRANCH_FZF_OPTS:-})
+  fzf_options+=(${fzf_opts:-})
 }
 
 fzf_git_branch "$@"
