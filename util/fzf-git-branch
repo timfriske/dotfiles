@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Fuzzy-find Git Branches
+# =======================
+# Tim Friske <me@tifr.de>
+#
+# Program to let the user list _Git_ branches, fuzzy-find, pick and
+# perform actions on those s/he is interested in.  The branches are
+# represented by their short reference names (refname:short) for quick
+# identificaiton.  Each branch is hereby displayed on its own line.
+# The branches are sorted by version under the assumption that they
+# might contain version identfiers.
+#
+# Note that this program is intended for interactive use.  For quick
+# access it should be bound to a hot key such as `Ctrl-gb` (mnemonic
+# `git branch') as follows:
+#
+# .Intended usage (`~/.bashrc`)
+# ----
+# # Test if fuzzy finder program _Fzf_ is installed.
+# if type -p fzf &> /dev/null; then
+#   if type -p fzf-git-branch &> /dev/null; then
+#     bind -m vi-insert -x '"\C-gb": "fzf-git-branch"'
+#     bind -m vi-command '"\C-gb": "i\C-gb"'
+#   fi
+# fi
+# ----
+#
+# See also:
+#   * man:bash[1]
+#   * man:fzf[1]
+
+shopt -os nounset pipefail errexit errtrace
+
+function fzf_git_branch {
+  local branch_options=()
+  branch_options+=('--list')
+  branch_options+=('--format=%(refname:short)')
+  branch_options+=('--sort=version:refname')
+  branch_options+=(${branch_opts:-})
+
+  local fzf_keys=()
+  fzf_keys+=('alt-c:execute(git checkout {})+abort')
+  fzf_keys+=('alt-d:execute(git branch --delete {+})+abort')
+  fzf_keys+=('alt-f:execute(git branch --delete --force {+})+abort')
+  local fzf_keys_csv="$(IFS=','; printf '%s\n' "${fzf_keys[*]}")"
+
+  local fzf_options=()
+  fzf_options+=(${FZF_DEFAULT_OPTS:-})
+  fzf_options+=("--bind=$fzf_keys_csv")
+  fzf_options+=(${FZF_GIT_BRANCH_FZF_OPTS:-})
+  fzf_options+=(${fzf_opts:-})
+
+  git branch "${branch_options[@]}" | fzf "${fzf_options[@]}"
+}
+
+fzf_git_branch "$@"
