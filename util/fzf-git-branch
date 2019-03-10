@@ -12,7 +12,19 @@
 # might contain version identfiers.
 #
 # Note that this program is intended for interactive use.  For quick
-# access it should be bound to a hot key.
+# access it should be bound to a hot key such as `Ctrl-gb` (mnemonic
+# `git branch') as follows:
+#
+# .Intended usage (`~/.bashrc`)
+# ----
+# # Test if fuzzy finder program _Fzf_ is installed.
+# if type -p fzf &> /dev/null; then
+#   if type -p fzf-git-branch &> /dev/null; then
+#     bind -m vi-insert -x '"\C-gb": "fzf-git-branch"'
+#     bind -m vi-command '"\C-gb": "i\C-gb"'
+#   fi
+# fi
+# ----
 
 shopt -os nounset pipefail errexit errtrace
 
