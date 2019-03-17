@@ -321,6 +321,8 @@ if type -p fzf &> /dev/null; then
     bind -m vi-command '"\C-gr": "i\C-gr"'
   fi
   if type -p fzf-git-tag &> /dev/null; then
+    bind -m vi-insert -x '"\C-gt": "fzf-git-tag"'
+    bind -m vi-command '"\C-gt": "i\C-gt"'
   fi
 fi
 
