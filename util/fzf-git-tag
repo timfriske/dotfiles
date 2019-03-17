@@ -27,6 +27,8 @@ function fzf_git_tag {
   fzf_options+=("--bind=$fzf_keys_csv")
   fzf_options+=(${FZF_GIT_TAG_FZF_OPTS:-})
   fzf_options+=(${fzf_opts:-})
+
+  git tag "${tag_options[@]}" | fzf "${fzf_options[@]}"
 }
 
 fzf_git_tag "$@"
