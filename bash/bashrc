@@ -320,6 +320,8 @@ if type -p fzf &> /dev/null; then
       '"\C-gr": "branch_opts=--remotes fzf-git-branch"'
     bind -m vi-command '"\C-gr": "i\C-gr"'
   fi
+  if type -p fzf-git-tag &> /dev/null; then
+  fi
 fi
 
 # Test if interactive shell has startup file with local overrides.
