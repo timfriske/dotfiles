@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Fuzzy-find Git Tags
+# ===================
+# Tim Friske <me@tifr.de>
+#
+# Program to let the user list _Git_ tags, fuzzy-find, pick and perform
+# actions on those s/he is interested in.  The tags are represented by
+# their short reference names (refname:short) for quick identification.
+# Each tag is hereby displayed on its own line.  The tags are sorted by
+# version under the assumption that they might contain version
+# identfiers.
+#
+# Note that this program is intended for interactive use.  For quick
+# access it should be bound to a hot key such as `Ctrl-gt` (mnemonic
+# `git tag') as follows:
+#
+# .Intended usage (`~/.bashrc`)
+# ----
+# # Test if fuzzy finder program _Fzf_ is installed.
+# if type -p fzf &> /dev/null; then
+#   if type -p fzf-git-tag &> /dev/null; then
+#     bind -m vi-insert -x '"\C-gt": "fzf-git-tag"'
+#     bind -m vi-command '"\C-gt": "i\C-gt"'
+#   fi
+# fi
+# ----
+#
+# See also:
+#   * man:bash[1]
+#   * man:fzf[1]
+#   * man:git[1]
+
+shopt -os nounset pipefail errexit errtrace
+
+function fzf_git_tag {
+  local tag_options=()
+  tag_options+=('--list')
+  tag_options+=('--format=%(refname:short)')
+  tag_options+=('--sort=version:refname')
+  tag_options+=(${tag_opts:-})
+
+  local fzf_keys=()
+  fzf_keys+=('alt-c:execute(git checkout {})+abort')
+  fzf_keys+=('alt-d:execute(git tag --delete {+})+abort')
+  fzf_keys+=('alt-f:execute(git tag --delete --force {+})+abort')
+  local fzf_keys_csv="$(IFS=','; printf '%s\n' "${fzf_keys[*]}")"
+
+  local fzf_options=()
+  fzf_options+=(${FZF_DEFAULT_OPTS:-})
+  fzf_options+=("--bind=$fzf_keys_csv")
+  fzf_options+=(${FZF_GIT_TAG_FZF_OPTS:-})
+  fzf_options+=(${fzf_opts:-})
+
+  git tag "${tag_options[@]}" | fzf "${fzf_options[@]}"
+}
+
+fzf_git_tag "$@"
