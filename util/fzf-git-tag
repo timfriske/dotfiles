@@ -1,1 +1,5 @@
 #!/usr/bin/env bash
+
+# Fuzzy-find Git Tags
+# ===================
+# Tim Friske <me@tifr.de>
