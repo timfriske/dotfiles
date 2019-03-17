@@ -8,3 +8,8 @@
 # actions on those s/he is interested in.
 
 shopt -os nounset pipefail errexit errtrace
+
+function fzf_git_tag {
+}
+
+fzf_git_tag "$@"
