@@ -313,15 +313,15 @@ if type -p fzf &> /dev/null; then
     bind -m vi-insert -x '"\C-ad": "fzf_folders"'
     bind -m vi-command '"\C-ad": "i\C-ad"'
   fi
-  if type -p fzf-git-branch &> /dev/null; then
-    bind -m vi-insert -x '"\C-gb": "fzf-git-branch"'
+  if source fzf-git-branch-insert.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-gb": "fzf_git_branch_insert"'
     bind -m vi-command '"\C-gb": "i\C-gb"'
     bind -m vi-insert -x \
-      '"\C-gr": "branch_opts=--remotes fzf-git-branch"'
+      '"\C-gr": "branch_opts=--remotes fzf_git_branch_insert"'
     bind -m vi-command '"\C-gr": "i\C-gr"'
   fi
-  if type -p fzf-git-tag &> /dev/null; then
-    bind -m vi-insert -x '"\C-gt": "fzf-git-tag"'
+  if source fzf-git-tag-insert.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-gt": "fzf_git_tag_insert"'
     bind -m vi-command '"\C-gt": "i\C-gt"'
   fi
 fi
