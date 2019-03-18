@@ -8,6 +8,9 @@
 # identification.  Each branch is hereby displayed on its own line.  The
 # branches are sorted by version under the assumption that they might
 # contain version identfiers.
+#
+# Note that this program is intended for interactive use.  For quick
+# access it should be bound to a hot key.
 
 function fzf_git_branch_insert {
   cmd="fzf-git-branch" fzf_insert
