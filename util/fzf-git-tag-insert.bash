@@ -4,3 +4,6 @@
 #
 # Program to let the user list _Git_ tags, fuzzy-find, pick and perform
 # actions on those s/he is interested in.
+
+function fzf_git_tag_insert {
+}
