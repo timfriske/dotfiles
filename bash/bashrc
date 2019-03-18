@@ -320,8 +320,8 @@ if type -p fzf &> /dev/null; then
       '"\C-gr": "branch_opts=--remotes fzf_git_branch_insert"'
     bind -m vi-command '"\C-gr": "i\C-gr"'
   fi
-  if type -p fzf-git-tag &> /dev/null; then
-    bind -m vi-insert -x '"\C-gt": "fzf-git-tag"'
+  if source fzf-git-tag-insert.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-gt": "fzf_git_tag_insert"'
     bind -m vi-command '"\C-gt": "i\C-gt"'
   fi
 fi
