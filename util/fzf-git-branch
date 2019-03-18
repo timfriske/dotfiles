@@ -7,7 +7,7 @@
 # Program to let the user list _Git_ branches, fuzzy-find, pick and
 # perform actions on those s/he is interested in.  The branches are
 # represented by their short reference names (refname:short) for quick
-# identificaiton.  Each branch is hereby displayed on its own line.  The
+# identification.  Each branch is hereby displayed on its own line.  The
 # branches are sorted by version under the assumption that they might
 # contain version identfiers.
 #
