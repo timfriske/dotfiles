@@ -24,6 +24,9 @@
 #   fi
 # fi
 # ----
+#
+# Dependencies::
+#   _Bash_, _Fzf-git-branch_, _Fzf-insert_
 
 function fzf_git_branch_insert {
   cmd="fzf-git-branch" fzf_insert
