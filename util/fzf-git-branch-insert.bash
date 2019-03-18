@@ -6,4 +6,5 @@
 # perform actions on those s/he is interested in.
 
 function fzf_git_branch_insert {
+  cmd="fzf-git-branch" fzf_insert
 }
