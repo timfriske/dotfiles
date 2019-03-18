@@ -6,4 +6,5 @@
 # actions on those s/he is interested in.
 
 function fzf_git_tag_insert {
+  cmd="fzf-git-tag" fzf_insert
 }
