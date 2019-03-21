@@ -31,9 +31,13 @@
 
 # Find folders to search for binaries and scripts to source.
 #
+declare _path=''
+declare -a _paths=()
 # Use _Bash's_ brace expansion for brevity.
 for _path in {/usr/{local/,},/}{,s}bin "$HOME"/{.local/,}bin; do
-  echo "Path: $_path"
+  if [[ -d "$_path" ]]; then
+    _paths+=("$_path")
+  fi
 done
 
 # Save space for the actual command line by showing only the trailing
