@@ -50,6 +50,7 @@ done
 # 1. Print array of paths as colon-separated list.
 # 2. Replace `HOME` directory path with shorter tilde sign.
 export PATH="$(IFS=':'; printf '%s' "${_paths[*]/#"$HOME"/'~'}")"
+unset _path _paths _path_real _paths_real
 
 # Save space for the actual command line by showing only the trailing
 # number of path components of the working directory in the command
