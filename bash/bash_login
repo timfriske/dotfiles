@@ -259,8 +259,9 @@ export FZF_GIT_BRANCH_FZF_OPTS='--multi --exit-0'
 # 2. Exit immediately if there is no matching _Git_ tag.
 export FZF_GIT_TAG_FZF_OPTS='--multi --exit-0'
 
-# Allow user to select multiple jobs with _Fzf_.
-export FZF_JOBS_FZF_OPTS='--multi'
+# 1. Allow user to select multiple jobs with _Fzf_.
+# 2. Exit immediately if there is no matching job.
+export FZF_JOBS_FZF_OPTS='--multi --exit-0'
 
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
