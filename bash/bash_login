@@ -29,6 +29,13 @@
 # Environment variables
 # ---------------------
 
+# Find folders to search for binaries and scripts to source.
+#
+# Use _Bash's_ brace expansion for brevity.
+for _path in {/usr/{local/,},/}{,s}bin "$HOME"/{.local/,}bin; do
+  echo "Path: $_path"
+done
+
 # Save space for the actual command line by showing only the trailing
 # number of path components of the working directory in the command
 # prompt.  The rest of the path is represented by an ellipsis.
