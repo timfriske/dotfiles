@@ -51,6 +51,7 @@ function fzf_git_branch {
   fzf_keys+=('alt-n:execute(</dev/tty >/dev/tty git merge --no-ff $GIT_X_SIGNOFF {+})+abort')
   fzf_keys+=('alt-r:execute(git branch --delete --remotes {+})+abort')
   fzf_keys+=('alt-t:execute(git checkout --track {})+abort')
+  fzf_keys+=('alt-v:execute(git log --max-count=1 --oneline --show-signature {})+abort')
   local fzf_keys_csv="$(IFS=','; printf '%s\n' "${fzf_keys[*]}")"
 
   local fzf_options=()
