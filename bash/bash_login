@@ -32,11 +32,19 @@
 # Find folders to search for binaries and scripts to source.
 #
 declare _path=''
+declare _path_real=''
 declare -a _paths=()
+declare -A _paths_real=()
 # Use _Bash's_ brace expansion for brevity.
 for _path in {/usr/{local/,},/}{,s}bin "$HOME"/{.local/,}bin; do
   if [[ -d "$_path" ]]; then
-    _paths+=("$_path")
+    # Resolve symlinks in path.
+    _path_real="$(cd "$_path" && pwd -P)"
+    # Add path only if not already added.
+    if [[ ! -n "${_paths_real[$_path_real]+x}" ]]; then
+      _paths_real["$_path_real"]+=''
+      _paths+=("$_path")
+    fi
   fi
 done
 # 1. Print array of paths as colon-separated list.
