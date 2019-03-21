@@ -251,6 +251,12 @@ export GIT_CONFIG_NOSYSTEM=true
 #
 export GIT_X_SIGNOFF='--signoff'
 
+# Allow user to select multiple _Git_ branches with _Fzf_.
+export FZF_GIT_BRANCH_FZF_OPTS='--multi'
+
+# Allow user to select multiple _Git_ tags with _Fzf_.
+export FZF_GIT_TAG_FZF_OPTS='--multi'
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.
