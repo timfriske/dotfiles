@@ -39,6 +39,8 @@ for _path in {/usr/{local/,},/}{,s}bin "$HOME"/{.local/,}bin; do
     _paths+=("$_path")
   fi
 done
+# Print array of paths as colon-separated list.
+export PATH="$(IFS=':'; printf '%s' "${_paths[*]}")"
 
 # Save space for the actual command line by showing only the trailing
 # number of path components of the working directory in the command
