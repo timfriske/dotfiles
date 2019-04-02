@@ -327,9 +327,13 @@ if type -p fzf &> /dev/null; then
       '"\C-ar": "branch_opts=--remotes fzf_git_branch_insert"'
     bind -m vi-command '"\C-ar": "i\C-ar"'
   fi
-  if source fzf-git-tag-insert.bash &> /dev/null; then
-    bind -m vi-insert -x '"\C-gt": "fzf_git_tag_insert"'
+  if type -p fzf-git-tag &> /dev/null; then
+    bind -m vi-insert -x '"\C-gt": "fzf-git-tag"'
     bind -m vi-command '"\C-gt": "i\C-gt"'
+  fi
+  if source fzf-git-tag-insert.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-at": "fzf_git_tag_insert"'
+    bind -m vi-command '"\C-at": "i\C-at"'
   fi
 fi
 
