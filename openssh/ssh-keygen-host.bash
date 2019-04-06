@@ -6,7 +6,7 @@
 #
 # This interactive program generates _SSH_ keys for the current host.
 # It generates two keys, one _Ed25519_ key and one _RSA-4096_ key.  Any
-# options are presented to the user whose default values s/he can either
+# option is presented to the user whose default value s/he can either
 # accept or overwrite.
 #
 # Important note: For increased security and performance you should
