@@ -9,7 +9,7 @@
 # options are presented to the user whose default values s/he can either
 # accept or overwrite.
 #
-# Imprtant note: For increased security and performance you should
+# Important note: For increased security and performance you should
 # prefer the modern _Ed25519_ key whenever possible.  For compatibility
 # with older _SSH_ implementations you can fallback to the dated but
 # widely supported _RSA-4096_ key.
