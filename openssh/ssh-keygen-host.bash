@@ -20,7 +20,7 @@
 
 # Fail-fast and abort this program.
 #
-set -o errexit
+shopt -os nounset pipefail errexit errtrace
 
 echo Choose folder common to all SSH key pairs for the host.
 key_folder=/etc/ssh
