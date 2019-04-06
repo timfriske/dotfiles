@@ -39,7 +39,7 @@ shopt -os nounset pipefail errexit errtrace
 function fzf_git_branch {
   local branch_options=()
   branch_options+=('--list')
-  branch_options+=('--format=%(refname:short)')
+  branch_options+=('--format=%(refname:lstrip=2)')
   branch_options+=('--sort=version:refname')
   branch_options+=(${branch_opts:-})
 
