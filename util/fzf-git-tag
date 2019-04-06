@@ -44,8 +44,10 @@ function fzf_git_tag {
   fzf_keys+=('alt-c:execute(git checkout {})+abort')
   fzf_keys+=('alt-d:execute(git tag --delete {+})+abort')
   fzf_keys+=('alt-f:execute(git tag --delete --force {+})+abort')
-  fzf_keys+=('alt-m:execute(</dev/tty >/dev/tty git merge $GIT_X_SIGNOFF {+})+abort')
-  fzf_keys+=('alt-n:execute(</dev/tty >/dev/tty git merge --no-ff $GIT_X_SIGNOFF {+})+abort')
+  fzf_keys+=('alt-m:execute(</dev/tty >/dev/tty git merge \
+$GIT_X_SIGNOFF {+})+abort')
+  fzf_keys+=('alt-n:execute(</dev/tty >/dev/tty git merge --no-ff \
+$GIT_X_SIGNOFF {+})+abort')
   fzf_keys+=('alt-v:execute(git tag --verify {+})+abort')
   local fzf_keys_csv="$(IFS=','; printf '%s\n' "${fzf_keys[*]}")"
 
