@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# = SSH host key generation
+# SSH host key generation
+# =======================
 # Tim Friske <me@tifr.de>
 #
 # This interactive program generates _SSH_ keys for the current host.

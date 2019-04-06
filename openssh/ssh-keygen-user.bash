@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# = SSH user key generation
+# SSH user key generation
+# =======================
 # Tim Friske <me@tifr.de>
 #
 # This interactive program generates _SSH_ keys for the current user.
