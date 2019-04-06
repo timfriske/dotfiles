@@ -18,7 +18,8 @@
 # keys for that user on-the-fly, i.e. without logging in as that user
 # and out again.
 
-# Terminate execution on first error and abort this program.
+# Fail-fast and abort this program.
+#
 set -o errexit
 
 echo Choose folder common to all SSH key pairs for the user.
