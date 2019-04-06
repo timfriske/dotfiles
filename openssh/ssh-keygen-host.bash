@@ -75,7 +75,8 @@ mkdir --verbose --parents -- "$key_folder"
 #      at all because a private host key cannot have one.  Therefore it
 #      is of utterly importance that access to this file is restricted
 #      as much as possible.  Only the user `root' must be able to read
-#      and write this file.
+#      and write this file.  Secure file permissions are chosen by the
+#      _SSH_ key generation program by default for the private key file.
 #
 echo Choose options of SSH Ed25519 public/private key pair.
 key_file="ssh_host_ed25519_key"
