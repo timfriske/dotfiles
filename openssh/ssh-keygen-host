@@ -1,46 +1,54 @@
 #!/usr/bin/env bash
 #
-# = SSH user key generation
+# SSH host key generation
+# =======================
 # Tim Friske <me@tifr.de>
 #
-# This interactive program generates _SSH_ keys for the current user.
+# This interactive program generates _SSH_ keys for the current host.
 # It generates two keys, one _Ed25519_ key and one _RSA-4096_ key.  Any
-# options are presented to the user whose default values s/he can either
+# option is presented to the user whose default value s/he can either
 # accept or overwrite.
 #
-# Imprtant note: For increased security and performance you should
+# Important note: For increased security and performance you should
 # prefer the modern _Ed25519_ key whenever possible.  For compatibility
 # with older _SSH_ implementations you can fallback to the dated but
 # widely supported _RSA-4096_ key.
 #
-# Tip: Run this program with `sudo` as another user to generate _SSH_
-# keys for that user on-the-fly, i.e. without logging in as that user
+# Tip: Run this program with `sudo` as user `root` to generate _SSH_
+# keys for this host on-the-fly, i.e. without logging in as that user
 # and out again.
 
-# Terminate execution on first error and abort this program.
-set -o errexit
+# Fail-fast and abort this program.
+#
+shopt -os nounset pipefail errexit errtrace
 
-echo Choose folder common to all SSH key pairs for the user.
-key_folder=~/.ssh
+echo Choose folder common to all SSH key pairs for the host.
+key_folder=/etc/ssh
 read -p 'Key folder: ' -e -i "$key_folder" key_folder
 key_folder=${key_folder:-.}
 mkdir --verbose --parents -- "$key_folder"
 
 # Generate the following types of _SSH_ keys for below reasons:
 #
-#   1. Ed25519: Generates a public and private key pair encoded
-#      according to the _EdDSA_ _Edwards-curve Digital Signature
-#      Algorithm_ public-key cryptography algorithm because it seems to
-#      be the type of key with the most secure and also fastest digital
-#      signature scheme currently supported by _SSH_ implementations
-#      such as _OpenSSH_.  Other advantages are that an _Ed25519_ key is
-#      of fixed length and also relatively short, e.g.  when compared to
+#   1. Ed25519: Generate a public and private key pair encoded according
+#      to the _EdDSA_ _Edwards-curve Digital Signature Algorithm_
+#      public-key cryptography algorithm because it seems to be the type
+#      of key with the most secure and also fastest digital signature
+#      scheme currently supported by _SSH_ implementations such as
+#      _OpenSSH_.  Other advantages are that an _Ed25519_ key is of
+#      fixed length and also relatively short, e.g. when compared to
 #      variable length types of keys such as _RSA_.
 #
-#   2. RSA: Generates a public and private key pair encoded according to
+#   2. RSA: Generate a public and private key pair encoded according to
 #      the _RSA_ _Rivest, Shamir and Adleman_ public-key cryptography
 #      algorithm as a second best choice compared to the _Ed25519_ key
 #      mainly for compatibility with older _SSH_ implementations.
+#
+# Important note: Because the files storing the private parts of host
+# keys cannot be protected by passphrases they are secured with very
+# restrictive file permissions instead such that only the owning user
+# `root' may read these but no one else is able to access them in any
+# way.
 #
 # Make use of the following non-standard options for below reasons:
 #
@@ -63,34 +71,37 @@ mkdir --verbose --parents -- "$key_folder"
 #      for an _Ed25519_ key but should be explicitly set for any other
 #      protocol version 2 key.
 #
-#   6. KDF rounds (a): Increase the _KDF_ _Key Derivation Function_
-#      rounds in order to make it harder to brute-force crack the
-#      passphrase of the private key.
+#   6. New passphrase (N): Use an empty passphrase, i.e. no passphrase
+#      at all because a private host key cannot have one.  Therefore it
+#      is of utterly importance that access to this file is restricted
+#      as much as possible.  Only the user `root' must be able to read
+#      and write this file.  Secure file permissions are chosen by the
+#      _SSH_ key generation program by default for the private key file.
 #
 echo Choose options of SSH Ed25519 public/private key pair.
-key_file="id_ed25519"
+key_file="ssh_host_ed25519_key"
 read -p 'Key file: ' -e -i "$key_file" key_file
-key_comment="SSH Ed25519 key of user $USER created on \
+key_comment="SSH Ed25519 key of host $(hostname) created on \
 $(date --iso-8601)."
 read -p 'Key comment: ' -e -i "$key_comment" key_comment
 key_path="$key_folder/$key_file"
 ssh-keygen \
-  -f "$key_path" \
+  -f  "$key_path" \
   -t ed25519 \
   -C "$key_comment" \
-  -a 100
+  -N ''
 
 echo Choose options of SSH RSA-4096 public/private key pair.
-key_file="id_rsa"
+key_file="ssh_host_rsa_key"
 read -p 'Key file: ' -e -i "$key_file" key_file
-key_comment="SSH RSA-4096 key of user $USER created on \
+key_comment="SSH RSA-4096 key of host $(hostname) created on \
 $(date --iso-8601)."
 read -p 'Key comment: ' -e -i "$key_comment" key_comment
 key_path="$key_folder/$key_file"
 ssh-keygen \
-  -f "$key_path" \
+  -f  "$key_path" \
   -t rsa \
   -b 4096 \
   -C "$key_comment" \
   -o \
-  -a 100
+  -N ''
