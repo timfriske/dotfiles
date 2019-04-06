@@ -280,7 +280,7 @@ fi
 # with the prefix letter `g`.  The _Git_ aliases will be lazily loaded
 # and defined as _Bash_ aliases by the `git` function below.  Upon the
 # first time this function is called it dynamically defines one _Bash_
-# alias for each _Git_ alias that is defined in one of _Git's_
+# alias for e	ach _Git_ alias that is defined in one of _Git's_
 # configuration files.  It then executes the `git` command with all the
 # given arguments as if this function had never existed.  Once completed
 # it eventually makes way for the `git` command by undefining itself.
@@ -343,8 +343,10 @@ if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
   source ~/.bashrc.local
 fi
 
-# Test if neither _Tmux_ nor _Screen_ is running.
-if ! [[ -n "$TMUX" || "$TERM" =~ screen ]]; then
+# Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from
+# `localhost` is running.
+if ! [[ -n "$TMUX" || "$TERM" =~ screen
+    || "$SSH_CONNECTION" =~ ^::1|^127\.0\.0\.1 ]]; then
   # Test if _Tmux_ is on the `$PATH`.
   if type -p tmux &> /dev/null; then
     # Try to attach to latest unattached session or start a new one.
