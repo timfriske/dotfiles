@@ -2,3 +2,5 @@
 # Ansible variables of Local group
 # ================================
 # Tim Friske <me@tifr.de>
+
+ansible_connection: local
