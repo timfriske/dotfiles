@@ -8,6 +8,16 @@ shopt -os nounset pipefail errexit errtrace
 
 declare -r site_dir="$(dirname "$0")"
 
+function get_readable_file {
+  for file in "$@"; do
+    if [[ -f "$file" && -r "$file" ]]; then
+      printf '%s\n' "$file"
+      return 0
+    fi
+  done
+  return 1
+}
+
 function site {
   cd -- "$site_dir"
 }
