@@ -9,3 +9,7 @@ hosts.yml
 # Customized Ansible variables
 # ----------------------------
 vars.yml
+
+# Ansible's Retry files
+# ---------------------
+*.retry
