@@ -24,6 +24,7 @@ function site {
   local vars_file="$(get_readable_file vars{,.default}.yml)"
   ansible-playbook \
     "${hosts_file:+--inventory-file=$hosts_file}" \
+    "${vars_file:+--extra-vars=@$vars_file}" \
     -- \
     site.yml
 }
