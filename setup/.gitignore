@@ -1,0 +1,15 @@
+# Files to be ignored by Git
+# ==========================
+# Tim Friske <me@tifr.de>
+
+# Customized Ansible inventory
+# ----------------------------
+hosts.yml
+
+# Customized Ansible variables
+# ----------------------------
+vars.yml
+
+# Ansible's Retry files
+# ---------------------
+*.retry

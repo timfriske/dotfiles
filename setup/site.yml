@@ -1,0 +1,9 @@
+---
+# Main playbook of Config project
+# ===============================
+# Tim Friske <me@tifr.de>
+
+- name: Setup of hosts with configuration files
+  hosts: "{{ hosts_var }}"
+  roles:
+    - bash

@@ -1,0 +1,10 @@
+---
+# Ansible inventory for Config project
+# ====================================
+# Tim Friske <me@tifr.de>
+
+all:
+  children:
+    local:
+      hosts:
+        localhost:
