@@ -6,7 +6,10 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+declare -r site_dir="$(dirname "$0")"
+
 function site {
+  cd -- "$site_dir"
 }
 
 site "$@"
