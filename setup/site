@@ -3,3 +3,5 @@
 # Main script of Config project
 # =============================
 # Tim Friske <me@tifr.de>
+
+shopt -os nounset pipefail errexit errtrace
