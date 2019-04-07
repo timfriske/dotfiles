@@ -20,6 +20,7 @@ function get_readable_file {
 
 function site {
   cd -- "$site_dir"
+  local hosts_file="$(get_readable_file hosts{,.default}.yml)"
 }
 
 site "$@"
