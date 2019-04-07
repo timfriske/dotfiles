@@ -7,3 +7,8 @@
   copy:
     src: bash_login
     dest: "{{ user_dir }}/.bash_login"
+
+- name: Copy Bash startup file for interactive shells
+  copy:
+    src: bashrc
+    dest: "{{ user_dir }}/.bashrc"
