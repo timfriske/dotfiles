@@ -1,0 +1,10 @@
+---
+# Global Ansible inventory
+# ========================
+# Tim Friske <me@tifr.de>
+
+all:
+  children:
+    local:
+      hosts:
+        localhost:
