@@ -4,3 +4,4 @@
 # Tim Friske <me@tifr.de>
 
 ansible_connection: local
+system_dir: /etc
