@@ -23,6 +23,7 @@ function site {
   local hosts_file="$(get_readable_file hosts{,.default}.yml)"
   local vars_file="$(get_readable_file vars{,.default}.yml)"
   ansible-playbook \
+    "${hosts_file:+--inventory-file=$hosts_file}" \
     -- \
     site.yml
 }
