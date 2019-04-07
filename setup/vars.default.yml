@@ -2,3 +2,5 @@
 # Ansible variables of Config project
 # ===================================
 # Tim Friske <me@tifr.de>
+
+hosts_var: local
