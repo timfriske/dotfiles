@@ -2,3 +2,8 @@
 # Main playbook of Bash configuration
 # ===================================
 # Tim Friske <me@tifr.de>
+
+- name: Copy Bash startup file for login shells
+  copy:
+    src: bash_login
+    dest: "{{ user_dir }}/.bash_login"
