@@ -5,3 +5,7 @@
 # Customized Ansible inventory
 # ----------------------------
 hosts.yml
+
+# Customized Ansible variables
+# ----------------------------
+vars.yml
