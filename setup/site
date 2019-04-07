@@ -25,6 +25,7 @@ function site {
   ansible-playbook \
     "${hosts_file:+--inventory-file=$hosts_file}" \
     "${vars_file:+--extra-vars=@$vars_file}" \
+    "$@" \
     -- \
     site.yml
 }
