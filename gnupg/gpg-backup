@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# = GPG Key Backup
+# GPG Key Backup
+# ==============
 # Tim Friske <me@tifr.de>
 #
 # Backs up _OpenPGP_ keys with _GPG_ by either exporting all keys from
