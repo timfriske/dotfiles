@@ -13,17 +13,6 @@
 # Terminate execution on first error and abort this program.
 shopt -os nounset pipefail errexit errtrace
 
-# Output _GPG_ version with which _OpenPGP_ keys are generated.
-gpg --version
-
-# Backup file *must* be given as first parameter.
-backup_name="${backup_name-${1:-}}"
-
-if [[ -z "$backup_name" ]]; then
-  echo 'Please specify a backup name.'
-  exit 1
-fi
-
 function backup_file {
   local file_to_backup="$1"
   if [[ -e "$file_to_backup" ]]; then
@@ -44,31 +33,49 @@ function backup_file {
   fi
 }
 
-# Back up either all keys or those of the given names:
-# Public keys
-backup_file "$backup_name.pub.gpg"
-gpg --export \
-  --export-options backup \
-  --output "$backup_name.pub.gpg" \
-  ${@:2}
-chmod u=r,go= -- "$backup_name.pub.gpg"
-# Secret keys
-backup_file "$backup_name.sec.gpg"
-gpg --export-secret-keys \
-  --export-options backup \
-  --output "$backup_name.sec.gpg" \
-  ${@:2}
-chmod u=r,go= -- "$backup_name.sec.gpg"
-# Secret sub-keys
-backup_file "$backup_name.ssb.gpg"
-gpg --export-secret-subkeys \
-  --export-options backup \
-  --output "$backup_name.ssb.gpg" \
-  ${@:2}
-chmod u=r,go= -- "$backup_name.ssb.gpg"
+# Backs up either all keys or those of the given names.
+#
+function gpg_backup {
+  # Output _GPG_ version with which _OpenPGP_ keys are generated.
+  gpg --version
 
-# Backup the owner trusts in order to be able to restore the Web of
-# Trust database later:
-backup_file "$backup_name.ownertrust.txt"
-gpg --export-ownertrust > "$backup_name.ownertrust.txt"
-chmod u=r,go= -- "$backup_name.ownertrust.txt"
+  # Backup file *must* be given as first parameter.
+  backup_name="${backup_name-${1:-}}"
+
+  if [[ -z "$backup_name" ]]; then
+    echo 'Please specify a backup name.'
+    exit 1
+  fi
+
+  # Public keys
+  backup_file "$backup_name.pub.gpg"
+  gpg --export \
+    --export-options backup \
+    --output "$backup_name.pub.gpg" \
+    ${@:2}
+  chmod u=r,go= -- "$backup_name.pub.gpg"
+
+  # Secret keys
+  backup_file "$backup_name.sec.gpg"
+  gpg --export-secret-keys \
+    --export-options backup \
+    --output "$backup_name.sec.gpg" \
+    ${@:2}
+  chmod u=r,go= -- "$backup_name.sec.gpg"
+
+  # Secret sub-keys
+  backup_file "$backup_name.ssb.gpg"
+  gpg --export-secret-subkeys \
+    --export-options backup \
+    --output "$backup_name.ssb.gpg" \
+    ${@:2}
+  chmod u=r,go= -- "$backup_name.ssb.gpg"
+
+  # Backup the owner trusts in order to be able to restore the Web of
+  # Trust database later:
+  backup_file "$backup_name.ownertrust.txt"
+  gpg --export-ownertrust > "$backup_name.ownertrust.txt"
+  chmod u=r,go= -- "$backup_name.ownertrust.txt"
+}
+
+gpg_backup "$@"
