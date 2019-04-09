@@ -22,15 +22,15 @@
 # generated for the key with that fingerprint on the second run.
 
 # Terminate execution on first error and abort this program.
-set -o errexit
+shopt -os nounset pipefail errexit errtrace
 
 # Output _GPG_ version with which _OpenPGP_ keys are generated.
 gpg --version
 
 # User ID *must* be given as first parameter.
-user_id="${user_id-$1}"
+user_id="${user_id-${1:-}}"
 # Key fingerprint *may* be given as second parameter.
-key_fpr="${key_fpr-$2}"
+key_fpr="${key_fpr-${2:-}}"
 
 if [[ -z "$user_id" ]]; then
   echo 'Please specify a user ID of the form'

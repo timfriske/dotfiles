@@ -11,13 +11,13 @@
 # as the names of the keys to back up.
 
 # Terminate execution on first error and abort this program.
-set -o errexit
+shopt -os nounset pipefail errexit errtrace
 
 # Output _GPG_ version with which _OpenPGP_ keys are generated.
 gpg --version
 
 # Backup file *must* be given as first parameter.
-backup_name="${backup_name-$1}"
+backup_name="${backup_name-${1:-}}"
 
 if [[ -z "$backup_name" ]]; then
   echo 'Please specify a backup name.'
