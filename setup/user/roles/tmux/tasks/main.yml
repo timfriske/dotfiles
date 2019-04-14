@@ -1,0 +1,9 @@
+---
+# Main Ansible playbook of user specific Tmux setup
+# =================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy Tmux configuration file
+  copy:
+    src: tmux.conf
+    dest: "{{ user_dir }}/.tmux.conf"

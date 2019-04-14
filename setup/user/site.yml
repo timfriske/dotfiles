@@ -1,9 +1,13 @@
 ---
-# Main playbook of Config project
-# ===============================
+# Main Ansible playbook of user setup
+# ===================================
 # Tim Friske <me@tifr.de>
 
 - name: Setup of hosts with configuration files
   hosts: "{{ hosts_var }}"
   roles:
     - bash
+    - openssh
+    - readline
+    - tmux
+    - xdg

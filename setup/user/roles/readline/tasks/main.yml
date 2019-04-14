@@ -1,0 +1,14 @@
+---
+# Main Ansible playbook of user specific Readline setup
+# =====================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy Readline Inputrc configuration file
+  copy:
+    src: inputrc
+    dest: "{{ user_dir }}/.inputrc"
+
+- name: Copy Readline Inputrc Fzf configuration file
+  copy:
+    src: inputrc.fzf
+    dest: "{{ user_dir }}/.inputrc.fzf"

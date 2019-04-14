@@ -1,0 +1,40 @@
+---
+# Main Ansible playbook of user specific Xdg setup
+# ================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy Chromium Xdg autostart configuration file
+  copy:
+    src: autostart/chromium-web-browser.desktop
+    dest: "{{ user_dir }}/.config/autostart/\
+            chromium-web-browser.desktop"
+
+- name: Copy Firefox Xdg autostart configuration file
+  copy:
+    src: autostart/firefox-web-browser.desktop
+    dest: "{{ user_dir }}/.config/autostart/\
+            firefox-web-browser.desktop"
+
+- name: Copy Gnome Keyring SSH Xdg autostart configuration file
+  copy:
+    src: autostart/gnome-keyring-ssh.desktop
+    dest: "{{ user_dir }}/.config/autostart/\
+            gnome-keyring-ssh.desktop"
+
+- name: Copy Gnome Nautilus Xdg autostart configuration file
+  copy:
+    src: autostart/gnome-nautilus-file-browser.desktop
+    dest: "{{ user_dir }}/.config/autostart/\
+            gnome-nautilus-file-browser.desktop"
+
+- name: Copy Gnome System Monitor Xdg autostart configuration file
+  copy:
+    src: autostart/gnome-system-monitor.desktop
+    dest: "{{ user_dir }}/.config/autostart/\
+            gnome-system-monitor.desktop"
+
+- name: Copy Gnome Terminal Xdg autostart configuration file
+  copy:
+    src: autostart/gnome-terminal-emulator.desktop
+    dest: "{{ user_dir }}/.config/autostart/\
+            gnome-terminal-emulator.desktop"

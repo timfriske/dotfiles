@@ -1,6 +1,6 @@
 ---
-# Main playbook of Bash configuration
-# ===================================
+# Main Ansible playbook of user specific Bash setup
+# =================================================
 # Tim Friske <me@tifr.de>
 
 - name: Copy Bash startup file for login shells
