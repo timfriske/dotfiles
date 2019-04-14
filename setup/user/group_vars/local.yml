@@ -4,5 +4,4 @@
 # Tim Friske <me@tifr.de>
 
 ansible_connection: local
-system_dir: /etc
 user_dir: "{{ ansible_env.HOME }}"
