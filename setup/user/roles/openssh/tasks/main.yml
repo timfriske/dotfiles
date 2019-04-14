@@ -1,0 +1,19 @@
+---
+# Main Ansible playbook of user specific OpenSSH setup
+# ====================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy OpenSSH client configuration file
+  copy:
+    src: config
+    dest: "{{ user_dir }}/.ssh/config"
+
+- name: Copy OpenSSH host key generation utility program
+  copy:
+    src: ssh-keygen-host
+    dest: "{{ user_dir }}/bin/ssh-keygen-host"
+
+- name: Copy OpenSSH user key generation utility program
+  copy:
+    src: ssh-keygen-user
+    dest: "{{ user_dir }}/bin/ssh-keygen-user"

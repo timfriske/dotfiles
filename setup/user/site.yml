@@ -7,5 +7,6 @@
   hosts: "{{ hosts_var }}"
   roles:
     - bash
+    - openssh
     - tmux
     - xdg
