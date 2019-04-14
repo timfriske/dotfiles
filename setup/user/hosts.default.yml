@@ -1,6 +1,6 @@
 ---
-# Ansible inventory for Config project
-# ====================================
+# Ansible inventory of user specific setup
+# ========================================
 # Tim Friske <me@tifr.de>
 
 all:

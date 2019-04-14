@@ -1,6 +1,6 @@
 ---
-# Ansible variables of Local group
-# ================================
+# Ansible variables of Local group of hosts
+# =========================================
 # Tim Friske <me@tifr.de>
 
 ansible_connection: local

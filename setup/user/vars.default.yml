@@ -1,6 +1,6 @@
 ---
-# Ansible variables of Config project
-# ===================================
+# Ansible variables of user setup
+# ===============================
 # Tim Friske <me@tifr.de>
 
 hosts_var: local
