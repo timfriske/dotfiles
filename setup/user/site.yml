@@ -8,5 +8,6 @@
   roles:
     - bash
     - openssh
+    - readline
     - tmux
     - xdg
