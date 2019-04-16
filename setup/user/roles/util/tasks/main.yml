@@ -1,0 +1,131 @@
+---
+# Main Ansible playbook of user specific Util setup
+# ==================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy File Backup utility program
+  copy:
+    src: file-backup
+    dest: "{{ user_dir }}/bin/file-backup"
+    mode: a+x
+
+- name: Copy File Type utility program
+  copy:
+    src: file-type
+    dest: "{{ user_dir }}/bin/file-type"
+    mode: a+x
+
+- name: Copy Fzf Files utility Bash script
+  copy:
+    src: fzf-files.bash
+    dest: "{{ user_dir }}/bin/fzf-files.bash"
+
+- name: Copy Fzf Find utility program
+  copy:
+    src: fzf-find
+    dest: "{{ user_dir }}/bin/fzf-find"
+    mode: a+x
+
+- name: Copy Fzf Folders utility Bash script
+  copy:
+    src: fzf-folders.bash
+    dest: "{{ user_dir }}/bin/fzf-folders.bash"
+
+- name: Copy Fzf Git Branch utility program
+  copy:
+    src: fzf-git-branch
+    dest: "{{ user_dir }}/bin/fzf-git-branch"
+    mode: a+x
+
+- name: Copy Fzf Git Branch Insert utility Bash script
+  copy:
+    src: fzf-git-branch-insert.bash
+    dest: "{{ user_dir }}/bin/fzf-git-branch-insert.bash"
+
+- name: Copy Fzf Git Tag utility program
+  copy:
+    src: fzf-git-tag
+    dest: "{{ user_dir }}/bin/fzf-git-tag"
+    mode: a+x
+
+- name: Copy Fzf Git Tag Insert utility Bash script
+  copy:
+    src: fzf-git-tag-insert.bash
+    dest: "{{ user_dir }}/bin/fzf-git-tag-insert.bash"
+
+- name: Copy Fzf history utility program
+  copy:
+    src: fzf-history
+    dest: "{{ user_dir }}/bin/fzf-history"
+    mode: a+x
+
+- name: Copy Fzf Insert utility Bash script
+  copy:
+    src: fzf-insert.bash
+    dest: "{{ user_dir }}/bin/fzf-insert.bash"
+
+- name: Copy Fzf Jobs utility program
+  copy:
+    src: fzf-jobs
+    dest: "{{ user_dir }}/bin/fzf-jobs"
+    mode: a+x
+
+- name: Copy Fzf pick utility program
+  copy:
+    src: fzf-pick
+    dest: "{{ user_dir }}/bin/fzf-pick"
+    mode: a+x
+
+- name: Copy Fzf Quote utility program
+  copy:
+    src: fzf-quote
+    dest: "{{ user_dir }}/bin/fzf-quote"
+    mode: a+x
+
+- name: Copy Fzf Sort utility program
+  copy:
+    src: fzf-sort
+    dest: "{{ user_dir }}/bin/fzf-sort"
+    mode: a+x
+
+- name: Copy Mktar utility program
+  copy:
+    src: mktar
+    dest: "{{ user_dir }}/bin/mktar"
+    mode: a+x
+
+- name: Link Mktbz to Mktar utility program
+  file:
+    src: "mktar"
+    dest: "{{ user_dir }}/bin/mktbz"
+    state: link
+
+- name: Link Mktgz to Mktar utility program
+  file:
+    src: "mktar"
+    dest: "{{ user_dir }}/bin/mktgz"
+    state: link
+
+- name: Link Mktxz to Mktar utility program
+  file:
+    src: "mktar"
+    dest: "{{ user_dir }}/bin/mktxz"
+    state: link
+
+- name: Link Mktzst to Mktar utility program
+  file:
+    src: "mktar"
+    dest: "{{ user_dir }}/bin/mktzst"
+    state: link
+
+- name: Copy Path utility program
+  copy:
+    src: path
+    dest: "{{ user_dir }}/bin/path"
+    mode: a+x
+
+- name: Copy Timer utility program
+  copy:
+    src: timer
+    dest: "{{ user_dir }}/bin/timer"
+    mode: a+x

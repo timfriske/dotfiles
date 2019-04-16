@@ -11,4 +11,5 @@
     - openssh
     - readline
     - tmux
+    - util
     - xdg
