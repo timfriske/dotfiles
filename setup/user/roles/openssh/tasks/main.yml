@@ -12,8 +12,10 @@
   copy:
     src: ssh-keygen-host
     dest: "{{ user_dir }}/bin/ssh-keygen-host"
+    mode: a+x
 
 - name: Copy OpenSSH user key generation utility program
   copy:
     src: ssh-keygen-user
     dest: "{{ user_dir }}/bin/ssh-keygen-user"
+    mode: a+x
