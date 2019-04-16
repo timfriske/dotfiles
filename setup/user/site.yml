@@ -7,6 +7,7 @@
   hosts: "{{ hosts_var }}"
   roles:
     - bash
+    - gnupg
     - openssh
     - readline
     - tmux
