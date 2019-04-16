@@ -1,0 +1,31 @@
+---
+# Main Ansible playbook of user specific GnuPG setup
+# ==================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy GnuPG Dirmngr configuration file
+  copy:
+    src: dirmngr.conf
+    dest: "{{ user_dir }}/.gnupg/dirmngr.conf"
+
+- name: Copy GnuPG GPG Agent configuration file
+  copy:
+    src: gpg-agent.conf
+    dest: "{{ user_dir }}/.gnupg/gpg-agent.conf"
+
+- name: Copy GnuPG GPG configuration file
+  copy:
+    src: gpg.conf
+    dest: "{{ user_dir }}/.gnupg/gpg.conf"
+
+- name: Copy GnuPG backup utility program
+  copy:
+    src: gpg-backup
+    dest: "{{ user_dir }}/bin/gpg-backup"
+    mode: a+x
+
+- name: Copy GnuPG user key generation utility program
+  copy:
+    src: gpg-gen-key-for-user
+    dest: "{{ user_dir }}/bin/gpg-gen-key-for-user"
+    mode: a+x
