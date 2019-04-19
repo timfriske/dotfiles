@@ -22,6 +22,10 @@ function get_commit {
 }
 
 function git_location {
+  local branch="$(get_branch)"
+  if [[ -n "$branch" ]]; then
+    printf '%s\n' "$branch"
+  fi
 }
 
 git_location "$@"
