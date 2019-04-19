@@ -8,3 +8,8 @@
 # the symbolic ref `HEAD` points.
 
 shopt -os nounset pipefail errexit errtrace
+
+function git_location {
+}
+
+git_location "$@"
