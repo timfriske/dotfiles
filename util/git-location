@@ -25,17 +25,22 @@ function git_location {
   local branch="$(get_branch)"
   if [[ -n "$branch" ]]; then
     printf '%s\n' "$branch"
+    exit 0
   fi
 
   local tag="$(get_tag)"
   if [[ -n "$tag" ]]; then
     printf '%s\n' "$tag"
+    exit 0
   fi
 
   local commit="$(get_commit)"
   if [[ -n "$commit" ]]; then
     printf '%s\n' "$commit"
+    exit 0
   fi
+
+  exit 1
 }
 
 git_location "$@"
