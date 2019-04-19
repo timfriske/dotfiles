@@ -26,6 +26,11 @@ function git_location {
   if [[ -n "$branch" ]]; then
     printf '%s\n' "$branch"
   fi
+
+  local tag="$(get_tag)"
+  if [[ -n "$tag" ]]; then
+    printf '%s\n' "$tag"
+  fi
 }
 
 git_location "$@"
