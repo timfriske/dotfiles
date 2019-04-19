@@ -21,6 +21,8 @@ function get_commit {
   git rev-parse --short "${ref:-HEAD}"
 }
 
+# Tries to display the current branch, tag or commit in this order.
+#
 function git_location {
   local fmt="${fmt:-|type|:|object|\n}"
   local tbr="${tbr:-branch}"
