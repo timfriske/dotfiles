@@ -22,21 +22,32 @@ function get_commit {
 }
 
 function git_location {
+  local fmt="${fmt:-|type|:|object|\n}"
+  local tbr="${tbr:-branch}"
+  local tta="${tta:-tag}"
+  local tco="${tco:-commit}"
+
   local branch="$(get_branch)"
   if [[ -n "$branch" ]]; then
-    printf '%s\n' "branch:$branch"
+    fmt="${fmt/|type|/$tbr}"
+    fmt="${fmt/|object|/$branch}"
+    printf -- "${fmt}"
     exit 0
   fi
 
   local tag="$(get_tag)"
   if [[ -n "$tag" ]]; then
-    printf '%s\n' "tag:$tag"
+    fmt="${fmt/|type|/$tta}"
+    fmt="${fmt/|object|/$tag}"
+    printf -- "$fmt"
     exit 0
   fi
 
   local commit="$(get_commit)"
   if [[ -n "$commit" ]]; then
-    printf '%s\n' "commit:$commit"
+    fmt="${fmt/|type|/$tco}"
+    fmt="${fmt/|object|/$commit}"
+    printf -- "$fmt"
     exit 0
   fi
 
