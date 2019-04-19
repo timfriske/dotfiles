@@ -17,6 +17,10 @@ function get_tag {
   git describe --tags --exact-match "${ref:-HEAD}" 2> /dev/null
 }
 
+function get_commit {
+  git rev-parse --short "${ref:-HEAD}"
+}
+
 function git_location {
 }
 
