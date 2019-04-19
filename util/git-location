@@ -24,19 +24,19 @@ function get_commit {
 function git_location {
   local branch="$(get_branch)"
   if [[ -n "$branch" ]]; then
-    printf '%s\n' "$branch"
+    printf '%s\n' "branch:$branch"
     exit 0
   fi
 
   local tag="$(get_tag)"
   if [[ -n "$tag" ]]; then
-    printf '%s\n' "$tag"
+    printf '%s\n' "tag:$tag"
     exit 0
   fi
 
   local commit="$(get_commit)"
   if [[ -n "$commit" ]]; then
-    printf '%s\n' "$commit"
+    printf '%s\n' "commit:$commit"
     exit 0
   fi
 
