@@ -31,6 +31,11 @@ function git_location {
   if [[ -n "$tag" ]]; then
     printf '%s\n' "$tag"
   fi
+
+  local commit="$(get_commit)"
+  if [[ -n "$commit" ]]; then
+    printf '%s\n' "$commit"
+  fi
 }
 
 git_location "$@"
