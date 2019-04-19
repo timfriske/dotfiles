@@ -9,6 +9,10 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+function get_branch {
+  git symbolic-ref --quiet --short "${ref:-HEAD}"
+}
+
 function git_location {
 }
 
