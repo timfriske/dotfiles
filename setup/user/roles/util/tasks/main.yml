@@ -88,6 +88,12 @@
     dest: "{{ user_dir }}/bin/fzf-sort"
     mode: a+x
 
+- name: Copy Git Location utility program
+  copy:
+    src: git-location
+    dest: "{{ user_dir }}/bin/git-location"
+    mode: a+x
+
 - name: Copy Mktar utility program
   copy:
     src: mktar
