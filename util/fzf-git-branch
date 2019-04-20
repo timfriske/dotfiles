@@ -44,6 +44,7 @@ function fzf_git_branch {
   branch_options+=(${branch_opts:-})
 
   local fzf_keys=()
+  fzf_keys+=('alt-b:execute(git checkout -B {})+abort')
   fzf_keys+=('alt-c:execute(git checkout {})+abort')
   fzf_keys+=('alt-d:execute(git branch --delete {+})+abort')
   fzf_keys+=('alt-f:execute(git branch --delete --force {+})+abort')
@@ -59,6 +60,8 @@ $GIT_X_SIGNOFF {+})+abort')
 
   local fzf_options=()
   fzf_options+=(${FZF_DEFAULT_OPTS:-})
+  fzf_options+=("--header=$(fmt='|type|: |object|' tbr='Branch' \
+tta='Tag' tco='Commit' git-location)")
   fzf_options+=("--bind=$fzf_keys_csv")
   fzf_options+=(${FZF_GIT_BRANCH_FZF_OPTS:-})
   fzf_options+=(${fzf_opts:-})
