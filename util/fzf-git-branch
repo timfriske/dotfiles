@@ -44,6 +44,7 @@ function fzf_git_branch {
   branch_options+=(${branch_opts:-})
 
   local fzf_keys=()
+  fzf_keys+=('alt-b:execute(git checkout -B {})+abort')
   fzf_keys+=('alt-c:execute(git checkout {})+abort')
   fzf_keys+=('alt-d:execute(git branch --delete {+})+abort')
   fzf_keys+=('alt-f:execute(git branch --delete --force {+})+abort')
