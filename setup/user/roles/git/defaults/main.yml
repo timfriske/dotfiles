@@ -1,0 +1,6 @@
+---
+# Main Ansible variables of user specific Git setup
+# =================================================
+# Tim Friske <me@tifr.de>
+
+user_dir: "{{ ansible_env.HOME }}"

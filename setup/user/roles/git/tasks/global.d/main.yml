@@ -1,0 +1,17 @@
+---
+# Main Ansible playbook of user specific Git setup
+# ================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy Git global miscellaneous configuration file
+  copy:
+    src: global.d/misc.conf
+    dest: "{{ user_dir }}/.config/git/global.d/misc.conf"
+
+- name: Copy Git global user configuration file
+  copy:
+    src: global.d/user.conf
+    dest: "{{ user_dir }}/.config/git/global.d/user.conf"
+    force: no
+
+- import_tasks: command/main.yml
