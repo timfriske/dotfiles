@@ -12,3 +12,5 @@
   copy:
     src: global.d/user.conf
     dest: "{{ user_dir }}/.config/git/global.d/user.conf"
+
+- import_tasks: command/main.yml
