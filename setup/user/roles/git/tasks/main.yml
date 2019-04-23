@@ -13,3 +13,5 @@
     src: global.conf
     dest: "{{ user_dir }}/.config/git/config"
     state: link
+
+- import_tasks: global.d/main.yml
