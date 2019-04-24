@@ -92,6 +92,23 @@ shopt -s nocaseglob nocasematch
 #
 alias sudo='sudo '
 
+# Toggle between current and previous directory.  Hitting `cc` should be
+# much faster than typing `cd`, space, and then reaching out for `-`.
+#
+# Note that on some systems the alias `cc` could conflict with the GNU
+# Compiler collection's C-compiler but that disadvantage is taken into
+# account.
+#
+alias cc='cd -'
+
+# With the shell option `autocd` switched on executing `..` already
+# changes to the parent directory.  The alias `...` expands on that idea
+# by making it possible to go up two directories at once.  More than two
+# levels in one go would mean too much mental work.
+#
+alias ..='cd ..'
+alias ...='cd ../..'
+
 # Ask the user before files are overwritten or deleted in order to
 # prevent accidental data loss.
 #
@@ -128,6 +145,21 @@ alias llv='ll --sort=version'
 alias llx='ll --sort=extension'
 alias llz='ll --sort=size'
 
+# When copying/deleting files with the file & folder synchronization
+# tool `rsync` let it always report the progress in human-readable form.
+#
+# The verbs `backup' and `mirror' should be much more memorable than the
+# alternative of having to type `rsync` together with all these options.
+#
+alias rsync='rsync --human-readable --progress'
+alias backup='rsync --archive --hard-links --acls --xattrs'
+alias mirror='backup --delete'
+
+# Count the number of occurrences and list them in ascending order of
+# their counts.
+#
+alias count='sort | uniq --count | sort --sort=numeric'
+
 # Show human-readable file system sizes in powers of 1,000.  Exclude
 # neglectable types of file systems.
 #
@@ -158,9 +190,11 @@ alias free='free --human --si'
 #
 alias info='info --vi-keys'
 
-# Show _UTC_ _Universal Time Coordinated_.
+# Show _GMT_ _Greenwich Mean Time_ or _UTC_ _Universal Time
+# Coordinated_.
 #
-alias utc='date --utc'
+alias gmt='TZ=GMT date'
+alias utc='TZ=UTC date'
 
 # Show (calendar) week of year.
 #
@@ -171,6 +205,12 @@ alias week='date +"week %V"'
 # as `map'.
 #
 alias map='xargs --max-args=1'
+
+# Find broken links, i.e. symbolic links which lost their target files
+# or folders.  This usually occurs when either the symbolic links or
+# their targets move and their references are not updated.
+#
+alias broken-links='find -xtype l'
 
 # Make comparing differences between files and directories with the
 # _Diff_ program more pleasant by configuring its default behavior.
@@ -183,6 +223,13 @@ alias diff='diff $DIFF_X_OPTIONS'
 alias grep='grep $GREP_X_OPTIONS'
 alias egrep='grep --extended-regexp'
 alias fgrep='grep --fixed-strings'
+
+# The abbreviations `OS' for `operating system' and `distro' for `Linux
+# distribution' are better known than the names of the utilities `uname'
+# and `lsb_release'.
+#
+alias os='uname --all'
+alias distro='lsb_release --all --short'
 
 # Simplify data exchange between CLI and GUI via clipboard.
 #
