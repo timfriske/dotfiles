@@ -101,6 +101,14 @@ alias sudo='sudo '
 #
 alias cc='cd -'
 
+# With the shell option `autocd` switched on executing `..` already
+# changes to the parent directory.  The alias `...` expands on that idea
+# by making it possible to go up two directories at once.  More than two
+# levels in one go would mean too much mental work.
+#
+alias ..='cd ..'
+alias ...='cd ../..'
+
 # Ask the user before files are overwritten or deleted in order to
 # prevent accidental data loss.
 #
