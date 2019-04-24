@@ -145,6 +145,16 @@ alias llv='ll --sort=version'
 alias llx='ll --sort=extension'
 alias llz='ll --sort=size'
 
+# When copying/deleting files with the file & folder synchronization
+# tool `rsync` let it always report the progress in human-readable form.
+#
+# The verbs `backup' and `mirror' should be much more memorable than the
+# alternative of having to type `rsync` together with all these options.
+#
+alias rsync='rsync --human-readable --progress'
+alias backup='rsync --archive --hard-links --acls --xattrs'
+alias mirror='backup --delete'
+
 # Show human-readable file system sizes in powers of 1,000.  Exclude
 # neglectable types of file systems.
 #
