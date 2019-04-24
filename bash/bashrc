@@ -190,9 +190,11 @@ alias free='free --human --si'
 #
 alias info='info --vi-keys'
 
-# Show _UTC_ _Universal Time Coordinated_.
+# Show _GMT_ _Greenwich Mean Time_ or _UTC_ _Universal Time
+# Coordinated_.
 #
-alias utc='date --utc'
+alias gmt='TZ=GMT date'
+alias utc='TZ=UTC date'
 
 # Show (calendar) week of year.
 #
