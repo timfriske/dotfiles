@@ -155,6 +155,11 @@ alias rsync='rsync --human-readable --progress'
 alias backup='rsync --archive --hard-links --acls --xattrs'
 alias mirror='backup --delete'
 
+# Count the number of occurrences and list them in ascending order of
+# their counts.
+#
+alias count='sort | uniq --count | sort --sort=numeric'
+
 # Show human-readable file system sizes in powers of 1,000.  Exclude
 # neglectable types of file systems.
 #
