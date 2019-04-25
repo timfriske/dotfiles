@@ -16,6 +16,10 @@
 # file or folder with the same name as the base name of the given
 # archive file.  By doing so the risk of overwriting the entire contents
 # of the current working directory is eliminated.
+#
+# Decompression relies upon _GNU Tar's_ automatic de/compression
+# feature.  It hereby relies on the extension of the given archive file
+# to determine with which program to decompress that archive file.
 
 shopt -os nounset pipefail errexit errtrace
 
