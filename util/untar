@@ -3,6 +3,13 @@
 # TAR Tape Archive extraction
 # ===========================
 # Tim Friske <me@tifr.de>
+#
+# Simple tape archive (TAR) extraction utility program which optionally
+# decompresses a given archive file before extracting its contents into
+# a folder with the same name as the base name of the given archive
+# file.  In case the folder already exists the archive contents are
+# extracted into this folder and possibly overwrite entries of that
+# folder.  Otherwise that folder is automatically created.
 
 shopt -os nounset pipefail errexit errtrace
 
