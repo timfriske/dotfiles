@@ -6,7 +6,13 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+declare -r prog_name="${0##*/}"
+
 function untar {
+  if [[ "$#" != 1 || ! -f "$1" ]]; then
+    echo "usage: $prog_name <file>"
+    exit 1
+  fi
 }
 
 untar "$@"
