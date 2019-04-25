@@ -3,3 +3,5 @@
 # TAR Tape Archive extraction
 # ===========================
 # Tim Friske <me@tifr.de>
+
+shopt -os nounset pipefail errexit errtrace
