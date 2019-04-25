@@ -1,1 +1,5 @@
 #!/usr/bin/env bash
+
+# TAR Tape Archive extraction
+# ===========================
+# Tim Friske <me@tifr.de>
