@@ -10,6 +10,12 @@
 # file.  In case the folder already exists the archive contents are
 # extracted into this folder and possibly overwrite entries of that
 # folder.  Otherwise that folder is automatically created.
+#
+# Note: This utility program extracts TAR files in a `safe' manner, i.e.
+# it does not blindly extract all members of the archive but only the
+# file or folder with the same name as the base name of the given
+# archive file.  By doing so the risk of overwriting the entire contents
+# of the current working directory is eliminated.
 
 shopt -os nounset pipefail errexit errtrace
 
