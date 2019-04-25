@@ -13,6 +13,14 @@ function untar {
     echo "usage: $prog_name <file>"
     exit 1
   fi
+  local archive_path="$1"
+  local folder_path="${archive_path%.tar*}"
+  tar \
+    --extract \
+    --file="$archive_path" \
+    --verbose \
+    -- \
+    "$folder_path"
 }
 
 untar "$@"
