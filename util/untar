@@ -15,12 +15,19 @@ function untar {
   fi
   local archive_path="$1"
   local folder_path="${archive_path%.tar*}"
+  echo '# Extracting files ...'
+  echo '# ===================='
   tar \
     --extract \
     --file="$archive_path" \
     --verbose \
     -- \
-    "$folder_path"
+    "$folder_path" \
+    || true
+  local message="... files extracted from $archive_path"
+  local msg_sep="$(eval printf '=%.0s' {1..${#message}})"
+  echo "# $msg_sep"
+  echo "# $message"
 }
 
 untar "$@"
