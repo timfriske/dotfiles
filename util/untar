@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# TAR Tape Archive extraction
+# ===========================
+# Tim Friske <me@tifr.de>
+#
+# Simple tape archive (TAR) extraction utility program which optionally
+# decompresses a given archive file before extracting its contents into
+# a folder with the same name as the base name of the given archive
+# file.  In case the folder already exists the archive contents are
+# extracted into this folder and possibly overwrite entries of that
+# folder.  Otherwise that folder is automatically created.
+#
+# Note: This utility program extracts TAR files in a `safe' manner, i.e.
+# it does not blindly extract all members of the archive but only the
+# file or folder with the same name as the base name of the given
+# archive file.  By doing so the risk of overwriting the entire contents
+# of the current working directory is eliminated.
+#
+# Decompression relies upon _GNU Tar's_ automatic de/compression
+# feature.  It hereby relies on the extension of the given archive file
+# to determine with which program to decompress that archive file.
+
+shopt -os nounset pipefail errexit errtrace
+
+declare -r prog_name="${0##*/}"
+
+function untar {
+  if [[ "$#" != 1 || ! -f "$1" ]]; then
+    echo "usage: $prog_name <file>"
+    exit 1
+  fi
+  local archive_path="$1"
+  local folder_path="${archive_path%.tar*}"
+  echo '# Extracting files ...'
+  echo '# ===================='
+  tar \
+    --extract \
+    --file="$archive_path" \
+    --verbose \
+    -- \
+    "$folder_path" \
+    || true
+  local message="... files extracted from $archive_path"
+  local msg_sep="$(eval printf '=%.0s' {1..${#message}})"
+  echo "# $msg_sep"
+  echo "# $message"
+}
+
+untar "$@"
