@@ -30,7 +30,7 @@ function errmsg {
 }
 
 function untar {
-  if [[ "$#" != 1 || ! -f "$1" ]]; then
+  if [[ "$#" -ne 1 || ! -f "$1" ]]; then
     errmsg "usage: $prog_name <file>"
     exit 1
   fi
