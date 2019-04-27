@@ -59,7 +59,7 @@ function mktar {
   if [[ "$fs_path" == '/' ]]; then
     errmsg 'Cannot archive root folder. Use GNU Tar for that!'
   fi
-  local archive="${fs_path%/}"
+  local archive="$fs_path"
   echo '# Archiving files ...'
   echo '# ==================='
   case "$prog_name" in
