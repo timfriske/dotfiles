@@ -35,11 +35,11 @@ function errmsg {
 
 function mktar {
   if [[ "$#" != 1 || ! -e "$1" ]]; then
-    errmsg 'usage: mktar <file>|<directory>'
-    errmsg 'usage: mktbz <file>|<directory>'
-    errmsg 'usage: mktgz <file>|<directory>'
-    errmsg 'usage: mktxz <file>|<directory>'
-    errmsg 'usage: mktzst <file>|<directory>'
+    errmsg 'usage: mktar <file>|<folder>'
+    errmsg 'usage: mktbz <file>|<folder>'
+    errmsg 'usage: mktgz <file>|<folder>'
+    errmsg 'usage: mktxz <file>|<folder>'
+    errmsg 'usage: mktzst <file>|<folder>'
     exit 1
   fi
   local archive="${1%/}"
