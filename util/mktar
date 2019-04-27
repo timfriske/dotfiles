@@ -34,7 +34,7 @@ function errmsg {
 }
 
 function mktar {
-  if [[ "$#" -ne 1 || ! -e "$1" ]]; then
+  if [[ "$#" -ne 1 ]]; then
     errmsg 'usage: mktar <file>|<folder>'
     errmsg 'usage: mktbz <file>|<folder>'
     errmsg 'usage: mktgz <file>|<folder>'
@@ -42,7 +42,12 @@ function mktar {
     errmsg 'usage: mktzst <file>|<folder>'
     exit 1
   fi
-  local archive="${1%/}"
+  local fs_path="${1:-}"
+  if [[ ! -e "$fs_path" ]]; then
+    errmsg 'First argument must be path to existing file or folder!'
+    exit 1
+  fi
+  local archive="${fs_path%/}"
   echo '# Archiving files ...'
   echo '# ==================='
   case "$prog_name" in
