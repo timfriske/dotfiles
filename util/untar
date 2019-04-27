@@ -30,11 +30,15 @@ function errmsg {
 }
 
 function untar {
-  if [[ "$#" -ne 1 || ! -f "$1" ]]; then
+  if [[ "$#" -eq 0 ]]; then
     errmsg "usage: $prog_name <file>"
     exit 1
   fi
-  local archive_path="$1"
+  local archive_path="${1:-}"
+  if [[ -z "$archive_path" || ! -f "$archive_path" ]]; then
+    errmsg "First argument must be archive file path!"
+    exit 1
+  fi
   local folder_path="${archive_path%.tar*}"
   echo '# Extracting files ...'
   echo '# ===================='
