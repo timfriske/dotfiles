@@ -27,7 +27,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-declare -r program="${0##*/}"
+declare -r prog_name="${0##*/}"
 
 function errmsg {
   echo >&2 "$@"
@@ -45,7 +45,7 @@ function mktar {
   local archive="${1%/}"
   echo '# Archiving files ...'
   echo '# ==================='
-  case "$program" in
+  case "$prog_name" in
     mktar)
       archive+=".tar"
       tar --create --file="$archive" --verbose -- "$1"
