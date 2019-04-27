@@ -27,6 +27,8 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+declare -r program="${0##*/}"
+
 function errmsg {
   echo >&2 "$@"
 }
@@ -40,7 +42,6 @@ function mktar {
     errmsg 'usage: mktzst <file>|<directory>'
     exit 1
   fi
-  local program="${0##*/}"
   local archive="${1%/}"
   echo '# Archiving files ...'
   echo '# ==================='
