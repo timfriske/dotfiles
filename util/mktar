@@ -42,11 +42,11 @@ function errmsg {
 }
 
 function get_path {
-  realpath --no-symlinks "$1"
+  realpath "$1"
 }
 
 function get_path_rel {
-  realpath --no-symlinks --relative-to='.' "$1"
+  realpath --relative-to='.' "$1"
 }
 
 function mktar {
