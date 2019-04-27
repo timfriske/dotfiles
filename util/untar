@@ -25,23 +25,45 @@ shopt -os nounset pipefail errexit errtrace
 
 declare -r prog_name="${0##*/}"
 
+function errmsg {
+  echo >&2 "$@"
+}
+
 function untar {
-  if [[ "$#" != 1 || ! -f "$1" ]]; then
-    echo "usage: $prog_name <file>"
+  if [[ "$#" -eq 0 ]]; then
+    errmsg "usage: $prog_name <file> [<folder>]"
     exit 1
   fi
-  local archive_path="$1"
-  local folder_path="${archive_path%.tar*}"
+  local file_path="${1:-}"
+  if [[ -z "$file_path" || ! -f "$file_path" ]]; then
+    errmsg 'First argument must be file path!'
+    exit 1
+  fi
+  local folder_path="${2:-}"
+  if [[ -n "$folder_path" && ! -d "$folder_path" ]]; then
+    errmsg 'Second argument must be folder path!'
+    exit 1
+  fi
+
   echo '# Extracting files ...'
   echo '# ===================='
-  tar \
-    --extract \
-    --file="$archive_path" \
-    --verbose \
-    -- \
-    "$folder_path" \
-    || true
-  local message="... files extracted from $archive_path"
+  if [[ -n "$folder_path" ]]; then
+    tar \
+      --extract \
+      --file="$file_path" \
+      --directory="$folder_path" \
+      --verbose \
+      || true
+  else
+    tar \
+      --extract \
+      --file="$file_path" \
+      --verbose \
+      -- \
+      ${file_path%.tar*} \
+      || true
+  fi
+  local message="... files extracted from $file_path"
   local msg_sep="$(eval printf '=%.0s' {1..${#message}})"
   echo "# $msg_sep"
   echo "# $message"
