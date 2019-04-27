@@ -67,7 +67,7 @@ function mktar {
       tar --create --zstd --file="$archive" --verbose -- "$1"
       ;;
     *)
-      errmsg 'error: must be one of mktar, mktbz, mktgz, mktxz!'
+      errmsg 'error: must be one of mktar, mktbz, mktgz, mktxz, mktzst!'
       exit 2
       ;;
   esac
