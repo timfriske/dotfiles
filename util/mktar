@@ -27,20 +27,33 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+declare -r prog_name="${0##*/}"
+
+function errmsg {
+  echo >&2 "$@"
+}
+
 function mktar {
-  if [[ "$#" != 1 || ! -e "$1" ]]; then
-    echo 'usage: mktar <file>|<directory>'
-    echo 'usage: mktbz <file>|<directory>'
-    echo 'usage: mktgz <file>|<directory>'
-    echo 'usage: mktxz <file>|<directory>'
-    echo 'usage: mktzst <file>|<directory>'
+  if [[ "$#" -ne 1 ]]; then
+    errmsg 'usage: mktar <file>|<folder>'
+    errmsg 'usage: mktbz <file>|<folder>'
+    errmsg 'usage: mktgz <file>|<folder>'
+    errmsg 'usage: mktxz <file>|<folder>'
+    errmsg 'usage: mktzst <file>|<folder>'
     exit 1
   fi
-  local program="${0##*/}"
-  local archive="${1%/}"
+  local fs_path="$(realpath ${1:-})"
+  if [[ ! -e "$fs_path" ]]; then
+    errmsg 'First argument must be path to existing file or folder!'
+    exit 1
+  fi
+  if [[ "$fs_path" == '/' ]]; then
+    errmsg 'Cannot archive root folder. Use GNU Tar for that!'
+  fi
+  local archive="${fs_path%/}"
   echo '# Archiving files ...'
   echo '# ==================='
-  case "$program" in
+  case "$prog_name" in
     mktar)
       archive+=".tar"
       tar --create --file="$archive" --verbose -- "$1"
@@ -62,7 +75,7 @@ function mktar {
       tar --create --zstd --file="$archive" --verbose -- "$1"
       ;;
     *)
-      echo 'error: must be one of mktar, mktbz, mktgz, mktxz!'
+      errmsg 'Must be one of mktar, mktbz, mktgz, mktxz, mktzst!'
       exit 2
       ;;
   esac
