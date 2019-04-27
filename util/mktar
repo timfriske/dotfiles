@@ -42,7 +42,7 @@ function get_path_rel {
 }
 
 function mktar {
-  if [[ "$#" -ne 1 ]]; then
+  if [[ "$#" -eq 0 ]]; then
     errmsg 'usage: mktar <file>|<folder>'
     errmsg 'usage: mktbz <file>|<folder>'
     errmsg 'usage: mktgz <file>|<folder>'
