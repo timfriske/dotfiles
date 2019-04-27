@@ -29,6 +29,14 @@ shopt -os nounset pipefail errexit errtrace
 
 declare -r prog_name="${0##*/}"
 
+declare -Ar prog_formats=(
+  [mktar]='tar'
+  [mktbz]='tar.bz2'
+  [mktgz]='tar.gz'
+  [mktxz]='tar.xz'
+  [mktzst]='tar.zst'
+)
+
 function errmsg {
   echo >&2 "$@"
 }
@@ -51,7 +59,6 @@ function mktar {
     exit 1
   fi
   local fs_path="$(get_path "${1:-}")"
-  local fs_path_rel="$(get_path_rel "${1:-}")"
   if [[ ! -e "$fs_path" ]]; then
     errmsg 'First argument must be path to existing file or folder!'
     exit 1
@@ -59,36 +66,18 @@ function mktar {
   if [[ "$fs_path" == '/' ]]; then
     errmsg 'Cannot archive root folder. Use GNU Tar for that!'
   fi
-  local archive="$fs_path"
+  local file_path="$fs_path.${prog_formats[$prog_name]:-'tar'}"
+  local folder_path="$(get_path_rel "${1:-}")"
   echo '# Archiving files ...'
   echo '# ==================='
-  case "$prog_name" in
-    mktar)
-      archive+=".tar"
-      tar --create --file="$archive" --verbose -- "$fs_path_rel"
-      ;;
-    mktbz)
-      archive+=".tar.bz2"
-      tar --create --bzip2 --file="$archive" --verbose -- "$fs_path_rel"
-      ;;
-    mktgz)
-      archive+=".tar.gz"
-      tar --create --gzip --file="$archive" --verbose -- "$fs_path_rel"
-      ;;
-    mktxz)
-      archive+=".tar.xz"
-      tar --create --xz --file="$archive" --verbose -- "$fs_path_rel"
-      ;;
-    mktzst)
-      archive+=".tar.zst"
-      tar --create --zstd --file="$archive" --verbose -- "$fs_path_rel"
-      ;;
-    *)
-      errmsg 'Must be one of mktar, mktbz, mktgz, mktxz, mktzst!'
-      exit 2
-      ;;
-  esac
-  local message="... files archived in $archive"
+  tar \
+    --create \
+    --file="$file_path" \
+    --auto-compress \
+    --verbose \
+    -- \
+    "$folder_path"
+  local message="... files archived in $file_path"
   local msg_sep="$(eval printf '=%.0s' {1..${#message}})"
   echo "# $msg_sep"
   echo "# $message"
