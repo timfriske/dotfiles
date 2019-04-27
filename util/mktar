@@ -33,6 +33,14 @@ function errmsg {
   echo >&2 "$@"
 }
 
+function get_path {
+  realpath --no-symlinks "$1"
+}
+
+function get_path_rel {
+  realpath --no-symlinks --relative-base='.' "$1"
+}
+
 function mktar {
   if [[ "$#" -ne 1 ]]; then
     errmsg 'usage: mktar <file>|<folder>'
@@ -42,7 +50,8 @@ function mktar {
     errmsg 'usage: mktzst <file>|<folder>'
     exit 1
   fi
-  local fs_path="$(realpath ${1:-})"
+  local fs_path="$(get_path "${1:-}")"
+  local fs_path_rel="$(get_path_rel "${1:-}")"
   if [[ ! -e "$fs_path" ]]; then
     errmsg 'First argument must be path to existing file or folder!'
     exit 1
@@ -56,23 +65,23 @@ function mktar {
   case "$prog_name" in
     mktar)
       archive+=".tar"
-      tar --create --file="$archive" --verbose -- "$1"
+      tar --create --file="$archive" --verbose -- "$fs_path_rel"
       ;;
     mktbz)
       archive+=".tar.bz2"
-      tar --create --bzip2 --file="$archive" --verbose -- "$1"
+      tar --create --bzip2 --file="$archive" --verbose -- "$fs_path_rel"
       ;;
     mktgz)
       archive+=".tar.gz"
-      tar --create --gzip --file="$archive" --verbose -- "$1"
+      tar --create --gzip --file="$archive" --verbose -- "$fs_path_rel"
       ;;
     mktxz)
       archive+=".tar.xz"
-      tar --create --xz --file="$archive" --verbose -- "$1"
+      tar --create --xz --file="$archive" --verbose -- "$fs_path_rel"
       ;;
     mktzst)
       archive+=".tar.zst"
-      tar --create --zstd --file="$archive" --verbose -- "$1"
+      tar --create --zstd --file="$archive" --verbose -- "$fs_path_rel"
       ;;
     *)
       errmsg 'Must be one of mktar, mktbz, mktgz, mktxz, mktzst!'
