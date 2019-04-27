@@ -27,13 +27,17 @@
 
 shopt -os nounset pipefail errexit errtrace
 
+function errmsg {
+  echo >&2 "$@"
+}
+
 function mktar {
   if [[ "$#" != 1 || ! -e "$1" ]]; then
-    echo 'usage: mktar <file>|<directory>'
-    echo 'usage: mktbz <file>|<directory>'
-    echo 'usage: mktgz <file>|<directory>'
-    echo 'usage: mktxz <file>|<directory>'
-    echo 'usage: mktzst <file>|<directory>'
+    errmsg 'usage: mktar <file>|<directory>'
+    errmsg 'usage: mktbz <file>|<directory>'
+    errmsg 'usage: mktgz <file>|<directory>'
+    errmsg 'usage: mktxz <file>|<directory>'
+    errmsg 'usage: mktzst <file>|<directory>'
     exit 1
   fi
   local program="${0##*/}"
@@ -62,7 +66,7 @@ function mktar {
       tar --create --zstd --file="$archive" --verbose -- "$1"
       ;;
     *)
-      echo 'error: must be one of mktar, mktbz, mktgz, mktxz!'
+      errmsg 'error: must be one of mktar, mktbz, mktgz, mktxz!'
       exit 2
       ;;
   esac
