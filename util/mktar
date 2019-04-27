@@ -34,7 +34,7 @@ function errmsg {
 }
 
 function mktar {
-  if [[ "$#" != 1 || ! -e "$1" ]]; then
+  if [[ "$#" -ne 1 || ! -e "$1" ]]; then
     errmsg 'usage: mktar <file>|<folder>'
     errmsg 'usage: mktbz <file>|<folder>'
     errmsg 'usage: mktgz <file>|<folder>'
