@@ -152,7 +152,7 @@ alias tar='tar $TAR_X_OPTIONS'
 
 # Make handling _TAR_ _tape archives_ memorable and less to type.
 #
-alias mktar='tar --create --auto-compress'
+alias mktar='tar --create'
 alias dftar='tar --diff'
 alias lstar='tar --list'
 alias rmtar='tar --delete'

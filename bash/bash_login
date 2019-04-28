@@ -246,7 +246,9 @@ LS_X_OPTIONS+='--group-directories-first '
 #   verbose::
 #     Let _Tar_ report what it is doing.
 #
-export TAR_X_OPTIONS='--verbose'
+export TAR_X_OPTIONS=''
+TAR_X_OPTIONS+='--auto-compress '
+TAR_X_OPTIONS+='--verbose '
 
 # Let _Git_ skip reading settings from its system-wide configuration
 # file `{system-home}/gitconfig`.  Assume that the user is a power user
