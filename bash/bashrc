@@ -150,23 +150,10 @@ alias llz='ll --sort=size'
 #
 alias tar='tar $TAR_X_OPTIONS'
 
-# Make creating and compressing _TAR_ _tape archives_ memorable and less
-# to type.
+# Make handling _TAR_ _tape archives_ memorable and less to type.
 #
 alias mktar='tar --create --auto-compress'
-alias mktbz='mktar --bzip2'
-alias mktgz='mktar --gzip'
-alias mktxz='mktar --xz'
-alias mktzst='mktar --zstd'
-
-# Make decompressing and extracting _TAR_ _tape archives_ memorable and
-# less to type.
-#
 alias untar='tar --extract'
-alias untbz='untar --bzip2'
-alias untgz='untar --gzip'
-alias untxz='untar --xz'
-alias untzst='untar --zstd'
 
 # When copying/deleting files with the file & folder synchronization
 # tool `rsync` let it always report the progress in human-readable form.
