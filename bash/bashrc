@@ -153,7 +153,11 @@ alias tar='tar $TAR_X_OPTIONS'
 # Make handling _TAR_ _tape archives_ memorable and less to type.
 #
 alias mktar='tar --create --auto-compress'
+alias dftar='tar --diff'
+alias lstar='tar --list'
+alias rmtar='tar --delete'
 alias untar='tar --extract'
+alias uptar='tar --update'
 
 # When copying/deleting files with the file & folder synchronization
 # tool `rsync` let it always report the progress in human-readable form.
