@@ -159,13 +159,14 @@ alias rmtar='tar --delete'
 alias untar='tar --extract'
 alias uptar='tar --update'
 
-# When copying/deleting files with the file & folder synchronization
-# tool `rsync` let it always report the progress in human-readable form.
+# Make synchronizing large/many files and folders, i.e. by copying,
+# moving and deleting them, with the _Rsync_ program more pleasant by
+# configuring its default behavior.
 #
 # The verbs `backup' and `mirror' should be much more memorable than the
 # alternative of having to type `rsync` together with all these options.
 #
-alias rsync='rsync --human-readable --progress'
+alias rsync='rsync $RSYNC_X_OPTIONS'
 alias backup='rsync --archive --hard-links --acls --xattrs'
 alias mirror='backup --delete'
 
