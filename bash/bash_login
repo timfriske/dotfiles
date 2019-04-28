@@ -240,6 +240,14 @@ LS_X_OPTIONS+='--color=auto '
 LS_X_OPTIONS+='--time-style=long-iso '
 LS_X_OPTIONS+='--group-directories-first '
 
+# Make handling _TARs_ _tape archives_ with the _Tar_ program more
+# pleasant by default in the following ways:
+#
+#   verbose::
+#     Let _Tar_ report what it is doing.
+#
+export TAR_X_OPTIONS='--verbose'
+
 # Let _Git_ skip reading settings from its system-wide configuration
 # file `{system-home}/gitconfig`.  Assume that the user is a power user
 # of _Git_ and configured every aspect of it down to the smallest detail
