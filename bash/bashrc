@@ -145,6 +145,11 @@ alias llv='ll --sort=version'
 alias llx='ll --sort=extension'
 alias llz='ll --sort=size'
 
+# Run _Tar_ program for handling _TARs_ _tape archives_ with default
+# options in order to not have to specify them every time.
+#
+alias tar='tar $TAR_X_OPTIONS'
+
 # When copying/deleting files with the file & folder synchronization
 # tool `rsync` let it always report the progress in human-readable form.
 #
