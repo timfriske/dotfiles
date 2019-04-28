@@ -122,7 +122,7 @@ alias rm='rm $RM_X_OPTIONS'
 # `rd` for `rmdir` for consistency with the other notorious two-letter
 # commands such as `cp`, `mv` or `rm`.
 #
-alias mkdir='mkdir --parents --verbose'
+alias mkdir='mkdir $MKDIR_X_OPTIONS'
 alias md='mkdir'
 alias rmdir='rmdir --parents --verbose'
 alias rd='rmdir'

@@ -256,6 +256,19 @@ export RM_X_OPTIONS=''
 RM_X_OPTIONS+='--interactive '
 RM_X_OPTIONS+='--verbose '
 
+# Make creating *empty* folders with the _Mkdir_ program more pleasant
+# by default in the following ways:
+#
+# parents::
+#   Let _Mkdir_ create all folders, i.e. also the intermediate ones.
+#
+# verbose::
+#   Let _Mkdir_ report what it is doing.
+#
+export MKDIR_X_OPTIONS=''
+MKDIR_X_OPTIONS+='--parents '
+MKDIR_X_OPTIONS+='--verbose '
+
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
 #
