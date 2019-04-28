@@ -94,36 +94,6 @@
     dest: "{{ user_dir }}/bin/git-location"
     mode: a+x
 
-- name: Copy Mktar utility program
-  copy:
-    src: mktar
-    dest: "{{ user_dir }}/bin/mktar"
-    mode: a+x
-
-- name: Link Mktbz to Mktar utility program
-  file:
-    src: "mktar"
-    dest: "{{ user_dir }}/bin/mktbz"
-    state: link
-
-- name: Link Mktgz to Mktar utility program
-  file:
-    src: "mktar"
-    dest: "{{ user_dir }}/bin/mktgz"
-    state: link
-
-- name: Link Mktxz to Mktar utility program
-  file:
-    src: "mktar"
-    dest: "{{ user_dir }}/bin/mktxz"
-    state: link
-
-- name: Link Mktzst to Mktar utility program
-  file:
-    src: "mktar"
-    dest: "{{ user_dir }}/bin/mktzst"
-    state: link
-
 - name: Copy Path utility program
   copy:
     src: path
