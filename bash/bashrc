@@ -115,7 +115,7 @@ alias ...='cd ../..'
 alias cp='cp $CP_X_OPTIONS'
 alias ln='ln $LN_X_OPTIONS'
 alias mv='mv $MV_X_OPTIONS'
-alias rm='rm --interactive=once --verbose'
+alias rm='rm $RM_X_OPTIONS'
 
 # Alleviate the user from having to manually create or delete every
 # intermediate directory.  Introduce the aliases `md` for `mkdir` and
