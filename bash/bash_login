@@ -204,6 +204,84 @@ LESS+='--quit-if-one-screen '
 
 export SYSTEMD_LESS="$LESS"
 
+# Make copying files and folders with the _Cp_ program more pleasant by
+# default in the following ways:
+#
+# interactive::
+#   Let _Cp_ prompt before overwriting.
+#
+# verbose::
+#   Let _Cp_ report what it is doing.
+#
+export CP_X_OPTIONS=''
+CP_X_OPTIONS+='--interactive '
+CP_X_OPTIONS+='--verbose '
+
+# Make linking files and folders with the _Ln_ program more pleasant by
+# default in the following ways:
+#
+# interactive::
+#   Let _Ln_ prompt before overwriting.
+#
+# verbose::
+#   Let _Ln_ report what it is doing.
+#
+export LN_X_OPTIONS=''
+LN_X_OPTIONS+='--interactive '
+LN_X_OPTIONS+='--verbose '
+
+# Make moving files and folders with the _Mv_ program more pleasant by
+# default in the following ways:
+#
+# interactive::
+#   Let _Mv_ prompt before overwriting.
+#
+# verbose::
+#   Let _Mv_ report what it is doing.
+#
+export MV_X_OPTIONS=''
+MV_X_OPTIONS+='--interactive '
+MV_X_OPTIONS+='--verbose '
+
+# Make removing files and folders with the _Rm_ program more pleasant by
+# default in the following ways:
+#
+# interactive::
+#   Let _Rm_ prompt before overwriting.
+#
+# verbose::
+#   Let _Rm_ report what it is doing.
+#
+export RM_X_OPTIONS=''
+RM_X_OPTIONS+='--interactive '
+RM_X_OPTIONS+='--verbose '
+
+# Make creating *empty* folders with the _Mkdir_ program more pleasant
+# by default in the following ways:
+#
+# parents::
+#   Let _Mkdir_ create all folders, i.e. also the intermediate ones.
+#
+# verbose::
+#   Let _Mkdir_ report what it is doing.
+#
+export MKDIR_X_OPTIONS=''
+MKDIR_X_OPTIONS+='--parents '
+MKDIR_X_OPTIONS+='--verbose '
+
+# Make removing *empty* folders with the _Rmdir_ program more pleasant
+# by default in the following ways:
+#
+# parents::
+#   Let _Rmdir_ create all folders, i.e. also the intermediate ones.
+#
+# verbose::
+#   Let _Rmdir_ report what it is doing.
+#
+export RMDIR_X_OPTIONS=''
+RMDIR_X_OPTIONS+='--parents '
+RMDIR_X_OPTIONS+='--verbose '
+
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
 #
@@ -246,7 +324,27 @@ LS_X_OPTIONS+='--group-directories-first '
 #   verbose::
 #     Let _Tar_ report what it is doing.
 #
-export TAR_X_OPTIONS='--verbose'
+export TAR_X_OPTIONS=''
+TAR_X_OPTIONS+='--auto-compress '
+TAR_X_OPTIONS+='--verbose '
+
+# Make synchronizing large/many files and folders, i.e. by copying,
+# moving and deleting them, with the _Rsync_ program more pleasant by
+# default in the following ways:
+#
+# human-readable::
+#   Let _Rsync_ output numbers, in a human-friendly format.  For example
+#   thousands separators, units to the power of 1000, symbols for units
+#   larger than 1000, etc.
+#
+# progress::
+#   Let _Rsync_ report what it is doing on a per-file basis. See also
+#   `info=progress2` option if you want to see statistics about the
+#   transfer as a whole.
+#
+export RSYNC_X_OPTIONS=''
+RSYNC_X_OPTIONS+='--human-readable '
+RSYNC_X_OPTIONS+='--progress '
 
 # Let _Git_ skip reading settings from its system-wide configuration
 # file `{system-home}/gitconfig`.  Assume that the user is a power user

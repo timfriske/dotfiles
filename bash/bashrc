@@ -112,19 +112,19 @@ alias ...='cd ../..'
 # Ask the user before files are overwritten or deleted in order to
 # prevent accidental data loss.
 #
-alias cp='cp --interactive --verbose'
-alias ln='ln --interactive --verbose'
-alias mv='mv --interactive --verbose'
-alias rm='rm --interactive=once --verbose'
+alias cp='cp $CP_X_OPTIONS'
+alias ln='ln $LN_X_OPTIONS'
+alias mv='mv $MV_X_OPTIONS'
+alias rm='rm $RM_X_OPTIONS'
 
 # Alleviate the user from having to manually create or delete every
 # intermediate directory.  Introduce the aliases `md` for `mkdir` and
 # `rd` for `rmdir` for consistency with the other notorious two-letter
 # commands such as `cp`, `mv` or `rm`.
 #
-alias mkdir='mkdir --parents --verbose'
+alias mkdir='mkdir $MKDIR_X_OPTIONS'
 alias md='mkdir'
-alias rmdir='rmdir --parents --verbose'
+alias rmdir='rmdir $RMDIR_X_OPTIONS'
 alias rd='rmdir'
 
 # Make listing directories with the _Ls_ program more pleasant by
@@ -150,31 +150,23 @@ alias llz='ll --sort=size'
 #
 alias tar='tar $TAR_X_OPTIONS'
 
-# Make creating and compressing _TAR_ _tape archives_ memorable and less
-# to type.
+# Make handling _TAR_ _tape archives_ memorable and less to type.
 #
-alias mktar='tar --create --auto-compress'
-alias mktbz='mktar --bzip2'
-alias mktgz='mktar --gzip'
-alias mktxz='mktar --xz'
-alias mktzst='mktar --zstd'
-
-# Make decompressing and extracting _TAR_ _tape archives_ memorable and
-# less to type.
-#
+alias mktar='tar --create'
+alias dftar='tar --diff'
+alias lstar='tar --list'
+alias rmtar='tar --delete'
 alias untar='tar --extract'
-alias untbz='untar --bzip2'
-alias untgz='untar --gzip'
-alias untxz='untar --xz'
-alias untzst='untar --zstd'
+alias uptar='tar --update'
 
-# When copying/deleting files with the file & folder synchronization
-# tool `rsync` let it always report the progress in human-readable form.
+# Make synchronizing large/many files and folders, i.e. by copying,
+# moving and deleting them, with the _Rsync_ program more pleasant by
+# configuring its default behavior.
 #
 # The verbs `backup' and `mirror' should be much more memorable than the
 # alternative of having to type `rsync` together with all these options.
 #
-alias rsync='rsync --human-readable --progress'
+alias rsync='rsync $RSYNC_X_OPTIONS'
 alias backup='rsync --archive --hard-links --acls --xattrs'
 alias mirror='backup --delete'
 
@@ -182,6 +174,15 @@ alias mirror='backup --delete'
 # their counts.
 #
 alias count='sort | uniq --count | sort --sort=numeric'
+
+# Count entities in various units such as words, lines, etc.  Just pipe
+# the output of a program whose entities to count into the appropriate
+# one of the aliases below.
+#
+alias bytes='wc --bytes'
+alias chars='wc --chars'
+alias lines='wc --lines'
+alias words='wc --words'
 
 # Show human-readable file system sizes in powers of 1,000.  Exclude
 # neglectable types of file systems.
