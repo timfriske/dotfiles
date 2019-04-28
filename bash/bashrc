@@ -113,7 +113,7 @@ alias ...='cd ../..'
 # prevent accidental data loss.
 #
 alias cp='cp $CP_X_OPTIONS'
-alias ln='ln --interactive --verbose'
+alias ln='ln $LN_X_OPTIONS'
 alias mv='mv --interactive --verbose'
 alias rm='rm --interactive=once --verbose'
 
