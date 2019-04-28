@@ -124,7 +124,7 @@ alias rm='rm $RM_X_OPTIONS'
 #
 alias mkdir='mkdir $MKDIR_X_OPTIONS'
 alias md='mkdir'
-alias rmdir='rmdir --parents --verbose'
+alias rmdir='rmdir $RMDIR_X_OPTIONS'
 alias rd='rmdir'
 
 # Make listing directories with the _Ls_ program more pleasant by
