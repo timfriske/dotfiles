@@ -112,7 +112,7 @@ alias ...='cd ../..'
 # Ask the user before files are overwritten or deleted in order to
 # prevent accidental data loss.
 #
-alias cp='cp --interactive --verbose'
+alias cp='cp $CP_X_OPTIONS'
 alias ln='ln --interactive --verbose'
 alias mv='mv --interactive --verbose'
 alias rm='rm --interactive=once --verbose'

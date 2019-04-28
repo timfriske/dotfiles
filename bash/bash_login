@@ -204,6 +204,19 @@ LESS+='--quit-if-one-screen '
 
 export SYSTEMD_LESS="$LESS"
 
+# Make copying files and folders with the _Cp_ program more pleasant by
+# default in the following ways:
+#
+# interactive::
+#   Let _Cp_ prompt before overwriting.
+#
+# verbose::
+#   Let _Cp_ report what it is doing.
+#
+export CP_X_OPTIONS=''
+CP_X_OPTIONS+='--interactive '
+CP_X_OPTIONS+='--verbose '
+
 # Make listing directories with the _Ls_ program more pleasant by default in
 # the following ways:
 #
