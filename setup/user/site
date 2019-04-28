@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Main script of Config project
-# =============================
+# Main script of user setup
+# =========================
 # Tim Friske <me@tifr.de>
 
 shopt -os nounset pipefail errexit errtrace
