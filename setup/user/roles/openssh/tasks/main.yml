@@ -3,19 +3,27 @@
 # ====================================================
 # Tim Friske <me@tifr.de>
 
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ bin_dir }}"
+    - "{{ ssh_dir }}"
+
 - name: Copy OpenSSH client configuration file
   copy:
     src: config
-    dest: "{{ user_dir }}/.ssh/config"
+    dest: "{{ ssh_dir }}/config"
 
 - name: Copy OpenSSH host key generation utility program
   copy:
     src: ssh-keygen-host
-    dest: "{{ user_dir }}/bin/ssh-keygen-host"
+    dest: "{{ bin_dir }}/ssh-keygen-host"
     mode: a+x
 
 - name: Copy OpenSSH user key generation utility program
   copy:
     src: ssh-keygen-user
-    dest: "{{ user_dir }}/bin/ssh-keygen-user"
+    dest: "{{ bin_dir }}/ssh-keygen-user"
     mode: a+x

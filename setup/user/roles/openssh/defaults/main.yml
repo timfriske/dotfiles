@@ -4,3 +4,7 @@
 # Tim Friske <me@tifr.de>
 
 user_dir: "{{ ansible_env.HOME }}"
+
+bin_dir: "{{ user_dir }}/bin"
+
+ssh_dir: "{{ user_dir }}/.ssh"

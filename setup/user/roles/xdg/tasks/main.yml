@@ -3,38 +3,45 @@
 # ================================================
 # Tim Friske <me@tifr.de>
 
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ autostart_dir }}"
+
 - name: Copy Chromium Xdg autostart configuration file
   copy:
     src: autostart/chromium-web-browser.desktop
-    dest: "{{ user_dir }}/.config/autostart/\
+    dest: "{{ autostart_dir }}/\
             chromium-web-browser.desktop"
 
 - name: Copy Firefox Xdg autostart configuration file
   copy:
     src: autostart/firefox-web-browser.desktop
-    dest: "{{ user_dir }}/.config/autostart/\
+    dest: "{{ autostart_dir }}/\
             firefox-web-browser.desktop"
 
 - name: Copy Gnome Keyring SSH Xdg autostart configuration file
   copy:
     src: autostart/gnome-keyring-ssh.desktop
-    dest: "{{ user_dir }}/.config/autostart/\
+    dest: "{{ autostart_dir }}/\
             gnome-keyring-ssh.desktop"
 
 - name: Copy Gnome Nautilus Xdg autostart configuration file
   copy:
     src: autostart/gnome-nautilus-file-browser.desktop
-    dest: "{{ user_dir }}/.config/autostart/\
+    dest: "{{ autostart_dir }}/\
             gnome-nautilus-file-browser.desktop"
 
 - name: Copy Gnome System Monitor Xdg autostart configuration file
   copy:
     src: autostart/gnome-system-monitor.desktop
-    dest: "{{ user_dir }}/.config/autostart/\
+    dest: "{{ autostart_dir }}/\
             gnome-system-monitor.desktop"
 
 - name: Copy Gnome Terminal Xdg autostart configuration file
   copy:
     src: autostart/gnome-terminal-emulator.desktop
-    dest: "{{ user_dir }}/.config/autostart/\
+    dest: "{{ autostart_dir }}/\
             gnome-terminal-emulator.desktop"

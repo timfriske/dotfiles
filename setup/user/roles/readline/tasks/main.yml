@@ -3,6 +3,13 @@
 # =====================================================
 # Tim Friske <me@tifr.de>
 
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ user_dir }}"
+
 - name: Copy Readline Inputrc configuration file
   copy:
     src: inputrc

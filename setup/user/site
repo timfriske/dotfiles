@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #
-# Main script of Config project
-# =============================
+# Main script of user setup
+# =========================
 # Tim Friske <me@tifr.de>
 
 shopt -os nounset pipefail errexit errtrace
 
-declare -r site_dir="$(dirname "$0")"
+declare -r site_dir="${0%/*}"
 
 function get_readable_file {
   for file in "$@"; do

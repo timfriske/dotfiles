@@ -6,11 +6,62 @@
 - name: Setup of hosts with configuration files
   hosts: "{{ hosts_var }}"
   roles:
-    - bash
-    - git
-    - gnupg
-    - openssh
-    - readline
-    - tmux
-    - util
-    - xdg
+
+    # GNU Bash shell
+    # --------------
+    - role: bash
+      tags:
+        - bash
+        - shell
+
+    # Git version control system
+    # --------------------------
+    - role: git
+      tags:
+        - git
+        - vcs
+
+    # GnuPG OpenPGP crypto suite
+    # --------------------------
+    - role: gnupg
+      tags:
+        - gnupg
+        - gpg
+        - openpgp
+
+    # OpenSSH secure shell
+    # --------------------
+    - role: openssh
+      tags:
+        - openssh
+        - ssh
+
+    # GNU Readline library
+    # --------------------
+    - role: readline
+      tags:
+        - readline
+        - inputrc
+
+    # Tmux terminal multiplexer
+    # -------------------------
+    - role: tmux
+      tags:
+        - tmux
+        - terminal
+        - multiplexer
+
+    # Utility scripts and programs
+    # ----------------------------
+    - role: util
+      tags:
+        - util
+        - utilities
+
+    # Freedesktop.org config files
+    # ----------------------------
+    - role: xdg
+      tags:
+        - xdg
+        - xdesktopgroup
+        - freedesktop
