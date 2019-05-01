@@ -320,12 +320,17 @@ alias vi-insert-all='bind -m vi-insert -p'
 # _Tmux_.
 #
 if type -p tmux &> /dev/null; then
-  # Expect terminals can display 256 colors.
+  # Expect terminals to display 256 colors.
   alias tmux='tmux -2'
-  alias tm='tmux'
-  alias tma='tm attach-session'
-  alias tml='tm list-sessions'
-  alias tmn='tm new-session'
+  alias t='tmux'
+  alias tt='{ tmux attach-session || tmux new-session; } &> /dev/null'
+  alias tas='tmux attach-session'
+  alias tdc='tmux detach-client'
+  alias tks='tmux kill-session'
+  alias tlc='tmux list-clients'
+  alias tls='tmux list-sessions'
+  alias tns='tmux new-session'
+  alias trc='tmux refresh-client'
 fi
 
 # Define aliases and functions to ease job control.
