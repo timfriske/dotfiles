@@ -3,15 +3,22 @@
 # ================================================
 # Tim Friske <me@tifr.de>
 
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ git_dir }}"
+
 - name: Copy Git global configuration file
   copy:
     src: global.conf
-    dest: "{{ user_dir }}/.config/git/global.conf"
+    dest: "{{ git_dir }}/global.conf"
 
 - name: Link Git config to global configuration file
   file:
     src: global.conf
-    dest: "{{ user_dir }}/.config/git/config"
+    dest: "{{ git_dir }}/config"
     state: link
 
 - import_tasks: global.d/main.yml

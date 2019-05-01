@@ -3,6 +3,13 @@
 # =================================================
 # Tim Friske <me@tifr.de>
 
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ user_dir }}"
+
 - name: Copy Bash startup file for login shells
   copy:
     src: bash_login
