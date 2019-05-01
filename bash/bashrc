@@ -194,8 +194,10 @@ alias dff='df -x devtmpfs -x tmpfs'
 # Summarize files and directories up to the current directory.
 #
 alias du='du --si'
-alias dud='du --max-depth=1 | sort --human-numeric-sort --reverse'
-alias duf='du --all --max-depth=1 | sort --human-numeric-sort --reverse'
+alias dud="du --max-depth=1 \
+> >(sort --human-numeric-sort --reverse)"
+alias duf="du --all --max-depth=1 \
+> >(sort --human-numeric-sort --reverse)"
 alias dus='du --summarize'
 
 # file-backup (fb):: Make numbered backups of given file.
@@ -277,6 +279,17 @@ alias chgrp='chgrp --preserve-root --changes'
 alias chmod='chmod --preserve-root --changes'
 alias chown='chown --preserve-root --changes'
 
+# Just type `open` to open a file or URL in the user's preferred
+# application.  No one can remember that the program is named
+# `xdg-open`.
+#
+# On some systems a program named `open` might already exist. Only
+# define `open` as alias if no such program exists.
+#
+if ! type -p open &> /dev/null; then
+  alias open='xdg-open'
+fi
+
 # Define aliases to quickly control the system and user units, e.g.
 # services, mounts, timers etc., managed and supervised by _Systemd_.
 #
@@ -286,6 +299,24 @@ alias sdu='systemctl --user'
 # Use extended instead of basic regular expressions by default.
 #
 alias sed='sed --regexp-extended'
+
+# Define aliases for the most common commands to control _Kubernetes_
+# clusters via the `kubectl` program.
+#
+if type -p kubectl &> /dev/null; then
+  alias k='kubectl'
+  alias ka='kubectl apply'
+  alias kc='kubectl config'
+  alias kd='kubectl describe'
+  alias ke='kubectl explain'
+  alias kg='kubectl get'
+  alias ki='kubectl cluster-info'
+  alias kl='kubectl logs'
+  alias kp='kubectl patch'
+  alias kr='kubectl delete'
+  alias kt='kubectl top'
+  alias kx='kubectl exec'
+fi
 
 # List Vi-like key bindings in different modes.
 #
@@ -300,12 +331,17 @@ alias vi-insert-all='bind -m vi-insert -p'
 # _Tmux_.
 #
 if type -p tmux &> /dev/null; then
-  # Expect terminals can display 256 colors.
+  # Expect terminals to display 256 colors.
   alias tmux='tmux -2'
-  alias tm='tmux'
-  alias tma='tm attach-session'
-  alias tml='tm list-sessions'
-  alias tmn='tm new-session'
+  alias t='tmux'
+  alias tt='{ tmux attach-session || tmux new-session; } &> /dev/null'
+  alias tas='tmux attach-session'
+  alias tdc='tmux detach-client'
+  alias tks='tmux kill-session'
+  alias tlc='tmux list-clients'
+  alias tls='tmux list-sessions'
+  alias tns='tmux new-session'
+  alias trc='tmux refresh-client'
 fi
 
 # Define aliases and functions to ease job control.
