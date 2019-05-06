@@ -16,3 +16,6 @@ filetype plugin indent on
 
 " Enable syntax highlighting.
 syntax on
+
+" Full path to user's home directory.  Works on Linux, Mac and Windows.
+let s:home_dir=fnamemodify('~', ':p')
