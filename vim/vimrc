@@ -165,4 +165,6 @@ set autowrite
 " lastline::
 "   Display `@@@` in the last column of the last screen line if it does
 "   not fit on the screen.
-set display=lastline
+" uhex::
+"   Show unprintable characters in hexadecimal format as `<xx>`.
+set display=lastline,uhex
