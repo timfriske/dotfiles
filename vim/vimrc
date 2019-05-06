@@ -138,6 +138,12 @@ set nostartofline
 " vertsplit::
 "   Splitting the screen with the new window to the left is quite
 "   unusual.  Therefore display the window to the right.
+" splitbelow::
+"   Splitting the screen with the new window above is quite unusual.
+"   Therefore display the window below.
 if has('vertsplit')
   set splitright
+endif
+if has('windows')
+  set splitbelow
 endif
