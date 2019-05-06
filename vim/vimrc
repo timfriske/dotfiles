@@ -34,3 +34,10 @@ set relativenumber
 if has('linebreak')
   set numberwidth=1
 endif
+
+" Show the line and column number of the cursor position.  When there is
+" room, the relative position of the displayed text in the file is shown
+" too, e.g. Top, Bot, All, 45%.
+if has('cmdline_info')
+  set ruler
+endif
