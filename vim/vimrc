@@ -54,3 +54,6 @@ set backspace=indent,eol,start
 
 " Considerably increase the history of commands in command line mode.
 set history=1000
+
+" Abbreviate almost all messages.
+set shortmess=filmnrwxoOtTI
