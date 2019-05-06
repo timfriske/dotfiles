@@ -57,3 +57,7 @@ set history=1000
 
 " Abbreviate almost all messages.
 set shortmess=filmnrwxoOtTI
+
+" Recognize characters and numbers in octal, hexadecimal and binary
+" format when adding to and subtracting from a number respectively.
+set nrformats=alpha,octal,hex,bin
