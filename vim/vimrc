@@ -116,3 +116,11 @@ set copyindent
 set preserveindent
 set shiftwidth=2
 set softtabstop=2
+
+" Behavior when limiting text width:
+"
+" textwidth::
+"   Humans aren't good at reading lines if they are `too' long.  Such
+"   lines make a reader's eyes jump when continuing to read the next
+"   line.
+set textwidth=72
