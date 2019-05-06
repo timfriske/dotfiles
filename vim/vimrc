@@ -92,5 +92,8 @@ set matchpairs=(:),{:},[:],<:>
 " smarttab::
 "   Insert `shiftwidth` number of spaces in front of a line; `tabstop`
 "   or `softtabstop` in other places.
+" shiftround::
+"   Round indent to multiples of `shiftwidth`.
 set expandtab
 set smarttab
+set shiftround
