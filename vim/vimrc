@@ -41,3 +41,13 @@ endif
 if has('cmdline_info')
   set ruler
 endif
+
+" Behavior when backspacing and deleting in _Insert_ mode:
+"
+" indent::
+"   Allow over autoindent.
+" eol::
+"   Allow over line breaks to join lines.
+" start::
+"   Allow over start of insert.
+set backspace=indent,eol,start
