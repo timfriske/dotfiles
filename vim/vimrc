@@ -182,3 +182,8 @@ set lazyredraw
 " Threshold for reporting number of lines changed.  Zero means to always
 " report.
 set report=0
+
+" Operate command line completion in an enhanced mode.
+if has('wildmenu')
+  set wildmenu
+endif
