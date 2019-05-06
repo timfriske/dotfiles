@@ -74,9 +74,12 @@ set nrformats=alpha,octal,hex,bin
 " tagcase:
 "   Follow the `smartcase` and `ignorecase` options (followscs) when
 "   searching the tags.
+" matchpairs::
+"   Match also angle brackets when matching pairs.
 if has('extra_search')
   set incsearch
   set hlsearch
 endif
 set smartcase
 set tagcase=followscs
+set matchpairs=(:),{:},[:],<:>
