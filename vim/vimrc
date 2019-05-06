@@ -68,7 +68,11 @@ set nrformats=alpha,octal,hex,bin
 "   Start/continue searching immediately with every key stroke.
 " hlsearch::
 "   Highlight all matches found.
+" smartcase::
+"   Search case-insensitive if only lower case characters were entered;
+"   case-sensitive with mixed case characters.
 if has('extra_search')
   set incsearch
   set hlsearch
 endif
+set smartcase
