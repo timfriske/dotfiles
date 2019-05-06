@@ -7,3 +7,6 @@ scriptencoding utf-8
 "
 " Note: The option `encoding` and command `scriptencoding` must be
 " set/executed at the top of this file in this order to have an effect.
+
+" Enable overall sane _Vim_ defaults.
+set nocompatible
