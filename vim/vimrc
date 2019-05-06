@@ -178,3 +178,7 @@ set ttyfast
 " Do not redraw the screen while executing macros, pasting registers and
 " other commands that have not been manually typed.
 set lazyredraw
+
+" Threshold for reporting number of lines changed.  Zero means to always
+" report.
+set report=0
