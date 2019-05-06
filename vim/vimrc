@@ -66,6 +66,9 @@ set nrformats=alpha,octal,hex,bin
 "
 " incsearch::
 "   Start/continue searching immediately with every key stroke.
+" hlsearch::
+"   Highlight all matches found.
 if has('extra_search')
   set incsearch
+  set hlsearch
 endif
