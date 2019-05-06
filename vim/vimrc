@@ -171,3 +171,6 @@ set display=lastline,uhex
 
 " Show partially completed commands in the last line of the screen.
 set showcmd
+
+" Assume a fast TTY connection.  Most modern terminals are usually fast.
+set ttyfast
