@@ -168,3 +168,6 @@ set autowrite
 " uhex::
 "   Show unprintable characters in hexadecimal format as `<xx>`.
 set display=lastline,uhex
+
+" Show partially completed commands in the last line of the screen.
+set showcmd
