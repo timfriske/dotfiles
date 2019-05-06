@@ -226,3 +226,12 @@ set swapfile
 " Do not clutter the current directory with swap files.  Include file
 " paths (//) in swap file names to avoid name clashes.
 let &directory=s:home_dir.'.vim/swap//'
+
+if has('persistent_undo')
+  " Store the undo history of a file in an undo file when writing it and
+  " restore this history from that file when reading it the next time.
+  set undofile
+  " Do not clutter the current directory with undo files.  Include file
+  " paths (//) in undo file names to avoid name clashes.
+  let &undodir=s:home_dir.'.vim/undo//'
+endif
