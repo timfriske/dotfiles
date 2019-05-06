@@ -13,3 +13,6 @@ set nocompatible
 
 " Load plug-ins and indendation rules according to detected file type.
 filetype plugin indent on
+
+" Enable syntax highlighting.
+syntax on
