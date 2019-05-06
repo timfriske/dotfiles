@@ -19,3 +19,18 @@ syntax on
 
 " Full path to user's home directory.  Works on Linux, Mac and Windows.
 let s:home_dir=fnamemodify('~', ':p')
+
+" Behavior when displaying line numbers:
+"
+" relativenumber::
+"   Efficiently operate in command mode by displaying the line numbers
+"   relative to the current line where the cursor is at.  For example it
+"   is not necessary anymore to manually count the lines before jumping
+"   to a distant line.
+" numberwidth::
+"   Minimal number of columns to display the line numbers.  Do not waste
+"   more columns than needed.
+set relativenumber
+if has('linebreak')
+  set numberwidth=1
+endif
