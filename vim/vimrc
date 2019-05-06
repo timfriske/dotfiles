@@ -105,6 +105,9 @@ set matchpairs=(:),{:},[:],<:>
 "   characters were used for indenting.
 " shiftwidth::
 "   Number of spaces to shift lines left and right.
+" softtabstop::
+"   Number of spaces that a tabulator counts for while editing, like
+"   when inserting or deleting it.
 set expandtab
 set smarttab
 set shiftround
@@ -112,3 +115,4 @@ set autoindent
 set copyindent
 set preserveindent
 set shiftwidth=2
+set softtabstop=2
