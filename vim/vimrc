@@ -216,3 +216,7 @@ else
   " Keep that backup afterwards.
   set backup
 endif
+
+" Do not clutter the current directory with backup files.  Include file
+" paths (//) in backup file names to avoid name clashes.
+let &backupdir=s:home_dir.'.vim/backup//'
