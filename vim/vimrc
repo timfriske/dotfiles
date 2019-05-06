@@ -51,3 +51,6 @@ endif
 " start::
 "   Allow over start of insert.
 set backspace=indent,eol,start
+
+" Considerably increase the history of commands in command line mode.
+set history=1000
