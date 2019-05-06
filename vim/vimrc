@@ -207,3 +207,12 @@ if has('viminfo')
     \ '%', "'100", '<50', 's10', 'c', 'h', 'r/media', 'r/tmp'
     \ ], ',')
 endif
+
+" Make a backup of a file before it is written.
+if has('writebackup')
+  " Delete that backup afterwards.
+  set writebackup
+else
+  " Keep that backup afterwards.
+  set backup
+endif
