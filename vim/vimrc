@@ -94,6 +94,10 @@ set matchpairs=(:),{:},[:],<:>
 "   or `softtabstop` in other places.
 " shiftround::
 "   Round indent to multiples of `shiftwidth`.
+" autoindent::
+"   Copy indent from the current line when starting a new line.  Delete
+"   indent again if new line was left empty.
 set expandtab
 set smarttab
 set shiftround
+set autoindent
