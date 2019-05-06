@@ -132,3 +132,12 @@ set wrapmargin=72
 " character of every line.  Instead try to keep it in the same column
 " when moving vertically.
 set nostartofline
+
+" Behavior when splitting the screen into windows:
+"
+" vertsplit::
+"   Splitting the screen with the new window to the left is quite
+"   unusual.  Therefore display the window to the right.
+if has('vertsplit')
+  set splitright
+endif
