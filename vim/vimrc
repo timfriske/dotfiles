@@ -71,8 +71,12 @@ set nrformats=alpha,octal,hex,bin
 " smartcase::
 "   Search case-insensitive if only lower case characters were entered;
 "   case-sensitive with mixed case characters.
+" tagcase:
+"   Follow the `smartcase` and `ignorecase` options (followscs) when
+"   searching the tags.
 if has('extra_search')
   set incsearch
   set hlsearch
 endif
 set smartcase
+set tagcase=followscs
