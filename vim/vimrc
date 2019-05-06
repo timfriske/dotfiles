@@ -83,3 +83,10 @@ endif
 set smartcase
 set tagcase=followscs
 set matchpairs=(:),{:},[:],<:>
+
+" Behavior when reindenting lines with tabulators and spaces, or
+" shifting them left and right:
+"
+" expandtab::
+"   Insert an appropriate number of spaces to insert a tabulator.
+set expandtab
