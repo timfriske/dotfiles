@@ -220,3 +220,9 @@ endif
 " Do not clutter the current directory with backup files.  Include file
 " paths (//) in backup file names to avoid name clashes.
 let &backupdir=s:home_dir.'.vim/backup//'
+
+" Use swap files for buffers for crash recovery reasons.
+set swapfile
+" Do not clutter the current directory with swap files.  Include file
+" paths (//) in swap file names to avoid name clashes.
+let &directory=s:home_dir.'.vim/swap//'
