@@ -97,7 +97,11 @@ set matchpairs=(:),{:},[:],<:>
 " autoindent::
 "   Copy indent from the current line when starting a new line.  Delete
 "   indent again if new line was left empty.
+" copyindent::
+"   Copy whatever characters were used for indenting on the current
+"   line when starting a new line.
 set expandtab
 set smarttab
 set shiftround
 set autoindent
+set copyindent
