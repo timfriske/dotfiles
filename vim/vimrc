@@ -89,4 +89,8 @@ set matchpairs=(:),{:},[:],<:>
 "
 " expandtab::
 "   Insert an appropriate number of spaces to insert a tabulator.
+" smarttab::
+"   Insert `shiftwidth` number of spaces in front of a line; `tabstop`
+"   or `softtabstop` in other places.
 set expandtab
+set smarttab
