@@ -123,4 +123,7 @@ set softtabstop=2
 "   Humans aren't good at reading lines if they are `too' long.  Such
 "   lines make a reader's eyes jump when continuing to read the next
 "   line.
+" wrapmargin::
+"   Even in case of no manual line breaks wrap `overlong' lines.
 set textwidth=72
+set wrapmargin=72
