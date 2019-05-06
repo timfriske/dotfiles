@@ -147,3 +147,15 @@ endif
 if has('windows')
   set splitbelow
 endif
+
+" Behavior when reading and writing *modified* files:
+"
+" autoread::
+"   When a file has been detected to have changed outside of _Vim_ and
+"   it has not been changed inside of _Vim_, automatically read it
+"   again.
+" autowrite::
+"   Write a file, if it has been modified, automatically, e.g. when
+"   changing buffers.
+set autoread
+set autowrite
