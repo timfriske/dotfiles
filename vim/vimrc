@@ -174,3 +174,7 @@ set showcmd
 
 " Assume a fast TTY connection.  Most modern terminals are usually fast.
 set ttyfast
+
+" Do not redraw the screen while executing macros, pasting registers and
+" other commands that have not been manually typed.
+set lazyredraw
