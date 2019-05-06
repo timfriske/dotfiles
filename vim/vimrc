@@ -4,3 +4,6 @@ scriptencoding utf-8
 " Vi Improved text editor configuration
 " =====================================
 " Tim Friske <me@tifr.de>
+"
+" Note: The option `encoding` and command `scriptencoding` must be
+" set/executed at the top of this file in this order to have an effect.
