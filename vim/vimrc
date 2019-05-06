@@ -187,3 +187,5 @@ set report=0
 if has('wildmenu')
   set wildmenu
 endif
+" Ignore case when completing file and directory names.
+set wildignorecase
