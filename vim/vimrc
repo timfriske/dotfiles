@@ -193,4 +193,17 @@ set wildignorecase
 if has('viminfo')
   " Store viminfo file below user's _Vim_ directory, not home directory.
   let &viminfofile=s:home_dir.'.vim/viminfo'
+
+  " Viminfo file options:
+  "
+  " %:: Re/store buffer list.
+  " '<n>:: Re/store marks of `<n>` previously edited files.
+  " <<n>:: Re/store maximum `<n>` lines for each register.
+  " c:: Convert Viminfo file to current encoding.
+  " h:: Do not highlight re/stored search pattern.
+  " r<path>:: Do not re/store marks for files below `<path>`.
+  " s<n>:: Do not re/store items above `<n>` kilobytes.
+  let &viminfo=join([
+    \ '%', "'100", '<50', 's10', 'c', 'h', 'r/media', 'r/tmp'
+    \ ], ',')
 endif
