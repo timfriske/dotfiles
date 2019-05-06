@@ -103,9 +103,12 @@ set matchpairs=(:),{:},[:],<:>
 " preserveindent::
 "   When changing the indent of the current line, preserve whatever
 "   characters were used for indenting.
+" shiftwidth::
+"   Number of spaces to shift lines left and right.
 set expandtab
 set smarttab
 set shiftround
 set autoindent
 set copyindent
 set preserveindent
+set shiftwidth=2
