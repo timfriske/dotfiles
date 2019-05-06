@@ -159,3 +159,10 @@ endif
 "   changing buffers.
 set autoread
 set autowrite
+
+" Behavior when displaying text:
+"
+" lastline::
+"   Display `@@@` in the last column of the last screen line if it does
+"   not fit on the screen.
+set display=lastline
