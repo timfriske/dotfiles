@@ -127,3 +127,8 @@ set softtabstop=2
 "   Even in case of no manual line breaks wrap `overlong' lines.
 set textwidth=72
 set wrapmargin=72
+
+" Do not make the cursor jump, i.e. move it to the first non-blank
+" character of every line.  Instead try to keep it in the same column
+" when moving vertically.
+set nostartofline
