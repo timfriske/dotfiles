@@ -1,0 +1,237 @@
+set encoding=utf-8
+scriptencoding utf-8
+
+" Vi Improved text editor configuration
+" =====================================
+" Tim Friske <me@tifr.de>
+"
+" Note: The option `encoding` and command `scriptencoding` must be
+" set/executed at the top of this file in this order to have an effect.
+
+" Enable overall sane _Vim_ defaults.
+set nocompatible
+
+" Load plug-ins and indendation rules according to detected file type.
+filetype plugin indent on
+
+" Enable syntax highlighting.
+syntax on
+
+" Full path to user's home directory.  Works on Linux, Mac and Windows.
+let s:home_dir=fnamemodify('~', ':p')
+
+" Behavior when displaying line numbers:
+"
+" relativenumber::
+"   Efficiently operate in command mode by displaying the line numbers
+"   relative to the current line where the cursor is at.  For example it
+"   is not necessary anymore to manually count the lines before jumping
+"   to a distant line.
+" numberwidth::
+"   Minimal number of columns to display the line numbers.  Do not waste
+"   more columns than needed.
+set relativenumber
+if has('linebreak')
+  set numberwidth=1
+endif
+
+" Show the line and column number of the cursor position.  When there is
+" room, the relative position of the displayed text in the file is shown
+" too, e.g. Top, Bot, All, 45%.
+if has('cmdline_info')
+  set ruler
+endif
+
+" Behavior when backspacing and deleting in _Insert_ mode:
+"
+" indent::
+"   Allow over autoindent.
+" eol::
+"   Allow over line breaks to join lines.
+" start::
+"   Allow over start of insert.
+set backspace=indent,eol,start
+
+" Considerably increase the history of commands in command line mode.
+set history=1000
+
+" Abbreviate almost all messages.
+set shortmess=filmnrwxoOtTI
+
+" Recognize characters and numbers in octal, hexadecimal and binary
+" format when adding to and subtracting from a number respectively.
+set nrformats=alpha,octal,hex,bin
+
+" Behavior when searching:
+"
+" incsearch::
+"   Start/continue searching immediately with every key stroke.
+" hlsearch::
+"   Highlight all matches found.
+" smartcase::
+"   Search case-insensitive if only lower case characters were entered;
+"   case-sensitive with mixed case characters.
+" tagcase:
+"   Follow the `smartcase` and `ignorecase` options (followscs) when
+"   searching the tags.
+" matchpairs::
+"   Match also angle brackets when matching pairs.
+if has('extra_search')
+  set incsearch
+  set hlsearch
+endif
+set smartcase
+set tagcase=followscs
+set matchpairs=(:),{:},[:],<:>
+
+" Behavior when reindenting lines with tabulators and spaces, or
+" shifting them left and right:
+"
+" expandtab::
+"   Insert an appropriate number of spaces to insert a tabulator.
+" smarttab::
+"   Insert `shiftwidth` number of spaces in front of a line; `tabstop`
+"   or `softtabstop` in other places.
+" shiftround::
+"   Round indent to multiples of `shiftwidth`.
+" autoindent::
+"   Copy indent from the current line when starting a new line.  Delete
+"   indent again if new line was left empty.
+" copyindent::
+"   Copy whatever characters were used for indenting on the current
+"   line when starting a new line.
+" preserveindent::
+"   When changing the indent of the current line, preserve whatever
+"   characters were used for indenting.
+" shiftwidth::
+"   Number of spaces to shift lines left and right.
+" softtabstop::
+"   Number of spaces that a tabulator counts for while editing, like
+"   when inserting or deleting it.
+set expandtab
+set smarttab
+set shiftround
+set autoindent
+set copyindent
+set preserveindent
+set shiftwidth=2
+set softtabstop=2
+
+" Behavior when limiting text width:
+"
+" textwidth::
+"   Humans aren't good at reading lines if they are `too' long.  Such
+"   lines make a reader's eyes jump when continuing to read the next
+"   line.
+" wrapmargin::
+"   Even in case of no manual line breaks wrap `overlong' lines.
+set textwidth=72
+set wrapmargin=72
+
+" Do not make the cursor jump, i.e. move it to the first non-blank
+" character of every line.  Instead try to keep it in the same column
+" when moving vertically.
+set nostartofline
+
+" Behavior when splitting the screen into windows:
+"
+" vertsplit::
+"   Splitting the screen with the new window to the left is quite
+"   unusual.  Therefore display the window to the right.
+" splitbelow::
+"   Splitting the screen with the new window above is quite unusual.
+"   Therefore display the window below.
+if has('vertsplit')
+  set splitright
+endif
+if has('windows')
+  set splitbelow
+endif
+
+" Behavior when reading and writing *modified* files:
+"
+" autoread::
+"   When a file has been detected to have changed outside of _Vim_ and
+"   it has not been changed inside of _Vim_, automatically read it
+"   again.
+" autowrite::
+"   Write a file, if it has been modified, automatically, e.g. when
+"   changing buffers.
+set autoread
+set autowrite
+
+" Behavior when displaying text:
+"
+" lastline::
+"   Display `@@@` in the last column of the last screen line if it does
+"   not fit on the screen.
+" uhex::
+"   Show unprintable characters in hexadecimal format as `<xx>`.
+set display=lastline,uhex
+
+" Show partially completed commands in the last line of the screen.
+set showcmd
+
+" Assume a fast TTY connection.  Most modern terminals are usually fast.
+set ttyfast
+
+" Do not redraw the screen while executing macros, pasting registers and
+" other commands that have not been manually typed.
+set lazyredraw
+
+" Threshold for reporting number of lines changed.  Zero means to always
+" report.
+set report=0
+
+" Operate command line completion in an enhanced mode.
+if has('wildmenu')
+  set wildmenu
+endif
+" Ignore case when completing file and directory names.
+set wildignorecase
+
+if has('viminfo')
+  " Store viminfo file below user's _Vim_ directory, not home directory.
+  let &viminfofile=s:home_dir.'.vim/viminfo'
+
+  " Viminfo file options:
+  "
+  " %:: Re/store buffer list.
+  " '<n>:: Re/store marks of `<n>` previously edited files.
+  " <<n>:: Re/store maximum `<n>` lines for each register.
+  " c:: Convert Viminfo file to current encoding.
+  " h:: Do not highlight re/stored search pattern.
+  " r<path>:: Do not re/store marks for files below `<path>`.
+  " s<n>:: Do not re/store items above `<n>` kilobytes.
+  let &viminfo=join([
+    \ '%', "'100", '<50', 's10', 'c', 'h', 'r/media', 'r/tmp'
+    \ ], ',')
+endif
+
+" Make a backup of a file before it is written.
+if has('writebackup')
+  " Delete that backup afterwards.
+  set writebackup
+else
+  " Keep that backup afterwards.
+  set backup
+endif
+
+" Do not clutter the current directory with backup files.  Include file
+" paths (//) in backup file names to avoid name clashes.
+let &backupdir=s:home_dir.'.vim/backup//'
+
+" Use swap files for buffers for crash recovery reasons.
+set swapfile
+" Do not clutter the current directory with swap files.  Include file
+" paths (//) in swap file names to avoid name clashes.
+let &directory=s:home_dir.'.vim/swap//'
+
+if has('persistent_undo')
+  " Store the undo history of a file in an undo file when writing it and
+  " restore this history from that file when reading it the next time.
+  set undofile
+  " Do not clutter the current directory with undo files.  Include file
+  " paths (//) in undo file names to avoid name clashes.
+  let &undodir=s:home_dir.'.vim/undo//'
+endif
