@@ -1,4 +1,5 @@
-# = GnuPG Agent daemon access for remote hosts
+# GnuPG Agent daemon access for remote hosts
+# ==========================================
 # Tim Friske <me@tifr.de>
 #
 # Activates _GnuPG's_ _Agent_ daemon via a socket controlled and

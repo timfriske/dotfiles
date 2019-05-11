@@ -1,0 +1,116 @@
+Socket-activated Dirmngr and Gpg-agent with Systemd
+===================================================
+Tim Friske <me@tifr.de>
+
+Note: This document was originally authored by Daniel Kahn Gillmor (dkg)
+and put under version control in https://github.com/gpg/gnupg[GnuPG's]
+_GitHub_ repository under `/doc/examples/systemd-user/README`.
+
+When used on a _GNU/Linux_ system supervised by `systemd`, you can
+ensure that the _GnuPG_ daemons `dirmngr` and `gpg-agent` are launched
+automatically the first time they are needed, and shut down cleanly at
+session logout.  This is done by enabling user services via socket-
+activation.
+
+System distributors
+-------------------
+The `*.service` and `*.socket` files from this directory should be
+placed in `/usr/lib/systemd/user/` alongside other user-session services
+and sockets.
+
+To enable `dirmngr` socket-based activation for all accounts on the
+system, use:
+
+.Dirmngr socket-based activation (system-wide)
+----
+$ systemctl --user --global enable dirmngr.socket
+----
+
+To enable `gpg-agent` socket-based activation for all accounts on the
+system, use:
+
+.Gpg-agent socket-based activation (system-wide)
+----
+$ systemctl --user --global enable gpg-agent.socket
+----
+
+Additionally, you can enable socket-based activation for `gpg-agent`
+`ssh-agent` emulation for all accounts on the system with:
+
+.Gpg-agent-ssh socket-based activation (system-wide)
+----
+$ systemctl --user --global enable gpg-agent-ssh.socket
+----
+
+You can also enable restricted (`--extra-socket`) `gpg-agent` sockets
+for all accounts on the system with:
+
+.Gpg-agent-extra socket-based activation (system-wide)
+----
+$ systemctl --user --global enable gpg-agent-extra.socket
+----
+
+Last but not least you can enable browser access to `gpg-agent` with:
+
+.Gpg-agent-browser socket-based activation (system-wide)
+----
+$ systemctl --user --global enable gpg-agent-browser.socket
+----
+
+Individual users
+----------------
+A user on a system with `systemd` where this has not been installed
+system-wide can place these files in `~/.config/systemd/user/` to make
+them available.
+
+If a given service isn't installed system-wide, or if it's installed
+system-wide but not globally enabled, individual users will still need
+to enable them.  For example, to enable socket-activated `dirmngr` for
+all future sessions:
+
+.Dirmngr socket-based activation (user-specific)
+----
+$ systemctl --user enable dirmngr.socket
+----
+
+To enable socket-activated `gpg-agent` support, do:
+
+.Gpg-agent socket-based activation (user-specific)
+----
+$ systemctl --user enable gpg-agent.socket
+----
+
+To enable socket-activated `gpg-agent` with _SSH_ support, do:
+
+.Gpg-agent-ssh socket-based activation (user-specific)
+----
+$ systemctl --user enable gpg-agent-ssh.socket
+----
+
+.Gpg-agent-extra socket-based activation (system-wide)
+----
+$ systemctl --user enable gpg-agent-extra.socket
+----
+
+To enable socket-activated `gpg-agent` with browser support, do:
+
+.Gpg-agent-browser socket-based activation (system-wide)
+----
+$ systemctl --user enable gpg-agent-browser.socket
+----
+
+These changes won't take effect until your next login after you've fully
+logged out (be sure to terminate any running daemons before logging
+out).
+
+If you'd rather try a socket-activated _GnuPG_ daemon in an already-
+running session without logging out (with or without enabling it for all
+future sessions), kill any existing daemon and start the user socket
+directly.  For example, to set up socket-activated `dirmgnr` in the
+current session:
+
+.Dirmngr restart without logout or reboot
+----
+$ gpgconf --kill dirmngr
+$ systemctl --user start dirmngr.socket
+----

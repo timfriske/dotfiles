@@ -1,4 +1,5 @@
-# = Systemd user socket unit for GnuPG Dirmngr daemon
+# Systemd user socket unit for GnuPG Dirmngr daemon
+# =================================================
 # Tim Friske <me@tifr.de>
 #
 # Activates _GnuPG's_ _Dirmngr_ daemon via a socket controlled and
