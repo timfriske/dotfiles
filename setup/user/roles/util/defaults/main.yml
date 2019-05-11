@@ -5,4 +5,4 @@
 
 user_dir: "{{ ansible_env.HOME }}"
 
-bin_dir: "{{ user_dir }}/bin"
+bin_dir: "{{ user_dir }}/.local/bin"

@@ -1,0 +1,6 @@
+---
+# Main Ansible playbook of user specific Vim setup
+# ================================================
+# Tim Friske <me@tifr.de>
+
+- import_tasks: vim/main.yml
