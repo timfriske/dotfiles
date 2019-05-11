@@ -1,4 +1,4 @@
-Socket-activated dirmngr and gpg-agent with systemd
+Socket-activated Dirmngr and Gpg-agent with Systemd
 ===================================================
 
 When used on a GNU/Linux system supervised by systemd, you can ensure
