@@ -2,6 +2,10 @@ Socket-activated Dirmngr and Gpg-agent with Systemd
 ===================================================
 Tim Friske <me@tifr.de>
 
+Note: This document was originally authored by Daniel Kahn Gillmor (dkg)
+and put under version control in https://github.com/gpg/gnupg[GnuPG's]
+_GitHub_ repository under `/doc/examples/systemd-user/README`.
+
 When used on a GNU/Linux system supervised by systemd, you can ensure
 that the GnuPG daemons dirmngr and gpg-agent are launched
 automatically the first time they're needed, and shut down cleanly at
