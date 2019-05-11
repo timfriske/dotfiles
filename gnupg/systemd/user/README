@@ -1,5 +1,6 @@
 Socket-activated Dirmngr and Gpg-agent with Systemd
 ===================================================
+Tim Friske <me@tifr.de>
 
 When used on a GNU/Linux system supervised by systemd, you can ensure
 that the GnuPG daemons dirmngr and gpg-agent are launched
