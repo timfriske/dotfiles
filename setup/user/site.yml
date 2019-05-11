@@ -58,6 +58,14 @@
         - util
         - utilities
 
+    # Vim Vi Improved text editor
+    # ---------------------------
+    - role: vim
+      tags:
+        - vim
+        - text
+        - editor
+
     # Freedesktop.org config files
     # ----------------------------
     - role: xdg

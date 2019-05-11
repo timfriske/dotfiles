@@ -1,0 +1,14 @@
+---
+# Main Ansible variables of user specific Vim setup
+# =================================================
+# Tim Friske <me@tifr.de>
+
+user_dir: "{{ ansible_env.HOME }}"
+
+vim_dir: "{{ user_dir }}/.vim"
+
+backup_dir: "{{ vim_dir }}/backup"
+
+swap_dir: "{{ vim_dir }}/swap"
+
+undo_dir: "{{ vim_dir }}/undo"
