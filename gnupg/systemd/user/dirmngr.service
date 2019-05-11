@@ -1,4 +1,5 @@
-# = Systemd user service unit for GnuPG Dirmngr daemon
+# Systemd user service unit for GnuPG Dirmngr daemon
+# ==================================================
 # Tim Friske <me@tifr.de>
 #
 # Controls and supervises _GnuPG's_ _Dirmngr_ daemon via _Systemd_, once

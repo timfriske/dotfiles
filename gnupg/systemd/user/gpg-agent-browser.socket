@@ -1,4 +1,5 @@
-# = GnuPG Agent daemon access for browsers
+# GnuPG Agent daemon access for browsers
+# ======================================
 # Tim Friske <me@tifr.de>
 #
 # Activates _GnuPG's_ _Agent_ daemon via a socket controlled and
