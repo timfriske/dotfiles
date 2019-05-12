@@ -23,4 +23,5 @@
     dest: "{{ git_dir }}/config"
     state: link
 
-- import_tasks: global.d/main.yml
+- name: Set up Git Global configuration directory
+  import_tasks: global.d/main.yml
