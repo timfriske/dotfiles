@@ -1,8 +1,10 @@
 ---
-# Main Ansible variables of user specific Vim setup
-# =================================================
+# User-specific Vim setup
+# =======================
 # Tim Friske <me@tifr.de>
 
+# Main default variables
+# ----------------------
 user_dir: "{{ ansible_env.HOME }}"
 
 vim_dir: "{{ user_dir }}/.vim"

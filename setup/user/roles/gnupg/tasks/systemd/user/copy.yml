@@ -1,8 +1,10 @@
 ---
-# Copying of GnuPG's Systemd user unit files
-# ==========================================
+# User-specific GnuPG setup
+# =========================
 # Tim Friske <me@tifr.de>
 
+# Copying of Systemd user unit files
+# ----------------------------------
 - name: Make target directories
   file:
     path: "{{ item }}"

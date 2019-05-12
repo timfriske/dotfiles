@@ -1,10 +1,14 @@
 ---
-# Main Ansible variables of user specific OpenSSH setup
-# =====================================================
+# User-specific OpenSSH setup
+# ===========================
 # Tim Friske <me@tifr.de>
 
+# Main default variables
+# ----------------------
 user_dir: "{{ ansible_env.HOME }}"
 
 bin_dir: "{{ user_dir }}/.local/bin"
 
 ssh_dir: "{{ user_dir }}/.ssh"
+
+config_dir: "{{ ssh_dir }}/config.d"

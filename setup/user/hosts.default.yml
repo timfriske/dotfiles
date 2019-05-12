@@ -1,8 +1,10 @@
 ---
-# Ansible inventory of user specific setup
-# ========================================
+# User-specific setup
+# ===================
 # Tim Friske <me@tifr.de>
 
+# Default host inventory
+# ----------------------
 all:
   children:
     local:

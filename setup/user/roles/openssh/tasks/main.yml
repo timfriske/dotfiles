@@ -1,8 +1,10 @@
 ---
-# Main Ansible playbook of user specific OpenSSH setup
-# ====================================================
+# User-specific OpenSSH setup
+# ===========================
 # Tim Friske <me@tifr.de>
 
+# Main tasks
+# ----------
 - name: Make target directories
   file:
     path: "{{ item }}"
@@ -27,3 +29,6 @@
     src: ssh-keygen-user
     dest: "{{ bin_dir }}/ssh-keygen-user"
     mode: a+x
+
+- name: Set up OpenSSH client configuration drop-in directory
+  import_tasks: config.d/main.yml

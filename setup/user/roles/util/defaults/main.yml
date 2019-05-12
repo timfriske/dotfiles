@@ -1,8 +1,10 @@
 ---
-# Main Ansible variables of user specific Util setup
-# ==================================================
+# User-specific Util setup
+# ========================
 # Tim Friske <me@tifr.de>
 
+# Default main variables
+# ----------------------
 user_dir: "{{ ansible_env.HOME }}"
 
 bin_dir: "{{ user_dir }}/.local/bin"

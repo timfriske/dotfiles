@@ -1,8 +1,10 @@
 ---
-# Main Ansible playbook of user specific Git setup
-# ================================================
+# User-specific Git setup
+# =======================
 # Tim Friske <me@tifr.de>
 
+# Global main tasks
+# -----------------
 - name: Make target directories
   file:
     path: "{{ item }}"
@@ -10,15 +12,16 @@
   loop:
     - "{{ global_dir }}"
 
-- name: Copy Git global miscellaneous configuration file
+- name: Copy Git Miscellaneous's global configuration file
   copy:
     src: global.d/misc.conf
     dest: "{{ global_dir }}/misc.conf"
 
-- name: Copy Git global user configuration file
+- name: Copy Git User's global configuration file
   copy:
     src: global.d/user.conf
     dest: "{{ global_dir }}/user.conf"
     force: no
 
-- import_tasks: command/main.yml
+- name: Set up Git Command global configuration directory
+  import_tasks: command/main.yml

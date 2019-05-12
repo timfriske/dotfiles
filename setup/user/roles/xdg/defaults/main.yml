@@ -1,8 +1,10 @@
 ---
-# Main Ansible variables of user specific Xdg setup
-# =================================================
+# User-specific Xdg setup
+# =======================
 # Tim Friske <me@tifr.de>
 
+# Main default variables
+# ----------------------
 user_dir: "{{ ansible_env.HOME }}"
 
 config_dir: "{{ user_dir }}/.config"
