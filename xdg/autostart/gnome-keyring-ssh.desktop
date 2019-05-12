@@ -14,6 +14,7 @@ GenericName[de]=Passwort Manager
 Comment=GNOME Keyring: SSH Agent
 Comment[de]=GNOME-Schlüsselbunddienst: SSH-Agent
 
+TryExec=gnome-keyring-daemon
 Exec=gnome-keyring-daemon --start --components=ssh
 OnlyShowIn=GNOME;Unity;MATE;XFCE;
 
