@@ -1,0 +1,8 @@
+# OpenSSH client config for GitHub
+# ================================ 
+# Tim Friske <me@tifr.de>
+
+Host github github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519.pub

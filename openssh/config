@@ -1,4 +1,5 @@
-# = Configuration of OpenSSH client
+# Configuration of OpenSSH client
+# ===============================
 # Tim Friske <me@tifr.de>
 #
 # Configures _OpenSSH's_ _Secure SHell_ client program.  The _OpenSSH_
@@ -47,52 +48,24 @@
 #
 Host *
 
+  # Instead of defining all `Host` and `Match` sections in this file
+  # alone include small configuration snippets from the following
+  # directory.  Ideally each such snippet should contain only the
+  # sections specific to a certain host or a small group of closely
+  # related hosts.  Just drop a new snippet in the below directory and
+  # the _OpenSSH_ client shall pick it up the next time it is run.
+  #
   # Try to authenticate with the least number of private keys in order
   # to keep below the maximum number of authentication tries a _SSH_
-  # daemon permits.
+  # daemon permits.  You can achieve this by specifying only one private
+  # key per host by pointing the `IdentiyFile` option to that key, e.g.
+  # `IdentityFile id_ed25519`.
   #
-  # Only offer those private keys to a _SSH_ daemon for authentication
-  # whose public keys are explicitly listed in the user configuration
-  # file of _OpenSSH's_ client.
+  # In case a _GnuPG_ authentication key pair should be used in tandem
+  # with a GPG agent to serve the private key of it, its public key must
+  # have been exported with `gpg --export-ssh-key` in _OpenSSH_ format
+  # before and stored in a public key file.  This file must be specified
+  # then as the identity file instead; for example with `IdentityFile
+  # id_ed25519.pub`.
   #
-  # In case the user is only using one private key to authenticate
-  # against all remote hosts s/he must list the public key file of the
-  # private key in the global section of her/his _OpenSSH_ client
-  # configuration file (`~/.ssh/config`) with the `IdentityFile` option
-  # as follows:
-  #
-  # .The only _SSH_ key for all hosts
-  # ----
-  # Host *
-  #   IdentityFile ~/.ssh/id_ed25519.pub
-  # ----
-  #
-  # Otherwise if using multiple private keys for authenticating against
-  # different remote hosts the user must list the correct public key
-  # file for each host separately but *not* for all hosts in the global
-  # section:
-  #
-  # .One _SSH_ key per host or group of hosts
-  # ----
-  # Host foobar foobar.example.com
-  #   IdentityFile ~/.ssh/id_ed25519-foobar.pub
-  #
-  # Host *.galaxy.example.com
-  #   IdentityFile ~/.ssh/id_ed25519-for-all-stars.pub
-  # ----
-  #
-  # Note: In combination with a _SSH_ agent the above configurations
-  # *only work* if the `IdentitiesOnly` option is set to `yes`.  Should
-  # _GnuPG's_ _GPG_ agent also offer _SSH_ keys and the key in question
-  # is an authentication-capable _OpenPGP_ key it is important to once
-  # export the public part of it, store its file next to the other _SSH_
-  # public keys and list its file path with the `IdentityFile` option as
-  # shown above.
-  #
-  # Default:
-  #   IdentityFile ~/.ssh/id_dsa
-  #   IdentityFile ~/.ssh/id_ecdsa
-  #   IdentityFile ~/.ssh/id_ed25519
-  #   IdentityFile ~/.ssh/id_rsa
-  #
-  IdentityFile ~/.ssh/id_ed25519.pub
+  Include config.d/*
