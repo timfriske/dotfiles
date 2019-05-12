@@ -116,6 +116,8 @@ alias cp='cp $CP_X_OPTIONS'
 alias ln='ln $LN_X_OPTIONS'
 alias mv='mv $MV_X_OPTIONS'
 alias rm='rm $RM_X_OPTIONS'
+alias rr='rm --recursive'
+alias rrf='rr --force'
 
 # Alleviate the user from having to manually create or delete every
 # intermediate directory.  Introduce the aliases `md` for `mkdir` and
@@ -242,6 +244,7 @@ alias broken-links='find -xtype l'
 # _Diff_ program more pleasant by configuring its default behavior.
 #
 alias diff='diff $DIFF_X_OPTIONS'
+alias diff-dirs='diff --recursive --brief'
 
 # Make full-text searches with the _Grep_ program more pleasant by
 # configuring its default behavior.
@@ -293,6 +296,7 @@ fi
 # Define aliases to quickly control the system and user units, e.g.
 # services, mounts, timers etc., managed and supervised by _Systemd_.
 #
+alias sd='systemctl'
 alias sds='systemctl --system'
 alias sdu='systemctl --user'
 
@@ -306,15 +310,17 @@ alias sed='sed --regexp-extended'
 if type -p kubectl &> /dev/null; then
   alias k='kubectl'
   alias ka='kubectl apply'
-  alias kc='kubectl config'
+  alias kc='kubectl cp'
   alias kd='kubectl describe'
   alias ke='kubectl explain'
   alias kg='kubectl get'
   alias ki='kubectl cluster-info'
   alias kl='kubectl logs'
+  alias ko='kubectl config'
   alias kp='kubectl patch'
   alias kr='kubectl delete'
   alias kt='kubectl top'
+  alias kv='kubectl version'
   alias kx='kubectl exec'
 fi
 
