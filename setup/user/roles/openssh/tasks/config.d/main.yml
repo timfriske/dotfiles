@@ -1,0 +1,17 @@
+---
+# OpenSSH client drop-in configuration
+# ====================================
+# Tim Friske <me@tifr.de>
+
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ config_dir }}"
+
+- name: Copy OpenSSH client configuration file for GitHub
+  copy:
+    src: config.d/github
+    dest: "{{ config_dir }}/github"
+

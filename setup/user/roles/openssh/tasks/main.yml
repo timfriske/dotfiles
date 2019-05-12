@@ -27,3 +27,6 @@
     src: ssh-keygen-user
     dest: "{{ bin_dir }}/ssh-keygen-user"
     mode: a+x
+
+- name: Set up OpenSSH client configuration drop-in directory
+  import_tasks: config.d/main.yml
