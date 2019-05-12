@@ -1,4 +1,5 @@
-# = Configuration of OpenSSH daemon
+# Configuration of OpenSSH daemon
+# ===============================
 # Tim Friske <me@tifr.de>
 #
 # Configures _OpenSSH's_ _Secure SHell_ daemon program.  The _OpenSSH_
