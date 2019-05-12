@@ -29,4 +29,6 @@ Actions=PrivateBrowsing;
 
 [Desktop Action PrivateBrowsing]
 Name=New Private Browsing Window
+Name[de]=Neues privates Browsing Fenster
+
 Exec=firefox --private-window %u
