@@ -1,4 +1,5 @@
-# = Autostart of GNOME's SSH Agent
+# Autostart of GNOME SSH Agent
+# ============================
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
