@@ -1,28 +1,37 @@
-# = Autostart of GNOME's Nautilus
+# Autostart of GNOME Nautilus
+# ===========================
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
 Type=Application
+
 Name=Files
 Name[de]=Dateien
+
 GenericName=File Manager
 GenericName[de]=Dateimanager
+
 Comment=Access and organize files
 Comment[de]=Auf Dateien zugreifen und diese organisieren
+
+Keywords=browser;disk;drive;explorer;file;filesystem;folder;manager;storage
+Keywords[de]=Datei;Dateisystem;Festplatte;Laufwerk;Ordner;Speicher;Verwaltung;Verzeichnis;
+
+Categories=GNOME;GTK;Utility;Core;FileManager;
+
+MimeType=inode/directory;application/x-gnome-saved-search;
+
 Icon=org.gnome.Nautilus
-OnlyShowIn=GNOME
-DBusActivatable=true
 TryExec=nautilus
 Exec=nautilus --new-window %U 
 Terminal=false
-Actions=new-window;
-MimeType=inode/directory;application/x-gnome-saved-search;
-Categories=GNOME;GTK;Utility;Core;FileManager;
-Keywords=browser;disk;drive;explorer;file;filesystem;folder;manager;storage
-Keywords[de]=Datei;Dateisystem;Festplatte;Laufwerk;Ordner;Speicher;Verwaltung;Verzeichnis;
+OnlyShowIn=GNOME
+DBusActivatable=true
 StartupNotify=true
 
 X-GNOME-UsesNotifications=true
+
+Actions=new-window;
 
 [Desktop Action new-window]
 Name=New Window

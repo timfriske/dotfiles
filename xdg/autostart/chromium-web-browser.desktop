@@ -1,23 +1,31 @@
-# = Autostart of Google's Chromium
+# Autostart of Google Chromium
+# ============================
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
 Type=Application
+
 Name=Chromium
 Name[de]=Chromium
+
 GenericName=Web Browser
 GenericName[de]=Web Browser
+
 Comment=Browses the Internet
 Comment[de]=Surft im Internet
+
+Keywords=browser;explorer;home;internet;page;site;surf;web;wide;world;
+Keywords[de]=Browser;Explorer;Home;Internet;Internetseite;Netz;Seite;Surfen;Webseite;Weltweit;
+
+Categories=Network;WebBrowser;
+
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+
 Icon=chromium-browser
 TryExec=chromium
 Exec=chromium %u
 Terminal=false
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
-Categories=Network;WebBrowser;
-Keywords=browser;explorer;home;internet;page;site;surf;web;wide;world;
-Keywords[de]=Browser;Explorer;Home;Internet;Internetseite;Netz;Seite;Surfen;Webseite;Weltweit;
 StartupWMClass=Chromium
 
-X-Desktop-File-Install-Version=0.23
 X-MultipleArgs=false
+X-Desktop-File-Install-Version=0.23

@@ -1,24 +1,33 @@
-# = Autostart of GNOME's SSH Agent
+# Autostart of GNOME SSH Agent
+# ============================
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
 Type=Application
+
 Name=SSH Key Agent
 Name[de]=SSH-Schlüsselagent
+
 GenericName=Password Manager
 GenericName[de]=Passwort Manager
+
 Comment=GNOME Keyring: SSH Agent
 Comment[de]=GNOME-Schlüsselbunddienst: SSH-Agent
-Exec=/usr/bin/gnome-keyring-daemon --start --components=ssh
+
+TryExec=gnome-keyring-daemon
+Exec=gnome-keyring-daemon --start --components=ssh
 OnlyShowIn=GNOME;Unity;MATE;XFCE;
+
 # Disable _GNOME's_ SSH Agent in favor of _GnuPG's_ GPG Agent.
 Hidden=true
 
 X-GNOME-Autostart-Phase=PreDisplayServer
 X-GNOME-AutoRestart=false
 X-GNOME-Autostart-Notify=true
+
 X-GNOME-Bugzilla-Bugzilla=GNOME
 X-GNOME-Bugzilla-Product=gnome-keyring
 X-GNOME-Bugzilla-Component=general
 X-GNOME-Bugzilla-Version=3.28.0.2
+
 X-Desktop-File-Install-Version=0.23
