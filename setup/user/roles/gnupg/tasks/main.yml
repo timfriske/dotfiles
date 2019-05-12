@@ -38,37 +38,6 @@
     dest: "{{ bin_dir }}/gpg-gen-key-for-user"
     mode: a+x
 
-- name: Start GnuPG's Dirmngr on-demand
-  systemd:
-    unit: dirmngr.socket
-    scope: user
-    enabled: yes
-    state: started
 
-- name: Start GnuPG's Gpg-agent on-demand
-  systemd:
-    unit: gpg-agent.socket
-    scope: user
-    enabled: yes
-    state: started
-
-- name: Start GnuPG's Gpg-agent with browser support daemon on-demand
-  systemd:
-    unit: gpg-agent-browser.socket
-    scope: user
-    enabled: yes
-    state: started
-
-- name: Start GnuPG's Gpg-agent with extra support daemon on-demand
-  systemd:
-    unit: gpg-agent-extra.socket
-    scope: user
-    enabled: yes
-    state: started
-
-- name: Start GnuPG's Gpg-agent with SSH support on-demand
-  systemd:
-    unit: gpg-agent-ssh.socket
-    scope: user
-    enabled: yes
-    state: started
+- name: Enable GnuPG daemons via Systemd user units
+  import_tasks: systemd/user/main.yml
