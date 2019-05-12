@@ -244,6 +244,7 @@ alias broken-links='find -xtype l'
 # _Diff_ program more pleasant by configuring its default behavior.
 #
 alias diff='diff $DIFF_X_OPTIONS'
+alias diff-dirs='diff --recursive --brief'
 
 # Make full-text searches with the _Grep_ program more pleasant by
 # configuring its default behavior.
