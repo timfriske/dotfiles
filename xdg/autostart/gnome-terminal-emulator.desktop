@@ -4,28 +4,33 @@
 
 [Desktop Entry]
 Type=Application
+
 Name=Terminal
 Name[de]=Terminal
+
 GenericName=Terminal Emulator
 GenericName[de]=Terminalemulator
+
 Comment=Runs command line programs
 Comment[de]=Führt Kommandozeilen-Programme aus
+
+Keywords=cmd;command;emulator;line;prompt;shell;terminal;
+Keywords[de]=Befehl;Befehlszeile;Emulator;Prompt;Shell;Terminal;
+
+Categories=GNOME;GTK;System;TerminalEmulator;
+
 Icon=utilities-terminal
-OnlyShowIn=GNOME
-DBusActivatable=true
 TryExec=gnome-terminal
 Exec=gnome-terminal --maximize
 Terminal=false
-Categories=GNOME;GTK;System;TerminalEmulator;
-Keywords=cmd;command;emulator;line;prompt;shell;terminal;
-Keywords[de]=Befehl;Befehlszeile;Emulator;Prompt;Shell;Terminal;
+OnlyShowIn=GNOME
+DBusActivatable=true
 StartupNotify=true
+
+X-GNOME-DocPath=gnome-terminal/index.html
+X-GNOME-SingleWindow=false
 
 X-GNOME-Bugzilla-Bugzilla=GNOME
 X-GNOME-Bugzilla-Product=gnome-terminal
 X-GNOME-Bugzilla-Component=BugBuddyBugs
 X-GNOME-Bugzilla-Version=3.24.0
-
-X-GNOME-DocPath=gnome-terminal/index.html
-X-GNOME-SingleWindow=false
-
