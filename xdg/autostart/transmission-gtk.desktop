@@ -1,0 +1,37 @@
+# = Autostart of Transmission GTK
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+Type=Application
+Name=Transmission
+Name[de]=Transmission
+GenericName=BitTorrent Client
+GenericName[de]=BitTorrent-Programm
+Comment=Download and share files over BitTorrent
+Comment[de]=Dateien über BitTorrent herunterladen und verteilen
+Icon=transmission
+OnlyShowIn=GNOME
+TryExec=transmission-gtk
+Exec=transmission-gtk %U
+Terminal=false
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+Categories=Network;FileTransfer;P2P;GTK;
+Keywords=torrent;bittorrent;p2p;peer-to-peer;download;manager
+Keywords[de]=Torrent;BitTorrent;P2P;Peer-to-Peer;Download;Manager
+StartupNotify=true
+Actions=Pause;Minimize;
+
+X-GNOME-FullName=Transmission BitTorrent Client
+X-GNOME-FullName[de]=Transmission BitTorrent-Programm
+X-Ubuntu-Gettext-Domain=transmission
+X-AppInstall-Keywords=torrent
+
+[Desktop Action Pause]
+Name=Start Transmission with All Torrents Paused
+Name[de]=Starte Transmission mit allen Torrents pausiert
+Exec=transmission-gtk --paused
+
+[Desktop Action Minimize]
+Name=Start Transmission Minimized
+Name[de]=Starte Transmission minimiert
+Exec=transmission-gtk --minimized
