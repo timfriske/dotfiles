@@ -1,6 +1,8 @@
 ---
-# Ansible variables of user setup
-# ===============================
+# User-specific setup
+# ===================
 # Tim Friske <me@tifr.de>
 
+# Default variables
+# -----------------
 hosts_var: local

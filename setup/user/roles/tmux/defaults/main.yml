@@ -1,6 +1,8 @@
 ---
-# Main Ansible variables of user specific Tmux setup
-# ==================================================
+# User-specific Tmux setup
+# ========================
 # Tim Friske <me@tifr.de>
 
+# Main default variables
+# ----------------------
 user_dir: "{{ ansible_env.HOME }}"

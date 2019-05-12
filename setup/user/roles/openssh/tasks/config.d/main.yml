@@ -1,8 +1,10 @@
 ---
-# OpenSSH client drop-in configuration
-# ====================================
+# User-specific OpenSSH setup
+# ===========================
 # Tim Friske <me@tifr.de>
 
+# Drop-in configuration directory setup
+# -------------------------------------
 - name: Make target directories
   file:
     path: "{{ item }}"

@@ -1,8 +1,10 @@
 ---
-# Main Ansible playbook of user specific Git setup
-# ================================================
+# User-specific Git setup
+# =======================
 # Tim Friske <me@tifr.de>
 
+# Main tasks
+# ----------
 - name: Make target directories
   file:
     path: "{{ item }}"
