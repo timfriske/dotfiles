@@ -8,3 +8,5 @@ user_dir: "{{ ansible_env.HOME }}"
 bin_dir: "{{ user_dir }}/.local/bin"
 
 gnupg_dir: "{{ user_dir }}/.gnupg"
+
+systemd_user_dir: "{{ user_dir }}/.config/systemd/user"

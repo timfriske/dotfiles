@@ -1,0 +1,10 @@
+---
+# Main Ansible playbook of user specific GnuPG/Systemd setup
+# ==========================================================
+# Tim Friske <me@tifr.de>
+
+- name: Copy GnuPG's Systemd user unit files
+  import_tasks: copy.yml
+
+- name: Enable GnuPG's Systemd user unit files
+  import_tasks: enable.yml
