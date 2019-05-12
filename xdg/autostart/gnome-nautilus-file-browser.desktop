@@ -31,9 +31,10 @@ StartupNotify=true
 
 X-GNOME-UsesNotifications=true
 
-Actions=new-window;
+Actions=NewWindow;
 
-[Desktop Action new-window]
+[Desktop Action NewWindow]
 Name=New Window
 Name[de]=Neues Fenster
+
 Exec=nautilus --new-window 
