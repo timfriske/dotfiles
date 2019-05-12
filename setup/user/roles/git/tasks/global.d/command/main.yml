@@ -12,102 +12,102 @@
   loop:
     - "{{ command_dir }}"
 
-- name: Copy Git global add command configuration file
+- name: Copy Git Add command's global configuration file
   copy:
     src: global.d/command/add.conf
     dest: "{{ command_dir }}/add.conf"
 
-- name: Copy Git global bisect command configuration file
+- name: Copy Git Bisect command's global configuration file
   copy:
     src: global.d/command/bisect.conf
     dest: "{{ command_dir }}/bisect.conf"
 
-- name: Copy Git global branch command configuration file
+- name: Copy Git Branch command's global configuration file
   copy:
     src: global.d/command/branch.conf
     dest: "{{ command_dir }}/branch.conf"
 
-- name: Copy Git global checkout command configuration file
+- name: Copy Git Checkout command's global configuration file
   copy:
     src: global.d/command/checkout.conf
     dest: "{{ command_dir }}/checkout.conf"
 
-- name: Copy Git global cherry command configuration file
+- name: Copy Git Cherry command's global configuration file
   copy:
     src: global.d/command/cherry.conf
     dest: "{{ command_dir }}/cherry.conf"
 
-- name: Copy Git global cherry-pick command configuration file
+- name: Copy Git Cherry-pick command's global configuration file
   copy:
     src: global.d/command/cherry-pick.conf
     dest: "{{ command_dir }}/cherry-pick.conf"
 
-- name: Copy Git global commit command configuration file
+- name: Copy Git Commit command's global configuration file
   copy:
     src: global.d/command/commit.conf
     dest: "{{ command_dir }}/commit.conf"
 
-- name: Copy Git global diff command configuration file
+- name: Copy Git Diff command's global configuration file
   copy:
     src: global.d/command/diff.conf
     dest: "{{ command_dir }}/diff.conf"
 
-- name: Copy Git global edit command configuration file
+- name: Copy Git Edit command's global configuration file
   copy:
     src: global.d/command/edit.conf
     dest: "{{ command_dir }}/edit.conf"
 
-- name: Copy Git global fetch command configuration file
+- name: Copy Git Fetch command's global configuration file
   copy:
     src: global.d/command/fetch.conf
     dest: "{{ command_dir }}/fetch.conf"
 
-- name: Copy Git global help command configuration file
+- name: Copy Git Help command's global configuration file
   copy:
     src: global.d/command/help.conf
     dest: "{{ command_dir }}/help.conf"
 
-- name: Copy Git global log command configuration file
+- name: Copy Git Log command's global configuration file
   copy:
     src: global.d/command/log.conf
     dest: "{{ command_dir }}/log.conf"
 
-- name: Copy Git global merge command configuration file
+- name: Copy Git Merge command's global configuration file
   copy:
     src: global.d/command/merge.conf
     dest: "{{ command_dir }}/merge.conf"
 
-- name: Copy Git global rebase command configuration file
+- name: Copy Git Rebase command's global configuration file
   copy:
     src: global.d/command/rebase.conf
     dest: "{{ command_dir }}/rebase.conf"
 
-- name: Copy Git global reset command configuration file
+- name: Copy Git Reset command's global configuration file
   copy:
     src: global.d/command/reset.conf
     dest: "{{ command_dir }}/reset.conf"
 
-- name: Copy Git global revert command configuration file
+- name: Copy Git Revert command's global configuration file
   copy:
     src: global.d/command/revert.conf
     dest: "{{ command_dir }}/revert.conf"
 
-- name: Copy Git global show command configuration file
+- name: Copy Git Show command's global configuration file
   copy:
     src: global.d/command/show.conf
     dest: "{{ command_dir }}/show.conf"
 
-- name: Copy Git global stash command configuration file
+- name: Copy Git Stash command's global configuration file
   copy:
     src: global.d/command/stash.conf
     dest: "{{ command_dir }}/stash.conf"
 
-- name: Copy Git global status command configuration file
+- name: Copy Git Status command's global configuration file
   copy:
     src: global.d/command/status.conf
     dest: "{{ command_dir }}/status.conf"
 
-- name: Copy Git global tag command configuration file
+- name: Copy Git Tag command's global configuration file
   copy:
     src: global.d/command/tag.conf
     dest: "{{ command_dir }}/tag.conf"

@@ -12,12 +12,12 @@
   loop:
     - "{{ global_dir }}"
 
-- name: Copy Git global miscellaneous configuration file
+- name: Copy Git Miscellaneous's global configuration file
   copy:
     src: global.d/misc.conf
     dest: "{{ global_dir }}/misc.conf"
 
-- name: Copy Git global user configuration file
+- name: Copy Git User's global configuration file
   copy:
     src: global.d/user.conf
     dest: "{{ global_dir }}/user.conf"
