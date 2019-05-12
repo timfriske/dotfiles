@@ -14,7 +14,7 @@ GenericName[de]=Passwort Manager
 Comment=GNOME Keyring: SSH Agent
 Comment[de]=GNOME-Schlüsselbunddienst: SSH-Agent
 
-Exec=/usr/bin/gnome-keyring-daemon --start --components=ssh
+Exec=gnome-keyring-daemon --start --components=ssh
 OnlyShowIn=GNOME;Unity;MATE;XFCE;
 
 # Disable _GNOME's_ SSH Agent in favor of _GnuPG's_ GPG Agent.
