@@ -107,12 +107,7 @@ source ~/.bash/rc.d/alias/file-xyz.bash
 source ~/.bash/rc.d/alias/free.bash
 source ~/.bash/rc.d/alias/info.bash
 source ~/.bash/rc.d/alias/date.bash
-
-# Run given command on every argument usually read from pipe.  The alias
-# `map` resembles the well-known mathematical term `mapping' also known
-# as `map'.
-#
-alias map='xargs --max-args=1'
+source ~/.bash/rc.d/alias/xargs.bash
 
 # Find broken links, i.e. symbolic links which lost their target files
 # or folders.  This usually occurs when either the symbolic links or
