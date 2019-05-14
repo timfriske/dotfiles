@@ -108,12 +108,7 @@ source ~/.bash/rc.d/alias/free.bash
 source ~/.bash/rc.d/alias/info.bash
 source ~/.bash/rc.d/alias/date.bash
 source ~/.bash/rc.d/alias/xargs.bash
-
-# Find broken links, i.e. symbolic links which lost their target files
-# or folders.  This usually occurs when either the symbolic links or
-# their targets move and their references are not updated.
-#
-alias broken-links='find -xtype l'
+source ~/.bash/rc.d/alias/find.bash
 
 # Make comparing differences between files and directories with the
 # _Diff_ program more pleasant by configuring its default behavior.
