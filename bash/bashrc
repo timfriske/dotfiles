@@ -102,16 +102,7 @@ source ~/.bash/rc.d/alias/rsync.bash
 source ~/.bash/rc.d/alias/sort.bash
 source ~/.bash/rc.d/alias/wc.bash
 source ~/.bash/rc.d/alias/df.bash
-
-# Show human-readable file and directory sizes in powers of 1,000.
-# Summarize files and directories up to the current directory.
-#
-alias du='du --si'
-alias dud="du --max-depth=1 \
-> >(sort --human-numeric-sort --reverse)"
-alias duf="du --all --max-depth=1 \
-> >(sort --human-numeric-sort --reverse)"
-alias dus='du --summarize'
+source ~/.bash/rc.d/alias/du.bash
 
 # file-backup (fb):: Make numbered backups of given file.
 # file-type (ft):: Show file type of given file or file on `PATH`.
