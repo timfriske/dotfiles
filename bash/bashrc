@@ -111,13 +111,7 @@ source ~/.bash/rc.d/alias/xargs.bash
 source ~/.bash/rc.d/alias/find.bash
 source ~/.bash/rc.d/alias/diff.bash
 source ~/.bash/rc.d/alias/grep.bash
-
-# The abbreviations `OS' for `operating system' and `distro' for `Linux
-# distribution' are better known than the names of the utilities `uname'
-# and `lsb_release'.
-#
-alias os='uname --all'
-alias distro='lsb_release --all --short'
+source ~/.bash/rc.d/alias/os-distro.bash
 
 # Simplify data exchange between CLI and GUI via clipboard.
 #
