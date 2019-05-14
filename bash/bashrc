@@ -113,15 +113,7 @@ source ~/.bash/rc.d/alias/diff.bash
 source ~/.bash/rc.d/alias/grep.bash
 source ~/.bash/rc.d/alias/os-distro.bash
 source ~/.bash/rc.d/alias/pbcp-xclip-xsel.bash
-
-# Never start from the root directory because this would almost always
-# mean to *destroy* the *entire* root file system and *all* file systems
-# mounted below.  Report only when and which files and directories
-# actually changed.
-#
-alias chgrp='chgrp --preserve-root --changes'
-alias chmod='chmod --preserve-root --changes'
-alias chown='chown --preserve-root --changes'
+source ~/.bash/rc.d/alias/ch-xyz.bash
 
 # Just type `open` to open a file or URL in the user's preferred
 # application.  No one can remember that the program is named
