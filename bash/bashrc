@@ -98,17 +98,12 @@ source ~/.bash/rc.d/alias/mkdir.bash
 source ~/.bash/rc.d/alias/rmdir.bash
 source ~/.bash/rc.d/alias/ls.bash
 source ~/.bash/rc.d/alias/tar.bash
+source ~/.bash/rc.d/alias/rsync.bash
 
 # Make synchronizing large/many files and folders, i.e. by copying,
 # moving and deleting them, with the _Rsync_ program more pleasant by
 # configuring its default behavior.
 #
-# The verbs `backup' and `mirror' should be much more memorable than the
-# alternative of having to type `rsync` together with all these options.
-#
-alias rsync='rsync $RSYNC_X_OPTIONS'
-alias backup='rsync --archive --hard-links --acls --xattrs'
-alias mirror='backup --delete'
 
 # Count the number of occurrences and list them in ascending order of
 # their counts.
