@@ -98,10 +98,6 @@ source ~/.bash/rc.d/alias/mkdir.bash
 source ~/.bash/rc.d/alias/rmdir.bash
 source ~/.bash/rc.d/alias/ls.bash
 
-# Make listing directories with the _Ls_ program more pleasant by
-# configuring its default behavior.
-#
-
 # Run _Tar_ program for handling _TARs_ _tape archives_ with default
 # options in order to not have to specify them every time.
 #
