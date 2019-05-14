@@ -114,17 +114,7 @@ source ~/.bash/rc.d/alias/grep.bash
 source ~/.bash/rc.d/alias/os-distro.bash
 source ~/.bash/rc.d/alias/pbcp-xclip-xsel.bash
 source ~/.bash/rc.d/alias/ch-xyz.bash
-
-# Just type `open` to open a file or URL in the user's preferred
-# application.  No one can remember that the program is named
-# `xdg-open`.
-#
-# On some systems a program named `open` might already exist. Only
-# define `open` as alias if no such program exists.
-#
-if ! type -p open &> /dev/null; then
-  alias open='xdg-open'
-fi
+source ~/.bash/rc.d/alias/xdg-open.bash
 
 # Define aliases to quickly control the system and user units, e.g.
 # services, mounts, timers etc., managed and supervised by _Systemd_.
