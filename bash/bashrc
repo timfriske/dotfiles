@@ -88,9 +88,7 @@ shopt -s nocaseglob nocasematch
 # Shell aliases
 # -------------
 
-# Allow aliases to be run as another user/group, e.g. super user `root'.
-#
-alias sudo='sudo '
+source ~/.bash/rc.d/alias/sudo.bash
 
 # Toggle between current and previous directory.  Hitting `cc` should be
 # much faster than typing `cd`, space, and then reaching out for `-`.
