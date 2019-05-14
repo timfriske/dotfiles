@@ -110,13 +110,7 @@ source ~/.bash/rc.d/alias/date.bash
 source ~/.bash/rc.d/alias/xargs.bash
 source ~/.bash/rc.d/alias/find.bash
 source ~/.bash/rc.d/alias/diff.bash
-
-# Make full-text searches with the _Grep_ program more pleasant by
-# configuring its default behavior.
-#
-alias grep='grep $GREP_X_OPTIONS'
-alias egrep='grep --extended-regexp'
-alias fgrep='grep --fixed-strings'
+source ~/.bash/rc.d/alias/grep.bash
 
 # The abbreviations `OS' for `operating system' and `distro' for `Linux
 # distribution' are better known than the names of the utilities `uname'
