@@ -104,11 +104,7 @@ source ~/.bash/rc.d/alias/wc.bash
 source ~/.bash/rc.d/alias/df.bash
 source ~/.bash/rc.d/alias/du.bash
 source ~/.bash/rc.d/alias/file-xyz.bash
-
-# Show human-readable memory sizes in powers of 1,000 of free and used
-# physical and swap memory.
-#
-alias free='free --human --si'
+source ~/.bash/rc.d/alias/free.bash
 
 # Use Vi-like key bindings in _Info_ program because it is assumed that
 # the user knows the _Vim_ editor by heart.
