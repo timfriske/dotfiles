@@ -93,13 +93,11 @@ source ~/.bash/rc.d/alias/cd.bash
 source ~/.bash/rc.d/alias/cp.bash
 source ~/.bash/rc.d/alias/ln.bash
 source ~/.bash/rc.d/alias/mv.bash
+source ~/.bash/rc.d/alias/rm.bash
 
 # Ask the user before files are overwritten or deleted in order to
 # prevent accidental data loss.
 #
-alias rm='rm $RM_X_OPTIONS'
-alias rr='rm --recursive'
-alias rrf='rr --force'
 
 # Alleviate the user from having to manually create or delete every
 # intermediate directory.  Introduce the aliases `md` for `mkdir` and
