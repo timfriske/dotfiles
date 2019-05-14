@@ -101,12 +101,7 @@ source ~/.bash/rc.d/alias/tar.bash
 source ~/.bash/rc.d/alias/rsync.bash
 source ~/.bash/rc.d/alias/sort.bash
 source ~/.bash/rc.d/alias/wc.bash
-
-# Show human-readable file system sizes in powers of 1,000.  Exclude
-# neglectable types of file systems.
-#
-alias df='df --si'
-alias dff='df -x devtmpfs -x tmpfs'
+source ~/.bash/rc.d/alias/df.bash
 
 # Show human-readable file and directory sizes in powers of 1,000.
 # Summarize files and directories up to the current directory.
