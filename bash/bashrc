@@ -94,14 +94,13 @@ source ~/.bash/rc.d/alias/cp.bash
 source ~/.bash/rc.d/alias/ln.bash
 source ~/.bash/rc.d/alias/mv.bash
 source ~/.bash/rc.d/alias/rm.bash
+source ~/.bash/rc.d/alias/mkdir.bash
 
 # Alleviate the user from having to manually create or delete every
 # intermediate directory.  Introduce the aliases `md` for `mkdir` and
 # `rd` for `rmdir` for consistency with the other notorious two-letter
 # commands such as `cp`, `mv` or `rm`.
 #
-alias mkdir='mkdir $MKDIR_X_OPTIONS'
-alias md='mkdir'
 alias rmdir='rmdir $RMDIR_X_OPTIONS'
 alias rd='rmdir'
 
