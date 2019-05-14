@@ -115,13 +115,7 @@ source ~/.bash/rc.d/alias/os-distro.bash
 source ~/.bash/rc.d/alias/pbcp-xclip-xsel.bash
 source ~/.bash/rc.d/alias/ch-xyz.bash
 source ~/.bash/rc.d/alias/xdg-open.bash
-
-# Define aliases to quickly control the system and user units, e.g.
-# services, mounts, timers etc., managed and supervised by _Systemd_.
-#
-alias sd='systemctl'
-alias sds='systemctl --system'
-alias sdu='systemctl --user'
+source ~/.bash/rc.d/alias/systemctl.bash
 
 # Use extended instead of basic regular expressions by default.
 #
