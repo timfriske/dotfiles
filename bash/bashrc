@@ -116,10 +116,7 @@ source ~/.bash/rc.d/alias/pbcp-xclip-xsel.bash
 source ~/.bash/rc.d/alias/ch-xyz.bash
 source ~/.bash/rc.d/alias/xdg-open.bash
 source ~/.bash/rc.d/alias/systemctl.bash
-
-# Use extended instead of basic regular expressions by default.
-#
-alias sed='sed --regexp-extended'
+source ~/.bash/rc.d/alias/sed.bash
 
 # Define aliases for the most common commands to control _Kubernetes_
 # clusters via the `kubectl` program.
