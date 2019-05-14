@@ -96,24 +96,11 @@ source ~/.bash/rc.d/alias/mv.bash
 source ~/.bash/rc.d/alias/rm.bash
 source ~/.bash/rc.d/alias/mkdir.bash
 source ~/.bash/rc.d/alias/rmdir.bash
+source ~/.bash/rc.d/alias/ls.bash
 
 # Make listing directories with the _Ls_ program more pleasant by
 # configuring its default behavior.
 #
-alias ls='ls $LS_X_OPTIONS'
-alias la='ls --almost-all'
-alias lh='ls --almost-all --ignore="*"'
-alias ll='ls --format=long'
-alias lt='ls --sort=time'
-alias lv='ls --sort=version'
-alias lx='ls --sort=extension'
-alias lz='ls --sort=size'
-alias lla='ll --almost-all'
-alias llh='ll --almost-all --ignore="*"'
-alias llt='ll --sort=time'
-alias llv='ll --sort=version'
-alias llx='ll --sort=extension'
-alias llz='ll --sort=size'
 
 # Run _Tar_ program for handling _TARs_ _tape archives_ with default
 # options in order to not have to specify them every time.
