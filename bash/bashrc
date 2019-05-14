@@ -462,6 +462,14 @@ if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
   source ~/.bashrc.local
 fi
 
+# Test if _GnuPG_ for encrypting and signing data is installed.
+if type -p gpg &> /dev/null; then
+  # Let _GnuPG_ know on which terminal to interact with the user; for
+  # example the _Gpg-agent_ daemon prompting for the passphrase.
+  export GPG_TTY="$(tty)"
+  echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null
+fi
+
 # Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from
 # `localhost` is running.
 if ! [[ -n "$TMUX" || "$TERM" =~ screen
