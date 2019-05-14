@@ -92,11 +92,11 @@ source ~/.bash/rc.d/alias/sudo.bash
 source ~/.bash/rc.d/alias/cd.bash
 source ~/.bash/rc.d/alias/cp.bash
 source ~/.bash/rc.d/alias/ln.bash
+source ~/.bash/rc.d/alias/mv.bash
 
 # Ask the user before files are overwritten or deleted in order to
 # prevent accidental data loss.
 #
-alias mv='mv $MV_X_OPTIONS'
 alias rm='rm $RM_X_OPTIONS'
 alias rr='rm --recursive'
 alias rrf='rr --force'
