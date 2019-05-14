@@ -103,12 +103,7 @@ source ~/.bash/rc.d/alias/sort.bash
 source ~/.bash/rc.d/alias/wc.bash
 source ~/.bash/rc.d/alias/df.bash
 source ~/.bash/rc.d/alias/du.bash
-
-# file-backup (fb):: Make numbered backups of given file.
-# file-type (ft):: Show file type of given file or file on `PATH`.
-#
-alias fb='file-backup'
-alias ft='file-type'
+source ~/.bash/rc.d/alias/file-xyz.bash
 
 # Show human-readable memory sizes in powers of 1,000 of free and used
 # physical and swap memory.
