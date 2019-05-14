@@ -106,16 +106,7 @@ source ~/.bash/rc.d/alias/du.bash
 source ~/.bash/rc.d/alias/file-xyz.bash
 source ~/.bash/rc.d/alias/free.bash
 source ~/.bash/rc.d/alias/info.bash
-
-# Show _GMT_ _Greenwich Mean Time_ or _UTC_ _Universal Time
-# Coordinated_.
-#
-alias gmt='TZ=GMT date'
-alias utc='TZ=UTC date'
-
-# Show (calendar) week of year.
-#
-alias week='date +"week %V"'
+source ~/.bash/rc.d/alias/date.bash
 
 # Run given command on every argument usually read from pipe.  The alias
 # `map` resembles the well-known mathematical term `mapping' also known
