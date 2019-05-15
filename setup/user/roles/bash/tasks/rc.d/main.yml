@@ -1,0 +1,21 @@
+---
+# User-specific Bash setup
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ rc_dir }}"
+
+- name: Copy file with Bash shell options
+  copy:
+    src: rc.d/shopt.bash
+    dest: "{{ rc_dir }}/shopt.bash"
+
+- name: Set up Bash aliases
+  import_tasks: rc.d/alias/main.yml
