@@ -1,0 +1,1 @@
+../../../../../../bash/rc.d/shopt.bash
