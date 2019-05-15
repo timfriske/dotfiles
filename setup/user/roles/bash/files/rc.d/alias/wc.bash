@@ -1,0 +1,1 @@
+../../../../../../../bash/rc.d/alias/wc.bash

@@ -1,0 +1,1 @@
+../../../../../../../bash/rc.d/alias/mkdir.bash
