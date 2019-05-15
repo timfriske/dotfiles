@@ -88,373 +88,41 @@ shopt -s nocaseglob nocasematch
 # Shell aliases
 # -------------
 
-# Allow aliases to be run as another user/group, e.g. super user `root'.
-#
-alias sudo='sudo '
-
-# Toggle between current and previous directory.  Hitting `cc` should be
-# much faster than typing `cd`, space, and then reaching out for `-`.
-#
-# Note that on some systems the alias `cc` could conflict with the GNU
-# Compiler collection's C-compiler but that disadvantage is taken into
-# account.
-#
-alias cc='cd -'
-
-# With the shell option `autocd` switched on executing `..` already
-# changes to the parent directory.  The alias `...` expands on that idea
-# by making it possible to go up two directories at once.  More than two
-# levels in one go would mean too much mental work.
-#
-alias ..='cd ..'
-alias ...='cd ../..'
-
-# Ask the user before files are overwritten or deleted in order to
-# prevent accidental data loss.
-#
-alias cp='cp $CP_X_OPTIONS'
-alias ln='ln $LN_X_OPTIONS'
-alias mv='mv $MV_X_OPTIONS'
-alias rm='rm $RM_X_OPTIONS'
-alias rr='rm --recursive'
-alias rrf='rr --force'
-
-# Alleviate the user from having to manually create or delete every
-# intermediate directory.  Introduce the aliases `md` for `mkdir` and
-# `rd` for `rmdir` for consistency with the other notorious two-letter
-# commands such as `cp`, `mv` or `rm`.
-#
-alias mkdir='mkdir $MKDIR_X_OPTIONS'
-alias md='mkdir'
-alias rmdir='rmdir $RMDIR_X_OPTIONS'
-alias rd='rmdir'
-
-# Make listing directories with the _Ls_ program more pleasant by
-# configuring its default behavior.
-#
-alias ls='ls $LS_X_OPTIONS'
-alias la='ls --almost-all'
-alias lh='ls --almost-all --ignore="*"'
-alias ll='ls --format=long'
-alias lt='ls --sort=time'
-alias lv='ls --sort=version'
-alias lx='ls --sort=extension'
-alias lz='ls --sort=size'
-alias lla='ll --almost-all'
-alias llh='ll --almost-all --ignore="*"'
-alias llt='ll --sort=time'
-alias llv='ll --sort=version'
-alias llx='ll --sort=extension'
-alias llz='ll --sort=size'
-
-# Run _Tar_ program for handling _TARs_ _tape archives_ with default
-# options in order to not have to specify them every time.
-#
-alias tar='tar $TAR_X_OPTIONS'
-
-# Make handling _TAR_ _tape archives_ memorable and less to type.
-#
-alias mktar='tar --create'
-alias dftar='tar --diff'
-alias lstar='tar --list'
-alias rmtar='tar --delete'
-alias untar='tar --extract'
-alias uptar='tar --update'
-
-# Make synchronizing large/many files and folders, i.e. by copying,
-# moving and deleting them, with the _Rsync_ program more pleasant by
-# configuring its default behavior.
-#
-# The verbs `backup' and `mirror' should be much more memorable than the
-# alternative of having to type `rsync` together with all these options.
-#
-alias rsync='rsync $RSYNC_X_OPTIONS'
-alias backup='rsync --archive --hard-links --acls --xattrs'
-alias mirror='backup --delete'
-
-# Count the number of occurrences and list them in ascending order of
-# their counts.
-#
-alias count='sort | uniq --count | sort --sort=numeric'
-
-# Count entities in various units such as words, lines, etc.  Just pipe
-# the output of a program whose entities to count into the appropriate
-# one of the aliases below.
-#
-alias bytes='wc --bytes'
-alias chars='wc --chars'
-alias lines='wc --lines'
-alias words='wc --words'
-
-# Show human-readable file system sizes in powers of 1,000.  Exclude
-# neglectable types of file systems.
-#
-alias df='df --si'
-alias dff='df -x devtmpfs -x tmpfs'
-
-# Show human-readable file and directory sizes in powers of 1,000.
-# Summarize files and directories up to the current directory.
-#
-alias du='du --si'
-alias dud="du --max-depth=1 \
-> >(sort --human-numeric-sort --reverse)"
-alias duf="du --all --max-depth=1 \
-> >(sort --human-numeric-sort --reverse)"
-alias dus='du --summarize'
-
-# file-backup (fb):: Make numbered backups of given file.
-# file-type (ft):: Show file type of given file or file on `PATH`.
-#
-alias fb='file-backup'
-alias ft='file-type'
-
-# Show human-readable memory sizes in powers of 1,000 of free and used
-# physical and swap memory.
-#
-alias free='free --human --si'
-
-# Use Vi-like key bindings in _Info_ program because it is assumed that
-# the user knows the _Vim_ editor by heart.
-#
-alias info='info --vi-keys'
-
-# Show _GMT_ _Greenwich Mean Time_ or _UTC_ _Universal Time
-# Coordinated_.
-#
-alias gmt='TZ=GMT date'
-alias utc='TZ=UTC date'
-
-# Show (calendar) week of year.
-#
-alias week='date +"week %V"'
-
-# Run given command on every argument usually read from pipe.  The alias
-# `map` resembles the well-known mathematical term `mapping' also known
-# as `map'.
-#
-alias map='xargs --max-args=1'
-
-# Find broken links, i.e. symbolic links which lost their target files
-# or folders.  This usually occurs when either the symbolic links or
-# their targets move and their references are not updated.
-#
-alias broken-links='find -xtype l'
-
-# Make comparing differences between files and directories with the
-# _Diff_ program more pleasant by configuring its default behavior.
-#
-alias diff='diff $DIFF_X_OPTIONS'
-alias diff-dirs='diff --recursive --brief'
-
-# Make full-text searches with the _Grep_ program more pleasant by
-# configuring its default behavior.
-#
-alias grep='grep $GREP_X_OPTIONS'
-alias egrep='grep --extended-regexp'
-alias fgrep='grep --fixed-strings'
-
-# The abbreviations `OS' for `operating system' and `distro' for `Linux
-# distribution' are better known than the names of the utilities `uname'
-# and `lsb_release'.
-#
-alias os='uname --all'
-alias distro='lsb_release --all --short'
-
-# Simplify data exchange between CLI and GUI via clipboard.
-#
-if type -p xclip &> /dev/null; then
-  alias pbc='xclip -selection clipboard -in'
-  alias pbp='xclip -selection clipboard -out'
-elif type -p xsel &> /dev/null; then
-  alias pbc='xsel --clipboard --input'
-  alias pbp='xsel --clipboard --output'
-elif ! type -p pbcopy pbpaste &> /dev/null; then
-  alias pbc='echo Please install xclip, xsel or pbcopy.'
-  alias pbp='echo Please install xclip, xsel or pbpaste.'
-fi
-
-# Never start from the root directory because this would almost always
-# mean to *destroy* the *entire* root file system and *all* file systems
-# mounted below.  Report only when and which files and directories
-# actually changed.
-#
-alias chgrp='chgrp --preserve-root --changes'
-alias chmod='chmod --preserve-root --changes'
-alias chown='chown --preserve-root --changes'
-
-# Just type `open` to open a file or URL in the user's preferred
-# application.  No one can remember that the program is named
-# `xdg-open`.
-#
-# On some systems a program named `open` might already exist. Only
-# define `open` as alias if no such program exists.
-#
-if ! type -p open &> /dev/null; then
-  alias open='xdg-open'
-fi
-
-# Define aliases to quickly control the system and user units, e.g.
-# services, mounts, timers etc., managed and supervised by _Systemd_.
-#
-alias sd='systemctl'
-alias sds='systemctl --system'
-alias sdu='systemctl --user'
-
-# Use extended instead of basic regular expressions by default.
-#
-alias sed='sed --regexp-extended'
-
-# Define aliases for the most common commands to control _Kubernetes_
-# clusters via the `kubectl` program.
-#
-if type -p kubectl &> /dev/null; then
-  alias k='kubectl'
-  alias ka='kubectl apply'
-  alias kc='kubectl cp'
-  alias kd='kubectl describe'
-  alias ke='kubectl explain'
-  alias kg='kubectl get'
-  alias ki='kubectl cluster-info'
-  alias kl='kubectl logs'
-  alias ko='kubectl config'
-  alias kp='kubectl patch'
-  alias kr='kubectl delete'
-  alias kt='kubectl top'
-  alias kv='kubectl version'
-  alias kx='kubectl exec'
-fi
-
-# List Vi-like key bindings in different modes.
-#
-alias vi-command='bind -m vi-command -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-alias vi-command-all='bind -m vi-command -p'
-alias vi-insert='bind -m vi-insert -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-alias vi-insert-all='bind -m vi-insert -p'
-
-# Define aliases to ease access to the terminal multiplexer program
-# _Tmux_.
-#
-if type -p tmux &> /dev/null; then
-  # Expect terminals to display 256 colors.
-  alias tmux='tmux -2'
-  alias t='tmux'
-  alias tt='{ tmux attach-session || tmux new-session; } &> /dev/null'
-  alias tas='tmux attach-session'
-  alias tdc='tmux detach-client'
-  alias tks='tmux kill-session'
-  alias tlc='tmux list-clients'
-  alias tls='tmux list-sessions'
-  alias tns='tmux new-session'
-  alias trc='tmux refresh-client'
-fi
-
-# Define aliases and functions to ease job control.
-#
-if type -p fzf fzf-jobs &> /dev/null; then
-  function jb {
-    eval "$(jobs | cmd='bg' fzf-jobs "$@")"
-  }
-
-  function jd {
-    eval "$(jobs | cmd='disown' fzf-jobs "$@")"
-  }
-
-  function jdh {
-    eval "$(jobs | cmd='disown -h' fzf-jobs "$@")"
-  }
-
-  function jf {
-    eval "$(jobs | cmd='fg' fzf-jobs "$@")"
-  }
-
-  function jj {
-    eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
-  }
-
-  function jkc {
-    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
-  }
-
-  function jkk {
-    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
-  }
-
-  function jkt {
-    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "$@")"
-  }
-else
-  alias jb='bg'
-  alias jd='disown'
-  alias jdh='disown -h'
-  alias jf='fg'
-  alias jj='jobs'
-  alias jkc='kill -SIGCONT'
-  alias jkk='kill -SIGKILL'
-  alias jkt='kill -SIGTERM'
-fi
-
-# Define _Git_ itself as well as all of its aliases as _Bash_ aliases
-# with the prefix letter `g`.  The _Git_ aliases will be lazily loaded
-# and defined as _Bash_ aliases by the `git` function below.  Upon the
-# first time this function is called it dynamically defines one _Bash_
-# alias for e	ach _Git_ alias that is defined in one of _Git's_
-# configuration files.  It then executes the `git` command with all the
-# given arguments as if this function had never existed.  Once completed
-# it eventually makes way for the `git` command by undefining itself.
-#
-function git {
-  alias g='git'
-  local git_alias
-  for git_alias in $(command git config --list --name-only \
-      | command grep '^alias\.' \
-      | command cut --delimiter=. --fields=2); do
-    alias "g$git_alias=git $git_alias"
-  done
-  command git "$@"
-  unset -f git
-}
-
-# Test if fuzzy finder program _Fzf_ is installed.
-if type -p fzf &> /dev/null; then
-  # Test if _Fzf_ specific _Readline_ file is readable.
-  if [[ -f ~/.inputrc.fzf && -r ~/.inputrc.fzf ]]; then
-    # Make _Fzf_ available through _Readline_ key bindings.
-    bind -f ~/.inputrc.fzf
-  fi
-  source fzf-insert.bash &> /dev/null
-  if source fzf-files.bash &> /dev/null; then
-    bind -m vi-insert -x '"\C-af": "fzf_files"'
-    bind -m vi-command '"\C-af": "i\C-af"'
-  fi
-  if source fzf-folders.bash &> /dev/null; then
-    bind -m vi-insert -x '"\C-ad": "fzf_folders"'
-    bind -m vi-command '"\C-ad": "i\C-ad"'
-  fi
-  if type -p fzf-git-branch &> /dev/null; then
-    bind -m vi-insert -x '"\C-gb": "fzf-git-branch"'
-    bind -m vi-command '"\C-gb": "i\C-gb"'
-    bind -m vi-insert -x \
-      '"\C-gr": "branch_opts=--remotes fzf-git-branch"'
-    bind -m vi-command '"\C-gr": "i\C-gr"'
-  fi
-  if source fzf-git-branch-insert.bash &> /dev/null; then
-    bind -m vi-insert -x '"\C-ab": "fzf_git_branch_insert"'
-    bind -m vi-command '"\C-ab": "i\C-ab"'
-    bind -m vi-insert -x \
-      '"\C-ar": "branch_opts=--remotes fzf_git_branch_insert"'
-    bind -m vi-command '"\C-ar": "i\C-ar"'
-  fi
-  if type -p fzf-git-tag &> /dev/null; then
-    bind -m vi-insert -x '"\C-gt": "fzf-git-tag"'
-    bind -m vi-command '"\C-gt": "i\C-gt"'
-  fi
-  if source fzf-git-tag-insert.bash &> /dev/null; then
-    bind -m vi-insert -x '"\C-at": "fzf_git_tag_insert"'
-    bind -m vi-command '"\C-at": "i\C-at"'
-  fi
-fi
+source ~/.bash/rc.d/alias/sudo.bash
+source ~/.bash/rc.d/alias/cd.bash
+source ~/.bash/rc.d/alias/cp.bash
+source ~/.bash/rc.d/alias/ln.bash
+source ~/.bash/rc.d/alias/mv.bash
+source ~/.bash/rc.d/alias/rm.bash
+source ~/.bash/rc.d/alias/mkdir.bash
+source ~/.bash/rc.d/alias/rmdir.bash
+source ~/.bash/rc.d/alias/ls.bash
+source ~/.bash/rc.d/alias/tar.bash
+source ~/.bash/rc.d/alias/rsync.bash
+source ~/.bash/rc.d/alias/sort.bash
+source ~/.bash/rc.d/alias/wc.bash
+source ~/.bash/rc.d/alias/df.bash
+source ~/.bash/rc.d/alias/du.bash
+source ~/.bash/rc.d/alias/file-xyz.bash
+source ~/.bash/rc.d/alias/free.bash
+source ~/.bash/rc.d/alias/info.bash
+source ~/.bash/rc.d/alias/date.bash
+source ~/.bash/rc.d/alias/xargs.bash
+source ~/.bash/rc.d/alias/find.bash
+source ~/.bash/rc.d/alias/diff.bash
+source ~/.bash/rc.d/alias/grep.bash
+source ~/.bash/rc.d/alias/os-distro.bash
+source ~/.bash/rc.d/alias/pbcp-xclip-xsel.bash
+source ~/.bash/rc.d/alias/ch-xyz.bash
+source ~/.bash/rc.d/alias/xdg-open.bash
+source ~/.bash/rc.d/alias/systemctl.bash
+source ~/.bash/rc.d/alias/sed.bash
+source ~/.bash/rc.d/alias/kubectl.bash
+source ~/.bash/rc.d/alias/bind.bash
+source ~/.bash/rc.d/alias/tmux.bash
+source ~/.bash/rc.d/alias/jobs.bash
+source ~/.bash/rc.d/alias/git.bash
+source ~/.bash/rc.d/alias/fzf.bash
 
 # Test if interactive shell has startup file with local overrides.
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
