@@ -1,0 +1,188 @@
+---
+# User-specific Bash setup
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ alias_dir }}"
+
+- name: Copy file with Bash aliases for Bind
+  copy:
+    src: rc.d/alias/bind.bash
+    dest: "{{ alias_dir }}/bind.bash"
+
+- name: Copy file with Bash aliases for Cd
+  copy:
+    src: rc.d/alias/cd.bash
+    dest: "{{ alias_dir }}/cd.bash"
+
+- name: Copy file with Bash aliases for Ch XYZ
+  copy:
+    src: rc.d/alias/ch-xyz.bash
+    dest: "{{ alias_dir }}/ch-xyz.bash"
+
+- name: Copy file with Bash aliases for Cp
+  copy:
+    src: rc.d/alias/cp.bash
+    dest: "{{ alias_dir }}/cp.bash"
+
+- name: Copy file with Bash aliases for Date
+  copy:
+    src: rc.d/alias/date.bash
+    dest: "{{ alias_dir }}/date.bash"
+
+- name: Copy file with Bash aliases for Df
+  copy:
+    src: rc.d/alias/df.bash
+    dest: "{{ alias_dir }}/df.bash"
+
+- name: Copy file with Bash aliases for Diff
+  copy:
+    src: rc.d/alias/diff.bash
+    dest: "{{ alias_dir }}/diff.bash"
+
+- name: Copy file with Bash aliases for Du
+  copy:
+    src: rc.d/alias/du.bash
+    dest: "{{ alias_dir }}/du.bash"
+
+- name: Copy file with Bash aliases for File XYZ
+  copy:
+    src: rc.d/alias/file-xyz.bash
+    dest: "{{ alias_dir }}/file-xyz.bash"
+
+- name: Copy file with Bash aliases for Find
+  copy:
+    src: rc.d/alias/find.bash
+    dest: "{{ alias_dir }}/find.bash"
+
+- name: Copy file with Bash aliases for Free
+  copy:
+    src: rc.d/alias/free.bash
+    dest: "{{ alias_dir }}/free.bash"
+
+- name: Copy file with Bash aliases for Fzf
+  copy:
+    src: rc.d/alias/fzf.bash
+    dest: "{{ alias_dir }}/fzf.bash"
+
+- name: Copy file with Bash aliases for Git
+  copy:
+    src: rc.d/alias/git.bash
+    dest: "{{ alias_dir }}/git.bash"
+
+- name: Copy file with Bash aliases for Grep
+  copy:
+    src: rc.d/alias/grep.bash
+    dest: "{{ alias_dir }}/grep.bash"
+
+- name: Copy file with Bash aliases for Info
+  copy:
+    src: rc.d/alias/info.bash
+    dest: "{{ alias_dir }}/info.bash"
+
+- name: Copy file with Bash aliases for Jobs
+  copy:
+    src: rc.d/alias/jobs.bash
+    dest: "{{ alias_dir }}/jobs.bash"
+
+- name: Copy file with Bash aliases for Kubectl
+  copy:
+    src: rc.d/alias/kubectl.bash
+    dest: "{{ alias_dir }}/kubectl.bash"
+
+- name: Copy file with Bash aliases for Ln
+  copy:
+    src: rc.d/alias/ln.bash
+    dest: "{{ alias_dir }}/ln.bash"
+
+- name: Copy file with Bash aliases for Ls
+  copy:
+    src: rc.d/alias/ls.bash
+    dest: "{{ alias_dir }}/ls.bash"
+
+- name: Copy file with Bash aliases for Mkdir
+  copy:
+    src: rc.d/alias/mkdir.bash
+    dest: "{{ alias_dir }}/mkdir.bash"
+
+- name: Copy file with Bash aliases for Mv
+  copy:
+    src: rc.d/alias/mv.bash
+    dest: "{{ alias_dir }}/mv.bash"
+
+- name: Copy file with Bash aliases for OS Distro
+  copy:
+    src: rc.d/alias/os-distro.bash
+    dest: "{{ alias_dir }}/os-distro.bash"
+
+- name: Copy file with Bash aliases for Pbcopy/Pbpaste/Xsel/Xclip
+  copy:
+    src: rc.d/alias/pbcp-xclip-xsel.bash
+    dest: "{{ alias_dir }}/pbcp-xclip-xsel.bash"
+
+- name: Copy file with Bash aliases for Rm
+  copy:
+    src: rc.d/alias/rm.bash
+    dest: "{{ alias_dir }}/rm.bash"
+
+- name: Copy file with Bash aliases for Rmdir
+  copy:
+    src: rc.d/alias/rmdir.bash
+    dest: "{{ alias_dir }}/rmdir.bash"
+
+- name: Copy file with Bash aliases for Rsync
+  copy:
+    src: rc.d/alias/rsync.bash
+    dest: "{{ alias_dir }}/rsync.bash"
+
+- name: Copy file with Bash aliases for Sed
+  copy:
+    src: rc.d/alias/sed.bash
+    dest: "{{ alias_dir }}/sed.bash"
+
+- name: Copy file with Bash aliases for Sort
+  copy:
+    src: rc.d/alias/sort.bash
+    dest: "{{ alias_dir }}/sort.bash"
+
+- name: Copy file with Bash aliases for Sudo
+  copy:
+    src: rc.d/alias/sudo.bash
+    dest: "{{ alias_dir }}/sudo.bash"
+
+- name: Copy file with Bash aliases for Systemctl
+  copy:
+    src: rc.d/alias/systemctl.bash
+    dest: "{{ alias_dir }}/systemctl.bash"
+
+- name: Copy file with Bash aliases for Tar
+  copy:
+    src: rc.d/alias/tar.bash
+    dest: "{{ alias_dir }}/tar.bash"
+
+- name: Copy file with Bash aliases for Tmux
+  copy:
+    src: rc.d/alias/tmux.bash
+    dest: "{{ alias_dir }}/tmux.bash"
+
+- name: Copy file with Bash aliases for Wc
+  copy:
+    src: rc.d/alias/wc.bash
+    dest: "{{ alias_dir }}/wc.bash"
+
+- name: Copy file with Bash aliases for Xargs
+  copy:
+    src: rc.d/alias/xargs.bash
+    dest: "{{ alias_dir }}/xargs.bash"
+
+- name: Copy file with Bash aliases for XDG Open
+  copy:
+    src: rc.d/alias/xdg-open.bash
+    dest: "{{ alias_dir }}/xdg-open.bash"

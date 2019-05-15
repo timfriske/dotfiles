@@ -1,0 +1,1 @@
+../../../../../../../bash/rc.d/alias/pbcp-xclip-xsel.bash

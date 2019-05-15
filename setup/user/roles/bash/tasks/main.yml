@@ -21,3 +21,6 @@
   copy:
     src: bashrc
     dest: "{{ user_dir }}/.bashrc"
+
+- name: Set up Bash aliases
+  import_tasks: rc.d/alias/main.yml
