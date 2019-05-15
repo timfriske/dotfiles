@@ -118,15 +118,7 @@ source ~/.bash/rc.d/alias/xdg-open.bash
 source ~/.bash/rc.d/alias/systemctl.bash
 source ~/.bash/rc.d/alias/sed.bash
 source ~/.bash/rc.d/alias/kubectl.bash
-
-# List Vi-like key bindings in different modes.
-#
-alias vi-command='bind -m vi-command -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-alias vi-command-all='bind -m vi-command -p'
-alias vi-insert='bind -m vi-insert -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-alias vi-insert-all='bind -m vi-insert -p'
+source ~/.bash/rc.d/alias/bind.bash
 
 # Define aliases to ease access to the terminal multiplexer program
 # _Tmux_.
