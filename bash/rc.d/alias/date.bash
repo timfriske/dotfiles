@@ -1,6 +1,9 @@
 # Bash aliases for Date
 # =====================
 # Tim Friske <me@tifr.de>
+#
+# _UTC_:: _Universal Time Coordinated_.
+# _GMT_:: _Greenwich Mean Time_.
 
 # Show _GMT_ _Greenwich Mean Time_.
 #
