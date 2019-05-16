@@ -41,41 +41,10 @@ source ~/.bash/rc.d/shopt.bash
 # Shell aliases
 # -------------
 
-source ~/.bash/rc.d/alias/bind.bash
-source ~/.bash/rc.d/alias/cd.bash
-source ~/.bash/rc.d/alias/ch-xyz.bash
-source ~/.bash/rc.d/alias/cp.bash
-source ~/.bash/rc.d/alias/date.bash
-source ~/.bash/rc.d/alias/df.bash
-source ~/.bash/rc.d/alias/diff.bash
-source ~/.bash/rc.d/alias/du.bash
-source ~/.bash/rc.d/alias/file-xyz.bash
-source ~/.bash/rc.d/alias/find.bash
-source ~/.bash/rc.d/alias/free.bash
-source ~/.bash/rc.d/alias/fzf.bash
-source ~/.bash/rc.d/alias/git.bash
-source ~/.bash/rc.d/alias/grep.bash
-source ~/.bash/rc.d/alias/info.bash
-source ~/.bash/rc.d/alias/jobs.bash
-source ~/.bash/rc.d/alias/kubectl.bash
-source ~/.bash/rc.d/alias/ln.bash
-source ~/.bash/rc.d/alias/ls.bash
-source ~/.bash/rc.d/alias/mkdir.bash
-source ~/.bash/rc.d/alias/mv.bash
-source ~/.bash/rc.d/alias/os-distro.bash
-source ~/.bash/rc.d/alias/pbcp-xclip-xsel.bash
-source ~/.bash/rc.d/alias/rm.bash
-source ~/.bash/rc.d/alias/rmdir.bash
-source ~/.bash/rc.d/alias/rsync.bash
-source ~/.bash/rc.d/alias/sed.bash
-source ~/.bash/rc.d/alias/sort.bash
-source ~/.bash/rc.d/alias/sudo.bash
-source ~/.bash/rc.d/alias/systemctl.bash
-source ~/.bash/rc.d/alias/tar.bash
-source ~/.bash/rc.d/alias/tmux.bash
-source ~/.bash/rc.d/alias/wc.bash
-source ~/.bash/rc.d/alias/xargs.bash
-source ~/.bash/rc.d/alias/xdg-open.bash
+for script in ~/.bash/rc.d/alias/**/*.bash; do
+  source "$script"
+done
+unset script
 
 # Test if interactive shell has startup file with local overrides.
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
