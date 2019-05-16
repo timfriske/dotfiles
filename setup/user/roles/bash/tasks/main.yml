@@ -11,6 +11,7 @@
     state: directory
   loop:
     - "{{ user_dir }}"
+    - "{{ bash_dir }}"
 
 - name: Copy Bash startup file for login shells
   copy:
@@ -19,8 +20,15 @@
 
 - name: Copy Bash startup file for interactive shells
   copy:
-    src: bashrc
+    src: rc
+    dest: "{{ bash_dir }}/rc"
+
+- name: Link Bash startup file for interactive shells
+  file:
+    src: "{{ bash_dir }}/rc"
     dest: "{{ user_dir }}/.bashrc"
+    state: link
+    force: yes
 
 - name: Set up Bash RC directory
   import_tasks: rc.d/main.yml
