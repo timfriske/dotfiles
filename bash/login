@@ -61,18 +61,9 @@ source ~/.bash/login.d/less.bash
 #
 source ~/.bash/login.d/cp.bash
 
-# Make linking files and folders with the _Ln_ program more pleasant by
-# default in the following ways:
+# Set up the _Ln_ program.
 #
-# interactive::
-#   Let _Ln_ prompt before overwriting.
-#
-# verbose::
-#   Let _Ln_ report what it is doing.
-#
-export LN_X_OPTIONS=''
-LN_X_OPTIONS+='--interactive '
-LN_X_OPTIONS+='--verbose '
+source ~/.bash/login.d/ln.bash
 
 # Make moving files and folders with the _Mv_ program more pleasant by
 # default in the following ways:
