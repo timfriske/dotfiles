@@ -57,18 +57,9 @@ source ~/.bash/login.d/grep.bash
 #
 source ~/.bash/login.d/less.bash
 
-# Make copying files and folders with the _Cp_ program more pleasant by
-# default in the following ways:
+# Set up the _Cp_ program.
 #
-# interactive::
-#   Let _Cp_ prompt before overwriting.
-#
-# verbose::
-#   Let _Cp_ report what it is doing.
-#
-export CP_X_OPTIONS=''
-CP_X_OPTIONS+='--interactive '
-CP_X_OPTIONS+='--verbose '
+source ~/.bash/login.d/cp.bash
 
 # Make linking files and folders with the _Ln_ program more pleasant by
 # default in the following ways:
