@@ -12,3 +12,4 @@ export VISUAL='vim'
 # Tell programs to open files in favorite pager _Less_.
 #
 export PAGER='less'
+export SYSTEMD_LESS="$LESS"
