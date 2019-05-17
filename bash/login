@@ -33,11 +33,9 @@
 #
 source ~/.bash/login.d/path.bash
 
-# Save space for the actual command line by showing only the trailing
-# number of path components of the working directory in the command
-# prompt.  The rest of the path is represented by an ellipsis.
+# Set up the _Bash_ prompt.
 #
-export PROMPT_DIRTRIM=3
+source ~/.bash/login.d/prompt.bash
 
 # Remember up to 100,000 commands in memory and on disk.  Record the
 # time when each command entered history as an ISO-8601 timestamp.
