@@ -37,5 +37,8 @@
     state: link
     force: yes
 
+- name: Set up Bash Login directory
+  import_tasks: login.d/main.yml
+
 - name: Set up Bash RC directory
   import_tasks: rc.d/main.yml
