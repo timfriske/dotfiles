@@ -26,80 +26,20 @@
 #   * link:{user-home}/.bash_logout
 #   * link:{user-home}/.bashrc
 
-# Environment variables
-# ---------------------
+# Environment setup
+# -----------------
 
 # Set up the `PATH` environment variable.
 #
 source ~/.bash/login.d/path.bash
 
-# Set up the _Bash_ prompt.
+# Set up the environments of various programs.
 #
-source ~/.bash/login.d/prompt.bash
-
-# Set up the _Bash_ history.
-#
-source ~/.bash/login.d/history.bash
-
-# Set up the programs to use.
-#
-source ~/.bash/login.d/program.bash
-
-# Set up the _Diff_ program.
-#
-source ~/.bash/login.d/diff.bash
-
-# Set up the _Grep_ program.
-#
-source ~/.bash/login.d/grep.bash
-
-# Set up the _Less_ program.
-#
-source ~/.bash/login.d/less.bash
-
-# Set up the _Cp_ program.
-#
-source ~/.bash/login.d/cp.bash
-
-# Set up the _Ln_ program.
-#
-source ~/.bash/login.d/ln.bash
-
-# Set up the _Mv_ program.
-#
-source ~/.bash/login.d/mv.bash
-
-# Set up the _Rm_ program.
-#
-source ~/.bash/login.d/rm.bash
-
-# Set up the _Mkdir_ program.
-#
-source ~/.bash/login.d/mkdir.bash
-
-# Set up the _Rmdir_ program.
-#
-source ~/.bash/login.d/rmdir.bash
-
-# Set up the _Ls_ program.
-#
-source ~/.bash/login.d/ls.bash
-
-# Set up the _Tar_ program.
-#
-source ~/.bash/login.d/tar.bash
-
-# Set up the _Rsync_ program.
-#
-source ~/.bash/login.d/rsync.bash
-
-# Set up the _Git_ program.
-#
-source ~/.bash/login.d/git.bash
-
-# Set up the _Fzf_ program.
-#
-source ~/.bash/login.d/fzf.bash
+for script in $(shopt -s globstar; \
+    printf '%s\n' ~/.bash/login.d/drop-in/**/*.bash); do
+  source "$script"
+done
+unset script
 
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
