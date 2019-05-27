@@ -85,15 +85,9 @@ source ~/.bash/login.d/rmdir.bash
 #
 source ~/.bash/login.d/ls.bash
 
-# Make handling _TARs_ _tape archives_ with the _Tar_ program more
-# pleasant by default in the following ways:
+# Set up the _Tar_ program.
 #
-#   verbose::
-#     Let _Tar_ report what it is doing.
-#
-export TAR_X_OPTIONS=''
-TAR_X_OPTIONS+='--auto-compress '
-TAR_X_OPTIONS+='--verbose '
+source ~/.bash/login.d/tar.bash
 
 # Make synchronizing large/many files and folders, i.e. by copying,
 # moving and deleting them, with the _Rsync_ program more pleasant by
