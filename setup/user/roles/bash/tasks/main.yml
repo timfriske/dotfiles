@@ -15,8 +15,15 @@
 
 - name: Copy Bash startup file for login shells
   copy:
-    src: bash_login
+    src: login
+    dest: "{{ bash_dir }}/login"
+
+- name: Link Bash startup file for login shells
+  file:
+    src: "{{ bash_dir }}/login"
     dest: "{{ user_dir }}/.bash_login"
+    state: link
+    force: yes
 
 - name: Copy Bash startup file for interactive shells
   copy:
