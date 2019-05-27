@@ -1,0 +1,21 @@
+---
+# User-specific Bash setup
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ login_dir }}"
+
+- name: Copy file with PATH environment variable setup
+  copy:
+    src: login.d/path.bash
+    dest: "{{ login_dir }}/path.bash"
+
+- name: Set up drop-in folder for Bash login shells
+  import_tasks: login.d/drop-in/main.yml

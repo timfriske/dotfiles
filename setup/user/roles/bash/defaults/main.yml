@@ -9,6 +9,10 @@ user_dir: "{{ ansible_env.HOME }}"
 
 bash_dir: "{{ user_dir }}/.bash"
 
+login_dir: "{{ bash_dir }}/login.d"
+
+drop_in_dir: "{{ login_dir }}/drop-in"
+
 rc_dir: "{{ bash_dir }}/rc.d"
 
 alias_dir: "{{ rc_dir }}/alias"
