@@ -69,18 +69,9 @@ source ~/.bash/login.d/ln.bash
 #
 source ~/.bash/login.d/mv.bash
 
-# Make removing files and folders with the _Rm_ program more pleasant by
-# default in the following ways:
+# Set up the _Rm_ program.
 #
-# interactive::
-#   Let _Rm_ prompt before overwriting.
-#
-# verbose::
-#   Let _Rm_ report what it is doing.
-#
-export RM_X_OPTIONS=''
-RM_X_OPTIONS+='--interactive '
-RM_X_OPTIONS+='--verbose '
+source ~/.bash/login.d/rm.bash
 
 # Make creating *empty* folders with the _Mkdir_ program more pleasant
 # by default in the following ways:
