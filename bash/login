@@ -1,0 +1,57 @@
+# Startup file for Bash login shells
+# ==================================
+# Tim Friske <me@tifr.de>
+#
+# The _Bash_ _Bourne Again Shell_ reads and executes commands from its
+# configuration files but only if these exist and are readable.  When
+# started as a login shell it first reads its system-wide startup file
+# `/etc/profile`.  It then continues to read the first of its user-
+# specific startup files `~/.bash_profile`, `~/bash_login` and
+# `~/.profile` it encounters in that order.  When a login shell is
+# exited _Bash_ reads and executes commands from its user-specific
+# shutdown file `~/.bash_logout`.
+#
+# This configuration file shall contain only non-default settings
+# specific to login shells in order to keep it lean and thus easy to
+# understand and maintain.  In case an interactive login shell is
+# started this startup file shall read and execute the commands from
+# _Bash's_ user-specific startup file for interactive shells, namely
+# `~/.bashrc`.
+#
+# See also:
+#   * man:bash[1]
+#   * link:{system-home}/profile
+#   * link:{user-home}/.bash_profile
+#   * link:{user-home}/.bash_login
+#   * link:{user-home}/.bash_logout
+#   * link:{user-home}/.bashrc
+
+# Environment setup
+# -----------------
+
+# Set up the `PATH` environment variable.
+#
+source ~/.bash/login.d/path.bash
+
+# Set up the environments of various programs.
+#
+for script in $(shopt -s globstar; \
+    printf '%s\n' ~/.bash/login.d/drop-in/**/*.bash); do
+  source "$script"
+done
+unset script
+
+# Test if login shell has startup file with local overrides.
+if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
+  # Read and execute commands from that startup file.
+  source ~/.bash_login.local
+fi
+
+# Interactive login shells
+# ------------------------
+
+# Test if interactive shell and its startup file is readable.
+if [[ "$-" == *i* && -f ~/.bashrc && -r ~/.bashrc ]]; then
+  # Read and execute commands from its startup file.
+  source ~/.bashrc
+fi
