@@ -1,0 +1,1 @@
+../../../../../../../bash/login.d/drop-in/rmdir.bash

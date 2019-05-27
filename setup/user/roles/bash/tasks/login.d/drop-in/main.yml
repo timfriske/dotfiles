@@ -1,0 +1,98 @@
+---
+# User-specific Bash setup
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ drop_in_dir }}"
+
+- name: Copy file with environment for Cp
+  copy:
+    src: login.d/drop-in/cp.bash
+    dest: "{{ drop_in_dir }}/cp.bash"
+
+- name: Copy file with environment for Diff
+  copy:
+    src: login.d/drop-in/diff.bash
+    dest: "{{ drop_in_dir }}/diff.bash"
+
+- name: Copy file with environment for Fzf
+  copy:
+    src: login.d/drop-in/fzf.bash
+    dest: "{{ drop_in_dir }}/fzf.bash"
+
+- name: Copy file with environment for Git
+  copy:
+    src: login.d/drop-in/git.bash
+    dest: "{{ drop_in_dir }}/git.bash"
+
+- name: Copy file with environment for Grep
+  copy:
+    src: login.d/drop-in/grep.bash
+    dest: "{{ drop_in_dir }}/grep.bash"
+
+- name: Copy file with environment for Bash history
+  copy:
+    src: login.d/drop-in/history.bash
+    dest: "{{ drop_in_dir }}/history.bash"
+
+- name: Copy file with environment for Less
+  copy:
+    src: login.d/drop-in/less.bash
+    dest: "{{ drop_in_dir }}/less.bash"
+
+- name: Copy file with environment for Ln
+  copy:
+    src: login.d/drop-in/ln.bash
+    dest: "{{ drop_in_dir }}/ln.bash"
+
+- name: Copy file with environment for Ls
+  copy:
+    src: login.d/drop-in/ls.bash
+    dest: "{{ drop_in_dir }}/ls.bash"
+
+- name: Copy file with environment for Mkdir
+  copy:
+    src: login.d/drop-in/mkdir.bash
+    dest: "{{ drop_in_dir }}/mkdir.bash"
+
+- name: Copy file with environment for Mv
+  copy:
+    src: login.d/drop-in/mv.bash
+    dest: "{{ drop_in_dir }}/mv.bash"
+
+- name: Copy file with environment which programs to use
+  copy:
+    src: login.d/drop-in/program.bash
+    dest: "{{ drop_in_dir }}/program.bash"
+
+- name: Copy file with environment for Bash prompt
+  copy:
+    src: login.d/drop-in/prompt.bash
+    dest: "{{ drop_in_dir }}/prompt.bash"
+
+- name: Copy file with environment for Rm
+  copy:
+    src: login.d/drop-in/rm.bash
+    dest: "{{ drop_in_dir }}/rm.bash"
+
+- name: Copy file with environment for Rmdir
+  copy:
+    src: login.d/drop-in/rmdir.bash
+    dest: "{{ drop_in_dir }}/rmdir.bash"
+
+- name: Copy file with environment for Rsync
+  copy:
+    src: login.d/drop-in/rsync.bash
+    dest: "{{ drop_in_dir }}/rsync.bash"
+
+- name: Copy file with environment for Tar
+  copy:
+    src: login.d/drop-in/tar.bash
+    dest: "{{ drop_in_dir }}/tar.bash"
