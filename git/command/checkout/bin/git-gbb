@@ -1,0 +1,19 @@
+#!/usr/bin/sh
+
+# Git Checkout command
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-checkout:: Git Checkout command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  local new_branch="$1"
+  local start_commit="${2:-HEAD}"
+  git checkout -B "$new_branch" "$start_commit"
+}
+
+main "$@"

@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+# Git Checkout command
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-checkout:: Git Checkout command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  local head_at_commit="${1:-HEAD}"
+  git checkout --detach "$head_at_commit"
+}
+
+main "$@"
