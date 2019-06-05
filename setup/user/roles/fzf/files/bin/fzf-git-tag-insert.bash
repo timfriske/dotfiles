@@ -1,0 +1,1 @@
+../../../../../../fzf/bin/fzf-git-tag-insert.bash

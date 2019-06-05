@@ -16,6 +16,15 @@
         - bash
         - shell
 
+    # Fzf fuzzy finder
+    # ----------------
+    - role: fzf
+      tags:
+        - fzf
+        - fuzzy
+        - find
+        - search
+
     # Git version control system
     # --------------------------
     - role: git
