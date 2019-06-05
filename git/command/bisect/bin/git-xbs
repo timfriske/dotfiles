@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Bisect command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-bisect:: Git Bisect command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git bisect start "$@"
+}
+
+main "$@"
