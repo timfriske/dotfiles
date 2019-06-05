@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-branch:: Git Branch command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  local downstream_branch="${1:-HEAD}"
+  git branch --unset-upstream "$downstream_branch"
+}
+
+main "$@"

@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-branch:: Git Branch command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git branch --list --merged "$@"
+}
+
+main "$@"
