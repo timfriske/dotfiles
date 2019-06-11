@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Cherry command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-cherry:: Git Cherry command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git cherry
+}
+
+main "$@"
