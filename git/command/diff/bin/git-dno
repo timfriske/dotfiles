@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Diff command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-diff:: Git Diff command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git diff --name-only "$@"
+}
+
+main "$@"

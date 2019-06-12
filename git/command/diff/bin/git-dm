@@ -1,0 +1,20 @@
+#!/usr/bin/sh
+
+# Git Diff command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-diff:: Git Diff command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  local filter="${1:-HEAD}"
+  shift $(($#-($#${1+-1})))
+  cd "${GIT_PREFIX:-.}"
+  git diff "$commit^-" "$@"
+}
+
+main "$@"
