@@ -1,0 +1,20 @@
+#!/usr/bin/sh
+
+# Git Edit command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-diff:: Git Diff command.
+#   git-edit:: Git Edit command.
+#   sh:: POSIX-compatible shell.
+#   xargs:: Coreutils Xargs command.
+
+set -o errexit -o nounset
+
+main() {
+  git diff --name-only --diff-filter=U -z \
+    | xargs -o -n 10 -0 git edit
+}
+
+main "$@"

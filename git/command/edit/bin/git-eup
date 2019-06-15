@@ -1,0 +1,21 @@
+#!/usr/bin/sh
+
+# Git Edit command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-diff:: Git Diff command.
+#   git-edit:: Git Edit command.
+#   parallel:: Moreutils Parallel command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git diff --name-only --diff-filter=U -z \
+    | parallel --tty -Xj1 --no-run-if-empty --max-args=10 --null \
+      git edit
+}
+
+main "$@"
