@@ -29,5 +29,8 @@
 - name: Set up binary directory with Git Bisect commands
   import_tasks: command/bisect/bin/main.yml
 
+- name: Set up binary directory with Git Branch commands
+  import_tasks: command/branch/bin/main.yml
+
 - name: Set up Git Global configuration directory
   import_tasks: global.d/main.yml
