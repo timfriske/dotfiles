@@ -22,6 +22,3 @@
     src: global.d/user.conf
     dest: "{{ global_dir }}/user.conf"
     force: no
-
-- name: Set up Git Command global configuration directory
-  import_tasks: command/main.yml

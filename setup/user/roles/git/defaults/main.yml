@@ -14,5 +14,3 @@ config_dir: "{{ user_dir }}/.config"
 git_dir: "{{ config_dir }}/git"
 
 global_dir: "{{ git_dir }}/global.d"
-
-command_dir: "{{ global_dir }}/command"
