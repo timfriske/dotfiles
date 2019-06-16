@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Stash command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-stash:: Git Stash command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git stash clear "$@"
+}
+
+main "$@"

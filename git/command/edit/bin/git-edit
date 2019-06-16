@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+# Git Edit command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-config:: Git Config command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  local editor="$(git config core.editor)"
+  ${editor:-${VISUAL:-${EDITOR:-true}}} "$@"
+}
+
+main "$@"

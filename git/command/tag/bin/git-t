@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Tag command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-tag:: Git Tag command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git tag "$@"
+}
+
+main "$@"

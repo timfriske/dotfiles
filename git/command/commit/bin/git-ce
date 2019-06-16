@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Commit command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-commit:: Git Commit command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git commit --edit ${GIT_X_SIGNOFF:-} "$@"
+}
+
+main "$@"

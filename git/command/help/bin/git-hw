@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Help command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-help:: Git Help command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git help --web "$@"
+}
+
+main "$@"

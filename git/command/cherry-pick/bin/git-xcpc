@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Cherry-pick command
+# =======================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-cherry-pick:: Git Cherry-pick command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git cherry-pick --continue "$@"
+}
+
+main "$@"

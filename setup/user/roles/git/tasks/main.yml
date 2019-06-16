@@ -23,5 +23,65 @@
     dest: "{{ git_dir }}/config"
     state: link
 
+- name: Set up binary directory with Git Add commands
+  import_tasks: command/add/bin/main.yml
+
+- name: Set up binary directory with Git Bisect commands
+  import_tasks: command/bisect/bin/main.yml
+
+- name: Set up binary directory with Git Branch commands
+  import_tasks: command/branch/bin/main.yml
+
+- name: Set up binary directory with Git Checkout commands
+  import_tasks: command/checkout/bin/main.yml
+
+- name: Set up binary directory with Git Cherry commands
+  import_tasks: command/cherry/bin/main.yml
+
+- name: Set up binary directory with Git Cherry-pick commands
+  import_tasks: command/cherry-pick/bin/main.yml
+
+- name: Set up binary directory with Git Commit commands
+  import_tasks: command/commit/bin/main.yml
+
+- name: Set up binary directory with Git Diff commands
+  import_tasks: command/diff/bin/main.yml
+
+- name: Set up binary directory with Git Edit commands
+  import_tasks: command/edit/bin/main.yml
+
+- name: Set up binary directory with Git Fetch commands
+  import_tasks: command/fetch/bin/main.yml
+
+- name: Set up binary directory with Git Help commands
+  import_tasks: command/help/bin/main.yml
+
+- name: Set up binary directory with Git Log commands
+  import_tasks: command/log/bin/main.yml
+
+- name: Set up binary directory with Git Merge commands
+  import_tasks: command/merge/bin/main.yml
+
+- name: Set up binary directory with Git Rebase commands
+  import_tasks: command/rebase/bin/main.yml
+
+- name: Set up binary directory with Git Reset commands
+  import_tasks: command/reset/bin/main.yml
+
+- name: Set up binary directory with Git Revert commands
+  import_tasks: command/revert/bin/main.yml
+
+- name: Set up binary directory with Git Show commands
+  import_tasks: command/show/bin/main.yml
+
+- name: Set up binary directory with Git Stash commands
+  import_tasks: command/stash/bin/main.yml
+
+- name: Set up binary directory with Git Status commands
+  import_tasks: command/status/bin/main.yml
+
+- name: Set up binary directory with Git Tag commands
+  import_tasks: command/tag/bin/main.yml
+
 - name: Set up Git Global configuration directory
   import_tasks: global.d/main.yml

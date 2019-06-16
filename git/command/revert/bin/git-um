@@ -1,0 +1,19 @@
+#!/usr/bin/sh
+
+# Git Revert command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-revert:: Git Revert command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  local commit="${1:-HEAD}"
+  shift $(($#-($#${1+-1})))
+  git revert --mainline "$commit" ${GIT_X_SIGNOFF:-} "$@"
+}
+
+main "$@"

@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Reset command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-reset:: Git Reset command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git reset --soft "$@"
+}
+
+main "$@"
