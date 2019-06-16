@@ -68,5 +68,8 @@
 - name: Set up binary directory with Git Reset commands
   import_tasks: command/reset/bin/main.yml
 
+- name: Set up binary directory with Git Revert commands
+  import_tasks: command/revert/bin/main.yml
+
 - name: Set up Git Global configuration directory
   import_tasks: global.d/main.yml
