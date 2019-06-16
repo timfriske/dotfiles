@@ -1,0 +1,32 @@
+---
+# User-specific Git setup
+# =======================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ bin_dir }}"
+
+- name: Copy Git Commit Commands
+  copy:
+    src: "{{ item }}"
+    dest: "{{ bin_dir }}/{{ item | basename }}"
+    mode: a+x
+  with_fileglob:
+    - command/commit/bin/git-c*
+
+- name: Create shortcuts to Git Commit Commands
+  file:
+    src: "{{ item | basename }}"
+    dest: "{{ bin_dir }}/\
+           {{ item \
+           | basename \
+           | regex_replace('^git-c(.*)', '/gc\\1') }}"
+    state: link
+  with_fileglob:
+    - command/commit/bin/git-c*
