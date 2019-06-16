@@ -77,11 +77,6 @@
     src: rc.d/alias/fzf.bash
     dest: "{{ alias_dir }}/fzf.bash"
 
-- name: Copy file with Bash aliases for Git
-  copy:
-    src: rc.d/alias/git.bash
-    dest: "{{ alias_dir }}/git.bash"
-
 - name: Copy file with Bash aliases for Grep
   copy:
     src: rc.d/alias/grep.bash
