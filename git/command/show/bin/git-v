@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Show command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-show:: Git Show command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git show "$@"
+}
+
+main "$@"
