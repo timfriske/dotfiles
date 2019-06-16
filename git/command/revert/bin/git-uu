@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Revert command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-revert:: Git Revert command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git revert ${GIT_X_SIGNOFF:-} "$@"
+}
+
+main "$@"
