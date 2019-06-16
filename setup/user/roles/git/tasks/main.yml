@@ -50,5 +50,8 @@
 - name: Set up binary directory with Git Edit commands
   import_tasks: command/edit/bin/main.yml
 
+- name: Set up binary directory with Git Fetch commands
+  import_tasks: command/fetch/bin/main.yml
+
 - name: Set up Git Global configuration directory
   import_tasks: global.d/main.yml
