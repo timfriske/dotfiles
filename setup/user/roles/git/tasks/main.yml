@@ -35,5 +35,8 @@
 - name: Set up binary directory with Git Checkout commands
   import_tasks: command/checkout/bin/main.yml
 
+- name: Set up binary directory with Git Cherry commands
+  import_tasks: command/cherry/bin/main.yml
+
 - name: Set up Git Global configuration directory
   import_tasks: global.d/main.yml
