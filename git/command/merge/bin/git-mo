@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+# Git Merge command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-merge:: Git Merge command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git merge --ff-only "$@"
+}
+
+main "$@"
