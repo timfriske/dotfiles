@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-log:: Git Log command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Log commits whose messages match fixed string, ingoring case.
+#
+main() {
+  local pattern="${1:-}"
+  local commit="${2:-HEAD}"
+  shift $(($#-($#${1+-1}${2+-1})))
+  cd "${GIT_PREFIX:-.}"
+  git log --grep="$pattern" --fixed-strings --regexp-ignore-case \
+    --oneline --decorate=auto "$commit" -- "${@:-.}"
+}
+
+main "$@"

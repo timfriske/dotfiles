@@ -1,0 +1,19 @@
+#!/usr/bin/sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-log:: Git Log command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Log nth (commit).
+#
+main() {
+  git log --max-count=1 --format=fuller --use-mailmap "$@"
+}
+
+main "$@"

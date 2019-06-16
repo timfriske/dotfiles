@@ -1,0 +1,25 @@
+#!/usr/bin/sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-config:: Git Config command.
+#   git-log:: Git Log command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Log commits of committer (self), no merge commits.
+#
+main() {
+  local author="${1:-$(git config user.email)}"
+  local commit="${2:-HEAD}"
+  shift $(($#-($#${1+-1}${2+-1})))
+  cd "${GIT_PREFIX:-.}"
+  git log --commiter="$author" --no-merges --oneline --decorate=auto \
+    "$commit" -- "${@:-.}"
+}
+
+main "$@"

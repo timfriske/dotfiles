@@ -1,0 +1,23 @@
+#!/usr/bin/sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-log:: Git Log command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Log commits of main branch (first parent), not those of side
+# branches.
+#
+main() {
+  local commit="${1:-HEAD}"
+  shift $(($#-($#${1+-1})))
+  cd "${GIT_PREFIX:-.}"
+  git log --first-parent --oneline --decorate=auto "$commit" -- "${@:-.}"
+}
+
+main "$@"

@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   git-log:: Git Log command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Log commits before date, no merge commits.
+#
+main() {
+  local date="${1:-today}"
+  local commit="${2:-HEAD}"
+  shift $(($#-($#${1+-1}${2+-1})))
+  cd "${GIT_PREFIX:-.}"
+  git log --before="$date" --no-merges --oneline --decorate=auto \
+    "$commit" -- "${@:-.}"
+}
+
+main "$@"
