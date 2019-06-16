@@ -56,5 +56,8 @@
 - name: Set up binary directory with Git Help commands
   import_tasks: command/help/bin/main.yml
 
+- name: Set up binary directory with Git Log commands
+  import_tasks: command/log/bin/main.yml
+
 - name: Set up Git Global configuration directory
   import_tasks: global.d/main.yml
