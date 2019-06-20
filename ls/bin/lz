@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Ls command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   ls:: Ls command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  ls ${LS_X_OPTIONS:-} --sort=size "$@"
+}
+
+main "$@"

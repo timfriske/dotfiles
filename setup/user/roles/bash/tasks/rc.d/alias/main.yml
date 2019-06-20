@@ -102,11 +102,6 @@
     src: rc.d/alias/ln.bash
     dest: "{{ alias_dir }}/ln.bash"
 
-- name: Copy file with Bash aliases for Ls
-  copy:
-    src: rc.d/alias/ls.bash
-    dest: "{{ alias_dir }}/ls.bash"
-
 - name: Copy file with Bash aliases for Mkdir
   copy:
     src: rc.d/alias/mkdir.bash

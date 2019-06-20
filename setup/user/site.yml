@@ -40,6 +40,15 @@
         - gpg
         - openpgp
 
+    # Ls file and folder lister
+    # -------------------------
+    - role: ls
+      tags:
+        - ls
+        - list
+        - listing
+        - coreutils
+
     # OpenSSH secure shell
     # --------------------
     - role: openssh
