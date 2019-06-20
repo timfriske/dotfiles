@@ -1,1 +1,0 @@
-../../../../../../../bash/rc.d/alias/ls.bash
