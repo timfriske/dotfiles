@@ -24,12 +24,6 @@
     dest: "{{ bin_dir }}/file-type"
     mode: a+x
 
-- name: Copy Git Location utility program
-  copy:
-    src: git-location
-    dest: "{{ bin_dir }}/git-location"
-    mode: a+x
-
 - name: Copy Path utility program
   copy:
     src: path
