@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Status command
 # ==================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-status:: Git Status command.
 #   sh:: POSIX-compatible shell.
 
