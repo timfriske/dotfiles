@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Cherry-pick command
 # =======================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-cherry-pick:: Git Cherry-pick command.
 #   sh:: POSIX-compatible shell.
 
