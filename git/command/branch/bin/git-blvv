@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   git-branch:: Git Branch command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git branch --list --verbose --verbose "$@"
+}
+
+main "$@"
