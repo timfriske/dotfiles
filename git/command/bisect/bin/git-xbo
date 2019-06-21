@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Bisect command
 # ==================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-bisect:: Git Bisect command.
 #   sh:: POSIX-compatible shell.
 
