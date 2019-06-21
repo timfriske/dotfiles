@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Fetch command
 # =================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-fetch:: Git Fetch command.
 #   sh:: POSIX-compatible shell.
 
