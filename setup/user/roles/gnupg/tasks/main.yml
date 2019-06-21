@@ -32,13 +32,13 @@
   copy:
     src: gpg-backup
     dest: "{{ bin_dir }}/gpg-backup"
-    mode: a+x
+    mode: preserve
 
 - name: Copy GnuPG user key generation utility program
   copy:
     src: gpg-gen-key-for-user
     dest: "{{ bin_dir }}/gpg-gen-key-for-user"
-    mode: a+x
+    mode: preserve
 
 - name: Test if operating system is using Systemd
   find:

@@ -22,13 +22,13 @@
   copy:
     src: ssh-keygen-host
     dest: "{{ bin_dir }}/ssh-keygen-host"
-    mode: a+x
+    mode: preserve
 
 - name: Copy OpenSSH user key generation utility program
   copy:
     src: ssh-keygen-user
     dest: "{{ bin_dir }}/ssh-keygen-user"
-    mode: a+x
+    mode: preserve
 
 - name: Set up OpenSSH client configuration drop-in directory
   import_tasks: config.d/main.yml

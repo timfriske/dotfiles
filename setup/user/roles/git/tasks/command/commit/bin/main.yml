@@ -16,7 +16,7 @@
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
-    mode: a+x
+    mode: preserve
   with_fileglob:
     - command/commit/bin/git-c*
 
