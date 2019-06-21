@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Revert command
 # =================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-revert:: Git Revert command.
 #   sh:: POSIX-compatible shell.
 
