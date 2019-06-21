@@ -59,6 +59,9 @@
 - name: Set up binary directory with Git Log commands
   import_tasks: command/log/bin/main.yml
 
+- name: Set up binary directory with Git Location commands
+  import_tasks: command/location/bin/main.yml
+
 - name: Set up binary directory with Git Merge commands
   import_tasks: command/merge/bin/main.yml
 
