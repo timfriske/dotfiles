@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Show command
 # =================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-show:: Git Show command.
 #   sh:: POSIX-compatible shell.
 
