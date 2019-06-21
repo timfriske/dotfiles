@@ -1,0 +1,19 @@
+---
+# User-specific Git setup
+# =======================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ bin_dir }}"
+
+- name: Copy Git Location Command
+  copy:
+    src: command/location/bin/git-location
+    dest: "{{ bin_dir }}/git-location"
+    mode: preserve
