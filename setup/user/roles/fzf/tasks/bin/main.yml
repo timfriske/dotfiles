@@ -19,7 +19,7 @@
   copy:
     src: bin/fzf-find
     dest: "{{ bin_dir }}/fzf-find"
-    mode: a+x
+    mode: preserve
 
 - name: Copy Fzf Folders utility Bash script
   copy:
@@ -30,7 +30,7 @@
   copy:
     src: bin/fzf-git-branch
     dest: "{{ bin_dir }}/fzf-git-branch"
-    mode: a+x
+    mode: preserve
 
 - name: Copy Fzf Git Branch Insert utility Bash script
   copy:
@@ -41,7 +41,7 @@
   copy:
     src: bin/fzf-git-tag
     dest: "{{ bin_dir }}/fzf-git-tag"
-    mode: a+x
+    mode: preserve
 
 - name: Copy Fzf Git Tag Insert utility Bash script
   copy:
@@ -52,7 +52,7 @@
   copy:
     src: bin/fzf-history
     dest: "{{ bin_dir }}/fzf-history"
-    mode: a+x
+    mode: preserve
 
 - name: Copy Fzf Insert utility Bash script
   copy:
@@ -63,22 +63,22 @@
   copy:
     src: bin/fzf-jobs
     dest: "{{ bin_dir }}/fzf-jobs"
-    mode: a+x
+    mode: preserve
 
 - name: Copy Fzf pick utility program
   copy:
     src: bin/fzf-pick
     dest: "{{ bin_dir }}/fzf-pick"
-    mode: a+x
+    mode: preserve
 
 - name: Copy Fzf Quote utility program
   copy:
     src: bin/fzf-quote
     dest: "{{ bin_dir }}/fzf-quote"
-    mode: a+x
+    mode: preserve
 
 - name: Copy Fzf Sort utility program
   copy:
     src: bin/fzf-sort
     dest: "{{ bin_dir }}/fzf-sort"
-    mode: a+x
+    mode: preserve
