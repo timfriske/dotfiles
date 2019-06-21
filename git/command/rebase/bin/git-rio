@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Rebase command
 # ==================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-rebase:: Git Rebase command.
 #   sh:: POSIX-compatible shell.
 

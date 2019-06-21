@@ -1,10 +1,11 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 # Git Checkout command
 # ====================
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   git-checkout:: Git Checkout command.
 #   sh:: POSIX-compatible shell.
 
