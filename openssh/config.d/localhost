@@ -1,0 +1,7 @@
+# OpenSSH client config for Localhost
+# =================================== 
+# Tim Friske <me@tifr.de>
+
+Host local localhost
+  HostName localhost
+  IdentityFile ~/.ssh/id_ed25519.pub
