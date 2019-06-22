@@ -17,3 +17,7 @@
     src: config.d/github
     dest: "{{ config_dir }}/github"
 
+- name: Copy OpenSSH client configuration file for Localhost
+  copy:
+    src: config.d/localhost
+    dest: "{{ config_dir }}/localhost"
