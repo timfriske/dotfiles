@@ -1,0 +1,37 @@
+---
+# User-specific Date setup
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ bin_dir }}"
+
+- name: Copy Date Epoch program
+  copy:
+    src: bin/epoch
+    dest: "{{ bin_dir }}/epoch"
+    mode: preserve
+
+- name: Copy Date GMT program
+  copy:
+    src: bin/gmt
+    dest: "{{ bin_dir }}/gmt"
+    mode: preserve
+
+- name: Copy Date UTC program
+  copy:
+    src: bin/utc
+    dest: "{{ bin_dir }}/utc"
+    mode: preserve
+
+- name: Copy Date Week program
+  copy:
+    src: bin/week
+    dest: "{{ bin_dir }}/week"
+    mode: preserve

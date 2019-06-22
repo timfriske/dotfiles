@@ -16,6 +16,12 @@
         - bash
         - shell
 
+    # Date program
+    # ------------
+    - role: date
+      tags:
+        - date
+
     # Fzf fuzzy finder
     # ----------------
     - role: fzf

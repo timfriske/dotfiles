@@ -37,11 +37,6 @@
     src: rc.d/alias/cp.bash
     dest: "{{ alias_dir }}/cp.bash"
 
-- name: Copy file with Bash aliases for Date
-  copy:
-    src: rc.d/alias/date.bash
-    dest: "{{ alias_dir }}/date.bash"
-
 - name: Copy file with Bash aliases for Df
   copy:
     src: rc.d/alias/df.bash
