@@ -46,6 +46,13 @@
         - gpg
         - openpgp
 
+    # Kubernetes cluster software
+    # ---------------------------
+    - role: kubernetes
+      tags:
+        - kubernetes
+        - cluster
+
     # Ls file and folder lister
     # -------------------------
     - role: ls

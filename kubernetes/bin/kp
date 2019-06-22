@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Kubectl command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   kubectl:: Kubectl command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  kubectl patch "$@"
+}
+
+main "$@"

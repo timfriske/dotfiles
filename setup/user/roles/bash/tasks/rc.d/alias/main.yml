@@ -87,11 +87,6 @@
     src: rc.d/alias/jobs.bash
     dest: "{{ alias_dir }}/jobs.bash"
 
-- name: Copy file with Bash aliases for Kubectl
-  copy:
-    src: rc.d/alias/kubectl.bash
-    dest: "{{ alias_dir }}/kubectl.bash"
-
 - name: Copy file with Bash aliases for Ln
   copy:
     src: rc.d/alias/ln.bash
