@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Wc command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+#   wc:: Wc command.
+
+set -o errexit -o nounset
+
+main() {
+  wc --chars "$@"
+}
+
+main "$@"

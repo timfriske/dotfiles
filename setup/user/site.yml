@@ -99,6 +99,13 @@
         - text
         - editor
 
+    # Coreutils Wc program
+    # --------------------
+    - role: wc
+      tags:
+        - wc
+        - coreutils
+
     # Freedesktop.org config files
     # ----------------------------
     - role: xdg

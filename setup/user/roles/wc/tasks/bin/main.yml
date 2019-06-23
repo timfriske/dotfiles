@@ -1,0 +1,21 @@
+---
+# User-specific Wc setup
+# ======================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ bin_dir }}"
+
+- name: Copy commands and scripts to binary directory
+  copy:
+    src: "{{ item }}"
+    dest: "{{ bin_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - bin/*
