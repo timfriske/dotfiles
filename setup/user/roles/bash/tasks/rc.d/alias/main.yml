@@ -142,11 +142,6 @@
     src: rc.d/alias/sudo.bash
     dest: "{{ alias_dir }}/sudo.bash"
 
-- name: Copy file with Bash aliases for Systemctl
-  copy:
-    src: rc.d/alias/systemctl.bash
-    dest: "{{ alias_dir }}/systemctl.bash"
-
 - name: Copy file with Bash aliases for Tar
   copy:
     src: rc.d/alias/tar.bash
