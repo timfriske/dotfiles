@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Tmux command
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env: Env command.
+#   sh:: POSIX-compatible shell.
+#   tmux:: Tmux command.
+
+set -o errexit -o nounset
+
+main() {
+  tmux refresh-client "$@"
+}
+
+main "$@"
