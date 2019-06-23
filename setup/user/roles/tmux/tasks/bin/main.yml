@@ -10,12 +10,12 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ user_dir }}"
+    - "{{ bin_dir }}"
 
-- name: Copy Tmux configuration file
+- name: Copy programs and scripts to binary directory
   copy:
-    src: tmux.conf
-    dest: "{{ user_dir }}/.tmux.conf"
-
-- name: Set up binary directory with programs and scripts
-  import_tasks: bin/main.yml
+    src: "{{ item }}"
+    dest: "{{ bin_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - bin/*
