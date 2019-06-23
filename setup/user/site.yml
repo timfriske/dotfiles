@@ -76,6 +76,14 @@
         - readline
         - inputrc
 
+    # Systemd init system
+    # -------------------
+    - role: systemd
+      tags:
+        - systemd
+        - init
+        - system
+
     # Tmux terminal multiplexer
     # -------------------------
     - role: tmux
