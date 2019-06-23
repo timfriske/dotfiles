@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Systemctl command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+#   systemctl:: Systemctl command.
+
+set -o errexit -o nounset
+
+main() {
+  systemctl "$@"
+}
+
+main "$@"
