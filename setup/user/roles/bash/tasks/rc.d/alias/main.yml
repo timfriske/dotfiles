@@ -152,11 +152,6 @@
     src: rc.d/alias/tar.bash
     dest: "{{ alias_dir }}/tar.bash"
 
-- name: Copy file with Bash aliases for Wc
-  copy:
-    src: rc.d/alias/wc.bash
-    dest: "{{ alias_dir }}/wc.bash"
-
 - name: Copy file with Bash aliases for Xargs
   copy:
     src: rc.d/alias/xargs.bash
