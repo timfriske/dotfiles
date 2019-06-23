@@ -152,11 +152,6 @@
     src: rc.d/alias/tar.bash
     dest: "{{ alias_dir }}/tar.bash"
 
-- name: Copy file with Bash aliases for Tmux
-  copy:
-    src: rc.d/alias/tmux.bash
-    dest: "{{ alias_dir }}/tmux.bash"
-
 - name: Copy file with Bash aliases for Wc
   copy:
     src: rc.d/alias/wc.bash
