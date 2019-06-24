@@ -13,7 +13,7 @@ declare -A _paths_real=()
 
 # Use _Bash's_ brace expansion for brevity.
 #
-for _path in {/usr/{local/,},/}{,s}bin "$HOME"/{.local/,}bin; do
+for _path in "$HOME"/{.local/,}bin {/usr/{local/,},/}{,s}bin; do
   if [[ -d "$_path" ]]; then
 
     # Resolve symlinks in path.
@@ -29,8 +29,7 @@ for _path in {/usr/{local/,},/}{,s}bin "$HOME"/{.local/,}bin; do
   fi
 done
 
-# 1. Print array of paths as colon-separated list.
-# 2. Replace `HOME` directory path with shorter tilde sign.
+# Print array of paths as colon-separated list.
 #
-export PATH="$(IFS=':'; printf '%s' "${_paths[*]/#"$HOME"/'~'}")"
+export PATH="$(IFS=':'; printf '%s' "${_paths[*]}")"
 unset _path _paths _path_real _paths_real
