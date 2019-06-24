@@ -13,7 +13,7 @@ declare -A _paths_real=()
 
 # Use _Bash's_ brace expansion for brevity.
 #
-for _path in {/usr/{local/,},/}{,s}bin "$HOME"/{.local/,}bin; do
+for _path in "$HOME"/{.local/,}bin {/usr/{local/,},/}{,s}bin; do
   if [[ -d "$_path" ]]; then
 
     # Resolve symlinks in path.
