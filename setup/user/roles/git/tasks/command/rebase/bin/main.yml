@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Rebase Commands
+- name: Copy Git Rebase commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/rebase/bin/git-r*
 
-- name: Create shortcuts to Git Rebase Commands
+- name: Create shortcuts to Git Rebase commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

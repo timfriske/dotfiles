@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Git Authors command
+# ===================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   git-shortlog:: Git Shortlog command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git shortlog --summary --numbered --email "$@"
+}
+
+main "$@"

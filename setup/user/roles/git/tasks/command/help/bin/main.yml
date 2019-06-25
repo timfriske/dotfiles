@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Help Commands
+- name: Copy Git Help commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/help/bin/git-h*
 
-- name: Create shortcuts to Git Help Commands
+- name: Create shortcuts to Git Help commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

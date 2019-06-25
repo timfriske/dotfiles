@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Status Commands
+- name: Copy Git Status commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/status/bin/git-i*
 
-- name: Create shortcuts to Git Status Commands
+- name: Create shortcuts to Git Status commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

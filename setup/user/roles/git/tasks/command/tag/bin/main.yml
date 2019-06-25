@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Tag Commands
+- name: Copy Git Tag commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/tag/bin/git-t*
 
-- name: Create shortcuts to Git Tag Commands
+- name: Create shortcuts to Git Tag commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

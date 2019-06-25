@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Bisect Commands
+- name: Copy Git Bisect commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/bisect/bin/git-xb*
 
-- name: Create shortcuts to Git Bisect Commands
+- name: Create shortcuts to Git Bisect commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

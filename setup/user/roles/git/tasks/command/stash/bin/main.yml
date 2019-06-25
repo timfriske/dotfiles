@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Stash Commands
+- name: Copy Git Stash commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/stash/bin/git-s*
 
-- name: Create shortcuts to Git Stash Commands
+- name: Create shortcuts to Git Stash commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

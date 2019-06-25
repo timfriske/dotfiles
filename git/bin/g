@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Git command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   git:: Git command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git "$@"
+}
+
+main "$@"

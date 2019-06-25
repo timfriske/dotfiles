@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Merge Commands
+- name: Copy Git Merge commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/merge/bin/git-m*
 
-- name: Create shortcuts to Git Merge Commands
+- name: Create shortcuts to Git Merge commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

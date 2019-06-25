@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Git Repo command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   git-count-objects:: Git Count-objects command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git count-objects -vH
+}
+
+main "$@"

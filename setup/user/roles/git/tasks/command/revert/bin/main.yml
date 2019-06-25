@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Revert Commands
+- name: Copy Git Revert commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/revert/bin/git-u*
 
-- name: Create shortcuts to Git Revert Commands
+- name: Create shortcuts to Git Revert commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

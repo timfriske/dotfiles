@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Checkout Commands
+- name: Copy Git Checkout commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/checkout/bin/git-g*
 
-- name: Create shortcuts to Git Checkout Commands
+- name: Create shortcuts to Git Checkout commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
