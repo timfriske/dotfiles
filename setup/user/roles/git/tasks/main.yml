@@ -65,6 +65,9 @@
 - name: Set up binary directory with Git Merge commands
   import_tasks: command/merge/bin/main.yml
 
+- name: Set up binary directory with Git Misc commands
+  import_tasks: command/misc/bin/main.yml
+
 - name: Set up binary directory with Git Rebase commands
   import_tasks: command/rebase/bin/main.yml
 
