@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Os command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   uname:: Uname command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  uname --all
+}
+
+main "$@"
