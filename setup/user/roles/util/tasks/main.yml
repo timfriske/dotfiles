@@ -5,33 +5,5 @@
 
 # Main tasks
 # ----------
-- name: Make target directories
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ bin_dir }}"
-
-- name: Copy File Backup utility program
-  copy:
-    src: file-backup
-    dest: "{{ bin_dir }}/file-backup"
-    mode: preserve
-
-- name: Copy File Type utility program
-  copy:
-    src: file-type
-    dest: "{{ bin_dir }}/file-type"
-    mode: preserve
-
-- name: Copy Path utility program
-  copy:
-    src: path
-    dest: "{{ bin_dir }}/path"
-    mode: preserve
-
-- name: Copy Timer utility program
-  copy:
-    src: timer
-    dest: "{{ bin_dir }}/timer"
-    mode: preserve
+- name: Set up binary directory with programs and scripts
+  import_tasks: bin/main.yml
