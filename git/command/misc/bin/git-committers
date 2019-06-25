@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Git Committers command
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   git-shortlog:: Git Shortlog command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  git shortlog --summary --numbered --committer --email "$@"
+}
+
+main "$@"
