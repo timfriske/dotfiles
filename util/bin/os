@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+
+# Os command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   cat:: Cat command.
+#   sh:: POSIX-compatible shell.
+#   uname:: Uname command.
+
+set -o errexit -o nounset
+
+main() {
+  local network_host="$(uname --nodename)"
+  local kernel_name="$(uname --kernel-name)"
+  local kernel_release="$(uname --kernel-release)"
+  local kernel_version="$(uname --kernel-version)"
+  local operating_system="$(uname --operating-system)"
+  local hardware_machine="$(uname --machine)"
+  local hardware_processor="$(uname --processor)"
+  local hardware_platform="$(uname --hardware-platform)"
+
+  cat \
+<<OS_INFO
+Newtwork host:      ${network_host:-n/a}
+Kernel name:        ${kernel_name:-n/a}
+Kernel release:     ${kernel_release:-n/a}
+Kernel version:     ${kernel_version:-n/a}
+Operating system:   ${operating_system:-n/a}
+Hardware machine:   ${hardware_machine:-n/a}
+Hardware processor: ${hardware_processor:-n/a}
+Hardware platform:  ${hardware_platform:-n/a}
+OS_INFO
+}
+
+main "$@"
