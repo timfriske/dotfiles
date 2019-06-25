@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Add Commands
+- name: Copy Git Add commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/add/bin/git-a*
 
-- name: Create shortcuts to Git Add Commands
+- name: Create shortcuts to Git Add commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

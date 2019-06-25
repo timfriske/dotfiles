@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Fetch Commands
+- name: Copy Git Fetch commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/fetch/bin/git-f*
 
-- name: Create shortcuts to Git Fetch Commands
+- name: Create shortcuts to Git Fetch commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

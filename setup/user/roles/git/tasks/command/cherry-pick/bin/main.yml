@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Cherry-pick Commands
+- name: Copy Git Cherry-pick commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/cherry-pick/bin/git-xcp*
 
-- name: Create shortcuts to Git Cherry-pick Commands
+- name: Create shortcuts to Git Cherry-pick commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

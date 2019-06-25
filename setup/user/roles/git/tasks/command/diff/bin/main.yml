@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Diff Commands
+- name: Copy Git Diff commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/diff/bin/git-d*
 
-- name: Create shortcuts to Git Diff Commands
+- name: Create shortcuts to Git Diff commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\

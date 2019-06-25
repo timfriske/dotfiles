@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Location Command
+- name: Copy Git Location command
   copy:
     src: command/location/bin/git-location
     dest: "{{ bin_dir }}/git-location"

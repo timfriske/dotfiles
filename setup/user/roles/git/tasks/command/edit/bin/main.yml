@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Git Edit Commands
+- name: Copy Git Edit commands
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,7 +20,7 @@
   with_fileglob:
     - command/edit/bin/git-e*
 
-- name: Create shortcuts to Git Edit Commands
+- name: Create shortcuts to Git Edit commands
   file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
