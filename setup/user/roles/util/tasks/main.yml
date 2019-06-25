@@ -35,3 +35,6 @@
     src: timer
     dest: "{{ bin_dir }}/timer"
     mode: preserve
+
+- name: Set up binary directory with programs and scripts
+  import_tasks: bin/main.yml
