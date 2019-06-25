@@ -102,11 +102,6 @@
     src: rc.d/alias/mv.bash
     dest: "{{ alias_dir }}/mv.bash"
 
-- name: Copy file with Bash aliases for OS Distro
-  copy:
-    src: rc.d/alias/os-distro.bash
-    dest: "{{ alias_dir }}/os-distro.bash"
-
 - name: Copy file with Bash aliases for Pbcopy/Pbpaste/Xsel/Xclip
   copy:
     src: rc.d/alias/pbcp-xclip-xsel.bash
