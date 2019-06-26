@@ -52,11 +52,6 @@
     src: rc.d/alias/du.bash
     dest: "{{ alias_dir }}/du.bash"
 
-- name: Copy file with Bash aliases for File XYZ
-  copy:
-    src: rc.d/alias/file-xyz.bash
-    dest: "{{ alias_dir }}/file-xyz.bash"
-
 - name: Copy file with Bash aliases for Find
   copy:
     src: rc.d/alias/find.bash

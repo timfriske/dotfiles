@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Dus command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   du:: Du command.
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Summarize the disk usage of the current directory.
+#
+main() {
+  du ${DU_X_OPTIONS:-} --summarize "$@"
+}
+
+main "$@"

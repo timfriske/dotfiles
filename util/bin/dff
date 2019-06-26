@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# Dff command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   df:: Df command.
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Report the free disk space only for common file system types, i.e.
+# exclude neglectable types of file systems.
+#
+main() {
+  df ${DF_X_OPTIONS:-} -x devtmpfs -x tmpfs "$@"
+}
+
+main "$@"
