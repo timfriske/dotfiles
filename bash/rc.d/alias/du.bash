@@ -6,6 +6,4 @@
 # Summarize files and directories up to the current directory.
 #
 alias du='du --si'
-alias duf="du --all --max-depth=1 \
-> >(sort --human-numeric-sort --reverse)"
 alias dus='du --summarize'

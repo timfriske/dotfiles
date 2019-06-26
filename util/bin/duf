@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# Duf command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   du:: Du command.
+#   env:: Env command.
+#   find:: Find command.
+#   sh:: POSIX-compatible shell.
+#   sort:: Sort command.
+#   tr:: Tr command.
+
+set -o errexit -o nounset
+
+# Summarize the disk usage of the files up to the current directory,
+# sorted in descending order of disk usage.
+#
+main() {
+  find "$@" -maxdepth 1 -xtype f -print0 \
+    | du ${DU_X_OPTIONS:-} --max-depth=1 --files0-from=- --null \
+    | sort --human-numeric-sort --reverse --zero-terminated \
+    | tr '\000' '\n'
+}
+
+main "$@"
