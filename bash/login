@@ -41,6 +41,9 @@ for script in $(shopt -s globstar; \
 done
 unset script
 
+export DU_X_OPTIONS=''
+DU_X_OPTIONS+='--si '
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.

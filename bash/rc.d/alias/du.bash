@@ -4,4 +4,4 @@
 
 # Show human-readable file and directory sizes in powers of 1,000.
 #
-alias du='du --si'
+alias du='du ${DU_X_OPTIONS:-}'
