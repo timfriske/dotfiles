@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# Diff-dirs command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   diff:: Diff command.
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# When comparing directories only show the name of the files which are
+# in either one of the two given directories or differ.  Do not show the
+# differences in content between the actual files because that would
+# result in cognitive overload.
+#
+main() {
+  diff ${DIFF_X_OPTIONS:-} --recursive --brief
+}
+
+main "$@"
