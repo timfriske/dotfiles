@@ -41,6 +41,9 @@ for script in $(shopt -s globstar; \
 done
 unset script
 
+export DF_X_OPTIONS=''
+DF_X_OPTIONS+='--si '
+
 export DU_X_OPTIONS=''
 DU_X_OPTIONS+='--si '
 
