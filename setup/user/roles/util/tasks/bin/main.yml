@@ -19,3 +19,15 @@
     mode: preserve
   with_fileglob:
     - bin/*
+
+- name: Create Fb shortcut to File-backup command
+  file:
+    src: file-backup
+    dest: "{{ bin_dir }}/fb"
+    state: link
+
+- name: Create Ft shortcut to File-type command
+  file:
+    src: file-type
+    dest: "{{ bin_dir }}/ft"
+    state: link
