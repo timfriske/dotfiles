@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# Backup command
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   rsync:: Rsync command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# The verb `backup' should be more memorable than the alternative of
+# having to type `rsync` together with all these options.
+#
+main() {
+  rsync ${RSYNC_X_OPTIONS:-} --archive --hard-links --acls --xattrs "$@"
+}
+
+main "$@"
