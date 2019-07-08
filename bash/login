@@ -81,8 +81,8 @@ export CHOWN_X_OPTIONS=''
 CHOWN_X_OPTIONS+='--preserve-root '
 CHOWN_X_OPTIONS+='--changes '
 
-# Df - Disk free
-# ~~~~~~~~~~~~~~
+# D(f|u) - Disk free, usage
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # si::
 #   Show human-readable file system sizes in powers of 1,000.
@@ -91,6 +91,7 @@ CHOWN_X_OPTIONS+='--changes '
 export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
 
+# Define default options for `du` command.
 export DU_X_OPTIONS=''
 DU_X_OPTIONS+='--si '
 

@@ -17,11 +17,6 @@
     src: rc.d/alias/diff.bash
     dest: "{{ alias_dir }}/diff.bash"
 
-- name: Copy file with Bash aliases for Du
-  copy:
-    src: rc.d/alias/du.bash
-    dest: "{{ alias_dir }}/du.bash"
-
 - name: Copy file with Bash aliases for Find
   copy:
     src: rc.d/alias/find.bash
