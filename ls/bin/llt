@@ -5,6 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
+#   env:: Env command.
 #   ls:: Ls command.
 #   sh:: POSIX-compatible shell.
 
