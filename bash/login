@@ -41,11 +41,103 @@ for script in $(shopt -s globstar; \
 done
 unset script
 
+# Copy - Copy files & directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# interactive::
+#   Let _Cp_ prompt before overwriting.
+#
+# verbose::
+#   Let _Cp_ report what it is doing.
+
+# Define default options for `cp` command.
+export CP_X_OPTIONS=''
+CP_X_OPTIONS+='--interactive '
+CP_X_OPTIONS+='--verbose '
+
+# Ch(grp|mod|own) - Change file group, mode, owner
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# preserve-root::
+#   Never start from the root directory because this would almost always
+#   mean to *destroy* the *entire* root file system and *all* file
+#   systems mounted below.
+#
+# changes::
+#   Report only which files and directories actually changed.
+
+# Define default options for `chgrp` command.
+export CHGRP_X_OPTIONS=''
+CHGRP_X_OPTIONS+='--preserve-root '
+CHGRP_X_OPTIONS+='--changes '
+
+# Define default options for `chmod` command.
+export CHMOD_X_OPTIONS=''
+CHMOD_X_OPTIONS+='--preserve-root '
+CHMOD_X_OPTIONS+='--changes '
+
+# Define default options for `chown` command.
+export CHOWN_X_OPTIONS=''
+CHOWN_X_OPTIONS+='--preserve-root '
+CHOWN_X_OPTIONS+='--changes '
+
+# D(f|u) - Disk free, usage
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# si::
+#   Show human-readable file system sizes in powers of 1,000.
+
+# Define default options for `df` command.
 export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
 
+# Define default options for `du` command.
 export DU_X_OPTIONS=''
 DU_X_OPTIONS+='--si '
+
+# Diff - Differences between files & directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#  unified::
+#    output NUMBER (3) lines above and below a diff hunk in the
+#    `unified' diff format.  This format is more readable than _Diff's_
+#    default `normal' format.  The `unified' format is also the default
+#    format used by _Git_.
+#
+#  ignore-tab-expansion::
+#  ignore-space-change::
+#  ignore-trailing-space::
+#  ignore-blank-lines::
+#  ignore-all-space::
+#    Don't get distracted from any kind of changes in whitespace.
+#    Whitespace usually doesn't change the meaning of the content of a
+#    file for most file formats.
+#
+#  color=auto::
+#    If _Diff_ output is to a terminal colorize it.
+
+# Define default options for `diff` command.
+export DIFF_X_OPTIONS=''
+DIFF_X_OPTIONS+='--unified '
+DIFF_X_OPTIONS+='--ignore-tab-expansion '
+DIFF_X_OPTIONS+='--ignore-space-change '
+DIFF_X_OPTIONS+='--ignore-trailing-space '
+DIFF_X_OPTIONS+='--ignore-blank-lines '
+DIFF_X_OPTIONS+='--ignore-all-space '
+DIFF_X_OPTIONS+='--color=auto '
+
+# Free - Free main memory and swap space
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# human::
+#   show sizes in next largest units.
+# si::
+#   show sizes in powers of 1,000 instead of e.g. 1,204.
+
+# Define default options for `free` command.
+export FREE_X_OPTIONS=''
+FREE_X_OPTIONS+='--human '
+FREE_X_OPTIONS+='--si '
 
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then

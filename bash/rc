@@ -41,6 +41,80 @@ source ~/.bash/rc.d/shopt.bash
 # Shell aliases
 # -------------
 
+# Bash
+# ~~~~
+
+# Show _Bash's_ version.
+alias version='echo "bash version ${BASH_VERSION}"'
+
+# Bind
+# ~~~~
+
+# List key bindings in Bash's vi-command mode excluding self-inserts.
+alias vi-command='bind -m vi-command -p \
+  | \grep --extended-regexp --invert-match "^#|self-insert$"'
+
+# List all key bindings in Bash's vi-command mode.
+alias vi-command-all='bind -m vi-command -p'
+
+# List key bindings in Bash's vi-insert mode excluding self-inserts.
+alias vi-insert='bind -m vi-insert -p \
+  | \grep --extended-regexp --invert-match "^#|self-insert$"'
+
+# List all key bindings in Bash's vi-insert mode.
+alias vi-insert-all='bind -m vi-insert -p'
+
+# Cd - Change Directory
+# ~~~~~~~~~~~~~~~~~~~~~
+
+# With the shell option `autocd` switched on executing `..` already
+# changes to the parent directory.  
+alias ..='cd ..'
+
+# The alias `...` expands on the idea of `..` by making it possible to
+# go up two directories at once.  More than two levels in one go would
+# mean too much mental work to execute fast enough.
+alias ...='cd ../..'
+
+# Cp - Copy files & directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `cp` command with default options.
+alias cp='cp ${CP_X_OPTIONS:-}'
+
+# Ch(grp|mod|own) - Change file group, mode, owner
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `chgrp` command with default options.
+alias chgrp='chgrp ${CHGRP_X_OPTIONS:-}'
+
+# Define alias to call `chmod` command with default options.
+alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
+
+# Define alias to call `chown` command with default options.
+alias chown='chown ${CHOWN_X_OPTIONS:-}'
+
+# D(f|u) - Disk free, usage
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `df` command with default options.
+alias df='df ${DF_X_OPTIONS:-}'
+
+# Define alias to call `du` command with default options.
+alias du='du ${DU_X_OPTIONS:-}'
+
+# Diff - Differences between files & directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `diff` command with default options.
+alias diff='diff ${DIFF_X_OPTIONS:-}'
+
+# Free - Free main memory and swap space
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `free` command with default options.
+alias free='free ${FREE_X_OPTIONS:-}'
+
 for script in $(shopt -s globstar; \
     printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
   source "$script"

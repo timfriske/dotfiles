@@ -12,55 +12,10 @@
   loop:
     - "{{ alias_dir }}"
 
-- name: Copy file with Bash aliases for Bash
-  copy:
-    src: rc.d/alias/bash.bash
-    dest: "{{ alias_dir }}/bash.bash"
-
-- name: Copy file with Bash aliases for Bind
-  copy:
-    src: rc.d/alias/bind.bash
-    dest: "{{ alias_dir }}/bind.bash"
-
-- name: Copy file with Bash aliases for Cd
-  copy:
-    src: rc.d/alias/cd.bash
-    dest: "{{ alias_dir }}/cd.bash"
-
-- name: Copy file with Bash aliases for Ch XYZ
-  copy:
-    src: rc.d/alias/ch-xyz.bash
-    dest: "{{ alias_dir }}/ch-xyz.bash"
-
-- name: Copy file with Bash aliases for Cp
-  copy:
-    src: rc.d/alias/cp.bash
-    dest: "{{ alias_dir }}/cp.bash"
-
-- name: Copy file with Bash aliases for Df
-  copy:
-    src: rc.d/alias/df.bash
-    dest: "{{ alias_dir }}/df.bash"
-
-- name: Copy file with Bash aliases for Diff
-  copy:
-    src: rc.d/alias/diff.bash
-    dest: "{{ alias_dir }}/diff.bash"
-
-- name: Copy file with Bash aliases for Du
-  copy:
-    src: rc.d/alias/du.bash
-    dest: "{{ alias_dir }}/du.bash"
-
 - name: Copy file with Bash aliases for Find
   copy:
     src: rc.d/alias/find.bash
     dest: "{{ alias_dir }}/find.bash"
-
-- name: Copy file with Bash aliases for Free
-  copy:
-    src: rc.d/alias/free.bash
-    dest: "{{ alias_dir }}/free.bash"
 
 - name: Copy file with Bash aliases for Fzf
   copy:
