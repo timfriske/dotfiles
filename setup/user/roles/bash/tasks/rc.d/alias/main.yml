@@ -12,11 +12,6 @@
   loop:
     - "{{ alias_dir }}"
 
-- name: Copy file with Bash aliases for Df
-  copy:
-    src: rc.d/alias/df.bash
-    dest: "{{ alias_dir }}/df.bash"
-
 - name: Copy file with Bash aliases for Diff
   copy:
     src: rc.d/alias/diff.bash

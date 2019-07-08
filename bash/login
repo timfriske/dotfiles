@@ -81,6 +81,13 @@ export CHOWN_X_OPTIONS=''
 CHOWN_X_OPTIONS+='--preserve-root '
 CHOWN_X_OPTIONS+='--changes '
 
+# Df - Disk free
+# ~~~~~~~~~~~~~~
+#
+# si::
+#   Show human-readable file system sizes in powers of 1,000.
+
+# Define default options for `df` command.
 export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
 
