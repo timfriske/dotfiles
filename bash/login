@@ -55,6 +55,32 @@ export CP_X_OPTIONS=''
 CP_X_OPTIONS+='--interactive '
 CP_X_OPTIONS+='--verbose '
 
+# Ch(grp|mod|own) - Change file group, mode, owner
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# preserve-root::
+#   Never start from the root directory because this would almost always
+#   mean to *destroy* the *entire* root file system and *all* file
+#   systems mounted below.
+#
+# changes::
+#   Report only which files and directories actually changed.
+
+# Define default options for `chgrp` command.
+export CHGRP_X_OPTIONS=''
+CHGRP_X_OPTIONS+='--preserve-root '
+CHGRP_X_OPTIONS+='--changes '
+
+# Define default options for `chmod` command.
+export CHMOD_X_OPTIONS=''
+CHMOD_X_OPTIONS+='--preserve-root '
+CHMOD_X_OPTIONS+='--changes '
+
+# Define default options for `chown` command.
+export CHOWN_X_OPTIONS=''
+CHOWN_X_OPTIONS+='--preserve-root '
+CHOWN_X_OPTIONS+='--changes '
+
 export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
 

@@ -82,6 +82,18 @@ alias ...='cd ../..'
 # Define alias to call `cp` command with default options.
 alias cp='cp ${CP_X_OPTIONS:-}'
 
+# Ch(grp|mod|own) - Change file group, mode, owner
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `chgrp` command with default options.
+alias chgrp='chgrp ${CHGRP_X_OPTIONS:-}'
+
+# Define alias to call `chmod` command with default options.
+alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
+
+# Define alias to call `chown` command with default options.
+alias chown='chown ${CHOWN_X_OPTIONS:-}'
+
 for script in $(shopt -s globstar; \
     printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
   source "$script"
