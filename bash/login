@@ -95,6 +95,37 @@ DF_X_OPTIONS+='--si '
 export DU_X_OPTIONS=''
 DU_X_OPTIONS+='--si '
 
+# Diff - Differences between files & directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#  unified::
+#    output NUMBER (3) lines above and below a diff hunk in the
+#    `unified' diff format.  This format is more readable than _Diff's_
+#    default `normal' format.  The `unified' format is also the default
+#    format used by _Git_.
+#
+#  ignore-tab-expansion::
+#  ignore-space-change::
+#  ignore-trailing-space::
+#  ignore-blank-lines::
+#  ignore-all-space::
+#    Don't get distracted from any kind of changes in whitespace.
+#    Whitespace usually doesn't change the meaning of the content of a
+#    file for most file formats.
+#
+#  color=auto::
+#    If _Diff_ output is to a terminal colorize it.
+
+# Define default options for `diff` command.
+export DIFF_X_OPTIONS=''
+DIFF_X_OPTIONS+='--unified '
+DIFF_X_OPTIONS+='--ignore-tab-expansion '
+DIFF_X_OPTIONS+='--ignore-space-change '
+DIFF_X_OPTIONS+='--ignore-trailing-space '
+DIFF_X_OPTIONS+='--ignore-blank-lines '
+DIFF_X_OPTIONS+='--ignore-all-space '
+DIFF_X_OPTIONS+='--color=auto '
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.

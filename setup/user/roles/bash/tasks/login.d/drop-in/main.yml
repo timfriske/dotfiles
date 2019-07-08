@@ -12,11 +12,6 @@
   loop:
     - "{{ drop_in_dir }}"
 
-- name: Copy file with environment for Diff
-  copy:
-    src: login.d/drop-in/diff.bash
-    dest: "{{ drop_in_dir }}/diff.bash"
-
 - name: Copy file with environment for Fzf
   copy:
     src: login.d/drop-in/fzf.bash
