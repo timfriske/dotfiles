@@ -76,6 +76,12 @@ alias ..='cd ..'
 # mean too much mental work to execute fast enough.
 alias ...='cd ../..'
 
+# Cp - Copy files & directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `cp` command with default options.
+alias cp='cp ${CP_X_OPTIONS:-}'
+
 for script in $(shopt -s globstar; \
     printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
   source "$script"

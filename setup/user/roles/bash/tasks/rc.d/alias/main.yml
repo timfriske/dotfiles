@@ -17,11 +17,6 @@
     src: rc.d/alias/ch-xyz.bash
     dest: "{{ alias_dir }}/ch-xyz.bash"
 
-- name: Copy file with Bash aliases for Cp
-  copy:
-    src: rc.d/alias/cp.bash
-    dest: "{{ alias_dir }}/cp.bash"
-
 - name: Copy file with Bash aliases for Df
   copy:
     src: rc.d/alias/df.bash

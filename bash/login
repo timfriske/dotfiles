@@ -41,6 +41,20 @@ for script in $(shopt -s globstar; \
 done
 unset script
 
+# Copy - Copy files & directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# interactive::
+#   Let _Cp_ prompt before overwriting.
+#
+# verbose::
+#   Let _Cp_ report what it is doing.
+
+# Define default options for `cp` command.
+export CP_X_OPTIONS=''
+CP_X_OPTIONS+='--interactive '
+CP_X_OPTIONS+='--verbose '
+
 export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
 
