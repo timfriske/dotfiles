@@ -64,6 +64,18 @@ alias vi-insert='bind -m vi-insert -p \
 # List all key bindings in Bash's vi-insert mode.
 alias vi-insert-all='bind -m vi-insert -p'
 
+# Cd - Change Directory
+# ~~~~~~~~~~~~~~~~~~~~~
+
+# With the shell option `autocd` switched on executing `..` already
+# changes to the parent directory.  
+alias ..='cd ..'
+
+# The alias `...` expands on the idea of `..` by making it possible to
+# go up two directories at once.  More than two levels in one go would
+# mean too much mental work to execute fast enough.
+alias ...='cd ../..'
+
 for script in $(shopt -s globstar; \
     printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
   source "$script"

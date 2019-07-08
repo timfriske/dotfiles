@@ -12,11 +12,6 @@
   loop:
     - "{{ alias_dir }}"
 
-- name: Copy file with Bash aliases for Cd
-  copy:
-    src: rc.d/alias/cd.bash
-    dest: "{{ alias_dir }}/cd.bash"
-
 - name: Copy file with Bash aliases for Ch XYZ
   copy:
     src: rc.d/alias/ch-xyz.bash
