@@ -12,11 +12,6 @@
   loop:
     - "{{ alias_dir }}"
 
-- name: Copy file with Bash aliases for Bind
-  copy:
-    src: rc.d/alias/bind.bash
-    dest: "{{ alias_dir }}/bind.bash"
-
 - name: Copy file with Bash aliases for Cd
   copy:
     src: rc.d/alias/cd.bash
