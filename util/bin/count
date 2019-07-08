@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# Count command
+# =============
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+#   sort:: Sort command.
+#   uniq: Uniq command.
+
+set -o errexit -o nounset
+
+# Count the number of occurrences and list them in ascending order of
+# their counts.
+#
+main() {
+  sort "$@" | uniq --count | sort --sort=numeric
+}
+
+main "$@"
