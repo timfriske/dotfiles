@@ -17,11 +17,6 @@
     src: rc.d/alias/find.bash
     dest: "{{ alias_dir }}/find.bash"
 
-- name: Copy file with Bash aliases for Free
-  copy:
-    src: rc.d/alias/free.bash
-    dest: "{{ alias_dir }}/free.bash"
-
 - name: Copy file with Bash aliases for Fzf
   copy:
     src: rc.d/alias/fzf.bash

@@ -126,6 +126,19 @@ DIFF_X_OPTIONS+='--ignore-blank-lines '
 DIFF_X_OPTIONS+='--ignore-all-space '
 DIFF_X_OPTIONS+='--color=auto '
 
+# Free - Free main memory and swap space
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# human::
+#   show sizes in next largest units.
+# si::
+#   show sizes in powers of 1,000 instead of e.g. 1,204.
+
+# Define default options for `free` command.
+export FREE_X_OPTIONS=''
+FREE_X_OPTIONS+='--human '
+FREE_X_OPTIONS+='--si '
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.
