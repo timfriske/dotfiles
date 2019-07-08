@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# Map command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+#   xargs:: Xargs command.
+
+set -o errexit -o nounset
+
+# Run the given command on every argument usually read from a pipe.  The
+# alias `map` resembles the well-known mathematical term `mapping' also
+# known as `map'.
+#
+main() {
+  xargs --max-args=1 "$@"
+}
+
+main "$@"

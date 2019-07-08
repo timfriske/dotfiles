@@ -137,11 +137,6 @@
     src: rc.d/alias/tar.bash
     dest: "{{ alias_dir }}/tar.bash"
 
-- name: Copy file with Bash aliases for Xargs
-  copy:
-    src: rc.d/alias/xargs.bash
-    dest: "{{ alias_dir }}/xargs.bash"
-
 - name: Copy file with Bash aliases for XDG Open
   copy:
     src: rc.d/alias/xdg-open.bash
