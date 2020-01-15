@@ -17,11 +17,6 @@
     src: login.d/drop-in/git.bash
     dest: "{{ drop_in_dir }}/git.bash"
 
-- name: Copy file with environment for Grep
-  copy:
-    src: login.d/drop-in/grep.bash
-    dest: "{{ drop_in_dir }}/grep.bash"
-
 - name: Copy file with environment for Bash history
   copy:
     src: login.d/drop-in/history.bash

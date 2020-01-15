@@ -12,11 +12,6 @@
   loop:
     - "{{ alias_dir }}"
 
-- name: Copy file with Bash aliases for Grep
-  copy:
-    src: rc.d/alias/grep.bash
-    dest: "{{ alias_dir }}/grep.bash"
-
 - name: Copy file with Bash aliases for Info
   copy:
     src: rc.d/alias/info.bash
