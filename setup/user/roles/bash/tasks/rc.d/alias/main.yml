@@ -12,21 +12,6 @@
   loop:
     - "{{ alias_dir }}"
 
-- name: Copy file with Bash aliases for Find
-  copy:
-    src: rc.d/alias/find.bash
-    dest: "{{ alias_dir }}/find.bash"
-
-- name: Copy file with Bash aliases for Fzf
-  copy:
-    src: rc.d/alias/fzf.bash
-    dest: "{{ alias_dir }}/fzf.bash"
-
-- name: Copy file with Bash aliases for Grep
-  copy:
-    src: rc.d/alias/grep.bash
-    dest: "{{ alias_dir }}/grep.bash"
-
 - name: Copy file with Bash aliases for Info
   copy:
     src: rc.d/alias/info.bash

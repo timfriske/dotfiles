@@ -162,6 +162,73 @@ alias diff='diff ${DIFF_X_OPTIONS:-}'
 # Define alias to call `free` command with default options.
 alias free='free ${FREE_X_OPTIONS:-}'
 
+# Find - Search for files and folders
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Find broken links, i.e. symbolic links which lost their target files
+# or folders.  This usually occurs when either the symbolic links or
+# their targets move and their references are not updated.
+#
+alias broken-links='find -xtype l'
+
+# Fzf - Fuzzy-search and select all kinds of items
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Test if fuzzy finder program _Fzf_ is installed.
+#
+if type -p fzf &> /dev/null; then
+
+  # Test if _Fzf_ specific _Readline_ file is readable.
+  #
+  if [[ -f ~/.inputrc.fzf && -r ~/.inputrc.fzf ]]; then
+
+    # Make _Fzf_ available through _Readline_ key bindings.
+    #
+    bind -f ~/.inputrc.fzf
+  fi
+  source fzf-insert.bash &> /dev/null
+  if source fzf-files.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-af": "fzf_files"'
+    bind -m vi-command '"\C-af": "i\C-af"'
+  fi
+  if source fzf-folders.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-ad": "fzf_folders"'
+    bind -m vi-command '"\C-ad": "i\C-ad"'
+  fi
+  if type -p fzf-git-branch &> /dev/null; then
+    bind -m vi-insert -x '"\C-gb": "fzf-git-branch"'
+    bind -m vi-command '"\C-gb": "i\C-gb"'
+    bind -m vi-insert -x \
+      '"\C-gr": "branch_opts=--remotes fzf-git-branch"'
+    bind -m vi-command '"\C-gr": "i\C-gr"'
+  fi
+  if source fzf-git-branch-insert.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-ab": "fzf_git_branch_insert"'
+    bind -m vi-command '"\C-ab": "i\C-ab"'
+    bind -m vi-insert -x \
+      '"\C-ar": "branch_opts=--remotes fzf_git_branch_insert"'
+    bind -m vi-command '"\C-ar": "i\C-ar"'
+  fi
+  if type -p fzf-git-tag &> /dev/null; then
+    bind -m vi-insert -x '"\C-gt": "fzf-git-tag"'
+    bind -m vi-command '"\C-gt": "i\C-gt"'
+  fi
+  if source fzf-git-tag-insert.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-at": "fzf_git_tag_insert"'
+    bind -m vi-command '"\C-at": "i\C-at"'
+  fi
+fi
+
+# Grep - Search files for content
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Call `grep` with default options.
+#
+alias grep='grep $GREP_X_OPTIONS'
+
+alias egrep='grep --extended-regexp'
+alias fgrep='grep --fixed-strings'
+
 for script in $(shopt -s globstar; \
     printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
   source "$script"
