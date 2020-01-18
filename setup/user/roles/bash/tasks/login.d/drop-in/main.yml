@@ -42,11 +42,6 @@
     src: login.d/drop-in/prompt.bash
     dest: "{{ drop_in_dir }}/prompt.bash"
 
-- name: Copy file with environment for Rsync
-  copy:
-    src: login.d/drop-in/rsync.bash
-    dest: "{{ drop_in_dir }}/rsync.bash"
-
 - name: Copy file with environment for Tar
   copy:
     src: login.d/drop-in/tar.bash

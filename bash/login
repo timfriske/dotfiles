@@ -248,6 +248,23 @@ export RMDIR_X_OPTIONS=''
 RMDIR_X_OPTIONS+='--parents '
 RMDIR_X_OPTIONS+='--verbose '
 
+# Rsync - Synchronize file system trees
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# human-readable::
+#   Let _Rsync_ output numbers, in a human-friendly format.  For example
+#   thousands separators, units to the power of 1000, symbols for units
+#   larger than 1000, etc.
+#
+# progress::
+#   Let _Rsync_ report what it is doing on a per-file basis.  See also
+#   `info=progress2` option if you want to see statistics about the
+#   transfer as a whole.
+#
+export RSYNC_X_OPTIONS=''
+RSYNC_X_OPTIONS+='--human-readable '
+RSYNC_X_OPTIONS+='--progress '
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.
