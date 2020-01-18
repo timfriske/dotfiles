@@ -291,6 +291,11 @@ alias ln='ln $LN_X_OPTIONS'
 alias mkdir='mkdir $MKDIR_X_OPTIONS'
 alias md='mkdir'
 
+# Mv - Move/rename files and folders
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias mv='mv $MV_X_OPTIONS'
+
 for script in $(shopt -s globstar; \
     printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
   source "$script"
