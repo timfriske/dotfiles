@@ -42,11 +42,6 @@
     src: login.d/drop-in/prompt.bash
     dest: "{{ drop_in_dir }}/prompt.bash"
 
-- name: Copy file with environment for Rm
-  copy:
-    src: login.d/drop-in/rm.bash
-    dest: "{{ drop_in_dir }}/rm.bash"
-
 - name: Copy file with environment for Rmdir
   copy:
     src: login.d/drop-in/rmdir.bash
