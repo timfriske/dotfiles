@@ -12,40 +12,10 @@
   loop:
     - "{{ alias_dir }}"
 
-- name: Copy file with Bash aliases for Info
-  copy:
-    src: rc.d/alias/info.bash
-    dest: "{{ alias_dir }}/info.bash"
-
-- name: Copy file with Bash aliases for Jobs
-  copy:
-    src: rc.d/alias/jobs.bash
-    dest: "{{ alias_dir }}/jobs.bash"
-
-- name: Copy file with Bash aliases for Ln
-  copy:
-    src: rc.d/alias/ln.bash
-    dest: "{{ alias_dir }}/ln.bash"
-
-- name: Copy file with Bash aliases for Mkdir
-  copy:
-    src: rc.d/alias/mkdir.bash
-    dest: "{{ alias_dir }}/mkdir.bash"
-
-- name: Copy file with Bash aliases for Mv
-  copy:
-    src: rc.d/alias/mv.bash
-    dest: "{{ alias_dir }}/mv.bash"
-
 - name: Copy file with Bash aliases for Pbcopy/Pbpaste/Xsel/Xclip
   copy:
     src: rc.d/alias/pbcp-xclip-xsel.bash
     dest: "{{ alias_dir }}/pbcp-xclip-xsel.bash"
-
-- name: Copy file with Bash aliases for Rm
-  copy:
-    src: rc.d/alias/rm.bash
-    dest: "{{ alias_dir }}/rm.bash"
 
 - name: Copy file with Bash aliases for Rmdir
   copy:

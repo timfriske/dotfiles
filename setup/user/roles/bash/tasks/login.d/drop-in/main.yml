@@ -27,25 +27,10 @@
     src: login.d/drop-in/less.bash
     dest: "{{ drop_in_dir }}/less.bash"
 
-- name: Copy file with environment for Ln
-  copy:
-    src: login.d/drop-in/ln.bash
-    dest: "{{ drop_in_dir }}/ln.bash"
-
 - name: Copy file with environment for Ls
   copy:
     src: login.d/drop-in/ls.bash
     dest: "{{ drop_in_dir }}/ls.bash"
-
-- name: Copy file with environment for Mkdir
-  copy:
-    src: login.d/drop-in/mkdir.bash
-    dest: "{{ drop_in_dir }}/mkdir.bash"
-
-- name: Copy file with environment for Mv
-  copy:
-    src: login.d/drop-in/mv.bash
-    dest: "{{ drop_in_dir }}/mv.bash"
 
 - name: Copy file with environment which programs to use
   copy:
@@ -56,11 +41,6 @@
   copy:
     src: login.d/drop-in/prompt.bash
     dest: "{{ drop_in_dir }}/prompt.bash"
-
-- name: Copy file with environment for Rm
-  copy:
-    src: login.d/drop-in/rm.bash
-    dest: "{{ drop_in_dir }}/rm.bash"
 
 - name: Copy file with environment for Rmdir
   copy:

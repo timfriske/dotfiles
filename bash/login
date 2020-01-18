@@ -184,6 +184,57 @@ GREP_X_OPTIONS+='--binary-files=without-match '
 GREP_X_OPTIONS+='--devices=skip '
 GREP_X_OPTIONS+='--color=auto '
 
+# Ln - Create hard and soft links to files and folders
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# interactive::
+#   Let _Ln_ prompt before overwriting.
+# verbose::
+#   Let _Ln_ report what it is doing.
+#
+export LN_X_OPTIONS=''
+LN_X_OPTIONS+='--interactive '
+LN_X_OPTIONS+='--verbose '
+
+# Mkdir - Create folders
+# ~~~~~~~~~~~~~~~~~~~~~~
+#
+# parents::
+#   Let _Mkdir_ create all folders, i.e. also the intermediate ones.
+#
+# verbose::
+#   Let _Mkdir_ report what it is doing.
+#
+export MKDIR_X_OPTIONS=''
+MKDIR_X_OPTIONS+='--parents '
+MKDIR_X_OPTIONS+='--verbose '
+
+# Mv - Move/rename files and folders
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# interactive::
+#   Let _Mv_ prompt before overwriting.
+#
+# verbose::
+#   Let _Mv_ report what it is doing.
+#
+export MV_X_OPTIONS=''
+MV_X_OPTIONS+='--interactive '
+MV_X_OPTIONS+='--verbose '
+
+# Rm - Delete files and non-empty folders
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# interactive::
+#   Let _Rm_ prompt before overwriting.
+#
+# verbose::
+#   Let _Rm_ report what it is doing.
+#
+export RM_X_OPTIONS=''
+RM_X_OPTIONS+='--interactive '
+RM_X_OPTIONS+='--verbose '
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.
