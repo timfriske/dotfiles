@@ -314,6 +314,11 @@ alias rd='rmdir'
 
 alias rsync='rsync $RSYNC_X_OPTIONS'
 
+# Sed - Edit streams of text
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias sed='sed $SED_X_OPTIONS'
+
 for script in $(shopt -s globstar; \
     printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
   source "$script"

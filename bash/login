@@ -265,6 +265,15 @@ export RSYNC_X_OPTIONS=''
 RSYNC_X_OPTIONS+='--human-readable '
 RSYNC_X_OPTIONS+='--progress '
 
+# Sed - Edit streams of text
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# regexp-extended::
+#   Let _Sed_ use extended instead of basic regular expressions.
+#
+export SED_X_OPTIONS=''
+SED_X_OPTIONS+='--regexp-extended '
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.
