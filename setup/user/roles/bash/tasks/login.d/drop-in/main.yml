@@ -32,11 +32,6 @@
     src: login.d/drop-in/ls.bash
     dest: "{{ drop_in_dir }}/ls.bash"
 
-- name: Copy file with environment for Mkdir
-  copy:
-    src: login.d/drop-in/mkdir.bash
-    dest: "{{ drop_in_dir }}/mkdir.bash"
-
 - name: Copy file with environment for Mv
   copy:
     src: login.d/drop-in/mv.bash
