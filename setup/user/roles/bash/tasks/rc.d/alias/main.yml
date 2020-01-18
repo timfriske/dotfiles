@@ -17,11 +17,6 @@
     src: rc.d/alias/pbcp-xclip-xsel.bash
     dest: "{{ alias_dir }}/pbcp-xclip-xsel.bash"
 
-- name: Copy file with Bash aliases for Sudo
-  copy:
-    src: rc.d/alias/sudo.bash
-    dest: "{{ alias_dir }}/sudo.bash"
-
 - name: Copy file with Bash aliases for Tar
   copy:
     src: rc.d/alias/tar.bash
