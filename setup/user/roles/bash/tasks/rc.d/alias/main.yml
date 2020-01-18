@@ -17,11 +17,6 @@
     src: rc.d/alias/pbcp-xclip-xsel.bash
     dest: "{{ alias_dir }}/pbcp-xclip-xsel.bash"
 
-- name: Copy file with Bash aliases for Rmdir
-  copy:
-    src: rc.d/alias/rmdir.bash
-    dest: "{{ alias_dir }}/rmdir.bash"
-
 - name: Copy file with Bash aliases for Rsync
   copy:
     src: rc.d/alias/rsync.bash
