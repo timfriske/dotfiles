@@ -17,32 +17,7 @@
     src: rc.d/alias/pbcp-xclip-xsel.bash
     dest: "{{ alias_dir }}/pbcp-xclip-xsel.bash"
 
-- name: Copy file with Bash aliases for Rmdir
-  copy:
-    src: rc.d/alias/rmdir.bash
-    dest: "{{ alias_dir }}/rmdir.bash"
-
-- name: Copy file with Bash aliases for Rsync
-  copy:
-    src: rc.d/alias/rsync.bash
-    dest: "{{ alias_dir }}/rsync.bash"
-
-- name: Copy file with Bash aliases for Sed
-  copy:
-    src: rc.d/alias/sed.bash
-    dest: "{{ alias_dir }}/sed.bash"
-
-- name: Copy file with Bash aliases for Sudo
-  copy:
-    src: rc.d/alias/sudo.bash
-    dest: "{{ alias_dir }}/sudo.bash"
-
 - name: Copy file with Bash aliases for Tar
   copy:
     src: rc.d/alias/tar.bash
     dest: "{{ alias_dir }}/tar.bash"
-
-- name: Copy file with Bash aliases for XDG Open
-  copy:
-    src: rc.d/alias/xdg-open.bash
-    dest: "{{ alias_dir }}/xdg-open.bash"
