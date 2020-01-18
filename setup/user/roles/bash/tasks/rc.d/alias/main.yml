@@ -21,8 +21,3 @@
   copy:
     src: rc.d/alias/tar.bash
     dest: "{{ alias_dir }}/tar.bash"
-
-- name: Copy file with Bash aliases for XDG Open
-  copy:
-    src: rc.d/alias/xdg-open.bash
-    dest: "{{ alias_dir }}/xdg-open.bash"
