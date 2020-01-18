@@ -184,6 +184,18 @@ GREP_X_OPTIONS+='--binary-files=without-match '
 GREP_X_OPTIONS+='--devices=skip '
 GREP_X_OPTIONS+='--color=auto '
 
+# Ln - Create hard and soft links to files and folders
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# interactive::
+#   Let _Ln_ prompt before overwriting.
+# verbose::
+#   Let _Ln_ report what it is doing.
+#
+export LN_X_OPTIONS=''
+LN_X_OPTIONS+='--interactive '
+LN_X_OPTIONS+='--verbose '
+
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.

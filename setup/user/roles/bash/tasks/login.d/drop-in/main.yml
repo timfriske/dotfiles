@@ -27,11 +27,6 @@
     src: login.d/drop-in/less.bash
     dest: "{{ drop_in_dir }}/less.bash"
 
-- name: Copy file with environment for Ln
-  copy:
-    src: login.d/drop-in/ln.bash
-    dest: "{{ drop_in_dir }}/ln.bash"
-
 - name: Copy file with environment for Ls
   copy:
     src: login.d/drop-in/ls.bash
