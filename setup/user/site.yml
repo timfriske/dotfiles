@@ -16,6 +16,12 @@
         - bash
         - shell
 
+    # Clipboard utility programs
+    # --------------------------
+    - role: clipboard
+      tags:
+        - clipboard
+
     # Date program
     # ------------
     - role: date
