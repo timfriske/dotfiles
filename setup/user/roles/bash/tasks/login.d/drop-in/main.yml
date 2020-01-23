@@ -12,36 +12,6 @@
   loop:
     - "{{ drop_in_dir }}"
 
-- name: Copy file with environment for Git
-  copy:
-    src: login.d/drop-in/git.bash
-    dest: "{{ drop_in_dir }}/git.bash"
-
-- name: Copy file with environment for Bash history
-  copy:
-    src: login.d/drop-in/history.bash
-    dest: "{{ drop_in_dir }}/history.bash"
-
-- name: Copy file with environment for Less
-  copy:
-    src: login.d/drop-in/less.bash
-    dest: "{{ drop_in_dir }}/less.bash"
-
-- name: Copy file with environment for Ls
-  copy:
-    src: login.d/drop-in/ls.bash
-    dest: "{{ drop_in_dir }}/ls.bash"
-
-- name: Copy file with environment which programs to use
-  copy:
-    src: login.d/drop-in/program.bash
-    dest: "{{ drop_in_dir }}/program.bash"
-
-- name: Copy file with environment for Bash prompt
-  copy:
-    src: login.d/drop-in/prompt.bash
-    dest: "{{ drop_in_dir }}/prompt.bash"
-
 - name: Copy file with environment for Tar
   copy:
     src: login.d/drop-in/tar.bash
