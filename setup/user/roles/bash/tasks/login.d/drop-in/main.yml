@@ -12,11 +12,6 @@
   loop:
     - "{{ drop_in_dir }}"
 
-- name: Copy file with environment for Bash history
-  copy:
-    src: login.d/drop-in/history.bash
-    dest: "{{ drop_in_dir }}/history.bash"
-
 - name: Copy file with environment for Less
   copy:
     src: login.d/drop-in/less.bash
