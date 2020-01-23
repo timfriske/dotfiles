@@ -12,11 +12,6 @@
   loop:
     - "{{ drop_in_dir }}"
 
-- name: Copy file with environment for Bash prompt
-  copy:
-    src: login.d/drop-in/prompt.bash
-    dest: "{{ drop_in_dir }}/prompt.bash"
-
 - name: Copy file with environment for Tar
   copy:
     src: login.d/drop-in/tar.bash
