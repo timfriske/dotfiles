@@ -12,11 +12,6 @@
   loop:
     - "{{ drop_in_dir }}"
 
-- name: Copy file with environment which programs to use
-  copy:
-    src: login.d/drop-in/program.bash
-    dest: "{{ drop_in_dir }}/program.bash"
-
 - name: Copy file with environment for Bash prompt
   copy:
     src: login.d/drop-in/prompt.bash
