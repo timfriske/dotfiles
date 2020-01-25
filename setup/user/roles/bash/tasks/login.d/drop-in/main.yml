@@ -11,8 +11,3 @@
     state: directory
   loop:
     - "{{ drop_in_dir }}"
-
-- name: Copy file with environment for Tar
-  copy:
-    src: login.d/drop-in/tar.bash
-    dest: "{{ drop_in_dir }}/tar.bash"
