@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# Broken-links command
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   env:: Env command.
+#   find:: Find command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Search for broken links, i.e. soft a.k.a symbolic links which lost
+# their target files or folders.  This usually occurs when either the
+# symbolic links or their targets move and their references are not
+# updated.
+#
+main() {
+  find "$@" -xtype l
+}
+
+main "$@"
