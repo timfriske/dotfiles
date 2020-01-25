@@ -33,14 +33,6 @@
 #
 source ~/.bash/login.d/path.bash
 
-# Set up the environments of various programs.
-#
-for script in $(shopt -s globstar; \
-    printf '%s\n' ~/.bash/login.d/drop-in/**/*.bash); do
-  source "$script"
-done
-unset script
-
 # Copy - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #

@@ -16,6 +16,3 @@
   copy:
     src: login.d/path.bash
     dest: "{{ login_dir }}/path.bash"
-
-- name: Set up drop-in folder for Bash login shells
-  import_tasks: login.d/drop-in/main.yml
