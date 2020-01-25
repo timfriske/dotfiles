@@ -11,8 +11,3 @@
     state: directory
   loop:
     - "{{ login_dir }}"
-
-- name: Copy file with PATH environment variable setup
-  copy:
-    src: login.d/path.bash
-    dest: "{{ login_dir }}/path.bash"
