@@ -33,14 +33,6 @@
 #
 source ~/.bash/login.d/path.bash
 
-# Set up the environments of various programs.
-#
-for script in $(shopt -s globstar; \
-    printf '%s\n' ~/.bash/login.d/drop-in/**/*.bash); do
-  source "$script"
-done
-unset script
-
 # Copy - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -440,6 +432,16 @@ RSYNC_X_OPTIONS+='--progress '
 #
 export SED_X_OPTIONS=''
 SED_X_OPTIONS+='--regexp-extended '
+
+# Tar - Manage files and folders in archive files
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#   verbose::
+#     Let _Tar_ report what it is doing.
+#
+export TAR_X_OPTIONS=''
+TAR_X_OPTIONS+='--auto-compress '
+TAR_X_OPTIONS+='--verbose '
 
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
