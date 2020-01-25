@@ -1,1 +1,0 @@
-../../../../../../../bash/rc.d/alias/rsync.bash
