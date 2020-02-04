@@ -1,0 +1,37 @@
+# Autostart of Microsoft Visual Studio Code
+# =========================================
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+Type=Application
+
+Name=Visual Studio Code
+Name[de]=Visual Studio Code
+
+GenericName=Text Editor
+GenericName[de]=Texteditor
+
+Comment=Code Editing. Redefined.
+Comment[de]=Code Editieren. Neu gedacht.
+
+Keywords=vscode;code;
+
+Categories=Utility;TextEditor;Development;IDE;
+
+MimeType=text/plain;inode/directory;
+
+Icon=com.visualstudio.code
+TryExec=/usr/share/code/code
+Exec=/usr/share/code/code --no-sandbox --unity-launch %F
+StartupNotify=false
+StartupWMClass=Code
+
+Actions=new-empty-window;
+
+[Desktop Action new-empty-window]
+Icon=com.visualstudio.code
+
+Name=New Empty Window
+Name[de]=Neues leeres Fenster
+
+Exec=/usr/share/code/code --no-sandbox --new-window %F
