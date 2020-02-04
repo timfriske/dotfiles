@@ -48,6 +48,13 @@
     dest: "{{ autostart_dir }}/\
             gnome-terminal-emulator.desktop"
 
+- name: >-
+    Copy Microsoft Visual Studio Code Xdg autostart configuration file
+  copy:
+    src: autostart/microsoft-vscode-editor.desktop
+    dest: "{{ autostart_dir }}/\
+            microsoft-vscode-editor.desktop"
+
 - name: Copy Transmission GTK Xdg autostart configuration file
   copy:
     src: autostart/transmission-gtk.desktop
