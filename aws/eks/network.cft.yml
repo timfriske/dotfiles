@@ -59,3 +59,13 @@ Resources:
     Properties:
       InternetGatewayId: !Ref InternetGateway
       VpcId: !Ref Network
+
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      Tags:
+        - Key: Name
+          Value: ${AWS::StackName}-route-table
+        - Key: Network
+          Value: Public
+      VpcId: !Ref Network
