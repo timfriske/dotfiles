@@ -15,3 +15,5 @@
 #
 # AWS CloudFormation template to create the resources pertaining to the
 # VPC network of the EKS cluster.
+
+AWSTemplateFormatVersion: 2010-09-09
