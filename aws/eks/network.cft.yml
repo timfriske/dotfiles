@@ -7,3 +7,8 @@
 # --------------
 # Copyright (c) 2018 Amazon.com, Inc. or its affiliates.  All rights
 # reserved.
+#
+# This file originates from the
+# https://amazon-eks.s3-us-west-2.amazonaws.com/[Amazon EKS S3 bucket].
+# Its original version can be found under
+# `cloudformation/2019-02-11/amazon-eks-vpc-sample.yaml`.
