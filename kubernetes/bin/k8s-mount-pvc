@@ -52,3 +52,6 @@ spec:
       persistentVolumeClaim:
        claimName: "$pvc"
 EOF
+
+echo "Waiting until Kubernetes Pod 'k8s-mount-pvc-$pvc' is ready ..."
+kubectl wait --for=condition=Ready --timeout=30s "pod/k8s-mount-pvc-$pvc"
