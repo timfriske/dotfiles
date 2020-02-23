@@ -9,3 +9,9 @@
 # This is especially useful if the code that ran inside a Kubernetes Pod failed
 # for some unknown reason and you suspect the error was caused by some missing
 # files or wrong file permissions.
+#
+# In order to accomplish that a Kubernetes Pod with a Container running the
+# latest Busybox image is launched. The Persistent Volume that corresponds to
+# the given Persistent Volume Claim is attached to the Pod and mounted into the
+# Container. Once the Pod is ready an interactive login shell is started. For
+# this the `ash` shell that comes with Busybox is used.
