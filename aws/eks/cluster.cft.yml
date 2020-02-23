@@ -7,3 +7,6 @@
 # --------------
 # Copyright (c) 2018 Amazon.com, Inc. or its affiliates.  All rights
 # reserved.
+#
+# AWS CloudFormation template to create the resources pertaining to the
+# control plane of the EKS cluster.
