@@ -20,3 +20,23 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Description: >-
   The Amazon AWS EKS worker nodes configuration.
+
+Parameters:
+
+  NodeRoleName:
+    Type: String
+    Default: eks-node-instance-role
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      Name of an existing IAM role that shall be assigned to the worker
+      nodes such that they can register with the master nodes of the
+      control plane.
+
+Resources:
+
+  NodeProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: '/'
+      Roles:
+        - !Ref NodeRoleName
