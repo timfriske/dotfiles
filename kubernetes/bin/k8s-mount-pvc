@@ -15,3 +15,7 @@
 # the given Persistent Volume Claim is attached to the Pod and mounted into the
 # Container. Once the Pod is ready an interactive login shell is started. For
 # this the `ash` shell that comes with Busybox is used.
+
+# Fail-fast script execution.
+#
+set -o errexit -o nounset
