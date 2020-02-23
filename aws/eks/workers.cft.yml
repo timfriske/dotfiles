@@ -34,6 +34,36 @@ Parameters:
     Description: >-
       The cluster name.
 
+  NodeBootstrapArgs:
+    Type: String
+    Description: >-
+      The arguments to pass to the bootstrap script. See
+      files/bootstrap.sh in https://github.com/awslabs/amazon-eks-ami.
+
+  NodeConfigSmallEnabled:
+    Type: String
+    Default: true
+    AllowedValues: [false, true]
+    Description: >-
+      The switch whether to enable or disable the small node
+      configuration.  See
+      https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html.
+
+  NodeImageId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/eks/optimized-ami/1.14/amazon-linux-2/recommended/image_id
+    Description: >-
+      The EC2 image ID for the worker nodes taken from the Parameter
+      Store of the AWS Systems Manager.  See
+      https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
+      for a list of AWS AMIs available for EKS.
+
+  NodeKeyPairName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: indivupipe-eks
+    Description: >-
+      The EC2 key pair to allow SSH access to the instances.
+
   NodeRoleName:
     Type: String
     Default: eks-node-instance-role
@@ -43,10 +73,59 @@ Parameters:
       nodes such that they can register with the master nodes of the
       control plane.
 
+  NodeRootVolumeSizeSmall:
+    Type: Number
+    Default: 50
+    MinValue: 20
+    Description: >-
+      The root volume size of small worker nodes.
+
+  NodeTypeSmall:
+    Type: String
+    Default: m5.xlarge
+    AllowedValues:
+      - m5.xlarge
+      - m5a.xlarge
+      - m5d.xlarge
+      - m5n.xlarge
+      - m5dn.xlarge
+      - m4.xlarge
+    Description: >-
+      The EC2 instance type for small worker nodes.  The types must be
+      similar in terms of CPU cores and main memory for the Kubernetes
+      cluster auto scaler to work right.  See
+      https://aws.amazon.com/de/ec2/instance-types/.
+
   VpcNetworkId:
     Type: AWS::EC2::VPC::Id
     Description: >-
       The VPC of the worker nodes.
+
+  VpcSubnetCount:
+    Type: Number
+    Default: 3
+    AllowedValues: [1, 2, 3]
+    Description: >-
+      The number of subnets. Must be less than or equal to the number of
+      subnet IDs selected.
+
+  VpcSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: >-
+      The subnets where the worker nodes can be created.
+
+Conditions:
+
+  HasFirstVpcSubnet:
+    !Equals [!Ref VpcSubnetCount, 1]
+
+  HasNodeConfigSmallEnabled:
+    !Equals [!Ref NodeConfigSmallEnabled, true]
+
+  HasNodeLaunchSmallAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
 
 Resources:
 
@@ -141,3 +220,51 @@ Resources:
       IpProtocol: tcp
       ToPort: 443
       FromPort: 443
+
+  NodeLaunchSmallAzOne:
+    Condition: HasNodeLaunchSmallAzOne
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeSmall
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeSmall
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [0, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-small-az1
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgSmallAzOne  \
+                      --region ${AWS::Region}
