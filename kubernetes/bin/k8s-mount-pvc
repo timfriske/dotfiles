@@ -1,0 +1,65 @@
+#!/usr/bin/env sh
+#
+# K8S Mount PVC
+# =============
+# Tim Friske <me@tifr.de>
+#
+# Script that helps to look inside a Kubernetes Persistent Volume.
+#
+# This is especially useful if the code that ran inside a Kubernetes Pod failed
+# for some unknown reason and you suspect the error was caused by some missing
+# files or wrong file permissions.
+#
+# In order to accomplish that a Kubernetes Pod with a Container running the
+# latest Busybox image is launched. The Persistent Volume that corresponds to
+# the given Persistent Volume Claim is attached to the Pod and mounted into the
+# Container. Once the Pod is ready an interactive login shell is started. For
+# this the `ash` shell that comes with Busybox is used.
+
+# Fail-fast script execution.
+#
+set -o errexit -o nounset
+
+if [ -z "${pvc:-}" ]; then
+  echo "Name of Kubernetes Persistent Volume Claim must be given!"
+  echo "For example as follows: pvc=foobar-x4y2z-data k8s-mount-pvc.sh"
+  echo "Exiting ..."
+  exit 1
+fi
+
+echo "Creating Kubernetes Pod 'k8s-mount-pvc-$pvc' ..."
+echo "Creating Kubernetes Container 'mount' inside 'k8s-mount-pvc-$pvc' ..."
+echo "Running Kubernetes Container 'mount' with latest 'busybox' image ..."
+echo "Attaching Kubernetes Persistent Volume Claim to 'mount' ..."
+echo "Mounting Kubernetes Persistent Volume under '/mnt' point ..."
+kubectl apply --filename=- <<EOF
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: "k8s-mount-pvc-$pvc"
+spec:
+  containers:
+    - name: mount
+      image: busybox
+      command: [/bin/sh, -ceux, --]
+      args: [tail -f /dev/null]
+      volumeMounts:
+        - name: "k8s-mount-pvc-$pvc"
+          mountPath: /mnt
+  volumes:
+    - name: k8s-mount-pvc-$pvc
+      persistentVolumeClaim:
+       claimName: "$pvc"
+EOF
+
+echo "Waiting until Kubernetes Pod 'k8s-mount-pvc-$pvc' is ready ..."
+kubectl wait --for=condition=Ready --timeout=30s "pod/k8s-mount-pvc-$pvc"
+
+echo "Logging into Kubernetes Pod 'k8s-mount-pvc-$pvc', Container 'mount' ..."
+echo "Using 'ash' as an interactive shell for the login session ..."
+(kubectl exec "k8s-mount-pvc-$pvc" --container=mount --stdin=true --tty=true \
+  -- ash) || true
+
+echo "Deleting Kubernetes Pod 'k8s-mount-pvc-$pvc' in background ..."
+kubectl delete "pod/k8s-mount-pvc-$pvc" 2>&1  >/dev/null &
