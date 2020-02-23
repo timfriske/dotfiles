@@ -26,3 +26,24 @@ if [ -z "${pvc:-}" ]; then
   echo "Exiting ..."
   exit 1
 fi
+
+kubectl apply --filename=- <<EOF
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: "k8s-mount-pvc-$pvc"
+spec:
+  containers:
+    - name: mount
+      image: busybox
+      command: [/bin/sh, -ceux, --]
+      args: [tail -f /dev/null]
+      volumeMounts:
+        - name: "k8s-mount-pvc-$pvc"
+          mountPath: /mnt
+  volumes:
+    - name: k8s-mount-pvc-$pvc
+      persistentVolumeClaim:
+       claimName: "$pvc"
+EOF
