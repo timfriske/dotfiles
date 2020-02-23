@@ -90,3 +90,16 @@ Resources:
       IpProtocol: tcp
       FromPort: 1025
       ToPort: 65535
+
+  ClusterControlPlaneEgressToNodeSecurityGroup:
+    Type: AWS::EC2::SecurityGroupEgress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow the cluster control plane to communicate with the kubelets
+        and pods running on the worker nodes.
+      GroupId: !Ref ClusterControlPlaneSecurityGroup
+      DestinationSecurityGroupId: !Ref NodeSecurityGroup
+      IpProtocol: tcp
+      FromPort: 1025
+      ToPort: 65535
