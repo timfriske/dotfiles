@@ -53,3 +53,9 @@ Resources:
       Tags:
         - Key: Name
           Value: ${AWS::StackName}-internet-gateway
+
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref Network
