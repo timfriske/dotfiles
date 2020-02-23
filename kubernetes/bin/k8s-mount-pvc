@@ -55,3 +55,8 @@ EOF
 
 echo "Waiting until Kubernetes Pod 'k8s-mount-pvc-$pvc' is ready ..."
 kubectl wait --for=condition=Ready --timeout=30s "pod/k8s-mount-pvc-$pvc"
+
+echo "Logging into Kubernetes Pod 'k8s-mount-pvc-$pvc', Container 'mount' ..."
+echo "Using 'ash' as an interactive shell for the login session ..."
+(kubectl exec "k8s-mount-pvc-$pvc" --container=mount --stdin=true --tty=true \
+  -- ash) || true
