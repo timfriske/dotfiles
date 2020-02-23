@@ -103,3 +103,16 @@ Resources:
       IpProtocol: tcp
       FromPort: 1025
       ToPort: 65535
+
+  NodeSecurityGroupFromClusterControlPlaneOn443Ingress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow pods running extension API servers on port 443 to receive
+        communication from cluster control plane.
+      GroupId: !Ref NodeSecurityGroup
+      SourceSecurityGroupId: !Ref ClusterControlPlaneSecurityGroup
+      IpProtocol: tcp
+      FromPort: 443
+      ToPort: 443
