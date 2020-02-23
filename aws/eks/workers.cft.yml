@@ -60,3 +60,15 @@ Resources:
       Tags:
         - Key: !Sub kubernetes.io/cluster/${ClusterName}
           Value: owned
+
+  NodeSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow nodes to communicate with each other.
+      GroupId: !Ref NodeSecurityGroup
+      SourceSecurityGroupId: !Ref NodeSecurityGroup
+      IpProtocol: -1
+      FromPort: 0
+      ToPort: 65535
