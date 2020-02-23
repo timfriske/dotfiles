@@ -1,0 +1,99 @@
+---
+# Amazon AWS EKS Cluster CloudFormation template
+# ==============================================
+# Tim Friske <me@tifr.de>
+#
+# Amazon License
+# --------------
+# Copyright (c) 2018 Amazon.com, Inc. or its affiliates.  All rights
+# reserved.
+#
+# AWS CloudFormation template to create the resources pertaining to the
+# control plane of the EKS cluster.
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >-
+  The Amazon AWS EKS cluster configuration.
+
+Metadata:
+
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+
+      - Label:
+          default: >-
+            Network Configuration
+        Parameters:
+          - VpcNetworkId
+          - VpcSubnetIds
+
+      - Label:
+          default: >-
+            Cluster Configuration
+        Parameters:
+          - ClusterName
+          - EksServiceRoleName
+
+    ParameterLabels:
+
+      ClusterName:
+        default: >-
+          Cluster Name
+
+      EksServiceRoleName:
+        default: >-
+          EKS Service Role Name
+
+      VpcNetworkId:
+        default: >-
+          VPC Network ID
+
+      VpcSubnetIds:
+        default: >-
+          VPC Subnet IDs
+
+Parameters:
+
+  ClusterName:
+    Type: String
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      The cluster name.
+
+  EksServiceRoleName:
+    Type: String
+    Default: eks-service-role
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      The name of the EKS service role. Important note: This role must
+      exist!
+
+  VpcNetworkId:
+    Type: AWS::EC2::VPC::Id
+    Description: >-
+      The VPC of the worker nodes.
+
+  VpcSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: >-
+      The subnets where the worker nodes can be created.
+
+Resources:
+
+  ClusterControlPlaneSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Cluster communication with worker nodes
+      VpcId: !Ref VpcNetworkId
+
+  Cluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: !Ref ClusterName
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+          - !Ref ClusterControlPlaneSecurityGroup
+        SubnetIds: !Ref VpcSubnetIds
+      RoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/${EksServiceRoleName}"
+      Version: '1.14'
