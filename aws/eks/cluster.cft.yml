@@ -16,6 +16,25 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   The Amazon AWS EKS cluster configuration.
 
+Metadata:
+    ParameterLabels:
+
+      ClusterName:
+        default: >-
+          Cluster Name
+
+      EksServiceRoleName:
+        default: >-
+          EKS Service Role Name
+
+      VpcNetworkId:
+        default: >-
+          VPC Network ID
+
+      VpcSubnetIds:
+        default: >-
+          VPC Subnet IDs
+
 Parameters:
 
   ClusterName:
