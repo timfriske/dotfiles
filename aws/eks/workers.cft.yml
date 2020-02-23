@@ -23,6 +23,11 @@ Description: >-
 
 Parameters:
 
+  ClusterControlPlaneSecurityGroup:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: >-
+      The security group of the cluster control plane.
+
   ClusterName:
     Type: String
     AllowedPattern: "^\\S+$"
@@ -71,4 +76,17 @@ Resources:
       SourceSecurityGroupId: !Ref NodeSecurityGroup
       IpProtocol: -1
       FromPort: 0
+      ToPort: 65535
+
+  NodeSecurityGroupFromClusterControlPlaneIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow the kubelets and pods running on the worker nodes to
+        receive communication from the cluster control plane.
+      GroupId: !Ref NodeSecurityGroup
+      SourceSecurityGroupId: !Ref ClusterControlPlaneSecurityGroup
+      IpProtocol: tcp
+      FromPort: 1025
       ToPort: 65535
