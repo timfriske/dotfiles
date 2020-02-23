@@ -5,3 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Script that helps to look inside a Kubernetes Persistent Volume.
+#
+# This is especially useful if the code that ran inside a Kubernetes Pod failed
+# for some unknown reason and you suspect the error was caused by some missing
+# files or wrong file permissions.
