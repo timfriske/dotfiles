@@ -23,6 +23,29 @@ Description: >-
 
 Metadata:
 
+  AWS::CloudFormation::Interface:
+    ParameterLabels:
+
+      ClusterName:
+        default: >-
+          Cluster Name
+
+      VpcNetworkCidrBlock:
+        default: >-
+          VPC Network CIDR Block
+
+      VpcSubnetPublicAzOneCidrBlock:
+        default: >-
+          VPC Subnet Public AZ One CIDR Block
+
+      VpcSubnetPublicAzTwoCidrBlock:
+        default: >-
+          VPC Subnet Public AZ Two CIDR Block
+
+      VpcSubnetPublicAzThreeCidrBlock:
+        default: >-
+          VPC Subnet Public AZ Three CIDR Block
+
 Parameters:
 
   ClusterName:
