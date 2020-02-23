@@ -12,3 +12,6 @@
 # https://amazon-eks.s3-us-west-2.amazonaws.com/[Amazon EKS S3 bucket]
 # GitHub repository.  Its original version can be found under
 # `/cloudformation/2019-02-11/amazon-eks-nodegroup.yaml`.
+#
+# AWS CloudFormation template to create the resources pertaining to the
+# worker nodes of the EKS cluster.
