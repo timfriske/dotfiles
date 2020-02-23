@@ -19,3 +19,10 @@
 # Fail-fast script execution.
 #
 set -o errexit -o nounset
+
+if [ -z "${pvc:-}" ]; then
+  echo "Name of Kubernetes Persistent Volume Claim must be given!"
+  echo "For example as follows: pvc=foobar-x4y2z-data k8s-mount-pvc.sh"
+  echo "Exiting ..."
+  exit 1
+fi
