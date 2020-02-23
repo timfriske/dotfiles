@@ -17,6 +17,24 @@ Description: >-
   The Amazon AWS EKS cluster configuration.
 
 Metadata:
+
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+
+      - Label:
+          default: >-
+            Network Configuration
+        Parameters:
+          - VpcNetworkId
+          - VpcSubnetIds
+
+      - Label:
+          default: >-
+            Cluster Configuration
+        Parameters:
+          - ClusterName
+          - EksServiceRoleName
+
     ParameterLabels:
 
       ClusterName:
