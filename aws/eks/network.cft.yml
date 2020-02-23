@@ -183,3 +183,9 @@ Resources:
         - Key: !Sub kubernetes.io/cluster/${ClusterName}
           Value: shared
       VpcId: !Ref Network
+
+  SubnetPublicAzOneRouteTableAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref SubnetPublicAzOne
