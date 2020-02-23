@@ -15,3 +15,18 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Description: >-
   The Amazon AWS EKS cluster configuration.
+
+Parameters:
+
+  VpcNetworkId:
+    Type: AWS::EC2::VPC::Id
+    Description: >-
+      The VPC of the worker nodes.
+
+Resources:
+
+  ClusterControlPlaneSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Cluster communication with worker nodes
+      VpcId: !Ref VpcNetworkId
