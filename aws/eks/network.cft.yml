@@ -195,3 +195,10 @@ Resources:
     Properties:
       RouteTableId: !Ref RouteTable
       SubnetId: !Ref SubnetPublicAzTwo
+
+  SubnetPublicAzThreeRouteTableAssoc:
+    Condition: HasMoreThanTwoAzs
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref SubnetPublicAzThree
