@@ -3,3 +3,5 @@
 # K8S Mount PVC
 # =============
 # Tim Friske <me@tifr.de>
+#
+# Script that helps to look inside a Kubernetes Persistent Volume.
