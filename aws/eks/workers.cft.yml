@@ -23,6 +23,12 @@ Description: >-
 
 Parameters:
 
+  ClusterName:
+    Type: String
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      The cluster name.
+
   NodeRoleName:
     Type: String
     Default: eks-node-instance-role
@@ -32,6 +38,11 @@ Parameters:
       nodes such that they can register with the master nodes of the
       control plane.
 
+  VpcNetworkId:
+    Type: AWS::EC2::VPC::Id
+    Description: >-
+      The VPC of the worker nodes.
+
 Resources:
 
   NodeProfile:
@@ -40,3 +51,12 @@ Resources:
       Path: '/'
       Roles:
         - !Ref NodeRoleName
+
+  NodeSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for all nodes in the cluster
+      VpcId: !Ref VpcNetworkId
+      Tags:
+        - Key: !Sub kubernetes.io/cluster/${ClusterName}
+          Value: owned
