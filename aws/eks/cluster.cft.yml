@@ -18,10 +18,29 @@ Description: >-
 
 Parameters:
 
+  ClusterName:
+    Type: String
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      The cluster name.
+
+  EksServiceRoleName:
+    Type: String
+    Default: eks-service-role
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      The name of the EKS service role. Important note: This role must
+      exist!
+
   VpcNetworkId:
     Type: AWS::EC2::VPC::Id
     Description: >-
       The VPC of the worker nodes.
+
+  VpcSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: >-
+      The subnets where the worker nodes can be created.
 
 Resources:
 
@@ -30,3 +49,14 @@ Resources:
     Properties:
       GroupDescription: Cluster communication with worker nodes
       VpcId: !Ref VpcNetworkId
+
+  Cluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: !Ref ClusterName
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+          - !Ref ClusterControlPlaneSecurityGroup
+        SubnetIds: !Ref VpcSubnetIds
+      RoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/${EksServiceRoleName}"
+      Version: '1.14'
