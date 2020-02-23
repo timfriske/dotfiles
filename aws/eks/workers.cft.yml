@@ -116,8 +116,13 @@ Parameters:
 
 Conditions:
 
+  HasSecondVpcSubnet:
+    !Equals [!Ref VpcSubnetCount, 2]
+
   HasFirstVpcSubnet:
-    !Equals [!Ref VpcSubnetCount, 1]
+    Fn::Or:
+      - !Equals [!Ref VpcSubnetCount, 1]
+      - Condition: HasSecondVpcSubnet
 
   HasNodeConfigSmallEnabled:
     !Equals [!Ref NodeConfigSmallEnabled, true]
@@ -125,6 +130,11 @@ Conditions:
   HasNodeLaunchSmallAzOne:
     Fn::And:
       - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeLaunchSmallAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
       - Condition: HasNodeConfigSmallEnabled
 
 Resources:
@@ -267,4 +277,52 @@ Resources:
               /opt/aws/bin/cfn-signal --exit-code $? \
                       --stack  ${AWS::StackName} \
                       --resource NodeAsgSmallAzOne  \
+                      --region ${AWS::Region}
+
+  NodeLaunchSmallAzTwo:
+    Condition: HasNodeLaunchSmallAzTwo
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeSmall
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeSmall
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [1, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-small-az2
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgSmallAzTwo  \
                       --region ${AWS::Region}
