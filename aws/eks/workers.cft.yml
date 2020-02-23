@@ -17,3 +17,6 @@
 # worker nodes of the EKS cluster.
 
 AWSTemplateFormatVersion: 2010-09-09
+
+Description: >-
+  The Amazon AWS EKS worker nodes configuration.
