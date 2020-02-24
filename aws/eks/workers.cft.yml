@@ -40,6 +40,15 @@ Parameters:
       The arguments to pass to the bootstrap script. See
       files/bootstrap.sh in https://github.com/awslabs/amazon-eks-ami.
 
+  NodeConfigLargeEnabled:
+    Type: String
+    Default: true
+    AllowedValues: [false, true]
+    Description: >-
+      The switch whether to enable or disable the large node
+      configuration.  See
+      https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html.
+
   NodeConfigMediumEnabled:
     Type: String
     Default: true
@@ -82,6 +91,13 @@ Parameters:
       nodes such that they can register with the master nodes of the
       control plane.
 
+  NodeRootVolumeSizeLarge:
+    Type: Number
+    Default: 50
+    MinValue: 20
+    Description: >-
+      The root volume size of large worker nodes.
+
   NodeRootVolumeSizeMedium:
     Type: Number
     Default: 50
@@ -95,6 +111,22 @@ Parameters:
     MinValue: 20
     Description: >-
       The root volume size of small worker nodes.
+
+  NodeTypeLarge:
+    Type: String
+    Default: m5.4xlarge
+    AllowedValues:
+      - m5.4xlarge
+      - m5a.4xlarge
+      - m5d.4xlarge
+      - m5n.4xlarge
+      - m5dn.4xlarge
+      - m4.4xlarge
+    Description: >-
+      The EC2 instance type for large worker nodes.  The types must be
+      similar in terms of CPU cores and main memory for the Kubernetes
+      cluster auto scaler to work right.  See
+      https://aws.amazon.com/de/ec2/instance-types/.
 
   NodeTypeMedium:
     Type: String
@@ -161,11 +193,19 @@ Conditions:
       - !Equals [!Ref VpcSubnetCount, 1]
       - Condition: HasSecondVpcSubnet
 
+  HasNodeConfigLargeEnabled:
+    !Equals [!Ref NodeConfigLargeEnabled, true]
+
   HasNodeConfigMediumEnabled:
     !Equals [!Ref NodeConfigMediumEnabled, true]
 
   HasNodeConfigSmallEnabled:
     !Equals [!Ref NodeConfigSmallEnabled, true]
+
+  HasNodeLaunchLargeAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
 
   HasNodeLaunchMediumAzOne:
     Fn::And:
@@ -577,4 +617,52 @@ Resources:
               /opt/aws/bin/cfn-signal --exit-code $? \
                       --stack  ${AWS::StackName} \
                       --resource NodeAsgMediumAzThree  \
+                      --region ${AWS::Region}
+
+  NodeLaunchLargeAzOne:
+    Condition: HasNodeLaunchLargeAzOne
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeLarge
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeLarge
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [0, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-large-az1
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgLargeAzOne  \
                       --region ${AWS::Region}
