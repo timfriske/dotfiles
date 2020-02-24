@@ -207,6 +207,11 @@ Conditions:
       - Condition: HasFirstVpcSubnet
       - Condition: HasNodeConfigLargeEnabled
 
+  HasNodeLaunchLargeAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
+
   HasNodeLaunchMediumAzOne:
     Fn::And:
       - Condition: HasFirstVpcSubnet
@@ -665,4 +670,52 @@ Resources:
               /opt/aws/bin/cfn-signal --exit-code $? \
                       --stack  ${AWS::StackName} \
                       --resource NodeAsgLargeAzOne  \
+                      --region ${AWS::Region}
+
+  NodeLaunchLargeAzTwo:
+    Condition: HasNodeLaunchLargeAzTwo
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeLarge
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeLarge
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [1, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-large-az2
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgLargeAzTwo  \
                       --region ${AWS::Region}
