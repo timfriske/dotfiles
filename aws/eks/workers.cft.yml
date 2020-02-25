@@ -41,6 +41,15 @@ Metadata:
           - ClusterName
           - ClusterControlPlaneSecurityGroup
 
+      - Label:
+          default: >-
+            Node Configuration General
+        Parameters:
+          - NodeImageId
+          - NodeKeyPairName
+          - NodeBootstrapArgs
+          - NodeRoleName
+
     ParameterLabels:
 
       ClusterControlPlaneSecurityGroup:
@@ -50,6 +59,22 @@ Metadata:
       ClusterName:
         default: >-
           Cluster Name
+
+      NodeBootstrapArgs:
+        default: >-
+          Node Bootstrap Arguments
+
+      NodeImageId:
+        default: >-
+          Node Image ID
+
+      NodeKeyPairName:
+        default: >-
+          Node Key Pair Name
+
+      NodeRoleName:
+        default: >-
+          Node Role Name
 
       VpcNetworkId:
         default: >-
