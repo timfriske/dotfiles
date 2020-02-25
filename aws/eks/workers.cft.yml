@@ -34,6 +34,30 @@ Parameters:
     Description: >-
       The cluster name.
 
+  NodeAsgDesiredSizeSmall:
+    Type: Number
+    Default: 1
+    MinValue: 0
+    Description: >-
+      The desired size of the auto scaling group for small worker nodes.
+      It must be between the minimum and maximum size.
+
+  NodeAsgMaxSizeSmall:
+    Type: Number
+    Default: 4
+    MinValue: 0
+    Description: >-
+      The maximum size of the auto scaling group for small worker nodes.
+      It must be greater than or equal to the minimum size.
+
+  NodeAsgMinSizeSmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum size of the auto scaling group for small worker nodes.
+      It must be less or equal than the desired size.
+
   NodeBootstrapArgs:
     Type: String
     Description: >-
@@ -82,6 +106,41 @@ Parameters:
     Description: >-
       The EC2 key pair to allow SSH access to the instances.
 
+  NodeMaxSpotPriceSmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The maximum price per unit hour that you are willing to pay for a
+      small spot Instance. If you leave the value of this property at 0
+      (which is the default), the maximum spot price is set at the
+      on-demand price.  See https://aws.amazon.com/de/ec2/pricing/.
+
+  NodeOnDemandBaseCapacitySmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum amount of the auto scaling group's capacity that must
+      be fulfilled by on-demand instances.  This base portion is
+      provisioned first as your group scales.  The default value is 0.
+      If you leave this property set to 0, on-demand instances are
+      launched as a percentage of the auto scaling group's desired
+      capacity, per the OnDemandPercentageAboveBaseCapacity setting.
+
+  NodeOnDemandPercentageAboveBaseCapacitySmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    MaxValue: 100
+    Description: >-
+      The percentages of on-demand instances and spot instances for your
+      additional capacity beyond OnDemandBaseCapacity.  The range is
+      0-100.  The default value is 100.  If you leave this property set
+      to 100, the percentages are 100% for on-demand instances and 0%
+      for spot instances.  Important note: A deviating default value of
+      0% was chosen here in order to run on spot instances only!
+
   NodeRoleName:
     Type: String
     Default: eks-node-instance-role
@@ -111,6 +170,34 @@ Parameters:
     MinValue: 20
     Description: >-
       The root volume size of small worker nodes.
+
+  NodeSpotAllocationStrategySmall:
+    Type: String
+    Default: capacity-optimized
+    AllowedValues:
+      - capacity-optimized
+      - lowest-price
+    Description: >-
+      The strategy how to allocate spot capacity across spot pools.  If
+      the allocation strategy is lowest-price, the auto scaling group
+      launches instances using the spot pools with the lowest price, and
+      evenly allocates your instances across the number of spot pools
+      that you specify.  If the allocation strategy is
+      capacity-optimized, the auto scaling group launches instances
+      using spot pools that are optimally chosen based on the available
+      spot capacity.
+
+  NodeSpotInstancePoolsSmall:
+    Type: Number
+    Default: 2
+    MinValue: 1
+    MaxValue: 20
+    Description: >-
+      The number of spot pools to use to allocate your spot capacity.
+      The spot pools are determined from the different instance types in
+      the Overrides array of LaunchTemplate.  The range is 1-20.  The
+      default value is 2.  Valid only when the spot allocation strategy
+      is lowest-price.
 
   NodeTypeLarge:
     Type: String
@@ -180,6 +267,9 @@ Parameters:
 
 Conditions:
 
+  HasNodeMaxSpotPriceSmall:
+    !Not [!Equals [!Ref NodeMaxSpotPriceSmall, 0]]
+
   HasThirdVpcSubnet:
     !Equals [!Ref VpcSubnetCount, 3]
 
@@ -201,6 +291,11 @@ Conditions:
 
   HasNodeConfigSmallEnabled:
     !Equals [!Ref NodeConfigSmallEnabled, true]
+
+  HasNodeAsgSmallAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
 
   HasNodeLaunchLargeAzOne:
     Fn::And:
@@ -246,6 +341,9 @@ Conditions:
     Fn::And:
       - Condition: HasThirdVpcSubnet
       - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeSpotInstancePoolsSmall:
+      !Equals [!Ref NodeSpotAllocationStrategySmall, lowest-price]
 
 Resources:
 
@@ -340,6 +438,60 @@ Resources:
       IpProtocol: tcp
       ToPort: 443
       FromPort: 443
+
+  NodeAsgSmallAzOne:
+    Condition: HasNodeAsgSmallAzOne
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeSmall
+      MaxSize: !Ref NodeAsgMaxSizeSmall
+      MinSize: !Ref NodeAsgMinSizeSmall
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacitySmall
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacitySmall
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategySmall
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsSmall
+              - !Ref NodeSpotInstancePoolsSmall
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceSmall
+              - !Ref NodeMaxSpotPriceSmall
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchSmallAzOne
+            Version: !GetAtt NodeLaunchSmallAzOne.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.xlarge
+            - InstanceType: m5a.xlarge
+            - InstanceType: m5d.xlarge
+            - InstanceType: m5n.xlarge
+            - InstanceType: m5dn.xlarge
+            - InstanceType: m4.xlarge
+      VPCZoneIdentifier:
+        - !Select [0, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
 
   NodeLaunchSmallAzOne:
     Condition: HasNodeLaunchSmallAzOne
