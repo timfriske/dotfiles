@@ -387,6 +387,11 @@ Conditions:
       - Condition: HasFirstVpcSubnet
       - Condition: HasNodeConfigMediumEnabled
 
+  HasNodeAsgMediumAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigMediumEnabled
+
   HasNodeAsgSmallAzOne:
     Fn::And:
       - Condition: HasFirstVpcSubnet
@@ -746,6 +751,60 @@ Resources:
             - InstanceType: m4.2xlarge
       VPCZoneIdentifier:
         - !Select [0, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgMediumAzTwo:
+    Condition: HasNodeAsgMediumAzTwo
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeMedium
+      MaxSize: !Ref NodeAsgMaxSizeMedium
+      MinSize: !Ref NodeAsgMinSizeMedium
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityMedium
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityMedium
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyMedium
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsMedium
+              - !Ref NodeSpotInstancePoolsMedium
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceMedium
+              - !Ref NodeMaxSpotPriceMedium
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchMediumAzTwo
+            Version: !GetAtt NodeLaunchMediumAzTwo.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.2xlarge
+            - InstanceType: m5a.2xlarge
+            - InstanceType: m5d.2xlarge
+            - InstanceType: m5n.2xlarge
+            - InstanceType: m5dn.2xlarge
+            - InstanceType: m4.2xlarge
+      VPCZoneIdentifier:
+        - !Select [1, !Ref VpcSubnetIds]
       Tags:
         - Key: k8s.io/cluster-autoscaler/enabled
           Value: ''
