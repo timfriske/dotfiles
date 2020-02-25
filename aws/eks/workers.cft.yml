@@ -34,6 +34,14 @@ Parameters:
     Description: >-
       The cluster name.
 
+  NodeAsgDesiredSizeLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The desired size of the auto scaling group for large worker nodes.
+      It must be between the minimum and maximum size.
+
   NodeAsgDesiredSizeMedium:
     Type: Number
     Default: 0
@@ -50,6 +58,14 @@ Parameters:
       The desired size of the auto scaling group for small worker nodes.
       It must be between the minimum and maximum size.
 
+  NodeAsgMaxSizeLarge:
+    Type: Number
+    Default: 4
+    MinValue: 0
+    Description: >-
+      The maximum size of the auto scaling group for large worker nodes.
+      It must be greater than or equal to the minimum size.
+
   NodeAsgMaxSizeMedium:
     Type: Number
     Default: 4
@@ -65,6 +81,14 @@ Parameters:
     Description: >-
       The maximum size of the auto scaling group for small worker nodes.
       It must be greater than or equal to the minimum size.
+
+  NodeAsgMinSizeLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum size of the auto scaling group for large worker nodes.
+      It must be less than or equal to the desired size.
 
   NodeAsgMinSizeMedium:
     Type: Number
@@ -130,6 +154,16 @@ Parameters:
     Description: >-
       The EC2 key pair to allow SSH access to the instances.
 
+  NodeMaxSpotPriceLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The maximum price per unit hour that you are willing to pay for a
+      large spot instance. If you leave the value of this property at 0
+      (which is the default), the maximum spot price is set at the
+      on-demand price.  See https://aws.amazon.com/de/ec2/pricing/.
+
   NodeMaxSpotPriceMedium:
     Type: Number
     Default: 0
@@ -149,6 +183,18 @@ Parameters:
       small spot Instance. If you leave the value of this property at 0
       (which is the default), the maximum spot price is set at the
       on-demand price.  See https://aws.amazon.com/de/ec2/pricing/.
+
+  NodeOnDemandBaseCapacityLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum amount of the auto scaling group's capacity that must
+      be fulfilled by on-demand instances.  This base portion is
+      provisioned first as your group scales.  The default value is 0.
+      If you leave this property set to 0, on-demand instances are
+      launched as a percentage of the auto scaling group's desired
+      capacity, per the OnDemandPercentageAboveBaseCapacity setting.
 
   NodeOnDemandBaseCapacityMedium:
     Type: Number
@@ -173,6 +219,19 @@ Parameters:
       If you leave this property set to 0, on-demand instances are
       launched as a percentage of the auto scaling group's desired
       capacity, per the OnDemandPercentageAboveBaseCapacity setting.
+
+  NodeOnDemandPercentageAboveBaseCapacityLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    MaxValue: 100
+    Description: >-
+      The percentages of on-demand instances and spot instances for your
+      additional capacity beyond OnDemandBaseCapacity.  The range is
+      0-100.  The default value is 100.  If you leave this property set
+      to 100, the percentages are 100% for on-demand instances and 0%
+      for spot instances.  Important note: A deviating default value of
+      0% was chosen here in order to run on spot instances only!
 
   NodeOnDemandPercentageAboveBaseCapacityMedium:
     Type: Number
@@ -230,6 +289,22 @@ Parameters:
     Description: >-
       The root volume size of small worker nodes.
 
+  NodeSpotAllocationStrategyLarge:
+    Type: String
+    Default: capacity-optimized
+    AllowedValues:
+      - capacity-optimized
+      - lowest-price
+    Description: >-
+      The strategy how to allocate spot capacity across spot pools.  If
+      the allocation strategy is lowest-price, the auto scaling group
+      launches instances using the spot pools with the lowest price, and
+      evenly allocates your instances across the number of spot pools
+      that you specify.  If the allocation strategy is
+      capacity-optimized, the auto scaling group launches instances
+      using spot pools that are optimally chosen based on the available
+      spot capacity.
+
   NodeSpotAllocationStrategyMedium:
     Type: String
     Default: capacity-optimized
@@ -261,6 +336,18 @@ Parameters:
       capacity-optimized, the auto scaling group launches instances
       using spot pools that are optimally chosen based on the available
       spot capacity.
+
+  NodeSpotInstancePoolsLarge:
+    Type: Number
+    Default: 2
+    MinValue: 1
+    MaxValue: 20
+    Description: >-
+      The number of spot pools to use to allocate your spot capacity.
+      The spot pools are determined from the different instance types in
+      the Overrides array of LaunchTemplate.  The range is 1-20.  The
+      default value is 2.  Valid only when the spot allocation strategy
+      is lowest-price.
 
   NodeSpotInstancePoolsMedium:
     Type: Number
@@ -354,6 +441,9 @@ Parameters:
 
 Conditions:
 
+  HasNodeMaxSpotPriceLarge:
+    !Not [!Equals [!Ref NodeMaxSpotPriceLarge, 0]]
+
   HasNodeMaxSpotPriceMedium:
     !Not [!Equals [!Ref NodeMaxSpotPriceMedium, 0]]
 
@@ -381,6 +471,11 @@ Conditions:
 
   HasNodeConfigSmallEnabled:
     !Equals [!Ref NodeConfigSmallEnabled, true]
+
+  HasNodeAsgLargeAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
 
   HasNodeAsgMediumAzOne:
     Fn::And:
@@ -456,6 +551,9 @@ Conditions:
     Fn::And:
       - Condition: HasThirdVpcSubnet
       - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeSpotInstancePoolsLarge:
+      !Equals [!Ref NodeSpotAllocationStrategyLarge, lowest-price]
 
   HasNodeSpotInstancePoolsMedium:
       !Equals [!Ref NodeSpotAllocationStrategyMedium, lowest-price]
@@ -864,6 +962,60 @@ Resources:
             - InstanceType: m4.2xlarge
       VPCZoneIdentifier:
         - !Select [2, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgLargeAzOne:
+    Condition: HasNodeAsgLargeAzOne
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeLarge
+      MaxSize: !Ref NodeAsgMaxSizeLarge
+      MinSize: !Ref NodeAsgMinSizeLarge
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityLarge
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityLarge
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyLarge
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsLarge
+              - !Ref NodeSpotInstancePoolsLarge
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceLarge
+              - !Ref NodeMaxSpotPriceLarge
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchLargeAzOne
+            Version: !GetAtt NodeLaunchLargeAzOne.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.4xlarge
+            - InstanceType: m5a.4xlarge
+            - InstanceType: m5d.4xlarge
+            - InstanceType: m5n.4xlarge
+            - InstanceType: m5dn.4xlarge
+            - InstanceType: m4.4xlarge
+      VPCZoneIdentifier:
+        - !Select [0, !Ref VpcSubnetIds]
       Tags:
         - Key: k8s.io/cluster-autoscaler/enabled
           Value: ''
