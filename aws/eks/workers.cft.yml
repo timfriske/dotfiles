@@ -34,7 +34,22 @@ Metadata:
           - VpcSubnetCount
           - VpcSubnetIds
 
+      - Label:
+          default: >-
+            Cluster Configuration
+        Parameters:
+          - ClusterName
+          - ClusterControlPlaneSecurityGroup
+
     ParameterLabels:
+
+      ClusterControlPlaneSecurityGroup:
+        default: >-
+          Cluster Control Plane Security Group
+
+      ClusterName:
+        default: >-
+          Cluster Name
 
       VpcNetworkId:
         default: >-
