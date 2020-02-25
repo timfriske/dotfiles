@@ -302,6 +302,11 @@ Conditions:
       - Condition: HasSecondVpcSubnet
       - Condition: HasNodeConfigSmallEnabled
 
+  HasNodeAsgSmallAzThree:
+    Fn::And:
+      - Condition: HasThirdVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
   HasNodeLaunchLargeAzOne:
     Fn::And:
       - Condition: HasFirstVpcSubnet
@@ -535,6 +540,60 @@ Resources:
             - InstanceType: m4.xlarge
       VPCZoneIdentifier:
         - !Select [1, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgSmallAzThree:
+    Condition: HasNodeAsgSmallAzThree
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeSmall
+      MaxSize: !Ref NodeAsgMaxSizeSmall
+      MinSize: !Ref NodeAsgMinSizeSmall
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacitySmall
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacitySmall
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategySmall
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsSmall
+              - !Ref NodeSpotInstancePoolsSmall
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceSmall
+              - !Ref NodeMaxSpotPriceSmall
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchSmallAzThree
+            Version: !GetAtt NodeLaunchSmallAzThree.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.xlarge
+            - InstanceType: m5a.xlarge
+            - InstanceType: m5d.xlarge
+            - InstanceType: m5n.xlarge
+            - InstanceType: m5dn.xlarge
+            - InstanceType: m4.xlarge
+      VPCZoneIdentifier:
+        - !Select [2, !Ref VpcSubnetIds]
       Tags:
         - Key: k8s.io/cluster-autoscaler/enabled
           Value: ''
