@@ -21,6 +21,33 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   The Amazon AWS EKS worker nodes configuration.
 
+Metadata:
+
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+
+      - Label:
+          default: >-
+            Network Configuration
+        Parameters:
+          - VpcNetworkId
+          - VpcSubnetCount
+          - VpcSubnetIds
+
+    ParameterLabels:
+
+      VpcNetworkId:
+        default: >-
+          VPC Network ID
+
+      VpcSubnetCount:
+        default: >-
+          VPC Subnet Count
+
+      VpcSubnetIds:
+        default: >-
+          VPC Subnet IDs
+
 Parameters:
 
   ClusterControlPlaneSecurityGroup:
