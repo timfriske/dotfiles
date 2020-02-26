@@ -66,6 +66,22 @@ Metadata:
           - NodeSpotAllocationStrategySmall
           - NodeSpotInstancePoolsSmall
 
+      - Label:
+          default: >-
+            Node Configuration Medium
+        Parameters:
+          - NodeConfigMediumEnabled
+          - NodeTypeMedium
+          - NodeMaxSpotPriceMedium
+          - NodeRootVolumeSizeMedium
+          - NodeAsgMinSizeMedium
+          - NodeAsgDesiredSizeMedium
+          - NodeAsgMaxSizeMedium
+          - NodeOnDemandBaseCapacityMedium
+          - NodeOnDemandPercentageAboveBaseCapacityMedium
+          - NodeSpotAllocationStrategyMedium
+          - NodeSpotInstancePoolsMedium
+
     ParameterLabels:
 
       ClusterControlPlaneSecurityGroup:
@@ -76,13 +92,25 @@ Metadata:
         default: >-
           Cluster Name
 
+      NodeAsgDesiredSizeMedium:
+        default: >-
+          Node ASG Desired Size Medium
+
       NodeAsgDesiredSizeSmall:
         default: >-
           Node ASG Desired Size Small
 
+      NodeAsgMaxSizeMedium:
+        default: >-
+          Node ASG Maximum Size Medium
+
       NodeAsgMaxSizeSmall:
         default: >-
           Node ASG Maximum Size Small
+
+      NodeAsgMinSizeMedium:
+        default: >-
+          Node ASG Minimum Size Medium
 
       NodeAsgMinSizeSmall:
         default: >-
@@ -91,6 +119,10 @@ Metadata:
       NodeBootstrapArgs:
         default: >-
           Node Bootstrap Arguments
+
+      NodeConfigMediumEnabled:
+        default: >-
+          Node Configuration Medium Enabled
 
       NodeConfigSmallEnabled:
         default: >-
@@ -104,21 +136,41 @@ Metadata:
         default: >-
           Node Key Pair Name
 
+      NodeMaxSpotPriceMedium:
+        default: >-
+          Node Max Spot Price Medium
+
       NodeMaxSpotPriceSmall:
         default: >-
           Node Max Spot Price Small
+
+      NodeOnDemandBaseCapacityMedium:
+        default: >-
+          Node On-Demand Base Capacity Medium
 
       NodeOnDemandBaseCapacitySmall:
         default: >-
           Node on-demand Base Capacity Small
 
+      NodeOnDemandPercentageAboveBaseCapacityMedium:
+        default: >-
+          Node On-Demand Percentage Above Base Capacity Medium
+
       NodeOnDemandPercentageAboveBaseCapacitySmall:
         default: >-
           Node On-Demand Percentage Above Base Capacity Small
 
+      NodeSpotAllocationStrategyMedium:
+        default: >-
+          Node Spot Allocation Strategy Medium
+
       NodeSpotAllocationStrategySmall:
         default: >-
           Node Spot Allocation Strategy Small
+
+      NodeSpotInstancePoolsMedium:
+        default: >-
+          Node Spot Instance Pools Medium
 
       NodeSpotInstancePoolsSmall:
         default: >-
@@ -128,9 +180,17 @@ Metadata:
         default: >-
           Node Role Name
 
+      NodeRootVolumeSizeMedium:
+        default: >-
+          Node Volume Size Medium in GiB
+
       NodeRootVolumeSizeSmall:
         default: >-
           Node Volume Size Small in GiB
+
+      NodeTypeMedium:
+          default: >-
+            Node Type Medium
 
       NodeTypeSmall:
         default: >-
