@@ -50,6 +50,22 @@ Metadata:
           - NodeBootstrapArgs
           - NodeRoleName
 
+      - Label:
+          default: >-
+            Node Configuration Small
+        Parameters:
+          - NodeConfigSmallEnabled
+          - NodeTypeSmall
+          - NodeMaxSpotPriceSmall
+          - NodeRootVolumeSizeSmall
+          - NodeAsgMinSizeSmall
+          - NodeAsgDesiredSizeSmall
+          - NodeAsgMaxSizeSmall
+          - NodeOnDemandBaseCapacitySmall
+          - NodeOnDemandPercentageAboveBaseCapacitySmall
+          - NodeSpotAllocationStrategySmall
+          - NodeSpotInstancePoolsSmall
+
     ParameterLabels:
 
       ClusterControlPlaneSecurityGroup:
@@ -60,9 +76,25 @@ Metadata:
         default: >-
           Cluster Name
 
+      NodeAsgDesiredSizeSmall:
+        default: >-
+          Node ASG Desired Size Small
+
+      NodeAsgMaxSizeSmall:
+        default: >-
+          Node ASG Maximum Size Small
+
+      NodeAsgMinSizeSmall:
+        default: >-
+          Node ASG Minimum Size Small
+
       NodeBootstrapArgs:
         default: >-
           Node Bootstrap Arguments
+
+      NodeConfigSmallEnabled:
+        default: >-
+          Node Configuration Small Enabled
 
       NodeImageId:
         default: >-
@@ -72,9 +104,37 @@ Metadata:
         default: >-
           Node Key Pair Name
 
+      NodeMaxSpotPriceSmall:
+        default: >-
+          Node Max Spot Price Small
+
+      NodeOnDemandBaseCapacitySmall:
+        default: >-
+          Node on-demand Base Capacity Small
+
+      NodeOnDemandPercentageAboveBaseCapacitySmall:
+        default: >-
+          Node On-Demand Percentage Above Base Capacity Small
+
+      NodeSpotAllocationStrategySmall:
+        default: >-
+          Node Spot Allocation Strategy Small
+
+      NodeSpotInstancePoolsSmall:
+        default: >-
+          Node Spot Instance Pools Small
+
       NodeRoleName:
         default: >-
           Node Role Name
+
+      NodeRootVolumeSizeSmall:
+        default: >-
+          Node Volume Size Small in GiB
+
+      NodeTypeSmall:
+        default: >-
+          Node Type Small
 
       VpcNetworkId:
         default: >-
