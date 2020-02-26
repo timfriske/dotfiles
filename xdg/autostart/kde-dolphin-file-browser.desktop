@@ -1,0 +1,33 @@
+# Autostart of KDE Dolphin
+# ========================
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+Type=Application
+
+Name=Dolphin
+Name[de]=Dolphin
+
+GenericName=File Manager
+GenericName[de]=Dateiverwaltung
+
+Comment=Manages files and folders on file systems
+Comment[de]=Verwaltet Dateien und Ordner auf Dateisystemen
+
+Categories=Qt;KDE;System;FileTools;FileManager;
+
+MimeType=inode/directory;
+
+Icon=system-file-manager
+TryExec=dolphin
+Exec=dolphin %u
+Terminal=false
+OnlyShowIn=KDE
+StartupNotify=true
+InitialPreference=10
+
+X-DBUS-ServiceName=org.kde.dolphin
+X-DBUS-StartupType=
+X-DocPath=dolphin/index.html
+X-KDE-SubstituteUID=false
+X-KDE-Username=
