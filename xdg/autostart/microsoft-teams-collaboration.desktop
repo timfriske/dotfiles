@@ -1,0 +1,27 @@
+# Autostart of Microsoft Teams
+# ============================
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+Type=Application
+
+Name=Microsoft Teams
+Name[de]=Microsoft Teams
+
+GenericName=Collaboration
+GenericName[en_US]=Zusammenarbeit
+
+Comment=Microsoft Teams client for collaboration based on the Electron framework for cross-patform desktop applications.
+Comment[de]=Microsoft Teams Client für Zusammenarbeit basierend auf dem Electron Framework für plattformunabhängige Desktop Applikationen.
+
+Categories=Chat;Network;Office;
+
+Icon=/snap/teams-for-linux/79/meta/gui/icon.png
+TryExec=/snap/bin/teams-for-linux
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/teams-for-linux_teams-for-linux.desktop /snap/bin/teams-for-linux
+Terminal=false
+StartupNotify=true
+StartupWMClass=teams-for-linux
+
+X-KDE-SubstituteUID=false
+X-SnapInstanceName=teams-for-linux
