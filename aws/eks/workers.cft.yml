@@ -82,6 +82,22 @@ Metadata:
           - NodeSpotAllocationStrategyMedium
           - NodeSpotInstancePoolsMedium
 
+      - Label:
+          default: >-
+            Node Configuration Large
+        Parameters:
+          - NodeConfigLargeEnabled
+          - NodeTypeLarge
+          - NodeMaxSpotPriceLarge
+          - NodeRootVolumeSizeLarge
+          - NodeAsgMinSizeLarge
+          - NodeAsgDesiredSizeLarge
+          - NodeAsgMaxSizeLarge
+          - NodeOnDemandBaseCapacityLarge
+          - NodeOnDemandPercentageAboveBaseCapacityLarge
+          - NodeSpotAllocationStrategyLarge
+          - NodeSpotInstancePoolsLarge
+
     ParameterLabels:
 
       ClusterControlPlaneSecurityGroup:
@@ -92,6 +108,10 @@ Metadata:
         default: >-
           Cluster Name
 
+      NodeAsgDesiredSizeLarge:
+        default: >-
+          Node ASG Desired Size Large
+
       NodeAsgDesiredSizeMedium:
         default: >-
           Node ASG Desired Size Medium
@@ -100,6 +120,10 @@ Metadata:
         default: >-
           Node ASG Desired Size Small
 
+      NodeAsgMaxSizeLarge:
+        default: >-
+          Node ASG Maximum Size Large
+
       NodeAsgMaxSizeMedium:
         default: >-
           Node ASG Maximum Size Medium
@@ -107,6 +131,10 @@ Metadata:
       NodeAsgMaxSizeSmall:
         default: >-
           Node ASG Maximum Size Small
+
+      NodeAsgMinSizeLarge:
+        default: >-
+          Node ASG Minimum Size Large
 
       NodeAsgMinSizeMedium:
         default: >-
@@ -119,6 +147,10 @@ Metadata:
       NodeBootstrapArgs:
         default: >-
           Node Bootstrap Arguments
+
+      NodeConfigLargeEnabled:
+        default: >-
+          Node Configuration Large Enabled
 
       NodeConfigMediumEnabled:
         default: >-
@@ -136,6 +168,10 @@ Metadata:
         default: >-
           Node Key Pair Name
 
+      NodeMaxSpotPriceLarge:
+        default: >-
+          Node Max Spot Price Large
+
       NodeMaxSpotPriceMedium:
         default: >-
           Node Max Spot Price Medium
@@ -143,6 +179,10 @@ Metadata:
       NodeMaxSpotPriceSmall:
         default: >-
           Node Max Spot Price Small
+
+      NodeOnDemandBaseCapacityLarge:
+        default: >-
+          Node On-Demand Base Capacity Large
 
       NodeOnDemandBaseCapacityMedium:
         default: >-
@@ -152,6 +192,10 @@ Metadata:
         default: >-
           Node on-demand Base Capacity Small
 
+      NodeOnDemandPercentageAboveBaseCapacityLarge:
+        default: >-
+          Node On-Demand Percentage Above Base Capacity Large
+
       NodeOnDemandPercentageAboveBaseCapacityMedium:
         default: >-
           Node On-Demand Percentage Above Base Capacity Medium
@@ -160,6 +204,10 @@ Metadata:
         default: >-
           Node On-Demand Percentage Above Base Capacity Small
 
+      NodeSpotAllocationStrategyLarge:
+        default: >-
+          Node Spot Allocation Strategy Large
+
       NodeSpotAllocationStrategyMedium:
         default: >-
           Node Spot Allocation Strategy Medium
@@ -167,6 +215,10 @@ Metadata:
       NodeSpotAllocationStrategySmall:
         default: >-
           Node Spot Allocation Strategy Small
+
+      NodeSpotInstancePoolsLarge:
+        default: >-
+          Node Spot Instance Pools Large
 
       NodeSpotInstancePoolsMedium:
         default: >-
@@ -180,6 +232,10 @@ Metadata:
         default: >-
           Node Role Name
 
+      NodeRootVolumeSizeLarge:
+        default: >-
+          Node Volume Size Large in GiB
+
       NodeRootVolumeSizeMedium:
         default: >-
           Node Volume Size Medium in GiB
@@ -187,6 +243,10 @@ Metadata:
       NodeRootVolumeSizeSmall:
         default: >-
           Node Volume Size Small in GiB
+
+      NodeTypeLarge:
+        default: >-
+          Node Type Large
 
       NodeTypeMedium:
           default: >-
