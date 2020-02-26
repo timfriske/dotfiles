@@ -1,0 +1,1831 @@
+---
+# Amazon AWS EKS Workers CloudFormation template
+# ==============================================
+# Tim Friske <me@tifr.de>
+#
+# Amazon License
+# --------------
+# Copyright (c) 2018 Amazon.com, Inc. or its affiliates.  All rights
+# reserved.
+#
+# This file originates from the
+# https://amazon-eks.s3-us-west-2.amazonaws.com/[Amazon EKS S3 bucket]
+# GitHub repository.  Its original version can be found under
+# `/cloudformation/2019-02-11/amazon-eks-nodegroup.yaml`.
+#
+# AWS CloudFormation template to create the resources pertaining to the
+# worker nodes of the EKS cluster.
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >-
+  The Amazon AWS EKS worker nodes configuration.
+
+Metadata:
+
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+
+      - Label:
+          default: >-
+            Network Configuration
+        Parameters:
+          - VpcNetworkId
+          - VpcSubnetCount
+          - VpcSubnetIds
+
+      - Label:
+          default: >-
+            Cluster Configuration
+        Parameters:
+          - ClusterName
+          - ClusterControlPlaneSecurityGroup
+
+      - Label:
+          default: >-
+            Node Configuration General
+        Parameters:
+          - NodeImageId
+          - NodeKeyPairName
+          - NodeBootstrapArgs
+          - NodeRoleName
+
+      - Label:
+          default: >-
+            Node Configuration Small
+        Parameters:
+          - NodeConfigSmallEnabled
+          - NodeTypeSmall
+          - NodeMaxSpotPriceSmall
+          - NodeRootVolumeSizeSmall
+          - NodeAsgMinSizeSmall
+          - NodeAsgDesiredSizeSmall
+          - NodeAsgMaxSizeSmall
+          - NodeOnDemandBaseCapacitySmall
+          - NodeOnDemandPercentageAboveBaseCapacitySmall
+          - NodeSpotAllocationStrategySmall
+          - NodeSpotInstancePoolsSmall
+
+      - Label:
+          default: >-
+            Node Configuration Medium
+        Parameters:
+          - NodeConfigMediumEnabled
+          - NodeTypeMedium
+          - NodeMaxSpotPriceMedium
+          - NodeRootVolumeSizeMedium
+          - NodeAsgMinSizeMedium
+          - NodeAsgDesiredSizeMedium
+          - NodeAsgMaxSizeMedium
+          - NodeOnDemandBaseCapacityMedium
+          - NodeOnDemandPercentageAboveBaseCapacityMedium
+          - NodeSpotAllocationStrategyMedium
+          - NodeSpotInstancePoolsMedium
+
+      - Label:
+          default: >-
+            Node Configuration Large
+        Parameters:
+          - NodeConfigLargeEnabled
+          - NodeTypeLarge
+          - NodeMaxSpotPriceLarge
+          - NodeRootVolumeSizeLarge
+          - NodeAsgMinSizeLarge
+          - NodeAsgDesiredSizeLarge
+          - NodeAsgMaxSizeLarge
+          - NodeOnDemandBaseCapacityLarge
+          - NodeOnDemandPercentageAboveBaseCapacityLarge
+          - NodeSpotAllocationStrategyLarge
+          - NodeSpotInstancePoolsLarge
+
+    ParameterLabels:
+
+      ClusterControlPlaneSecurityGroup:
+        default: >-
+          Cluster Control Plane Security Group
+
+      ClusterName:
+        default: >-
+          Cluster Name
+
+      NodeAsgDesiredSizeLarge:
+        default: >-
+          Node ASG Desired Size Large
+
+      NodeAsgDesiredSizeMedium:
+        default: >-
+          Node ASG Desired Size Medium
+
+      NodeAsgDesiredSizeSmall:
+        default: >-
+          Node ASG Desired Size Small
+
+      NodeAsgMaxSizeLarge:
+        default: >-
+          Node ASG Maximum Size Large
+
+      NodeAsgMaxSizeMedium:
+        default: >-
+          Node ASG Maximum Size Medium
+
+      NodeAsgMaxSizeSmall:
+        default: >-
+          Node ASG Maximum Size Small
+
+      NodeAsgMinSizeLarge:
+        default: >-
+          Node ASG Minimum Size Large
+
+      NodeAsgMinSizeMedium:
+        default: >-
+          Node ASG Minimum Size Medium
+
+      NodeAsgMinSizeSmall:
+        default: >-
+          Node ASG Minimum Size Small
+
+      NodeBootstrapArgs:
+        default: >-
+          Node Bootstrap Arguments
+
+      NodeConfigLargeEnabled:
+        default: >-
+          Node Configuration Large Enabled
+
+      NodeConfigMediumEnabled:
+        default: >-
+          Node Configuration Medium Enabled
+
+      NodeConfigSmallEnabled:
+        default: >-
+          Node Configuration Small Enabled
+
+      NodeImageId:
+        default: >-
+          Node Image ID
+
+      NodeKeyPairName:
+        default: >-
+          Node Key Pair Name
+
+      NodeMaxSpotPriceLarge:
+        default: >-
+          Node Max Spot Price Large
+
+      NodeMaxSpotPriceMedium:
+        default: >-
+          Node Max Spot Price Medium
+
+      NodeMaxSpotPriceSmall:
+        default: >-
+          Node Max Spot Price Small
+
+      NodeOnDemandBaseCapacityLarge:
+        default: >-
+          Node On-Demand Base Capacity Large
+
+      NodeOnDemandBaseCapacityMedium:
+        default: >-
+          Node On-Demand Base Capacity Medium
+
+      NodeOnDemandBaseCapacitySmall:
+        default: >-
+          Node on-demand Base Capacity Small
+
+      NodeOnDemandPercentageAboveBaseCapacityLarge:
+        default: >-
+          Node On-Demand Percentage Above Base Capacity Large
+
+      NodeOnDemandPercentageAboveBaseCapacityMedium:
+        default: >-
+          Node On-Demand Percentage Above Base Capacity Medium
+
+      NodeOnDemandPercentageAboveBaseCapacitySmall:
+        default: >-
+          Node On-Demand Percentage Above Base Capacity Small
+
+      NodeSpotAllocationStrategyLarge:
+        default: >-
+          Node Spot Allocation Strategy Large
+
+      NodeSpotAllocationStrategyMedium:
+        default: >-
+          Node Spot Allocation Strategy Medium
+
+      NodeSpotAllocationStrategySmall:
+        default: >-
+          Node Spot Allocation Strategy Small
+
+      NodeSpotInstancePoolsLarge:
+        default: >-
+          Node Spot Instance Pools Large
+
+      NodeSpotInstancePoolsMedium:
+        default: >-
+          Node Spot Instance Pools Medium
+
+      NodeSpotInstancePoolsSmall:
+        default: >-
+          Node Spot Instance Pools Small
+
+      NodeRoleName:
+        default: >-
+          Node Role Name
+
+      NodeRootVolumeSizeLarge:
+        default: >-
+          Node Volume Size Large in GiB
+
+      NodeRootVolumeSizeMedium:
+        default: >-
+          Node Volume Size Medium in GiB
+
+      NodeRootVolumeSizeSmall:
+        default: >-
+          Node Volume Size Small in GiB
+
+      NodeTypeLarge:
+        default: >-
+          Node Type Large
+
+      NodeTypeMedium:
+          default: >-
+            Node Type Medium
+
+      NodeTypeSmall:
+        default: >-
+          Node Type Small
+
+      VpcNetworkId:
+        default: >-
+          VPC Network ID
+
+      VpcSubnetCount:
+        default: >-
+          VPC Subnet Count
+
+      VpcSubnetIds:
+        default: >-
+          VPC Subnet IDs
+
+Parameters:
+
+  ClusterControlPlaneSecurityGroup:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: >-
+      The security group of the cluster control plane.
+
+  ClusterName:
+    Type: String
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      The cluster name.
+
+  NodeAsgDesiredSizeLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The desired size of the auto scaling group for large worker nodes.
+      It must be between the minimum and maximum size.
+
+  NodeAsgDesiredSizeMedium:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The desired size of the auto scaling group for medium worker
+      nodes.  It must be between the minimum and maximum size.
+
+  NodeAsgDesiredSizeSmall:
+    Type: Number
+    Default: 1
+    MinValue: 0
+    Description: >-
+      The desired size of the auto scaling group for small worker nodes.
+      It must be between the minimum and maximum size.
+
+  NodeAsgMaxSizeLarge:
+    Type: Number
+    Default: 4
+    MinValue: 0
+    Description: >-
+      The maximum size of the auto scaling group for large worker nodes.
+      It must be greater than or equal to the minimum size.
+
+  NodeAsgMaxSizeMedium:
+    Type: Number
+    Default: 4
+    MinValue: 0
+    Description: >-
+      The maximum size of the auto scaling group for medium worker
+      nodes.  It must be greater than or equal to the minimum size.
+
+  NodeAsgMaxSizeSmall:
+    Type: Number
+    Default: 4
+    MinValue: 0
+    Description: >-
+      The maximum size of the auto scaling group for small worker nodes.
+      It must be greater than or equal to the minimum size.
+
+  NodeAsgMinSizeLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum size of the auto scaling group for large worker nodes.
+      It must be less than or equal to the desired size.
+
+  NodeAsgMinSizeMedium:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum size of the auto scaling group for medium worker
+      nodes.  It must be less than or equal to the desired size.
+
+  NodeAsgMinSizeSmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum size of the auto scaling group for small worker nodes.
+      It must be less or equal than the desired size.
+
+  NodeBootstrapArgs:
+    Type: String
+    Description: >-
+      The arguments to pass to the bootstrap script. See
+      files/bootstrap.sh in https://github.com/awslabs/amazon-eks-ami.
+
+  NodeConfigLargeEnabled:
+    Type: String
+    Default: true
+    AllowedValues: [false, true]
+    Description: >-
+      The switch whether to enable or disable the large node
+      configuration.  See
+      https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html.
+
+  NodeConfigMediumEnabled:
+    Type: String
+    Default: true
+    AllowedValues: [false, true]
+    Description: >-
+      The switch whether to enable or disable the medium node
+      configuration.  See
+      https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html.
+
+  NodeConfigSmallEnabled:
+    Type: String
+    Default: true
+    AllowedValues: [false, true]
+    Description: >-
+      The switch whether to enable or disable the small node
+      configuration.  See
+      https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html.
+
+  NodeImageId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/eks/optimized-ami/1.14/amazon-linux-2/recommended/image_id
+    Description: >-
+      The EC2 image ID for the worker nodes taken from the Parameter
+      Store of the AWS Systems Manager.  See
+      https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
+      for a list of AWS AMIs available for EKS.
+
+  NodeKeyPairName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: indivupipe-eks
+    Description: >-
+      The EC2 key pair to allow SSH access to the instances.
+
+  NodeMaxSpotPriceLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The maximum price per unit hour that you are willing to pay for a
+      large spot instance. If you leave the value of this property at 0
+      (which is the default), the maximum spot price is set at the
+      on-demand price.  See https://aws.amazon.com/de/ec2/pricing/.
+
+  NodeMaxSpotPriceMedium:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The maximum price per unit hour that you are willing to pay for a
+      medium spot instance. If you leave the value of this property at 0
+      (which is the default), the maximum spot price is set at the
+      on-demand price.  See https://aws.amazon.com/de/ec2/pricing/.
+
+  NodeMaxSpotPriceSmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The maximum price per unit hour that you are willing to pay for a
+      small spot Instance. If you leave the value of this property at 0
+      (which is the default), the maximum spot price is set at the
+      on-demand price.  See https://aws.amazon.com/de/ec2/pricing/.
+
+  NodeOnDemandBaseCapacityLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum amount of the auto scaling group's capacity that must
+      be fulfilled by on-demand instances.  This base portion is
+      provisioned first as your group scales.  The default value is 0.
+      If you leave this property set to 0, on-demand instances are
+      launched as a percentage of the auto scaling group's desired
+      capacity, per the OnDemandPercentageAboveBaseCapacity setting.
+
+  NodeOnDemandBaseCapacityMedium:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum amount of the auto scaling group's capacity that must
+      be fulfilled by on-demand instances.  This base portion is
+      provisioned first as your group scales.  The default value is 0.
+      If you leave this property set to 0, on-demand instances are
+      launched as a percentage of the auto scaling group's desired
+      capacity, per the OnDemandPercentageAboveBaseCapacity setting.
+
+  NodeOnDemandBaseCapacitySmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    Description: >-
+      The minimum amount of the auto scaling group's capacity that must
+      be fulfilled by on-demand instances.  This base portion is
+      provisioned first as your group scales.  The default value is 0.
+      If you leave this property set to 0, on-demand instances are
+      launched as a percentage of the auto scaling group's desired
+      capacity, per the OnDemandPercentageAboveBaseCapacity setting.
+
+  NodeOnDemandPercentageAboveBaseCapacityLarge:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    MaxValue: 100
+    Description: >-
+      The percentages of on-demand instances and spot instances for your
+      additional capacity beyond OnDemandBaseCapacity.  The range is
+      0-100.  The default value is 100.  If you leave this property set
+      to 100, the percentages are 100% for on-demand instances and 0%
+      for spot instances.  Important note: A deviating default value of
+      0% was chosen here in order to run on spot instances only!
+
+  NodeOnDemandPercentageAboveBaseCapacityMedium:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    MaxValue: 100
+    Description: >-
+      The percentages of on-demand instances and spot instances for your
+      additional capacity beyond OnDemandBaseCapacity.  The range is
+      0-100.  The default value is 100.  If you leave this property set
+      to 100, the percentages are 100% for on-demand instances and 0%
+      for spot instances.  Important note: A deviating default value of
+      0% was chosen here in order to run on spot instances only!
+
+  NodeOnDemandPercentageAboveBaseCapacitySmall:
+    Type: Number
+    Default: 0
+    MinValue: 0
+    MaxValue: 100
+    Description: >-
+      The percentages of on-demand instances and spot instances for your
+      additional capacity beyond OnDemandBaseCapacity.  The range is
+      0-100.  The default value is 100.  If you leave this property set
+      to 100, the percentages are 100% for on-demand instances and 0%
+      for spot instances.  Important note: A deviating default value of
+      0% was chosen here in order to run on spot instances only!
+
+  NodeRoleName:
+    Type: String
+    Default: eks-node-instance-role
+    AllowedPattern: "^\\S+$"
+    Description: >-
+      Name of an existing IAM role that shall be assigned to the worker
+      nodes such that they can register with the master nodes of the
+      control plane.
+
+  NodeRootVolumeSizeLarge:
+    Type: Number
+    Default: 50
+    MinValue: 20
+    Description: >-
+      The root volume size of large worker nodes.
+
+  NodeRootVolumeSizeMedium:
+    Type: Number
+    Default: 50
+    MinValue: 20
+    Description: >-
+      The root volume size of medium worker nodes.
+
+  NodeRootVolumeSizeSmall:
+    Type: Number
+    Default: 50
+    MinValue: 20
+    Description: >-
+      The root volume size of small worker nodes.
+
+  NodeSpotAllocationStrategyLarge:
+    Type: String
+    Default: capacity-optimized
+    AllowedValues:
+      - capacity-optimized
+      - lowest-price
+    Description: >-
+      The strategy how to allocate spot capacity across spot pools.  If
+      the allocation strategy is lowest-price, the auto scaling group
+      launches instances using the spot pools with the lowest price, and
+      evenly allocates your instances across the number of spot pools
+      that you specify.  If the allocation strategy is
+      capacity-optimized, the auto scaling group launches instances
+      using spot pools that are optimally chosen based on the available
+      spot capacity.
+
+  NodeSpotAllocationStrategyMedium:
+    Type: String
+    Default: capacity-optimized
+    AllowedValues:
+      - capacity-optimized
+      - lowest-price
+    Description: >-
+      The strategy how to allocate spot capacity across spot pools.  If
+      the allocation strategy is lowest-price, the auto scaling group
+      launches instances using the spot pools with the lowest price, and
+      evenly allocates your instances across the number of spot pools
+      that you specify.  If the allocation strategy is
+      capacity-optimized, the auto scaling group launches instances
+      using spot pools that are optimally chosen based on the available
+      spot capacity.
+
+  NodeSpotAllocationStrategySmall:
+    Type: String
+    Default: capacity-optimized
+    AllowedValues:
+      - capacity-optimized
+      - lowest-price
+    Description: >-
+      The strategy how to allocate spot capacity across spot pools.  If
+      the allocation strategy is lowest-price, the auto scaling group
+      launches instances using the spot pools with the lowest price, and
+      evenly allocates your instances across the number of spot pools
+      that you specify.  If the allocation strategy is
+      capacity-optimized, the auto scaling group launches instances
+      using spot pools that are optimally chosen based on the available
+      spot capacity.
+
+  NodeSpotInstancePoolsLarge:
+    Type: Number
+    Default: 2
+    MinValue: 1
+    MaxValue: 20
+    Description: >-
+      The number of spot pools to use to allocate your spot capacity.
+      The spot pools are determined from the different instance types in
+      the Overrides array of LaunchTemplate.  The range is 1-20.  The
+      default value is 2.  Valid only when the spot allocation strategy
+      is lowest-price.
+
+  NodeSpotInstancePoolsMedium:
+    Type: Number
+    Default: 2
+    MinValue: 1
+    MaxValue: 20
+    Description: >-
+      The number of spot pools to use to allocate your spot capacity.
+      The spot pools are determined from the different instance types in
+      the Overrides array of LaunchTemplate.  The range is 1-20.  The
+      default value is 2.  Valid only when the spot allocation strategy
+      is lowest-price.
+
+  NodeSpotInstancePoolsSmall:
+    Type: Number
+    Default: 2
+    MinValue: 1
+    MaxValue: 20
+    Description: >-
+      The number of spot pools to use to allocate your spot capacity.
+      The spot pools are determined from the different instance types in
+      the Overrides array of LaunchTemplate.  The range is 1-20.  The
+      default value is 2.  Valid only when the spot allocation strategy
+      is lowest-price.
+
+  NodeTypeLarge:
+    Type: String
+    Default: m5.4xlarge
+    AllowedValues:
+      - m5.4xlarge
+      - m5a.4xlarge
+      - m5d.4xlarge
+      - m5n.4xlarge
+      - m5dn.4xlarge
+      - m4.4xlarge
+    Description: >-
+      The EC2 instance type for large worker nodes.  The types must be
+      similar in terms of CPU cores and main memory for the Kubernetes
+      cluster auto scaler to work right.  See
+      https://aws.amazon.com/de/ec2/instance-types/.
+
+  NodeTypeMedium:
+    Type: String
+    Default: m5.2xlarge
+    AllowedValues:
+      - m5.2xlarge
+      - m5a.2xlarge
+      - m5d.2xlarge
+      - m5n.2xlarge
+      - m5dn.2xlarge
+      - m4.2xlarge
+    Description: >-
+      The EC2 instance type for medium worker nodes.  The types must be
+      similar in terms of CPU cores and main memory for the Kubernetes
+      cluster auto scaler to work right.  See
+      https://aws.amazon.com/de/ec2/instance-types/.
+
+  NodeTypeSmall:
+    Type: String
+    Default: m5.xlarge
+    AllowedValues:
+      - m5.xlarge
+      - m5a.xlarge
+      - m5d.xlarge
+      - m5n.xlarge
+      - m5dn.xlarge
+      - m4.xlarge
+    Description: >-
+      The EC2 instance type for small worker nodes.  The types must be
+      similar in terms of CPU cores and main memory for the Kubernetes
+      cluster auto scaler to work right.  See
+      https://aws.amazon.com/de/ec2/instance-types/.
+
+  VpcNetworkId:
+    Type: AWS::EC2::VPC::Id
+    Description: >-
+      The VPC of the worker nodes.
+
+  VpcSubnetCount:
+    Type: Number
+    Default: 3
+    AllowedValues: [1, 2, 3]
+    Description: >-
+      The number of subnets. Must be less than or equal to the number of
+      subnet IDs selected.
+
+  VpcSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: >-
+      The subnets where the worker nodes can be created.
+
+Conditions:
+
+  HasNodeMaxSpotPriceLarge:
+    !Not [!Equals [!Ref NodeMaxSpotPriceLarge, 0]]
+
+  HasNodeMaxSpotPriceMedium:
+    !Not [!Equals [!Ref NodeMaxSpotPriceMedium, 0]]
+
+  HasNodeMaxSpotPriceSmall:
+    !Not [!Equals [!Ref NodeMaxSpotPriceSmall, 0]]
+
+  HasThirdVpcSubnet:
+    !Equals [!Ref VpcSubnetCount, 3]
+
+  HasSecondVpcSubnet:
+    Fn::Or:
+      - !Equals [!Ref VpcSubnetCount, 2]
+      - Condition: HasThirdVpcSubnet
+
+  HasFirstVpcSubnet:
+    Fn::Or:
+      - !Equals [!Ref VpcSubnetCount, 1]
+      - Condition: HasSecondVpcSubnet
+
+  HasNodeConfigLargeEnabled:
+    !Equals [!Ref NodeConfigLargeEnabled, true]
+
+  HasNodeConfigMediumEnabled:
+    !Equals [!Ref NodeConfigMediumEnabled, true]
+
+  HasNodeConfigSmallEnabled:
+    !Equals [!Ref NodeConfigSmallEnabled, true]
+
+  HasNodeAsgLargeAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
+
+  HasNodeAsgLargeAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
+
+  HasNodeAsgLargeAzThree:
+    Fn::And:
+      - Condition: HasThirdVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
+
+  HasNodeAsgMediumAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigMediumEnabled
+
+  HasNodeAsgMediumAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigMediumEnabled
+
+  HasNodeAsgMediumAzThree:
+    Fn::And:
+      - Condition: HasThirdVpcSubnet
+      - Condition: HasNodeConfigMediumEnabled
+
+  HasNodeAsgSmallAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeAsgSmallAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeAsgSmallAzThree:
+    Fn::And:
+      - Condition: HasThirdVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeLaunchLargeAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
+
+  HasNodeLaunchLargeAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
+
+  HasNodeLaunchLargeAzThree:
+    Fn::And:
+      - Condition: HasThirdVpcSubnet
+      - Condition: HasNodeConfigLargeEnabled
+
+  HasNodeLaunchMediumAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigMediumEnabled
+
+  HasNodeLaunchMediumAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigMediumEnabled
+
+  HasNodeLaunchMediumAzThree:
+    Fn::And:
+      - Condition: HasThirdVpcSubnet
+      - Condition: HasNodeConfigMediumEnabled
+
+  HasNodeLaunchSmallAzOne:
+    Fn::And:
+      - Condition: HasFirstVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeLaunchSmallAzTwo:
+    Fn::And:
+      - Condition: HasSecondVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeLaunchSmallAzThree:
+    Fn::And:
+      - Condition: HasThirdVpcSubnet
+      - Condition: HasNodeConfigSmallEnabled
+
+  HasNodeSpotInstancePoolsLarge:
+      !Equals [!Ref NodeSpotAllocationStrategyLarge, lowest-price]
+
+  HasNodeSpotInstancePoolsMedium:
+      !Equals [!Ref NodeSpotAllocationStrategyMedium, lowest-price]
+
+  HasNodeSpotInstancePoolsSmall:
+      !Equals [!Ref NodeSpotAllocationStrategySmall, lowest-price]
+
+Resources:
+
+  NodeProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: '/'
+      Roles:
+        - !Ref NodeRoleName
+
+  NodeSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for all nodes in the cluster
+      VpcId: !Ref VpcNetworkId
+      Tags:
+        - Key: !Sub kubernetes.io/cluster/${ClusterName}
+          Value: owned
+
+  NodeSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow nodes to communicate with each other.
+      GroupId: !Ref NodeSecurityGroup
+      SourceSecurityGroupId: !Ref NodeSecurityGroup
+      IpProtocol: -1
+      FromPort: 0
+      ToPort: 65535
+
+  NodeSecurityGroupFromClusterControlPlaneIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow the kubelets and pods running on the worker nodes to
+        receive communication from the cluster control plane.
+      GroupId: !Ref NodeSecurityGroup
+      SourceSecurityGroupId: !Ref ClusterControlPlaneSecurityGroup
+      IpProtocol: tcp
+      FromPort: 1025
+      ToPort: 65535
+
+  ClusterControlPlaneEgressToNodeSecurityGroup:
+    Type: AWS::EC2::SecurityGroupEgress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow the cluster control plane to communicate with the kubelets
+        and pods running on the worker nodes.
+      GroupId: !Ref ClusterControlPlaneSecurityGroup
+      DestinationSecurityGroupId: !Ref NodeSecurityGroup
+      IpProtocol: tcp
+      FromPort: 1025
+      ToPort: 65535
+
+  NodeSecurityGroupFromClusterControlPlaneOn443Ingress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow pods running extension API servers on port 443 to receive
+        communication from cluster control plane.
+      GroupId: !Ref NodeSecurityGroup
+      SourceSecurityGroupId: !Ref ClusterControlPlaneSecurityGroup
+      IpProtocol: tcp
+      FromPort: 443
+      ToPort: 443
+
+  ClusterControlPlaneEgressToNodeSecurityGroupOn443:
+    Type: AWS::EC2::SecurityGroupEgress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow the cluster control plane to communicate with pods running
+        extension API servers on port 443.
+      GroupId: !Ref ClusterControlPlaneSecurityGroup
+      DestinationSecurityGroupId: !Ref NodeSecurityGroup
+      IpProtocol: tcp
+      FromPort: 443
+      ToPort: 443
+
+  ClusterControlPlaneSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: >-
+        Allow pods to communicate with the cluster API server.
+      GroupId: !Ref ClusterControlPlaneSecurityGroup
+      SourceSecurityGroupId: !Ref NodeSecurityGroup
+      IpProtocol: tcp
+      ToPort: 443
+      FromPort: 443
+
+  NodeAsgSmallAzOne:
+    Condition: HasNodeAsgSmallAzOne
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeSmall
+      MaxSize: !Ref NodeAsgMaxSizeSmall
+      MinSize: !Ref NodeAsgMinSizeSmall
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacitySmall
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacitySmall
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategySmall
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsSmall
+              - !Ref NodeSpotInstancePoolsSmall
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceSmall
+              - !Ref NodeMaxSpotPriceSmall
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchSmallAzOne
+            Version: !GetAtt NodeLaunchSmallAzOne.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.xlarge
+            - InstanceType: m5a.xlarge
+            - InstanceType: m5d.xlarge
+            - InstanceType: m5n.xlarge
+            - InstanceType: m5dn.xlarge
+            - InstanceType: m4.xlarge
+      VPCZoneIdentifier:
+        - !Select [0, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgSmallAzTwo:
+    Condition: HasNodeAsgSmallAzTwo
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeSmall
+      MaxSize: !Ref NodeAsgMaxSizeSmall
+      MinSize: !Ref NodeAsgMinSizeSmall
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacitySmall
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacitySmall
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategySmall
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsSmall
+              - !Ref NodeSpotInstancePoolsSmall
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceSmall
+              - !Ref NodeMaxSpotPriceSmall
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchSmallAzTwo
+            Version: !GetAtt NodeLaunchSmallAzTwo.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.xlarge
+            - InstanceType: m5a.xlarge
+            - InstanceType: m5d.xlarge
+            - InstanceType: m5n.xlarge
+            - InstanceType: m5dn.xlarge
+            - InstanceType: m4.xlarge
+      VPCZoneIdentifier:
+        - !Select [1, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgSmallAzThree:
+    Condition: HasNodeAsgSmallAzThree
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeSmall
+      MaxSize: !Ref NodeAsgMaxSizeSmall
+      MinSize: !Ref NodeAsgMinSizeSmall
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacitySmall
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacitySmall
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategySmall
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsSmall
+              - !Ref NodeSpotInstancePoolsSmall
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceSmall
+              - !Ref NodeMaxSpotPriceSmall
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchSmallAzThree
+            Version: !GetAtt NodeLaunchSmallAzThree.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.xlarge
+            - InstanceType: m5a.xlarge
+            - InstanceType: m5d.xlarge
+            - InstanceType: m5n.xlarge
+            - InstanceType: m5dn.xlarge
+            - InstanceType: m4.xlarge
+      VPCZoneIdentifier:
+        - !Select [2, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgMediumAzOne:
+    Condition: HasNodeAsgMediumAzOne
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeMedium
+      MaxSize: !Ref NodeAsgMaxSizeMedium
+      MinSize: !Ref NodeAsgMinSizeMedium
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityMedium
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityMedium
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyMedium
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsMedium
+              - !Ref NodeSpotInstancePoolsMedium
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceMedium
+              - !Ref NodeMaxSpotPriceMedium
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchMediumAzOne
+            Version: !GetAtt NodeLaunchMediumAzOne.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.2xlarge
+            - InstanceType: m5a.2xlarge
+            - InstanceType: m5d.2xlarge
+            - InstanceType: m5n.2xlarge
+            - InstanceType: m5dn.2xlarge
+            - InstanceType: m4.2xlarge
+      VPCZoneIdentifier:
+        - !Select [0, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgMediumAzTwo:
+    Condition: HasNodeAsgMediumAzTwo
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeMedium
+      MaxSize: !Ref NodeAsgMaxSizeMedium
+      MinSize: !Ref NodeAsgMinSizeMedium
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityMedium
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityMedium
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyMedium
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsMedium
+              - !Ref NodeSpotInstancePoolsMedium
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceMedium
+              - !Ref NodeMaxSpotPriceMedium
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchMediumAzTwo
+            Version: !GetAtt NodeLaunchMediumAzTwo.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.2xlarge
+            - InstanceType: m5a.2xlarge
+            - InstanceType: m5d.2xlarge
+            - InstanceType: m5n.2xlarge
+            - InstanceType: m5dn.2xlarge
+            - InstanceType: m4.2xlarge
+      VPCZoneIdentifier:
+        - !Select [1, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgMediumAzThree:
+    Condition: HasNodeAsgMediumAzThree
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeMedium
+      MaxSize: !Ref NodeAsgMaxSizeMedium
+      MinSize: !Ref NodeAsgMinSizeMedium
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityMedium
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityMedium
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyMedium
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsMedium
+              - !Ref NodeSpotInstancePoolsMedium
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceMedium
+              - !Ref NodeMaxSpotPriceMedium
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchMediumAzThree
+            Version: !GetAtt NodeLaunchMediumAzThree.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.2xlarge
+            - InstanceType: m5a.2xlarge
+            - InstanceType: m5d.2xlarge
+            - InstanceType: m5n.2xlarge
+            - InstanceType: m5dn.2xlarge
+            - InstanceType: m4.2xlarge
+      VPCZoneIdentifier:
+        - !Select [2, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgLargeAzOne:
+    Condition: HasNodeAsgLargeAzOne
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeLarge
+      MaxSize: !Ref NodeAsgMaxSizeLarge
+      MinSize: !Ref NodeAsgMinSizeLarge
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityLarge
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityLarge
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyLarge
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsLarge
+              - !Ref NodeSpotInstancePoolsLarge
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceLarge
+              - !Ref NodeMaxSpotPriceLarge
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchLargeAzOne
+            Version: !GetAtt NodeLaunchLargeAzOne.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.4xlarge
+            - InstanceType: m5a.4xlarge
+            - InstanceType: m5d.4xlarge
+            - InstanceType: m5n.4xlarge
+            - InstanceType: m5dn.4xlarge
+            - InstanceType: m4.4xlarge
+      VPCZoneIdentifier:
+        - !Select [0, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgLargeAzTwo:
+    Condition: HasNodeAsgLargeAzTwo
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeLarge
+      MaxSize: !Ref NodeAsgMaxSizeLarge
+      MinSize: !Ref NodeAsgMinSizeLarge
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityLarge
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityLarge
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyLarge
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsLarge
+              - !Ref NodeSpotInstancePoolsLarge
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceLarge
+              - !Ref NodeMaxSpotPriceLarge
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchLargeAzTwo
+            Version: !GetAtt NodeLaunchLargeAzTwo.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.4xlarge
+            - InstanceType: m5a.4xlarge
+            - InstanceType: m5d.4xlarge
+            - InstanceType: m5n.4xlarge
+            - InstanceType: m5dn.4xlarge
+            - InstanceType: m4.4xlarge
+      VPCZoneIdentifier:
+        - !Select [1, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeAsgLargeAzThree:
+    Condition: HasNodeAsgLargeAzThree
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: !Ref NodeAsgDesiredSizeLarge
+      MaxSize: !Ref NodeAsgMaxSizeLarge
+      MinSize: !Ref NodeAsgMinSizeLarge
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandAllocationStrategy: prioritized
+          OnDemandBaseCapacity: !Ref NodeOnDemandBaseCapacityLarge
+          OnDemandPercentageAboveBaseCapacity:
+            !Ref NodeOnDemandPercentageAboveBaseCapacityLarge
+          SpotAllocationStrategy: !Ref NodeSpotAllocationStrategyLarge
+          SpotInstancePools:
+            Fn::If:
+              - HasNodeSpotInstancePoolsLarge
+              - !Ref NodeSpotInstancePoolsLarge
+              - !Ref AWS::NoValue
+          SpotMaxPrice:
+            Fn::If:
+              - HasNodeMaxSpotPriceLarge
+              - !Ref NodeMaxSpotPriceLarge
+              - !Ref AWS::NoValue
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref NodeLaunchLargeAzThree
+            Version: !GetAtt NodeLaunchLargeAzThree.LatestVersionNumber
+          Overrides:
+            - InstanceType: m5.4xlarge
+            - InstanceType: m5a.4xlarge
+            - InstanceType: m5d.4xlarge
+            - InstanceType: m5n.4xlarge
+            - InstanceType: m5dn.4xlarge
+            - InstanceType: m4.4xlarge
+      VPCZoneIdentifier:
+        - !Select [2, !Ref VpcSubnetIds]
+      Tags:
+        - Key: k8s.io/cluster-autoscaler/enabled
+          Value: ''
+          PropagateAtLaunch: false
+        - Key: !Sub k8s.io/cluster-autoscaler/${ClusterName}
+          Value: ''
+          PropagateAtLaunch: false
+    UpdatePolicy:
+      AutoScalingReplacingUpdate:
+        WillReplace: true
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+        MinSuccessfulInstancesPercent: 100
+        PauseTime: PT5M
+        WaitOnResourceSignals: true
+
+  NodeLaunchSmallAzOne:
+    Condition: HasNodeLaunchSmallAzOne
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeSmall
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeSmall
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [0, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-small-az1
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgSmallAzOne  \
+                      --region ${AWS::Region}
+
+  NodeLaunchSmallAzTwo:
+    Condition: HasNodeLaunchSmallAzTwo
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeSmall
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeSmall
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [1, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-small-az2
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgSmallAzTwo  \
+                      --region ${AWS::Region}
+
+  NodeLaunchSmallAzThree:
+    Condition: HasNodeLaunchSmallAzThree
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeSmall
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeSmall
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [2, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-small-az3
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgSmallAzThree \
+                      --region ${AWS::Region}
+
+  NodeLaunchMediumAzOne:
+    Condition: HasNodeLaunchMediumAzOne
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeMedium
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeMedium
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [0, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-medium-az1
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgMediumAzOne  \
+                      --region ${AWS::Region}
+
+  NodeLaunchMediumAzTwo:
+    Condition: HasNodeLaunchMediumAzTwo
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeMedium
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeMedium
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [1, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-medium-az2
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgMediumAzTwo  \
+                      --region ${AWS::Region}
+
+  NodeLaunchMediumAzThree:
+    Condition: HasNodeLaunchMediumAzThree
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeMedium
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeMedium
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [2, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-medium-az3
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgMediumAzThree  \
+                      --region ${AWS::Region}
+
+  NodeLaunchLargeAzOne:
+    Condition: HasNodeLaunchLargeAzOne
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeLarge
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeLarge
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [0, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-large-az1
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgLargeAzOne  \
+                      --region ${AWS::Region}
+
+  NodeLaunchLargeAzTwo:
+    Condition: HasNodeLaunchLargeAzTwo
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeLarge
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeLarge
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [1, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-large-az2
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgLargeAzTwo  \
+                      --region ${AWS::Region}
+
+  NodeLaunchLargeAzThree:
+    Condition: HasNodeLaunchLargeAzThree
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: !Ref NodeRootVolumeSizeLarge
+              VolumeType: gp2
+        EbsOptimized: true
+        IamInstanceProfile:
+          Arn: !GetAtt NodeProfile.Arn
+        ImageId: !Ref NodeImageId
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: !Ref NodeTypeLarge
+        KeyName: !Ref NodeKeyPairName
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !GetAtt NodeSecurityGroup.GroupId
+            SubnetId: !Select [2, !Ref VpcSubnetIds]
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-large-az3
+          - ResourceType: instance
+            Tags:
+              - Key: !Sub kubernetes.io/cluster/${ClusterName}
+                Value: owned
+        UserData:
+          Fn::Base64:
+            !Sub |
+              #!/bin/bash
+              set -o xtrace
+              /etc/eks/bootstrap.sh ${ClusterName} ${NodeBootstrapArgs}
+              /opt/aws/bin/cfn-signal --exit-code $? \
+                      --stack  ${AWS::StackName} \
+                      --resource NodeAsgLargeAzThree  \
+                      --region ${AWS::Region}
