@@ -42,7 +42,7 @@
     dest: "{{ autostart_dir }}/\
             gnome-system-monitor.desktop"
 
-- name: Copy Gnome Terminal Xdg autostart configuration file
+- name: Copy Gnome Terminal Emulator Xdg autostart configuration file
   copy:
     src: autostart/gnome-terminal-emulator.desktop
     dest: "{{ autostart_dir }}/\
