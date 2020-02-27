@@ -3,6 +3,8 @@
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
+# -------------
+
 Type=Application
 
 Name=Firefox
@@ -25,9 +27,14 @@ Encoding=UTF-8
 Terminal=false
 StartupNotify=true
 
+# Desktop Actions
+# ---------------
+
 Actions=PrivateBrowsing;
 
 [Desktop Action PrivateBrowsing]
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Name=New Private Browsing Window
 Name[de]=Neues privates Browsing Fenster
 

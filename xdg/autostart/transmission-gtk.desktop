@@ -35,15 +35,22 @@ X-GNOME-FullName[de]=Transmission BitTorrent-Programm
 
 X-Ubuntu-Gettext-Domain=transmission
 
+# Desktop Actions
+# ---------------
+
 Actions=Pause;Minimize;
 
 [Desktop Action Pause]
+# ~~~~~~~~~~~~~~~~~~~~
+
 Name=Start Transmission with All Torrents Paused
 Name[de]=Starte Transmission mit allen Torrents pausiert
 
 Exec=transmission-gtk --paused
 
 [Desktop Action Minimize]
+# ~~~~~~~~~~~~~~~~~~~~~~~
+
 Name=Start Transmission Minimized
 Name[de]=Starte Transmission minimiert
 

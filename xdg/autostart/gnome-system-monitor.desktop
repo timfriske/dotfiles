@@ -3,6 +3,8 @@
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
+# -------------
+
 Type=Application
 
 Name=System Monitor
@@ -21,7 +23,7 @@ Categories=GNOME;GTK;System;Monitor;
 
 Icon=utilities-system-monitor
 TryExec=gnome-system-monitor
-Exec=gnome-system-monitor 
+Exec=gnome-system-monitor
 Terminal=false
 OnlyShowIn=GNOME
 DBusActivatable=true

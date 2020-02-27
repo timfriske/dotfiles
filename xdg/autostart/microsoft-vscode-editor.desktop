@@ -3,6 +3,8 @@
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
+# -------------
+
 Type=Application
 
 Name=Visual Studio Code
@@ -26,9 +28,14 @@ Exec=/usr/share/code/code --no-sandbox --unity-launch %F
 StartupNotify=false
 StartupWMClass=Code
 
+# Desktop Actions
+# ---------------
+
 Actions=new-empty-window;
 
 [Desktop Action new-empty-window]
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Icon=com.visualstudio.code
 
 Name=New Empty Window
