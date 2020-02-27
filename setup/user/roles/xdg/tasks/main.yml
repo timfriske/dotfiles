@@ -68,6 +68,12 @@
     dest: "{{ autostart_dir }}/\
             kde-konsole-terminal-emulator.desktop"
 
+- name: Copy KDE KSysGuard XDG autostart configuration file
+  copy:
+    src: autostart/kde-ksysguard-os-monitor.desktop
+    dest: "{{ autostart_dir }}/\
+            kde-ksysguard-os-monitor.desktop"
+
 - name:
     Copy Microsoft Visual Studio Code XDG autostart configuration file
   copy:

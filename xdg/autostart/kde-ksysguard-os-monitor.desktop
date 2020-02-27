@@ -10,8 +10,8 @@ Type=Application
 Name=KSysGuard
 Name[de]=KSysGuard
 
-GenericName=System Monitor
-GenericName[de]=Systemmonitor
+GenericName=Operating System Monitor
+GenericName[de]=Betriebssystemmonitor
 
 Comment=Monitor running processes and system performance
 Comment[de]=Laufende Prozess und Systemauslastung überwachen
