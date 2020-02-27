@@ -1,5 +1,5 @@
 ---
-# User-specific Xdg setup
+# User-specific XDG setup
 # =======================
 # Tim Friske <me@tifr.de>
 
@@ -12,50 +12,50 @@
   loop:
     - "{{ autostart_dir }}"
 
-- name: Copy Chromium Xdg autostart configuration file
+- name: Copy Chromium XDG autostart configuration file
   copy:
     src: autostart/chromium-web-browser.desktop
     dest: "{{ autostart_dir }}/\
             chromium-web-browser.desktop"
 
-- name: Copy Firefox Xdg autostart configuration file
+- name: Copy Firefox XDG autostart configuration file
   copy:
     src: autostart/firefox-web-browser.desktop
     dest: "{{ autostart_dir }}/\
             firefox-web-browser.desktop"
 
-- name: Copy Gnome Keyring SSH Xdg autostart configuration file
+- name: Copy Gnome Keyring SSH XDG autostart configuration file
   copy:
     src: autostart/gnome-keyring-ssh.desktop
     dest: "{{ autostart_dir }}/\
             gnome-keyring-ssh.desktop"
 
-- name: Copy Gnome Nautilus Xdg autostart configuration file
+- name: Copy Gnome Nautilus XDG autostart configuration file
   copy:
     src: autostart/gnome-nautilus-file-browser.desktop
     dest: "{{ autostart_dir }}/\
             gnome-nautilus-file-browser.desktop"
 
-- name: Copy Gnome System Monitor Xdg autostart configuration file
+- name: Copy Gnome System Monitor XDG autostart configuration file
   copy:
     src: autostart/gnome-system-monitor.desktop
     dest: "{{ autostart_dir }}/\
             gnome-system-monitor.desktop"
 
-- name: Copy Gnome Terminal Emulator Xdg autostart configuration file
+- name: Copy Gnome Terminal Emulator XDG autostart configuration file
   copy:
     src: autostart/gnome-terminal-emulator.desktop
     dest: "{{ autostart_dir }}/\
             gnome-terminal-emulator.desktop"
 
 - name: >-
-    Copy Microsoft Visual Studio Code Xdg autostart configuration file
+    Copy Microsoft Visual Studio Code XDG autostart configuration file
   copy:
     src: autostart/microsoft-vscode-editor.desktop
     dest: "{{ autostart_dir }}/\
             microsoft-vscode-editor.desktop"
 
-- name: Copy Transmission GTK Xdg autostart configuration file
+- name: Copy Transmission GTK XDG autostart configuration file
   copy:
     src: autostart/transmission-gtk.desktop
     dest: "{{ autostart_dir }}/\
