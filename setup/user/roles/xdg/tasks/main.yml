@@ -56,6 +56,12 @@
     dest: "{{ autostart_dir }}/\
             jetbrains-pycharm-community-ide.desktop"
 
+- name: Copy KDE Dolphin XDG autostart configuration file
+  copy:
+    src: autostart/kde-dolphin-file-browser.desktop
+    dest: "{{ autostart_dir }}/\
+            kde-dolphin-file-browser.desktop"
+
 - name:
     Copy Microsoft Visual Studio Code XDG autostart configuration file
   copy:
