@@ -1,5 +1,5 @@
-# Autostart of Transmission GTK
-# =============================
+# Autostart of Transmission BitTorrent Client GTK
+# ===============================================
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
@@ -9,7 +9,7 @@ Name=Transmission
 Name[de]=Transmission
 
 GenericName=BitTorrent Client
-GenericName[de]=BitTorrent-Programm
+GenericName[de]=BitTorrent Client
 
 Comment=Download and share files over BitTorrent
 Comment[de]=Dateien über BitTorrent herunterladen und verteilen

@@ -42,7 +42,7 @@
     dest: "{{ autostart_dir }}/\
             gnome-terminal-emulator.desktop"
 
-- name: >-
+- name:
     Copy Microsoft Visual Studio Code XDG autostart configuration file
   copy:
     src: autostart/microsoft-vscode-editor.desktop
@@ -55,8 +55,10 @@
     dest: "{{ autostart_dir }}/\
             mozilla-firefox-web-browser.desktop"
 
-- name: Copy Transmission GTK XDG autostart configuration file
+- name:
+    Copy Transmission BitTorrent Client GTK XDG autostart configuration
+    file
   copy:
-    src: autostart/transmission-gtk.desktop
+    src: autostart/transmission-bittorrent-client-gtk.desktop
     dest: "{{ autostart_dir }}/\
-            transmission-gtk.desktop"
+            transmission-bittorrent-client-gtk.desktop"
