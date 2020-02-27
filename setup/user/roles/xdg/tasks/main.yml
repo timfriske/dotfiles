@@ -18,12 +18,6 @@
     dest: "{{ autostart_dir }}/\
             chromium-web-browser.desktop"
 
-- name: Copy Firefox XDG autostart configuration file
-  copy:
-    src: autostart/firefox-web-browser.desktop
-    dest: "{{ autostart_dir }}/\
-            firefox-web-browser.desktop"
-
 - name: Copy Gnome Keyring SSH XDG autostart configuration file
   copy:
     src: autostart/gnome-keyring-ssh.desktop
@@ -54,6 +48,12 @@
     src: autostart/microsoft-vscode-editor.desktop
     dest: "{{ autostart_dir }}/\
             microsoft-vscode-editor.desktop"
+
+- name: Copy Mozilla Firefox XDG autostart configuration file
+  copy:
+    src: autostart/mozilla-firefox-web-browser.desktop
+    dest: "{{ autostart_dir }}/\
+            mozilla-firefox-web-browser.desktop"
 
 - name: Copy Transmission GTK XDG autostart configuration file
   copy:
