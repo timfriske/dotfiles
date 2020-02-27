@@ -45,6 +45,13 @@
 - name:
     Copy JetBrains PyCharm Community XDG autostart configuration file
   copy:
+    src: autostart/jetbrains-pycharm-professional-ide.desktop
+    dest: "{{ autostart_dir }}/\
+            jetbrains-pycharm-professional-ide.desktop"
+
+- name:
+    Copy JetBrains PyCharm Professional XDG autostart configuration file
+  copy:
     src: autostart/jetbrains-pycharm-community-ide.desktop
     dest: "{{ autostart_dir }}/\
             jetbrains-pycharm-community-ide.desktop"
