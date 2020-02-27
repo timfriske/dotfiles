@@ -74,6 +74,12 @@
     dest: "{{ autostart_dir }}/\
             kde-ksysguard-os-monitor.desktop"
 
+- name: Copy Microsoft Teams XDG autostart configuration file
+  copy:
+    src: autostart/microsoft-teams-collaboration.desktop
+    dest: "{{ autostart_dir }}/\
+            microsoft-teams-collaboration.desktop"
+
 - name:
     Copy Microsoft Visual Studio Code XDG autostart configuration file
   copy:
