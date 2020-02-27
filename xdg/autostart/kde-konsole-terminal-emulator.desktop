@@ -1,4 +1,4 @@
-# Autostart of KDE Dolphin
+# Autostart of KDE Konsole
 # ========================
 # Tim Friske <me@tifr.de>
 
@@ -10,8 +10,8 @@ Type=Application
 Name=Konsole
 Name[de]=Konsole
 
-GenericName=Terminal
-GenericName[de]=Terminal
+GenericName=Terminal Emulator
+GenericName[de]=Terminalemulator
 
 Comment=Command line access
 Comment[de]=Zugriff auf die Befehlszeile

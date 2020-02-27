@@ -62,6 +62,12 @@
     dest: "{{ autostart_dir }}/\
             kde-dolphin-file-browser.desktop"
 
+- name: Copy KDE Konsole XDG autostart configuration file
+  copy:
+    src: autostart/kde-konsole-terminal-emulator.desktop
+    dest: "{{ autostart_dir }}/\
+            kde-konsole-terminal-emulator.desktop"
+
 - name:
     Copy Microsoft Visual Studio Code XDG autostart configuration file
   copy:
