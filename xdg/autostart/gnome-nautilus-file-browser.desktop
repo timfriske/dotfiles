@@ -3,6 +3,8 @@
 # Tim Friske <me@tifr.de>
 
 [Desktop Entry]
+# -------------
+
 Type=Application
 
 Name=Files
@@ -23,7 +25,7 @@ MimeType=inode/directory;application/x-gnome-saved-search;
 
 Icon=org.gnome.Nautilus
 TryExec=nautilus
-Exec=nautilus --new-window %U 
+Exec=nautilus --new-window %U
 Terminal=false
 OnlyShowIn=GNOME
 DBusActivatable=true
@@ -31,10 +33,15 @@ StartupNotify=true
 
 X-GNOME-UsesNotifications=true
 
+# Desktop Actions
+# ---------------
+
 Actions=NewWindow;
 
 [Desktop Action NewWindow]
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
 Name=New Window
 Name[de]=Neues Fenster
 
-Exec=nautilus --new-window 
+Exec=nautilus --new-window

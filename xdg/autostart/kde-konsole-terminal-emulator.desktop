@@ -1,0 +1,52 @@
+# Autostart of KDE Dolphin
+# ========================
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+# -------------
+
+Type=Application
+
+Name=Konsole
+Name[de]=Konsole
+
+GenericName=Terminal
+GenericName[de]=Terminal
+
+Comment=Command line access
+Comment[de]=Zugriff auf die Befehlszeile
+
+Categories=Qt;KDE;System;TerminalEmulator;
+
+Icon=utilities-terminal
+TryExec=konsole
+Exec=konsole
+Terminal=false
+OnlyShowIn=KDE
+StartupNotify=true
+
+X-DBUS-StartupType=unique
+X-DocPath=konsole/index.html
+X-KDE-AuthorizeAction=shell_access
+X-KDE-SubstituteUID=false
+
+# Desktop Actions
+# ---------------
+
+Actions=NewWindow;NewTab;
+
+[Desktop Action NewTab]
+# ~~~~~~~~~~~~~~~~~~~~~
+
+Name=Open a new tab
+Name[de]=Ein neues Unterfenster öffnen
+
+Exec=konsole --new-tab
+
+[Desktop Action NewWindow]
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+
+Name=Open a new window
+Name[de]=Ein neues Fenster öffnen
+
+Exec=konsole

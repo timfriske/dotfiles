@@ -1,0 +1,33 @@
+# Autostart of KDE KSysGuard
+# ==========================
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+# -------------
+
+Type=Application
+
+Name=KSysGuard
+Name[de]=KSysGuard
+
+GenericName=System Monitor
+GenericName[de]=Systemmonitor
+
+Comment=Monitor running processes and system performance
+Comment[de]=Laufende Prozess und Systemauslastung überwachen
+
+Categories=Qt;KDE;System;
+
+MimeType=application/x-ksysguard;
+
+Icon=utilities-system-monitor
+TryExec=ksysguard
+Exec=ksysguard %U
+Terminal=false
+OnlyShowIn=KDE
+StartupNotify=true
+
+X-DBUS-ServiceName=org.kde.ksysguard
+X-DBUS-StartupType=multi
+X-DocPath=ksysguard/index.html
+X-KDE-SubstituteUID=false
