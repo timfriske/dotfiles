@@ -1,0 +1,27 @@
+# Autostart of JetBrains PyCharm CE IDE
+# =====================================
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+Type=Application
+
+Name=JetBrains PyCharm Community Edition
+Name[de]=JetBrains PyCharm Community Edition
+
+GenericName=Pyhton IDE
+GenericName[de]=Pyhton IDE
+
+Comment=Community edition of the integrated development environment by JetBrains for the Python programming language.
+Comment[de]=Gemeinschaftsausgabe der integrierten Entwicklungsumgebung von JetBrains für die Python Programmiersprache.
+
+Categories=Development;IDE;
+
+Icon=/snap/pycharm-community/172/bin/pycharm.png
+TryExec=/snap/bin/pycharm-community
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/pycharm-community_pycharm-community.desktop /snap/bin/pycharm-community %f
+Terminal=false
+StartupNotify=true
+StartupWMClass=jetbrains-pycharm-ce
+
+X-KDE-SubstituteUID=false
+X-SnapInstanceName=pycharm-community
