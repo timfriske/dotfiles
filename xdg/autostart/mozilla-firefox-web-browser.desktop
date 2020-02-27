@@ -7,8 +7,8 @@
 
 Type=Application
 
-Name=Firefox
-Name[de]=Firefox
+Name=Mozilla Firefox
+Name[de]=Mozilla Firefox
 
 GenericName=Web Browser
 GenericName[de]=Web Browser
