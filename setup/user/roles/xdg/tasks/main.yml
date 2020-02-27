@@ -43,6 +43,13 @@
             gnome-terminal-emulator.desktop"
 
 - name:
+    Copy JetBrains PyCharm Community XDG autostart configuration file
+  copy:
+    src: autostart/jetbrains-pycharm-community-ide.desktop
+    dest: "{{ autostart_dir }}/\
+            jetbrains-pycharm-community-ide.desktop"
+
+- name:
     Copy Microsoft Visual Studio Code XDG autostart configuration file
   copy:
     src: autostart/microsoft-vscode-editor.desktop
