@@ -8,3 +8,8 @@
 - name: Search for OS specific tasks in files
   debug:
     var: os_task_files
+
+- name: Include OS specific tasks of first found file
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - files: "{{ os_task_files }}"
