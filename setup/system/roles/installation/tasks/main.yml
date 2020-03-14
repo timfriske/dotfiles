@@ -5,3 +5,6 @@
 
 # Main tasks
 # ----------
+- name: Search for OS specific tasks in files
+  debug:
+    var: os_task_files
