@@ -5,6 +5,10 @@
 
 # Main tasks
 # ----------
+- name: Search for OS specific variables in files
+  debug:
+    var: os_variable_files
+
 - name: Search for OS specific tasks in files
   debug:
     var: os_task_files
