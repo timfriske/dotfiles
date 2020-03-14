@@ -5,3 +5,5 @@
 
 # Main variables
 # --------------
+os_name: "{{ ansible_distribution }}"
+os_name_id: "{{ os_name | lower | replace(' ', '-') }}"
