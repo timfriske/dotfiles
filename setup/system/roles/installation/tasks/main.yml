@@ -9,6 +9,11 @@
   debug:
     var: os_variable_files
 
+- name: Include OS specific variables of first found file
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files: "{{ os_variable_files }}"
+
 - name: Search for OS specific tasks in files
   debug:
     var: os_task_files
