@@ -18,4 +18,8 @@ RUN \
     dnf makecache; \
     dnf --assumeyes install python3 ansible; \
     dnf clean all; \
+  elif command -v zypper >/dev/null; then \
+    zypper refresh; \
+    zypper --non-interactive install python3 ansible; \
+    zypper --non-interactive clean --all; \
   fi

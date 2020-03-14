@@ -7,6 +7,9 @@ platforms:
   - name: fedora-31
     image: fedora:31
     dockerfile: Dockerfile.j2
+  - name: opensuse-leap-15-1
+    image: opensuse/leap:15.1
+    dockerfile: Dockerfile.j2
   - name: ubuntu-18-04
     image: ubuntu:18.04
     dockerfile: Dockerfile.j2
