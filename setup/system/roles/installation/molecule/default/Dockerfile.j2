@@ -7,3 +7,6 @@ FROM {{ item.registry.url }}/{{ item.image }}
 {% else %}
 FROM {{ item.image }}
 {% endif %}
+
+RUN \
+  set -o errexit xtrace
