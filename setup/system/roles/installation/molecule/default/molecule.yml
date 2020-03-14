@@ -4,6 +4,9 @@ dependency:
 driver:
   name: docker
 platforms:
+  - name: fedora-31
+    image: fedora:31
+    dockerfile: Dockerfile.j2
   - name: ubuntu-18-04
     image: ubuntu:18.04
     dockerfile: Dockerfile.j2

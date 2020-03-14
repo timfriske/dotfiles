@@ -14,4 +14,8 @@ RUN \
     apt-get update; \
     apt-get install --assume-yes python3 ansible; \
     apt-get clean; \
+  elif command -v dnf >/dev/null; then \
+    dnf makecache; \
+    dnf --assumeyes install python3 ansible; \
+    dnf clean all; \
   fi
