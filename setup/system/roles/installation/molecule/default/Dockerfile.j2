@@ -9,4 +9,9 @@ FROM {{ item.image }}
 {% endif %}
 
 RUN \
-  set -o errexit xtrace
+  set -o errexit xtrace; \
+  if command -v apt-get >/dev/null; then \
+    apt-get update; \
+    apt-get install --assume-yes python3 ansible; \
+    apt-get clean; \
+  fi
