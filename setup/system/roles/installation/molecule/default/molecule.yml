@@ -7,12 +7,15 @@ platforms:
   - name: fedora-31
     image: fedora:31
     dockerfile: Dockerfile.j2
+    override_command: false
   - name: opensuse-leap-15-1
     image: opensuse/leap:15.1
     dockerfile: Dockerfile.j2
+    override_command: false
   - name: ubuntu-18-04
     image: ubuntu:18.04
     dockerfile: Dockerfile.j2
+    override_command: false
 provisioner:
   name: ansible
 verifier:
