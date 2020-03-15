@@ -24,4 +24,7 @@ RUN \
     zypper --non-interactive clean --all; \
   fi
 
+RUN \
+  set -o errexit xtrace
+
 CMD tail -f /dev/null
