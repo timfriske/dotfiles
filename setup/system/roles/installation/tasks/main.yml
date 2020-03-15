@@ -5,6 +5,11 @@
 
 # Main tasks
 # ----------
+
+- name: Running as user
+  debug:
+    var: ansible_user
+
 - name: Search for OS specific variables in files
   debug:
     var: os_variable_files
