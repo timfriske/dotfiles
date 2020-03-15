@@ -1,5 +1,5 @@
-# Docker Image with Ansible
-# =========================
+# Ansible Role Test Docker Image
+# ==============================
 # Tim Friske <me@tifr.de>
 
 {% if item.registry is defined %}
@@ -12,15 +12,15 @@ RUN \
   set -o errexit xtrace; \
   if command -v apt-get >/dev/null; then \
     apt-get update; \
-    apt-get install --assume-yes python3 ansible; \
+    apt-get install --assume-yes python3; \
     apt-get clean; \
   elif command -v dnf >/dev/null; then \
     dnf makecache; \
-    dnf --assumeyes install python3 ansible; \
+    dnf --assumeyes install python3; \
     dnf clean all; \
   elif command -v zypper >/dev/null; then \
     zypper refresh; \
-    zypper --non-interactive install python3 ansible; \
+    zypper --non-interactive install python3; \
     zypper --non-interactive clean --all; \
   fi
 
