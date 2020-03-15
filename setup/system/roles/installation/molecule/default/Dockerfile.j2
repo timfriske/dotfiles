@@ -28,6 +28,10 @@ RUN \
   set -o errexit xtrace; \
   if ! getent group ansible-test >/dev/null; then \
     groupadd ansible-test; \
+  fi; \
+  if ! getent passwd ansible-test >/dev/null; then \
+    useradd --create-home --gid ansible-test ansible-test; \
+  fi; \
   fi
 
 CMD tail -f /dev/null
