@@ -12,6 +12,10 @@ platforms:
     image: opensuse/leap:15.1
     dockerfile: Dockerfile.j2
     override_command: false
+  - name: opensuse-tumbleweed-latest
+    image: opensuse/tumbleweed:latest
+    dockerfile: Dockerfile.j2
+    override_command: false
   - name: ubuntu-18-04
     image: ubuntu:18.04
     dockerfile: Dockerfile.j2
