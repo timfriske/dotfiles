@@ -32,6 +32,9 @@ RUN \
   if ! getent passwd ansible-test >/dev/null; then \
     useradd --create-home --gid ansible-test ansible-test; \
   fi; \
+  if [ ! -e /etc/sudoers.d/ansible-test ]; then \
+    echo "ansible-test ALL = NOPASSWD: ALL" >/etc/sudoers.d/ansible-test; \
+    chmod ug=r,o= /etc/sudoers.d/ansible-test; \
   fi
 
 CMD tail -f /dev/null
