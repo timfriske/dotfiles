@@ -22,5 +22,9 @@ platforms:
     override_command: false
 provisioner:
   name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_user: ansible-test
 verifier:
   name: ansible
