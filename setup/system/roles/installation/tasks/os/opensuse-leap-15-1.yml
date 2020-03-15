@@ -1,0 +1,15 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# OpenSUSE Leap tasks
+# -------------------
+
+- name: Install packages with zypper
+  become: yes
+  zypper:
+    name: "{{ packages }}"
+    state: present
+    disable_recommends: no
+    update_cache: yes

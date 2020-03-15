@@ -1,0 +1,15 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Fedora tasks
+# ------------
+
+- name: Install packages with dnf
+  become: yes
+  dnf:
+    name: "{{ packages }}"
+    state: present
+    skip_broken: yes
+    update_cache: yes
