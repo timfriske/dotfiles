@@ -25,6 +25,9 @@ RUN \
   fi
 
 RUN \
-  set -o errexit xtrace
+  set -o errexit xtrace; \
+  if ! getent group ansible-test >/dev/null; then \
+    groupadd ansible-test; \
+  fi
 
 CMD tail -f /dev/null
