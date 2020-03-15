@@ -5,3 +5,46 @@
 
 # OpenSUSE Leap variables
 # -----------------------
+
+packages:
+  - adobe-sourcecodepro-fonts
+  - adobe-sourcesanspro-fonts
+  - adobe-sourceserifpro-fonts
+  - ansible
+  - asciidoc
+  - ruby2.5-rubygem-asciidoctor
+  - ruby2.5-rubygem-asciidoctor-doc
+  - bash
+  - borgbackup
+  - checkbashisms
+  - chromium
+  - dash
+  - docker
+  - docker-machine-driver-kvm2
+  - git
+  - gnu_parallel
+  - go
+  - gpg2
+  - htop
+  - java-11-openjdk
+  - java-11-openjdk-javadoc
+  - java-11-openjdk-src
+  - java-1_8_0-openjdk
+  - java-1_8_0-openjdk-javadoc
+  - java-1_8_0-openjdk-src
+  - jq
+  - libreoffice
+  - libreoffice-l10n-de
+  - libreoffice-l10n-en
+  - MozillaFirefox
+  - MozillaFirefox-translations-common
+  - minikube
+  - openssh
+  - python3
+  - python3-yamllint
+  - rsync
+  - rust
+  - tmux
+  - transmission
+  - vim
+  - zstd
