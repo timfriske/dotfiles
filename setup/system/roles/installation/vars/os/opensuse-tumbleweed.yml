@@ -19,6 +19,7 @@ packages:
   - borgbackup
   - checkbashisms
   - chromium
+  - code
   - dash
   - docker
   - docker-machine-driver-kvm2
