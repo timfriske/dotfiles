@@ -446,6 +446,11 @@ export RSYNC_X_OPTIONS=''
 RSYNC_X_OPTIONS+='--human-readable '
 RSYNC_X_OPTIONS+='--progress '
 
+# Rust programming language
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
+export CARGO_HOME=~/.local
+export RUSTUP_HOME=~/.local/rustup
+
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
