@@ -1,0 +1,51 @@
+#!/usr/bin/env -S awk -f
+
+# Conv-conf-adoc command
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Converts _conf_ configuration files into AsciiDoc formatted documentation
+# files given that the embedded comments already contain AsciiDoc markup.
+#
+# Non-comment lines, i.e. lines that do not begin with the _#_ hash sign, are
+# marked as AsciiDoc delimited listing blocks.
+#
+# This command helps to keep the documentation in the form of AsciiDoc formatted
+# comments inside _conf_ configuration files such that the config and docs don't
+# go out of sync.
+#
+# You might want to pipe the output of this command into `cat -s` in order to
+# condense repeated blank lines to only one such line.
+#
+# Dependencies:
+#   env:: Env command.
+#   awk:: Awk command.
+
+BEGIN {
+    program = "conv-conf-adoc"
+    "TZ=UTC date" | getline date
+    print ":generated-by:", program
+    print ":generated-at:", date
+}
+{
+    if (sub(/^#\s?/, "") > 0) {
+        if (delim_block == 1) {
+            delim_block = 0
+            print "----\n"
+        }
+        print
+    } else if (NF > 0) {
+        if (delim_block == 0) {
+            delim_block = 1
+            print "\n----"
+        }
+        print
+    } else if (delim_block == 0) {
+        print
+    }
+}
+END {
+    if (delim_block == 1) {
+        print "----"
+    }
+}
