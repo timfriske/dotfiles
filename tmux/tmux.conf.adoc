@@ -1,0 +1,893 @@
+:generated-by: conv-conf-adoc
+:generated-at: Tue 08 Sep 2020 09:42:59 PM UTC
+:experimental:
+
+Configuration of Tmux
+=====================
+Tim Friske <me@tifr.de>
+
+_Tmux_ is a terminal multiplexer software that lets users make better
+use of the screen of a virtual terminal.  It allows them to organize
+their work into several sessions, windows and panes.
+
+Users can switch sessions by connecting their _Tmux_ client from one
+and detach it to another.  Within one session they can then navigate
+between multiple windows each of which may be split into a number of
+panes.  A pane is finally the place where a user usually uses an
+interactive shell to run further programs.
+
+This configuration file shall provide _Tmux_ with sensible settings
+and personalized key bindings in order to make it more accessible.  It
+is split into a section with options only and one with key bindings
+only.
+
+The section of options constitutes the first part of this file.  It
+only configures those server-, global session and -window options with
+impractical settings.  Options with reasonable defaults are not listed
+here but implicitly assumed following the principle of _Convention
+over Configuration_.
+
+The very user specific section of key bindings follows the more
+generic section of options because key bindings are usually a matter
+of strong personal preference with only few chances for acceptance by
+a broader user base.
+
+See also::
+  https://tmux.github.io[Tmux website]
+  https://linux.die.net/man/1/tmux[Tmux manpage]
+
+Options
+-------
+
+Escape time
+~~~~~~~~~~~
+
+Pass escape sequences directly through to the programs running in
+panes in order to prevent any noticable delays.  Setting `escape-time`
+to `0` makes the `Esc` key in the Vim-editor work again without
+delays.
+
+Stop _Tmux_ from waiting `escape-time` milliseconds until it may
+reliably determine if an escape sequence is part of a bound function
+or meta key.
+
+Default::
+  set-option -s escape-time 500
+
+----
+set-option -s escape-time 0
+----
+
+Default terminal
+~~~~~~~~~~~~~~~~
+
+Assume that the modern terminal _Tmux_ supports 256 colors instead of
+_Tmux_ falling back to `screen' without 256 color support as the
+default terminal.
+
+Default::
+  set-option -s default-terminal 'screen'
+
+----
+set-option -s default-terminal 'tmux-256color'
+----
+
+Default command
+~~~~~~~~~~~~~~~
+
+Start a `non-login' shell as opposed to a `login' shell every time a
+new pane without a specific command gets created in order to prevent
+the shell from repeatedly executing code only meant to run once upon
+user login.
+
+With `default-command` set to the environment variable `${SHELL}`
+whose value usually expands to `/bin/bash` an instance of the Bash
+shell in interactive `non-login' mode is started which by default only
+reads from start-up files such as `~/.bashrc` but not `~/.bash_login`
+and the like.
+
+Default::
+  set-option -g default-command ''
+
+----
+set-option -g default-command '${SHELL}'
+----
+
+Prefix
+~~~~~~
+
+Use `Ctrl-s` as the prefix to prefixed key bindings because `Ctrl-s`
+is easily reachable by one hand as opposed to the default `Ctrl-b`
+where you had to stretch your fingers too much.  With `Ctrl-s` while
+simultaneously pressing the right `Ctrl` and `s` keys with the left
+hand the right hand is free to reach out even to the farthest prefixed
+key.
+
+Default::
+  set-option -g prefix C-b
+
+----
+set-option -g prefix C-s
+----
+
+Mode keys, status keys
+~~~~~~~~~~~~~~~~~~~~~~
+
+Make unconditional use of the specified editor's default key bindings
+in copy mode and command line mode in order to not depend upon whether
+the values of the environment variables `VISUAL` or `EDITOR` contain
+the string `vi` implicitly switching from Emacs- to Vi-editor-like key
+bindings.
+
+Prefer `vi` key bindings in copy mode because the owner of this file
+is much more aquainted with the Vi-editor and its modern derivates Vim
+and NeoVim.  Choose `emacs` key bindings in command line mode because
+these are also the default in Vi's command line mode.
+
+Default::
+  set-option -g mode-keys <'emacs' unless "$VISUAL" or "$EDITOR"
+  contains 'vi'>
+Default::
+  set-option -g status-keys <'emacs' unless "$VISUAL" or "$EDITOR"
+  contains 'vi'>
+
+----
+set-option -g mode-keys vi
+set-option -g status-keys emacs
+----
+
+Base index, pane base index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Align the indexes of windows and panes with the keyboard layout of the
+row of digit keys from `1` to `9` and `0`.  This alignment saves the
+user's hands and fingers from jumping back and forth between the most
+distant digit keys which are `0` and `1` to reach the otherwise zeroth
+and first window or pane.
+
+Default::
+  set-option -g base-index 0
+Default::
+  set-option -g pane-base-index 0
+
+----
+set-option -g base-index 1
+set-option -g pane-base-index 1
+----
+
+Renumber windows
+~~~~~~~~~~~~~~~~
+
+Renumber windows automatically in order to leave no gaps when
+destroying some of them because the user most probably won't remember
+those gaps giving him a hard time to guess the right index for a
+window after he created and destroyed several windows over an extended
+period of time.  By setting `renumber-windows` to `on` the user can
+rely on an always contiguous, strict montonically increasing sequence
+of window indexes.
+
+Default::
+  set-option -g renumber-windows off
+
+----
+set-option -g renumber-windows on
+----
+
+History limit, history file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Make far older, exactly `history-limit` number of lines from the pane
+accessible again through the scrollback buffer once those lines start
+to disappear from the top of a pane.
+
+Persist and restore `history-limit` number of lines from tmux's
+command prompt in the given `history-file` between invocations of
+_Tmux_ to have those previous commands readily available next time.
+
+NOTE: Be mindful to choose a reasonable number of `history-limit`
+lines.  One such scrollback buffer is reserved per pane but cannot be
+resized to regain that memory other than to destroy the pane losing
+all of its past and present contents.  Therefore you should multiply
+the potential number of lines you plan to choose by the average number
+of panes you usually keep open at the same time in order to get an
+idea of the actual memory consumption.
+
+Default::
+  set-option -g history-limit 2000
+Default::
+  set-option -s history-file <'' = do not store command prompt lines>
+
+----
+set-option -g history-limit 10000
+set-option -s history-file '~/.tmux.hist'
+----
+
+Display time, display panes time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Keep the last status bar message readable for as long as possible
+until the next key is pressed potentially producing another message.
+Unfortunately the same behavior cannot be configured when displaying
+information about the panes of the currently visible window.
+Therefore increase the time to 5000 milliseconds (5 seconds) for the
+info about the panes to stay in order to be readable too.
+
+Default::
+  set-option -g display-time 750
+Default::
+  set-option -g display-panes-time 1000
+
+----
+set-option -g display-time 0
+set-option -g display-panes-time 5000
+----
+
+Visual bell
+~~~~~~~~~~~
+
+Don't let the bell sound loudly but silently notify about it in the
+status bar instead.
+
+Default::
+  set-option -g visual-bell off
+
+----
+set-option -g visual-bell on
+----
+
+Visual activity, visual silence
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Notify about any activity in a window with a message shown in the
+status bar as soon as the option `monitor-activity` is set for that
+window.  Do the same when there was silence for too long and the
+option `monitor-silence` is set.
+
+Default::
+  set-option -g visual-activity off
+Default::
+  set-option -g visual-silence off
+
+----
+set-option -g visual-activity on
+set-option -g visual-silence on
+----
+
+Focus events
+~~~~~~~~~~~~
+
+Pass focus events from the terminal on to the applications running in
+_Tmux_ in order to notify the applications so they can react to the
+events.
+
+NOTE: Attached clients should be detached and attached again after changing
+this option.
+
+Default::
+  set-option -s focus-events off
+
+----
+set-option -s focus-events on
+----
+
+Detach on destroy
+~~~~~~~~~~~~~~~~~
+
+Automatically reattach the client to the most recently active of the
+remaining sessions analogously to the default behavior when destroying
+the current pane.
+
+Default::
+  set-option -g detach-on-destroy on
+
+----
+set-option -g detach-on-destroy off
+----
+
+Aggressive resize
+~~~~~~~~~~~~~~~~~
+
+By default all windows in a session are constrained to the client with
+the smallest screen size connected to that session — even if both
+clients are looking at different windows.  It seems that in this
+particular case _Screen_ has the better default where a window is only
+constrained if a client with a smaller screen is actively looking at
+it.  Fix _Tmux's_ default behavior by switching on the option
+`aggressive-resize`.
+
+Default::
+  set-option -g aggressive-resize off
+
+----
+set-option -g aggressive-resize on
+----
+
+Key bindings
+------------
+
+kbd:[Ctrl+S]::
+  Leader key (kbd:[LK]) to press to initiate Tmux commands.  The keys
+  that follow determine which Tmux command to execute depending on the
+  actual key bindings.  kbd:[LK+XYZ] means holding the leader key
+  while pressing the subsequent keys. With kbd:[LK],kbd:[XYZ] the
+  leader key must be released before any further keys are pressed.  By
+  hiding the majority, especially the less often used hot keys behind
+  a leader key, helps to avoid collisions with hot key combinations
+  already reserved by other programs or assigned to other more
+  frequently used commands.
+
+Enter command prompt mode
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access by using kbd:[LK+Space] to enter the command
+prompt.  The kbd:[Space] key not only horizontally takes the center
+position, spans a decent length but also resides on the same row as
+the kbd:[Ctrl] key.
+
+_Tmux'_ command prompt could have been bound equally well to the even
+more accessible key binding kbd:[Ctrl+Space] but that is gladly chosen
+by power users of the _Vim_ editor to bind _Vim's_ command prompt.
+Therefore the slightly more complicated key binding kbd:[LK+Space] is
+preferred for _Tmux'_ command prompt because it is assumed to be used
+less often than _Vim's_ command prompt.
+
+Normal mode::
+  kbd:[LK+Space];;
+    Prompt for a command where the status bar is usually located.
+
+----
+bind-key Space command-prompt
+----
+
+Enter copy mode
+~~~~~~~~~~~~~~~
+
+Ease keyboard access by using kbd:[Ctrl+Q] to enter copy mode.  The
+kbd:[Ctrl+Q] key is a good candidate if the kbd:[Ctrl+S] key was
+chosen as the prefix key because they are closely located to each
+other.  Both keys can be easily memorized since they already have an
+ancient albeit less known meaning as terminal control keys, namely
+kbd:[Ctrl+S] for `XOFF`, `Pause transition' and kbd:[Ctrl+Q] for
+`XON`, `Resume transmission' which seemingly freeze and thaw the
+terminal input and output respectively.  A further advantage to bind
+the kbd:[Ctrl+Q] key to enter the copy mode is that the `q` key alone
+for `quit' exits the copy mode quickly again.
+
+Normal mode::
+  kbd:[Ctrl+Q];;
+    Enter the copy mode to copy, page or search the current pane
+    content.
+
+----
+bind-key -n C-q copy-mode
+----
+
+Cycle layouts
+~~~~~~~~~~~~~
+
+Ease keyboard access to cycle through different layouts by simply
+pressing the prefix key followed by the adjacent kbd:[Ctrl+S] or
+kbd:[Ctrl+A] keys to select the next or previous layout respectively.
+
+The layouts `even-horizontal', `even-vertical', `main-horizontal',
+`main-vertical' and `tiled' are supported.
+
+Normal mode::
+  kbd:[LK+Ctrl+A];;
+    Cycle through to the previous layout.
+  kbd:[LK+Ctrl+S];;
+    Cycle through to the next layout.
+
+----
+bind-key C-a previous-layout
+bind-key C-s next-layout
+----
+
+Select/switch pane, window, client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to toggle between the two most recent sessions,
+windows or panes.
+
+Normal mode::
+  kbd:[Alt+S];;
+    Toggle between the current and previous pane.
+  kbd:[Alt+Shift+S];;
+    Toggle between the current and previous window.
+  kbd:[Ctrl+Alt+S];;
+    Toggle between the current and previous session.
+
+----
+bind-key -n M-s select-pane -l
+bind-key -n M-S select-window -l
+bind-key -n C-M-s switch-client -l
+----
+
+Rename window, session
+~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to rename a window or session by centering these
+commands around the letter key `n`.
+
+Normal mode::
+  kbd:[LK],kbd:[N];;
+    Rename the current window whose present name is shown as a
+    reminder.
+  kbd:[LK],kbd:[Shift+N];;
+    Rename the current session whose present name is shown as a
+    reminder.
+
+----
+bind-key n command-prompt -p 'rename window "#W":' \
+  'rename-window "%%"'
+bind-key N command-prompt -p 'rename session "#S":' \
+  'rename-session "%%"'
+----
+
+Find window by title, content
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboad access to find a window either by name or title and
+content by centering these commands around the letter key `f`.
+Searching by window name only helps to substantially narrow down the
+found windows increasing the probability to directly jump to the
+chosen window.
+
+Normal mode::
+  kbd:[LK],kbd:[F];;
+    Find the window by name.
+  kbd:[LK],kbd:[Shift+F];;
+    Find the window by title and content.
+
+----
+bind-key f command-prompt -p 'find window by name:' \
+  'find-window -N "%%"'
+bind-key F command-prompt -p 'find window by title and content:' \
+  'find-window -TC "%%"'
+----
+
+Choose buffer, client, session, tree, window
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to choose a buffer, client, session, window or a
+tree of sessions and windows from a menu.  Bind the key that with the
+first letter of the corresponding class of objects for the key to be
+memorizable.
+
+Normal mode::
+  kbd:[LK],kbd:[B];;
+    Show a menu of buffers to paste into the current pane.
+  kbd:[LK],kbd:[C];;
+    Show a menu of clients to detach from the current session.
+  kbd:[LK],kbd:[S];;
+    Show a menu of sessions to switch the current client to.
+  kbd:[LK],kbd:[T];;
+    Show a menu of sessions and windows with the same choices.
+  kbd:[LK],kbd:[W];;
+    Show a menu of windows to switch the current client to.
+
+----
+bind-key b choose-buffer
+bind-key c choose-client
+bind-key s choose-session
+bind-key t choose-tree
+bind-key w choose-window
+----
+
+Detach current client, all others
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to detach clients from sessions.
+
+Normal mode::
+  kbd:[LK],kbd:[D];;
+    Detach the current client from the current session.
+  kbd:[LK],kbd:[Shift+D];;
+    Detach all but the current client from the current session.
+    Useful. e.g. to restore the window size to that of the current
+    client if restricted by another client running in a smaller
+    window.
+
+----
+bind-key d detach-client
+bind-key D detach-client -a
+----
+
+Switch client, create session
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to the most useful session commands by centering
+them around the arrow keys `h`, `j`, `k` and `l` in
+combination with the modifier keys kbd:[Ctrl] and kbd:[Alt].
+
+Normal mode::
+  kbd:[Ctrl+Alt+H];;
+    Switch the client to the previous session.
+  kbd:[Ctrl+Alt+J];;
+    Create a session and leave the client attached to the current one.
+  kbd:[Ctrl+Alt+K];;
+    Create a session and attach the client to the new one.
+  kbd:[Ctrl+Alt+L];;
+    Switch the client to the next session.
+
+----
+bind-key -n C-M-h switch-client -p
+bind-key -n C-M-j new-session -d
+bind-key -n C-M-k new-session
+bind-key -n C-M-l switch-client -n
+----
+
+Create, cycle, swap windows
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to the most useful window commands by centering
+them around the arrow keys kbd:[Up], kbd:[Down], kbd:[Left] and
+kbd:[Right] in combination with the modifier keys kbd:[Alt] and
+kbd:[Shift].
+
+Create windows in current working directory instead of the home
+folder.  You can still easily switch to your home folder by simply
+typing `cd`.  On the contrary it is more difficult to switch to the
+directory you were in.
+
+Normal mode::
+  kbd:[Alt+Up];;
+    Create a window and bring it to foreground right to the current
+    one.
+  kbd:[Alt+Down];;
+    Create a window and bring it to background right to the current
+    one.
+  kbd:[Alt+Left];;
+    Switch from the current window to the left one.
+  kbd:[Alt+Right];;
+    Switch from the current window to the right one.
+  kbd:[Alt+Shift+Up];;
+    Create a window and bring it to foreground left to the current
+    one.
+  kbd:[Alt+Shift+Down];;
+    Create a window and bring it to background left to the current
+    one.
+  kbd:[Alt+Shift+Left];;
+    Swap the current window with the left one.
+  kbd:[Alt+Shift+Right];;
+    Swap the current window with the right one.
+
+----
+bind-key -n M-Up new-window -a -c "#{pane_current_path}"
+bind-key -n M-Down new-window -ad -c "#{pane_current_path}"
+bind-key -n M-Left previous-window
+bind-key -n M-Right next-window
+bind-key -n M-S-Up new-window -a -c "#{pane_current_path}" \; \
+  swap-window -t :-1
+bind-key -n M-S-Down new-window -ad -c "#{pane_current_path}" \; \
+  swap-window -t :+1
+bind-key -n M-S-Left swap-window -t :-1
+bind-key -n M-S-Right swap-window -t :+1
+----
+
+Ease keyboard access to the most useful window commands by centering
+them around the letter keys `z` and `x` in combination with the
+modifier keys kbd:[Ctrl] and kbd:[Alt].
+
+Create windows in current working directory instead of the home
+folder.  You can still easily switch to your home folder by simply
+typing `cd`.  On the contrary it is more difficult to switch to the
+directory you were in.
+
+Normal mode::
+  kbd:[Ctrl+Alt+Z];;
+    Create a window and bring it to background right to the current
+    one.
+  kbd:[Ctrl+Alt+X];;
+    Create a window and bring it to foreground right to the current
+    one.
+  kbd:[Alt+Z];;
+    Switch from the current window to the left one.
+  kbd:[Alt+X];;
+    Switch from the current window to the right one.
+  kbd:[Alt+Shift+Z];;
+    Swap the current window with the left one.
+  kbd:[Alt+Shift+X];;
+    Swap the current window with the right one.
+
+----
+bind-key -n C-M-z new-window -ad -c "#{pane_current_path}"
+bind-key -n C-M-x new-window -a -c "#{pane_current_path}"
+bind-key -n M-z previous-window
+bind-key -n M-x next-window
+bind-key -n M-Z swap-window -t :-1
+bind-key -n M-X swap-window -t :+1
+----
+
+Select windows
+~~~~~~~~~~~~~~
+
+Eease keyboard access to select windows by number by only holding the
+kbd:[Alt] key and pressing a single digit key to reach windows from
+digit key kbd:[1] to kbd:[10].  These key bindings mimic the common
+behavior of GUI terminal applications which allow users to access
+their tabs by number.
+
+Normal mode::
+  kbd:[Alt+1];;
+  kbd:[Alt+2];;
+  kbd:[Alt+3];;
+  kbd:[Alt+4];;
+  kbd:[Alt+5];;
+  kbd:[Alt+5];;
+  kbd:[Alt+6];;
+  kbd:[Alt+7];;
+  kbd:[Alt+8];;
+  kbd:[Alt+9];;
+  kbd:[Alt+0];;
+    Jump to a window with a number between 1 and 10; where 0 = 10.
+
+NOTE: The `base-index` option should be set to `1` in order to be
+aligned with the row of digit keys.
+
+----
+bind-key -n M-1 select-window -t :1
+bind-key -n M-2 select-window -t :2
+bind-key -n M-3 select-window -t :3
+bind-key -n M-4 select-window -t :4
+bind-key -n M-5 select-window -t :5
+bind-key -n M-6 select-window -t :6
+bind-key -n M-7 select-window -t :7
+bind-key -n M-8 select-window -t :8
+bind-key -n M-0 select-window -t :10
+----
+
+Split windows
+~~~~~~~~~~~~~
+
+Ease keyboard access to split the current window horizontally as well
+as vertically and above as well as below the current pane into further
+panes.  These key bindings mimic those of Vi's movement keys and thus
+should be familiar.
+
+Create windows in current working directory instead of the home
+folder.  You can still easily switch to your home folder by simply
+typing `cd`.  On the contrary it is more difficult to switch to the
+directory you were in.
+
+Normal mode::
+  kbd:[Alt+H];;
+    Create a pane left the current pane.
+  kbd:[Alt+J];;
+    Create a pane below the current pane.
+  kbd:[Alt+K];;
+    Create a pane above the current pane.
+  kbd:[Alt+L];;
+    Create a pane right the current pane.
+
+----
+bind-key -n M-H split-window -hb -c "#{pane_current_path}"
+bind-key -n M-J split-window -v -c "#{pane_current_path}"
+bind-key -n M-K split-window -vb -c "#{pane_current_path}"
+bind-key -n M-L split-window -h -c "#{pane_current_path}"
+----
+
+Select panes
+~~~~~~~~~~~~
+
+Ease keyboard access to switch from the current pane to the panes
+left, right, above and below it.  These key bindings mimic those of
+Vi's movement keys and thus should be familiar.
+
+Normal mode::
+  kbd:[Alt+H];;
+    Switch to the pane left the current pane.
+  kbd:[Alt+J];;
+    Switch to the pane below the current pane.
+  kbd:[Alt+K];;
+    Switch to the pane above the current pane.
+  kbd:[Alt+L];;
+    Switch to the pane right the current pane.
+
+----
+bind-key -n M-h select-pane -L
+bind-key -n M-j select-pane -D
+bind-key -n M-k select-pane -U
+bind-key -n M-l select-pane -R
+----
+
+Resize panes
+~~~~~~~~~~~~
+
+Ease keyboard access to resize the current pane in repeatable steps of
+two screen rows or columns.  These key bindings mimic those of Vi's
+movement keys and thus should be familiar.
+
+Normal mode::
+  kbd:[LK],kbd:[H];;
+    Resize the current pane to the left.
+  kbd:[LK],kbd:[J];;
+    Resize the current pane to the bottom.
+  kbd:[LK],kbd:[K];;
+    Resize the current pane to the top.
+  kbd:[LK],kbd:[L];;
+    Resize the current pane to the right.
+
+----
+bind-key -r h resize-pane -L 2
+bind-key -r j resize-pane -D 2
+bind-key -r k resize-pane -U 2
+bind-key -r l resize-pane -R 2
+----
+
+Display pane, window info
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to show information about the panes or current
+window.
+
+Normal mode::
+  kbd:[LK],kbd:[I];;
+    Show info about the panes of the current window.
+  kbd:[LK],kbd:[Shift+I];;
+    Show info about the current window itself.
+
+----
+bind-key i display-panes
+bind-key I display-message
+----
+
+Enter incremental search mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Make the search directly accessible from normal mode.  Without these
+key bindings the user had to issue two commands.  The first command
+only to switch into copy mode and the second one to get prompted for
+the search string.
+
+Unfortunately the much better `incremental' search is only bound by
+default in copy mode `emacs` whereas only the inferior `normal' search
+is bound by default in copy mode `vi`.
+
+The key bindings below enable the user to start searching upon
+entering the very first few characters of the search string.  While
+typing the search results get continually updated, i.e. narrowed the
+more and widened the less characters are used to refine the search.
+For these reasons this so called `incremental' search is preferred
+over the default search mechansim which starts to search only when the
+user entered the entire search string.  With the standard mechansim
+the user had to enter the same keys again and again every time he
+wishes to adapt the search string.
+
+Normal mode::
+  kbd:[Alt+/];;
+    Enter copy mode to search forward while typing.
+  kbd:[Alt+?];;
+    Enter copy mode to search backwards while typing.
+Copy mode Vi::
+  kbd:[/];;
+    Search forward while typing.
+  kbd:[?];;
+    Search backwards while typing.
+
+----
+bind-key -n M-/ command-prompt -i -p / \
+  'send-keys -X search-forward-incremental "%%"'
+bind-key -T copy-mode-vi / command-prompt -i -p / \
+  'send-keys -X search-forward-incremental "%%"'
+bind-key -n M-? command-prompt -i -p ? \
+  'send-keys -X search-backward-incremental "%%"'
+bind-key -T copy-mode-vi ? command-prompt -i -p ? \
+  'send-keys -X search-backward-incremental "%%"'
+----
+
+Edit, reload Tmux configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to edit and reload the user configuration.
+
+Create windows in current working directory instead of the home
+folder.  You can still easily switch to your home folder by simply
+typing `cd`.  On the contrary it is more difficult to switch to the
+directory you were in.
+
+Normal mode::
+  kbd:[LK],kbd:[Shift+E];;
+    Load the user configuration into a text editor and display it side
+    by side with tmux's manual page for help in a new window labelled
+    _Tmux_.
+  kbd:[LK],kbd:[E];;
+    Reload the user configuration.
+
+----
+bind-key E new-window -a -n Tmux -c "#{pane_current_path}" \
+  '"${VISUAL:-${EDITOR:-vi}}" ~/.tmux.conf' \; \
+  split-window -dh -c "#{pane_current_path}" 'man 1 tmux'
+bind-key e source-file ~/.tmux.conf \; display-message \
+  '~/.tmux.conf reloaded'
+----
+
+Paste, choose buffer
+~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to paste the latest or chosen buffer into the
+current pane by centering these commands around the letter key `p`.
+
+Normal mode::
+  kbd:[LK],kbd:[P];;
+    Paste the latest buffer; repetitions possible.
+  kbd:[LK],kbd:[Shift+P];;
+    Paste the chosen buffer.
+
+----
+bind -r p paste-buffer
+bind P choose-buffer
+----
+
+Copy and paste from clipboard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to copy to and paste from the clipboard in order
+to painlessly exchange text between terminal and GUI applications.
+These key bindings mimic those of desktop environments and thus should
+be familiar.
+
+Normal mode::
+  kbd:[Ctrl+C];;
+    Copy the current pane's content into the clipboard.
+  kbd:[Ctrl+V];;
+    Paste the clipboard's content into the current pane.
+
+----
+bind-key C-c choose-buffer \
+  'run "tmux save-buffer -b \"%%\" - | xsel --input --clipboard"'
+bind-key -r C-v run \
+  'tmux set-buffer "$(xclip --output --clipboard)"; tmux paste-buffer'
+----
+
+Cancel copy mode
+~~~~~~~~~~~~~~~~
+
+Eease keyboard access to cancel copy mode by using the kbd:[Esc] key,
+not only when kbd:[Q] is hit.
+
+Copy mode Vi::
+  kbd:[Esc];;
+    Leave copy mode.
+
+----
+bind-key -T copy-mode-vi Escape send-keys -X cancel
+----
+
+Enter visual selection, cycle character, line, block selection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to start with line- and switch to block-wise
+selection, toggling back and forth.  These key bindings mimic those of
+Vi's visual selection keys and thus should be familiar.
+
+Copy mode Vi::
+  kbd:[V];;
+    Begin line-wise text selection with sign under cursor.
+  kbd:[Shift+V];;
+    Begin line-wise text selection with line under cursor.
+  kbd:[Ctrl+V];;
+    Toggle between line- and block-wise text selection.
+
+----
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi V send-keys -X select-line
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+----
+
+Copy screen content to buffer, clipboard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ease keyboard access to copy the current pane's content to a new
+buffer or the clipboard.
+
+Copy mode Vi::
+  kbd:[Y];;
+    Copy selection to buffer.
+  kbd:[Shift+Y];;
+    Copy selection to clipboard.
+
+----
+bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+bind-key -T copy-mode-vi Y send-keys -X copy-pipe-and-cancel 'xsel --input --clipboard'
+----
