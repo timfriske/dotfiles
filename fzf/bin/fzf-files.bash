@@ -24,11 +24,11 @@
 # ----
 #
 # Dependencies::
-#   _Bash_, _Fzf-find_, _Fzf-insert_, _Fzf-pick_, _Fzf-quote_,
+#   _Bash_, _Fzf-finder_, _Fzf-insert_, _Fzf-pick_, _Fzf-quote_,
 #   _Fzf-sort_
 
 function fzf_files {
-  cmd="kind=file fzf-find \
+  cmd="kind=file fzf-finder \
     | fzf-quote \
     | order=version fzf-sort \
     | cmd='' write=1 fzf-pick" \

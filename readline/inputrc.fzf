@@ -16,7 +16,7 @@ $if mode=vi
   "\C-x\C-r": redraw-current-line
   "\C-x^": history-expand-line
   "\C-r": "\C-x\C-addi$(HISTTIMEFORMAT= history | fzf-history)\C-x\C-e\C-x\C-r\C-x^\C-x\C-a$a"
-  "\ec": "\C-x\C-addi$(kind=folder fzf-find | fzf-quote | order=version fzf-sort | write=1 fzf-pick)\C-x\C-e\C-x\C-r\C-m"
+  "\ec": "\C-x\C-addi$(kind=folder fzf-finder | fzf-quote | order=version fzf-sort | write=1 fzf-pick)\C-x\C-e\C-x\C-r\C-m"
 
   # Key bindings for _Vi_ _Command_ mode
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -10,6 +10,12 @@
   loop:
     - "{{ bin_dir }}"
 
+- name: Copy Fzf Fd utility program
+  copy:
+    src: bin/fzf-fd
+    dest: "{{ bin_dir }}/fzf-fd"
+    mode: preserve
+
 - name: Copy Fzf Files utility Bash script
   copy:
     src: bin/fzf-files.bash
@@ -82,3 +88,23 @@
     src: bin/fzf-sort
     dest: "{{ bin_dir }}/fzf-sort"
     mode: preserve
+
+- name: Check if Fd utility program is in PATH
+  shell: "which fd"
+  register: fd_in_path
+  ignore_errors: true
+  changed_when: false
+
+- name: Link Fzf Finder to Fzf Fd utility program
+  file:
+    src: "{{ bin_dir }}/fzf-fd"
+    dest: "{{ bin_dir }}/fzf-finder"
+    state: link
+  when: fd_in_path.rc == 0
+
+- name: Link Fzf Finder to Fzf Find utility program
+  file:
+    src: "{{ bin_dir }}/fzf-find"
+    dest: "{{ bin_dir }}/fzf-finder"
+    state: link
+  when: fd_in_path.rc != 0
