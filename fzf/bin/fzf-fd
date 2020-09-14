@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+#
+# Find file system objects w/ Fd for Fzf
+# ======================================
+# Tim Friske <me@tifr.de>
+#
+# Dependencies::
+#   _Bash_, _Cat_, _Fd_
+
+shopt -os nounset pipefail errexit errtrace
+
+function print_help {
+  1>&2 cat \
+<<'HELP'
+Help
+====
+Find file system objects with _Fd_ for _Fzf_.
+
+Usage
+-----
+.Command line syntax
+----
+fzf-fd [--help]
+
+[<variable>=<value>]... fzf-fd
+
+[hidden=1|true] fzf-fd
+
+[kind=file|folder|link] fzf-fd
+
+[write=1|true] fzf-fd
+----
+
+Options
+-------
+--help::
+  Print this program's help text.
+
+hidden=1|true::
+  Include hidden file system objects or visible ones but hidden in
+  folders.
+
+kind=file|folder|link::
+  Find either files, folders or links only.
+
+write=1|true::
+  Write new-line-terminated objects.
+
+The program _Fzf-fd_ finds file system objects below the current folder
+with _Fd_ for further consumption by _Fzf_.  By default it will only
+find visible objects, i.e. those whose names don't start with the `.`
+dot sign.  This also excludes visible objects in hidden folders.  With
+_Fzf-find's_ `hidden` variable set to either `1` or `true` hidden
+objects can be found too.
+
+With the `kind` variable set to either `file`, `folder` or `link`
+_Fzf-fd_ may be restricted to find objects of a certain type only.
+
+When _Fzf-fd's_ standard output stream is connected to a terminal it
+writes each object on a new line.  Otherwise, e.g. when _Fzf-fd_ writes
+to a file or another program, it terminates each object with a `\0` null
+character.  The latter decision may be overridden by passing _Fzf-fd's_
+`write` variable set to either `1` or `true`.
+HELP
+}
+
+function find_fs_objects {
+  local opt_hidden=()
+  if [[ "${hidden:-}" =~ 1|true ]]; then
+    opt_hidden=('--hidden')
+  fi
+
+  local opt_type=()
+  case "${kind:-}" in
+    file) opt_type=('--type' 'file');;
+    folder) opt_type=('--type' 'directory');;
+    link) opt_type=('--type' 'symlink');;
+    *);;
+  esac
+
+  local opt_print=('--print0')
+  if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
+    opt_print=()
+  fi
+
+  fd --follow --min-depth 1 \
+    "${opt_hidden[@]}" \
+    "${opt_type[@]}" \
+    "${opt_print[@]}"
+}
+
+function fzf_fd {
+  if [[ "${1:-}" == '--help' ]]; then
+    print_help
+    exit
+  fi
+
+  find_fs_objects
+}
+
+fzf_fd "$@"
