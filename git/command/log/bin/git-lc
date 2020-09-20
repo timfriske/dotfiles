@@ -19,8 +19,8 @@ main() {
   local commit="${2:-HEAD}"
   shift $(($#-($#${1+-1}${2+-1})))
   cd "${GIT_PREFIX:-.}"
-  git log --author="$author" --no-merges --oneline --decorate=auto \
-    "$commit" -- "${@:-.}"
+  git log --author="${author}" --no-merges --oneline --decorate=auto \
+    "${commit}" -- "${@:-.}"
 }
 
 main "${@}"

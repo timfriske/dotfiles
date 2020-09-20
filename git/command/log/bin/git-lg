@@ -18,8 +18,8 @@ main() {
   local commit="${2:-HEAD}"
   shift $(($#-($#${1+-1}${2+-1})))
   cd "${GIT_PREFIX:-.}"
-  git log --grep="$pattern" --fixed-strings --regexp-ignore-case \
-    --oneline --decorate=auto "$commit" -- "${@:-.}"
+  git log --grep="${pattern}" --fixed-strings --regexp-ignore-case \
+    --oneline --decorate=auto "${commit}" -- "${@:-.}"
 }
 
 main "${@}"

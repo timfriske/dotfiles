@@ -15,7 +15,7 @@ main() {
   local filter="${1:-ACDMRTUXB}"
   shift $(($#-($#${1+-1})))
   cd "${GIT_PREFIX:-.}"
-  git diff --name-only --diff-filter="$filter" "${@}"
+  git diff --name-only --diff-filter="${filter}" "${@}"
 }
 
 main "${@}"

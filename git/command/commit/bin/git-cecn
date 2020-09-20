@@ -14,7 +14,7 @@ set -o errexit -o nounset
 main() {
   local of_commit="${1:-HEAD}"
   shift $(($#-($#${1+-1})))
-  git commit --no-edit --reuse-message="$of_commit" ${GIT_X_SIGNOFF:-} \
+  git commit --no-edit --reuse-message="${of_commit}" ${GIT_X_SIGNOFF:-} \
     --reset-author "${@}"
 }
 

@@ -15,7 +15,7 @@ set -o errexit -o nounset
 
 main() {
   local unmerged="$(git diff --name-only --diff-filter=U)"
-  ${unmerged:+git edit $unmerged}
+  ${unmerged:+git edit ${unmerged}}
 }
 
 main "${@}"

@@ -12,9 +12,9 @@
 set -o errexit -o nounset
 
 main() {
-  local upstream_branch="$1"
+  local upstream_branch="${1}"
   local downstream_branch="${2:-HEAD}"
-  git branch --set-upstream-to="$upstream_branch" "$downstream_branch"
+  git branch --set-upstream-to="${upstream_branch}" "${downstream_branch}"
 }
 
 main "${@}"

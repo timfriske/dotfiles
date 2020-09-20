@@ -13,7 +13,7 @@ set -o errexit -o nounset
 
 main() {
   local head_at_commit="${1:-HEAD}"
-  git checkout --detach "$head_at_commit"
+  git checkout --detach "${head_at_commit}"
 }
 
 main "${@}"

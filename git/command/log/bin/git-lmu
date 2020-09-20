@@ -19,7 +19,7 @@ main() {
   shift $(($#-($#${1+-1})))
   cd "${GIT_PREFIX:-.}"
   git log --first-parent --oneline --decorate=auto \
-    "$commit@{upstream}..$commit" -- "${@:-.}"
+    "${commit}@{upstream}..${commit}" -- "${@:-.}"
 }
 
 main "${@}"

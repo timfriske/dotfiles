@@ -15,7 +15,7 @@ main() {
   local commit="${1:-HEAD}"
   shift $(($#-($#${1+-1})))
   cd "${GIT_PREFIX:-.}"
-  git diff --word-diff=color "$commit^-" "${@}"
+  git diff --word-diff=color "${commit}^-" "${@}"
 }
 
 main "${@}"
