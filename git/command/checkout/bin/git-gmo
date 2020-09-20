@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git checkout --ours "$@"
+  git checkout --ours "${@}"
 }
 
-main "$@"
+main "${@}"

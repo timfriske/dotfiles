@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git tag --list --no-merged "$@"
+  git tag --list --no-merged "${@}"
 }
 
-main "$@"
+main "${@}"

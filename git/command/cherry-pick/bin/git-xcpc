@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git cherry-pick --continue "$@"
+  git cherry-pick --continue "${@}"
 }
 
-main "$@"
+main "${@}"

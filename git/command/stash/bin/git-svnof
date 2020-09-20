@@ -14,7 +14,7 @@ set -o errexit -o nounset
 main() {
   local filter="${1:-ACDMRTUXB}"
   shift $(($#-($#${1+-1})))
-  git stash show --name-only --diff-filter="$filter" "$@"
+  git stash show --name-only --diff-filter="${filter}" "${@}"
 }
 
-main "$@"
+main "${@}"

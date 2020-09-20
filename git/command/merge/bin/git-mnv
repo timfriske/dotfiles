@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git merge --no-ff --verify-signatures ${GIT_X_SIGNOFF:-} "$@"
+  git merge --no-ff --verify-signatures ${GIT_X_SIGNOFF:-} "${@}"
 }
 
-main "$@"
+main "${@}"

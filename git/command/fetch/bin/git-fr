@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git fetch --recurse-submodules=on-demand --jobs=2 "$@"
+  git fetch --recurse-submodules=on-demand --jobs=2 "${@}"
 }
 
-main "$@"
+main "${@}"

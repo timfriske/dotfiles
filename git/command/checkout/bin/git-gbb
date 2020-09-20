@@ -12,9 +12,9 @@
 set -o errexit -o nounset
 
 main() {
-  local new_branch="$1"
+  local new_branch="${1}"
   local start_commit="${2:-HEAD}"
-  git checkout -B "$new_branch" "$start_commit"
+  git checkout -B "${new_branch}" "${start_commit}"
 }
 
-main "$@"
+main "${@}"

@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git stash "$@"
+  git stash "${@}"
 }
 
-main "$@"
+main "${@}"

@@ -19,4 +19,4 @@ main() {
     | xargs -o -n 10 -0 git edit
 }
 
-main "$@"
+main "${@}"

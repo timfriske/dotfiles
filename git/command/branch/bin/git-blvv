@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git branch --list --verbose --verbose "$@"
+  git branch --list --verbose --verbose "${@}"
 }
 
-main "$@"
+main "${@}"

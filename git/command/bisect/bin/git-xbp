@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git bisect replay "$@"
+  git bisect replay "${@}"
 }
 
-main "$@"
+main "${@}"

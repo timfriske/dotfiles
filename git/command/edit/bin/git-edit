@@ -13,7 +13,7 @@ set -o errexit -o nounset
 
 main() {
   local editor="$(git config core.editor)"
-  ${editor:-${VISUAL:-${EDITOR:-true}}} "$@"
+  ${editor:-${VISUAL:-${EDITOR:-true}}} "${@}"
 }
 
-main "$@"
+main "${@}"

@@ -15,4 +15,4 @@ main() {
   git cherry -v
 }
 
-main "$@"
+main "${@}"

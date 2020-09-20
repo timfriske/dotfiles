@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git help --info "$@"
+  git help --info "${@}"
 }
 
-main "$@"
+main "${@}"

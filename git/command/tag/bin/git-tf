@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git tag --force "$@"
+  git tag --force "${@}"
 }
 
-main "$@"
+main "${@}"

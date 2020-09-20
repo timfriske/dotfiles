@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git merge --continue "$@"
+  git merge --continue "${@}"
 }
 
-main "$@"
+main "${@}"
