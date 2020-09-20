@@ -15,8 +15,9 @@ main() {
   local commit="${1:-HEAD~1}"
   local of_commit="${2:-${commit}}"
   shift $(($#-($#${1+-1}${2+-1})))
-  git commit --squash="${commit}" --no-edit --reuse-message="${of_commit}" \
-    ${GIT_X_SIGNOFF:-} --reset-author "${@}"
+  git commit --squash="${commit}" --no-edit \
+    --reuse-message="${of_commit}" ${GIT_X_SIGNOFF:-} --reset-author \
+    "${@}"
 }
 
 main "${@}"

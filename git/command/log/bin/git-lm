@@ -18,7 +18,8 @@ main() {
   local commit="${1:-HEAD}"
   shift $(($#-($#${1+-1})))
   cd "${GIT_PREFIX:-.}"
-  git log --first-parent --oneline --decorate=auto "${commit}" -- "${@:-.}"
+  git log --first-parent --oneline --decorate=auto "${commit}" -- \
+    "${@:-.}"
 }
 
 main "${@}"
