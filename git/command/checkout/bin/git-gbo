@@ -17,4 +17,4 @@ main() {
   git checkout --orphan "$new_branch" "$start_commit"
 }
 
-main "$@"
+main "${@}"

@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git branch --list --remotes --no-contains "$@"
+  git branch --list --remotes --no-contains "${@}"
 }
 
-main "$@"
+main "${@}"

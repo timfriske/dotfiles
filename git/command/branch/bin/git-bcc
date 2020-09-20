@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git branch --copy --force "$@"
+  git branch --copy --force "${@}"
 }
 
-main "$@"
+main "${@}"

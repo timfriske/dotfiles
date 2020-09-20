@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git reset --patch "$@"
+  git reset --patch "${@}"
 }
 
-main "$@"
+main "${@}"

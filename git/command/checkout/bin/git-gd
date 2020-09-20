@@ -16,4 +16,4 @@ main() {
   git checkout --detach "$head_at_commit"
 }
 
-main "$@"
+main "${@}"

@@ -14,7 +14,7 @@ set -o errexit -o nounset
 # Log commits with their relations visualized as graph on left margin.
 #
 main() {
-  git log --graph --oneline "$@"
+  git log --graph --oneline "${@}"
 }
 
-main "$@"
+main "${@}"

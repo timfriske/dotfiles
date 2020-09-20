@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git branch --list --remotes --merged "$@"
+  git branch --list --remotes --merged "${@}"
 }
 
-main "$@"
+main "${@}"

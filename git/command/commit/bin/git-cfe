@@ -14,7 +14,7 @@ set -o errexit -o nounset
 main() {
   local commit="${1:-HEAD~}"
   shift $(($#-($#${1+-1})))
-  git commit --fixup="$commit" --edit ${GIT_X_SIGNOFF:-} "$@"
+  git commit --fixup="$commit" --edit ${GIT_X_SIGNOFF:-} "${@}"
 }
 
-main "$@"
+main "${@}"

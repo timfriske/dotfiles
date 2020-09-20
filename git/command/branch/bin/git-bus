@@ -17,4 +17,4 @@ main() {
   git branch --set-upstream-to="$upstream_branch" "$downstream_branch"
 }
 
-main "$@"
+main "${@}"

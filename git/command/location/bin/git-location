@@ -56,4 +56,4 @@ function git_location {
   exit 1
 }
 
-git_location "$@"
+git_location "${@}"

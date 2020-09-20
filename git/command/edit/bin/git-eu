@@ -18,4 +18,4 @@ main() {
   ${unmerged:+git edit $unmerged}
 }
 
-main "$@"
+main "${@}"

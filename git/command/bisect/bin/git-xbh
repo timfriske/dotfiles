@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git bisect help "$@"
+  git bisect help "${@}"
 }
 
-main "$@"
+main "${@}"

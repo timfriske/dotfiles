@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git checkout --recurse-submodules "$@"
+  git checkout --recurse-submodules "${@}"
 }
 
-main "$@"
+main "${@}"

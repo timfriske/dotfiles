@@ -17,4 +17,4 @@ main() {
   git checkout -b "$new_branch" "$start_commit"
 }
 
-main "$@"
+main "${@}"

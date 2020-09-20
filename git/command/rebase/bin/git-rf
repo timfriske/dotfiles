@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git rebase --force-rebase ${GIT_X_SIGNOFF:-} "$@"
+  git rebase --force-rebase ${GIT_X_SIGNOFF:-} "${@}"
 }
 
-main "$@"
+main "${@}"

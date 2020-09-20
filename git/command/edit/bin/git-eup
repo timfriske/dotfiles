@@ -20,4 +20,4 @@ main() {
       git edit
 }
 
-main "$@"
+main "${@}"

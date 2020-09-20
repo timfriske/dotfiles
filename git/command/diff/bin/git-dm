@@ -15,7 +15,7 @@ main() {
   local filter="${1:-HEAD}"
   shift $(($#-($#${1+-1})))
   cd "${GIT_PREFIX:-.}"
-  git diff "$commit^-" "$@"
+  git diff "$commit^-" "${@}"
 }
 
-main "$@"
+main "${@}"

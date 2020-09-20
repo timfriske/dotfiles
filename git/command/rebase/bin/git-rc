@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git rebase --continue "$@"
+  git rebase --continue "${@}"
 }
 
-main "$@"
+main "${@}"

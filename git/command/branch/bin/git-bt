@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git branch --track "$@"
+  git branch --track "${@}"
 }
 
-main "$@"
+main "${@}"

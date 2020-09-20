@@ -15,7 +15,7 @@ main() {
   local of_commit="${1:-HEAD}"
   shift $(($#-($#${1+-1})))
   git commit --edit --reedit-message="$of_commit" ${GIT_X_SIGNOFF:-} \
-    --reset-author "$@"
+    --reset-author "${@}"
 }
 
-main "$@"
+main "${@}"

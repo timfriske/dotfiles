@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git show --show-signature "$@"
+  git show --show-signature "${@}"
 }
 
-main "$@"
+main "${@}"

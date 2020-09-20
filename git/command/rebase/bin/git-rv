@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git rebase --show-current-patch "$@"
+  git rebase --show-current-patch "${@}"
 }
 
-main "$@"
+main "${@}"

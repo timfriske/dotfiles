@@ -21,4 +21,4 @@ main() {
   git log --first-parent --oneline --decorate=auto "$commit" -- "${@:-.}"
 }
 
-main "$@"
+main "${@}"

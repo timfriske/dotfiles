@@ -12,7 +12,7 @@
 set -o errexit -o nounset
 
 main() {
-  git fetch --all --prune --prune-tags "$@"
+  git fetch --all --prune --prune-tags "${@}"
 }
 
-main "$@"
+main "${@}"

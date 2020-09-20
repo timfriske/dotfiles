@@ -22,4 +22,4 @@ main() {
     --oneline --decorate=auto "$commit" -- "${@:-.}"
 }
 
-main "$@"
+main "${@}"

@@ -21,4 +21,4 @@ main() {
     "$commit@{upstream}..$commit" -- "${@:-.}"
 }
 
-main "$@"
+main "${@}"

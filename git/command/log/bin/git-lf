@@ -21,4 +21,4 @@ main() {
   git log --follow --oneline --decorate=auto "$commit" -- "$file"
 }
 
-main "$@"
+main "${@}"

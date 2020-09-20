@@ -23,4 +23,4 @@ main() {
     --oneline --decorate "$commit" -- "${@:-.}"
 }
 
-main "$@"
+main "${@}"

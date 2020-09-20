@@ -14,7 +14,7 @@ set -o errexit -o nounset
 # Log nth (commit).
 #
 main() {
-  git log --max-count=1 --format=fuller --use-mailmap "$@"
+  git log --max-count=1 --format=fuller --use-mailmap "${@}"
 }
 
-main "$@"
+main "${@}"
