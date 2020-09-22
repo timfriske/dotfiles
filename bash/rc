@@ -128,8 +128,12 @@ alias ...='cd ../..'
 #
 alias cp='cp ${CP_X_OPTIONS:-}'
 
-# Ch(grp|mod|own) - Change file group, mode, owner
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Ch(attr|grp|mod|own) - Change file metadata
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `chattr` command with default options.
+#
+alias chattr='chattr ${CHATTR_X_OPTIONS:-}'
 
 # Define alias to call `chgrp` command with default options.
 #

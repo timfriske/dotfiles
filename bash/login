@@ -72,8 +72,8 @@ export CP_X_OPTIONS=''
 CP_X_OPTIONS+='--interactive '
 CP_X_OPTIONS+='--verbose '
 
-# Ch(grp|mod|own) - Change file group, mode, owner
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Ch(attr|grp|mod|own) - Change file metadata
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # preserve-root::
 #   Never start from the root directory because this would almost always
@@ -82,6 +82,13 @@ CP_X_OPTIONS+='--verbose '
 #
 # changes::
 #   Report only which files and directories actually changed.
+#
+# V::
+#   Verbose output.
+
+# Define default options for `chattr` command.
+export CHGRP_X_OPTIONS=''
+CHGRP_X_OPTIONS+='-V '
 
 # Define default options for `chgrp` command.
 export CHGRP_X_OPTIONS=''
