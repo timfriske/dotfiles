@@ -168,8 +168,8 @@ alias du='du ${DU_X_OPTIONS:-}'
 #
 alias diff='diff ${DIFF_X_OPTIONS:-}'
 
-# Free - Free main memory and swap space
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Free - Show free main memory and swap space
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `free` command with default options.
 #
