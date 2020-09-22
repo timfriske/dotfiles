@@ -94,23 +94,6 @@ shopt -s nocaseglob nocasematch
 # Show _Bash's_ version.
 alias version='echo "bash version ${BASH_VERSION}"'
 
-# Bind
-# ~~~~
-
-# List key bindings in Bash's vi-command mode excluding self-inserts.
-alias vi-command='bind -m vi-command -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-
-# List all key bindings in Bash's vi-command mode.
-alias vi-command-all='bind -m vi-command -p'
-
-# List key bindings in Bash's vi-insert mode excluding self-inserts.
-alias vi-insert='bind -m vi-insert -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-
-# List all key bindings in Bash's vi-insert mode.
-alias vi-insert-all='bind -m vi-insert -p'
-
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
 
