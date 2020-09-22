@@ -88,6 +88,13 @@ shopt -s nocaseglob nocasematch
 # Shell aliases
 # -------------
 
+# Remove all externally defined aliases.  Aliases are meant to help the
+# user to shorten frequently used commands, introduce easy to remember
+# alternative names, etc.  The user should be fully aware of which
+# aliases are defined in order to also benefit from using them.
+#
+unalias -a
+
 # Bash
 # ~~~~
 
