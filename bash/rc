@@ -92,57 +92,68 @@ shopt -s nocaseglob nocasematch
 # ~~~~
 
 # Show _Bash's_ version.
+#
 alias version='echo "bash version ${BASH_VERSION}"'
 
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
 
 # With the shell option `autocd` switched on executing `..` already
-# changes to the parent directory.  
+# changes to the parent directory.
+#
 alias ..='cd ..'
 
 # The alias `...` expands on the idea of `..` by making it possible to
 # go up two directories at once.  More than two levels in one go would
 # mean too much mental work to execute fast enough.
+#
 alias ...='cd ../..'
 
 # Cp - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `cp` command with default options.
+#
 alias cp='cp ${CP_X_OPTIONS:-}'
 
 # Ch(grp|mod|own) - Change file group, mode, owner
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `chgrp` command with default options.
+#
 alias chgrp='chgrp ${CHGRP_X_OPTIONS:-}'
 
 # Define alias to call `chmod` command with default options.
+#
 alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
 
 # Define alias to call `chown` command with default options.
+#
 alias chown='chown ${CHOWN_X_OPTIONS:-}'
 
 # D(f|u) - Disk free, usage
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `df` command with default options.
+#
 alias df='df ${DF_X_OPTIONS:-}'
 
 # Define alias to call `du` command with default options.
+#
 alias du='du ${DU_X_OPTIONS:-}'
 
 # Diff - Differences between files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `diff` command with default options.
+#
 alias diff='diff ${DIFF_X_OPTIONS:-}'
 
 # Free - Free main memory and swap space
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `free` command with default options.
+#
 alias free='free ${FREE_X_OPTIONS:-}'
 
 # Fzf - Fuzzy-search and select all kinds of items
@@ -297,6 +308,7 @@ alias sed='sed $SED_X_OPTIONS'
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Make _Sudo_ also work with aliases.
+#
 alias sudo='sudo '
 
 # Xdg-open - Open files and folders w/ appropriate programs
@@ -313,24 +325,33 @@ done
 unset script
 
 # Test if interactive shell has startup file with local overrides.
+#
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
+
   # Read and execute commands from that startup file.
+  #
   source ~/.bashrc.local
 fi
 
 # Test if _GnuPG_ for encrypting and signing data is installed.
+#
 if type -p gpg &> /dev/null; then
+
   # Let _GnuPG_ know on which terminal to interact with the user; for
   # example the _Gpg-agent_ daemon prompting for the passphrase.
+  #
   export GPG_TTY="$(tty)"
   echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null
 fi
 
 # Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from
 # `localhost` is running.
+#
 if ! [[ -n "$TMUX" || "$TERM" =~ screen
     || "$SSH_CONNECTION" =~ ^::1|^127\.0\.0\.1 ]]; then
+
   # Test if _Tmux_ is on the `$PATH`.
+  #
   if type -p tmux &> /dev/null; then
     # Try to attach to latest unattached session or start a new one.
     { tmux attach-session || tmux new-session; } &> /dev/null
