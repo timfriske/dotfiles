@@ -112,7 +112,7 @@ alias ..='cd ..'
 
 # The alias `...` expands on the idea of `..` by making it possible to
 # go up two directories at once.  More than two levels in one go would
-# mean too much mental work to execute fast enough.
+# mean too much mental work.
 #
 alias ...='cd ../..'
 
