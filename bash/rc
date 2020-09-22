@@ -105,6 +105,11 @@ alias version='echo "bash version ${BASH_VERSION}"'
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
 
+# Toggle between current and previous directory.  Hitting `cdd` should
+# be much faster than typing `cd`, space, and then reaching out for `-`.
+#
+alias cdd='cd -'
+
 # With the shell option `autocd` switched on executing `..` already
 # changes to the parent directory.
 #
