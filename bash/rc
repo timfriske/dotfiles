@@ -147,12 +147,15 @@ alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
 #
 alias chown='chown ${CHOWN_X_OPTIONS:-}'
 
-# D(f|u) - Disk free, usage
-# ~~~~~~~~~~~~~~~~~~~~~~~~~
+# Df - Disk free
+# ~~~~~~~~~~~~~~
 
 # Define alias to call `df` command with default options.
 #
 alias df='df ${DF_X_OPTIONS:-}'
+
+# Df - Disk usage
+# ~~~~~~~~~~~~~~~
 
 # Define alias to call `du` command with default options.
 #
