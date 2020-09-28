@@ -297,6 +297,8 @@ alias md='mkdir'
 # Mv - Move/rename files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Define alias to call `mv` command with default options.
+#
 alias mv='mv $MV_X_OPTIONS'
 
 # Rm - Delete files and non-empty folders
