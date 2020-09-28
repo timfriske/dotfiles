@@ -329,6 +329,8 @@ alias rsync='rsync $RSYNC_X_OPTIONS'
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Define alias to call `sed` command with default options.
+#
 alias sed='sed $SED_X_OPTIONS'
 
 # Sudo - Execute programs as another user
