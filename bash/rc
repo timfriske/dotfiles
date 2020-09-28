@@ -294,6 +294,9 @@ alias ln='ln $LN_X_OPTIONS'
 # Define alias to call `mkdir` command with default options.
 #
 alias mkdir='mkdir $MKDIR_X_OPTIONS'
+
+# Define an alias that is similar to `rd` for symmetry.
+#
 alias md='mkdir'
 
 # Mv - Move/rename files and folders
