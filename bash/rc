@@ -322,6 +322,8 @@ alias rd='rmdir'
 # Rsync - Synchronize file system trees
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Define alias to call `rsync` command with default options.
+#
 alias rsync='rsync $RSYNC_X_OPTIONS'
 
 # Sed - Edit streams of text
