@@ -311,7 +311,12 @@ alias rm='rm ${RM_X_OPTIONS:-}'
 # Rmdir - Delete empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Define alias to call `rmdir` command with default options.
+#
 alias rmdir='rmdir $RMDIR_X_OPTIONS'
+
+# Define an alias that is similar to `rm` for symmetry.
+#
 alias rd='rmdir'
 
 # Rsync - Synchronize file system trees
