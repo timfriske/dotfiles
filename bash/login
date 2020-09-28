@@ -262,6 +262,16 @@ export HISTCONTROL='ignorespace:erasedups'
 ###export HISTIGNORE=''
 ###HISTIGNORE+='+([[:alnum:]])*([[:space:]])'
 
+# Info - View info pages
+# ~~~~~~~~~~~~~~~~~~~~~~
+#
+# vi-keys::
+#   Use keybindings to navigate through info pages similar to those of
+#   the Vi text editor.
+#
+export INFO_X_OPTIONS=''
+INFO_X_OPTIONS='--vi-keys '
+
 # Less - View long text files page-wise
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #

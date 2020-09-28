@@ -233,7 +233,9 @@ alias grep='grep $GREP_X_OPTIONS'
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias info='info --vi-keys'
+# Define alias to call `info` command with default options.
+#
+alias info='info ${INFO_X_OPTIONS:-}'
 
 # Jobs - Management of processes in foreground and background
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
