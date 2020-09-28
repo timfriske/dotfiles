@@ -291,6 +291,8 @@ alias ln='ln $LN_X_OPTIONS'
 # Mkdir - Create folders
 # ~~~~~~~~~~~~~~~~~~~~~~
 
+# Define alias to call `mkdir` command with default options.
+#
 alias mkdir='mkdir $MKDIR_X_OPTIONS'
 alias md='mkdir'
 
