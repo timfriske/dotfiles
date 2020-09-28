@@ -16,8 +16,3 @@
   copy:
     src: rc.d/alias/pbcp-xclip-xsel.bash
     dest: "{{ alias_dir }}/pbcp-xclip-xsel.bash"
-
-- name: Copy file with Bash aliases for Tar
-  copy:
-    src: rc.d/alias/tar.bash
-    dest: "{{ alias_dir }}/tar.bash"
