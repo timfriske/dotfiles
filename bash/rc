@@ -284,6 +284,8 @@ fi
 # Ln - Create hard and soft links to files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Define alias to call `ln` command with default options.
+#
 alias ln='ln $LN_X_OPTIONS'
 
 # Mkdir - Create folders
