@@ -307,8 +307,6 @@ alias mv='mv $MV_X_OPTIONS'
 # Define alias to call `rm` command with default options.
 #
 alias rm='rm ${RM_X_OPTIONS:-}'
-alias rr='rm --recursive'
-alias rrf='rr --force'
 
 # Rmdir - Delete empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
