@@ -336,7 +336,7 @@ alias sed='sed $SED_X_OPTIONS'
 # Sudo - Execute programs as another user
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Make _Sudo_ also work with aliases.
+# Make `sudo` command also work with aliases.
 #
 alias sudo='sudo '
 
