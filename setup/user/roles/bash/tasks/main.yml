@@ -36,6 +36,3 @@
     dest: "{{ user_dir }}/.bashrc"
     state: link
     force: yes
-
-- name: Set up Bash RC directory
-  import_tasks: rc.d/main.yml

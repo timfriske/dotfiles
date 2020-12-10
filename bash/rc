@@ -88,78 +88,92 @@ shopt -s nocaseglob nocasematch
 # Shell aliases
 # -------------
 
+# Remove all externally defined aliases.  Aliases are meant to help the
+# user to shorten frequently used commands, introduce easy to remember
+# alternative names, etc.  The user should be fully aware of which
+# aliases are defined in order to also benefit from using them.
+#
+unalias -a
+
 # Bash
 # ~~~~
 
 # Show _Bash's_ version.
+#
 alias version='echo "bash version ${BASH_VERSION}"'
-
-# Bind
-# ~~~~
-
-# List key bindings in Bash's vi-command mode excluding self-inserts.
-alias vi-command='bind -m vi-command -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-
-# List all key bindings in Bash's vi-command mode.
-alias vi-command-all='bind -m vi-command -p'
-
-# List key bindings in Bash's vi-insert mode excluding self-inserts.
-alias vi-insert='bind -m vi-insert -p \
-  | \grep --extended-regexp --invert-match "^#|self-insert$"'
-
-# List all key bindings in Bash's vi-insert mode.
-alias vi-insert-all='bind -m vi-insert -p'
 
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
 
+# Toggle between current and previous directory.  Hitting `cdd` should
+# be much faster than typing `cd`, space, and then reaching out for `-`.
+#
+alias cdd='cd -'
+
 # With the shell option `autocd` switched on executing `..` already
-# changes to the parent directory.  
+# changes to the parent directory.  This alias acts as a fallback in
+# case that shell option is switched off.
+#
 alias ..='cd ..'
 
 # The alias `...` expands on the idea of `..` by making it possible to
 # go up two directories at once.  More than two levels in one go would
-# mean too much mental work to execute fast enough.
+# mean too much mental work.
+#
 alias ...='cd ../..'
 
 # Cp - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `cp` command with default options.
+#
 alias cp='cp ${CP_X_OPTIONS:-}'
 
-# Ch(grp|mod|own) - Change file group, mode, owner
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Ch(attr|grp|mod|own) - Change file metadata
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Define alias to call `chattr` command with default options.
+#
+alias chattr='chattr ${CHATTR_X_OPTIONS:-}'
 
 # Define alias to call `chgrp` command with default options.
+#
 alias chgrp='chgrp ${CHGRP_X_OPTIONS:-}'
 
 # Define alias to call `chmod` command with default options.
+#
 alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
 
 # Define alias to call `chown` command with default options.
+#
 alias chown='chown ${CHOWN_X_OPTIONS:-}'
 
-# D(f|u) - Disk free, usage
-# ~~~~~~~~~~~~~~~~~~~~~~~~~
+# Df - Disk free
+# ~~~~~~~~~~~~~~
 
 # Define alias to call `df` command with default options.
+#
 alias df='df ${DF_X_OPTIONS:-}'
 
+# Df - Disk usage
+# ~~~~~~~~~~~~~~~
+
 # Define alias to call `du` command with default options.
+#
 alias du='du ${DU_X_OPTIONS:-}'
 
 # Diff - Differences between files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `diff` command with default options.
+#
 alias diff='diff ${DIFF_X_OPTIONS:-}'
 
-# Free - Free main memory and swap space
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Free - Show free main memory and swap space
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `free` command with default options.
+#
 alias free='free ${FREE_X_OPTIONS:-}'
 
 # Fzf - Fuzzy-search and select all kinds of items
@@ -215,15 +229,14 @@ fi
 
 # Call `grep` with default options.
 #
-alias grep='grep $GREP_X_OPTIONS'
-
-alias egrep='grep --extended-regexp'
-alias fgrep='grep --fixed-strings'
+alias grep='grep ${GREP_X_OPTIONS:-}'
 
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias info='info --vi-keys'
+# Define alias to call `info` command with default options.
+#
+alias info='info ${INFO_X_OPTIONS:-}'
 
 # Jobs - Management of processes in foreground and background
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -274,46 +287,65 @@ fi
 # Ln - Create hard and soft links to files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias ln='ln $LN_X_OPTIONS'
+# Define alias to call `ln` command with default options.
+#
+alias ln='ln ${LN_X_OPTIONS:-}'
 
 # Mkdir - Create folders
 # ~~~~~~~~~~~~~~~~~~~~~~
 
-alias mkdir='mkdir $MKDIR_X_OPTIONS'
+# Define alias to call `mkdir` command with default options.
+#
+alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
+
+# Define an alias that is similar to `rd` for symmetry.
+#
 alias md='mkdir'
 
 # Mv - Move/rename files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias mv='mv $MV_X_OPTIONS'
+# Define alias to call `mv` command with default options.
+#
+alias mv='mv ${MV_X_OPTIONS:-}'
 
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias rm='rm $RM_X_OPTIONS'
-alias rr='rm --recursive'
-alias rrf='rr --force'
+# Define alias to call `rm` command with default options.
+#
+alias rm='rm ${RM_X_OPTIONS:-}'
 
 # Rmdir - Delete empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias rmdir='rmdir $RMDIR_X_OPTIONS'
+# Define alias to call `rmdir` command with default options.
+#
+alias rmdir='rmdir ${RMDIR_X_OPTIONS:-}'
+
+# Define an alias that is similar to `rm` for symmetry.
+#
 alias rd='rmdir'
 
 # Rsync - Synchronize file system trees
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias rsync='rsync $RSYNC_X_OPTIONS'
+# Define alias to call `rsync` command with default options.
+#
+alias rsync='rsync ${RSYNC_X_OPTIONS:-}'
 
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias sed='sed $SED_X_OPTIONS'
+# Define alias to call `sed` command with default options.
+#
+alias sed='sed ${SED_X_OPTIONS:-}'
 
 # Sudo - Execute programs as another user
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Make _Sudo_ also work with aliases.
+# Make `sudo` command also work with aliases.
+#
 alias sudo='sudo '
 
 # Xdg-open - Open files and folders w/ appropriate programs
@@ -323,31 +355,34 @@ if type -p xdg-open &> /dev/null; then
   alias open='xdg-open'
 fi
 
-for script in $(shopt -s globstar; \
-    printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
-  source "$script"
-done
-unset script
-
 # Test if interactive shell has startup file with local overrides.
+#
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
+
   # Read and execute commands from that startup file.
+  #
   source ~/.bashrc.local
 fi
 
 # Test if _GnuPG_ for encrypting and signing data is installed.
+#
 if type -p gpg &> /dev/null; then
+
   # Let _GnuPG_ know on which terminal to interact with the user; for
   # example the _Gpg-agent_ daemon prompting for the passphrase.
+  #
   export GPG_TTY="$(tty)"
   echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null
 fi
 
 # Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from
 # `localhost` is running.
+#
 if ! [[ -n "$TMUX" || "$TERM" =~ screen
     || "$SSH_CONNECTION" =~ ^::1|^127\.0\.0\.1 ]]; then
+
   # Test if _Tmux_ is on the `$PATH`.
+  #
   if type -p tmux &> /dev/null; then
     # Try to attach to latest unattached session or start a new one.
     { tmux attach-session || tmux new-session; } &> /dev/null
