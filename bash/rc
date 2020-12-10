@@ -229,7 +229,7 @@ fi
 
 # Call `grep` with default options.
 #
-alias grep='grep $GREP_X_OPTIONS'
+alias grep='grep ${GREP_X_OPTIONS:-}'
 
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -289,14 +289,14 @@ fi
 
 # Define alias to call `ln` command with default options.
 #
-alias ln='ln $LN_X_OPTIONS'
+alias ln='ln ${LN_X_OPTIONS:-}'
 
 # Mkdir - Create folders
 # ~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `mkdir` command with default options.
 #
-alias mkdir='mkdir $MKDIR_X_OPTIONS'
+alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
 
 # Define an alias that is similar to `rd` for symmetry.
 #
@@ -307,7 +307,7 @@ alias md='mkdir'
 
 # Define alias to call `mv` command with default options.
 #
-alias mv='mv $MV_X_OPTIONS'
+alias mv='mv ${MV_X_OPTIONS:-}'
 
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -321,7 +321,7 @@ alias rm='rm ${RM_X_OPTIONS:-}'
 
 # Define alias to call `rmdir` command with default options.
 #
-alias rmdir='rmdir $RMDIR_X_OPTIONS'
+alias rmdir='rmdir ${RMDIR_X_OPTIONS:-}'
 
 # Define an alias that is similar to `rm` for symmetry.
 #
@@ -332,14 +332,14 @@ alias rd='rmdir'
 
 # Define alias to call `rsync` command with default options.
 #
-alias rsync='rsync $RSYNC_X_OPTIONS'
+alias rsync='rsync ${RSYNC_X_OPTIONS:-}'
 
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Define alias to call `sed` command with default options.
 #
-alias sed='sed $SED_X_OPTIONS'
+alias sed='sed ${SED_X_OPTIONS:-}'
 
 # Sudo - Execute programs as another user
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
