@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# Bk command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Dependencies:
+#   cp:: Cp command.
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+# Make a numbered backup of the given file.  The numeric sequence is
+# increased each time `bk` is invoked.
+#
+main() {
+  cp --backup=numbered --force --verbose -- "${1}" "${1}"
+}
+
+main "$@"
