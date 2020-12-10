@@ -11,8 +11,3 @@
     state: directory
   loop:
     - "{{ alias_dir }}"
-
-- name: Copy file with Bash aliases for Pbcopy/Pbpaste/Xsel/Xclip
-  copy:
-    src: rc.d/alias/pbcp-xclip-xsel.bash
-    dest: "{{ alias_dir }}/pbcp-xclip-xsel.bash"
