@@ -11,6 +11,3 @@
     state: directory
   loop:
     - "{{ rc_dir }}"
-
-- name: Set up Bash aliases
-  import_tasks: rc.d/alias/main.yml
