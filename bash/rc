@@ -111,7 +111,8 @@ alias version='echo "bash version ${BASH_VERSION}"'
 alias cdd='cd -'
 
 # With the shell option `autocd` switched on executing `..` already
-# changes to the parent directory.
+# changes to the parent directory.  This alias acts as a fallback in
+# case that shell option is switched off.
 #
 alias ..='cd ..'
 
@@ -353,12 +354,6 @@ alias sudo='sudo '
 if type -p xdg-open &> /dev/null; then
   alias open='xdg-open'
 fi
-
-for script in $(shopt -s globstar; \
-    printf '%s\n' ~/.bash/rc.d/alias/**/*.bash); do
-  source "$script"
-done
-unset script
 
 # Test if interactive shell has startup file with local overrides.
 #
