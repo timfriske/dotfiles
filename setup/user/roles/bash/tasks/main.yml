@@ -11,28 +11,13 @@
     state: directory
   loop:
     - "{{ user_dir }}"
-    - "{{ bash_dir }}"
 
 - name: Copy Bash startup file for login shells
   copy:
     src: login
-    dest: "{{ bash_dir }}/login"
-
-- name: Link Bash startup file for login shells
-  file:
-    src: "{{ bash_dir }}/login"
     dest: "{{ user_dir }}/.bash_login"
-    state: link
-    force: yes
 
 - name: Copy Bash startup file for interactive shells
   copy:
     src: rc
-    dest: "{{ bash_dir }}/rc"
-
-- name: Link Bash startup file for interactive shells
-  file:
-    src: "{{ bash_dir }}/rc"
     dest: "{{ user_dir }}/.bashrc"
-    state: link
-    force: yes
