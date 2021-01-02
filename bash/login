@@ -248,13 +248,17 @@ GREP_X_OPTIONS+='--color=auto '
 # whitespace to exclude commands from history, e.g. commands with
 # sensitive information such as passwords etc.
 #
+# With the `$HISTIGNORE` shell globs (patterns) exclude any single-word
+# commands from history because such trivial commands can be easily
+# recalled just by typing them again.
+#
 export HISTSIZE=100000
 export HISTFILE=~/.bash_history
 export HISTFILESIZE="$HISTSIZE"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTCONTROL='erasedups:ignorespace'
-###export HISTIGNORE=''
-###HISTIGNORE+='+([[:alnum:]])*([[:space:]])'
+export HISTIGNORE=''
+HISTIGNORE+='+([[:alnum:]])*([[:space:]])'
 
 # Info - View info pages
 # ~~~~~~~~~~~~~~~~~~~~~~
