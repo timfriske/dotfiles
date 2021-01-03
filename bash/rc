@@ -395,3 +395,21 @@ if ! [[ -n "$TMUX" || "$TERM" =~ screen
     { tmux attach-session || tmux new-session; } &> /dev/null
   fi
 fi
+
+function _on_exit {
+
+  # Prevent duplicates when merging Bash shell histories.
+  #
+  if [[ "${HISTCONTROL}" =~ erasedups ]]; then
+
+    # 1. Read new commands from history file into memory.
+    # 2. Write all commands from memory into history file.
+    # 3. Clear all commands from memory.
+    # 4. Read all commands from history file into memory.
+    #
+    history -n && history -w && history -c && history -r
+  fi
+
+}
+
+trap _on_exit EXIT
