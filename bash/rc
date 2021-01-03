@@ -106,6 +106,14 @@ alias hist=history
 #
 alias hist-sync='history -n && history -w && history -c && history -r'
 
+# Reload interactive login shell by replacing current shell.
+#
+alias reload-login='reload-shell -l'
+
+# Reload interactive shell by replacing current shell.
+#
+alias reload-shell='exec "${SHELL}"'
+
 # Show _Bash's_ version.
 #
 alias version='echo "bash version ${BASH_VERSION}"'
