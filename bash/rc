@@ -95,8 +95,16 @@ shopt -s nocaseglob nocasematch
 #
 unalias -a
 
-# Bash
-# ~~~~
+# Bash built-ins
+# ~~~~~~~~~~~~~~
+
+# Shorthand for `history` built-in.
+#
+alias hist=history
+
+# Synchronize histories between simultaneously running shell sessions.
+#
+alias hist-sync='history -n && history -w && history -c && history -r'
 
 # Show _Bash's_ version.
 #
@@ -230,17 +238,6 @@ fi
 # Call `grep` with default options.
 #
 alias grep='grep ${GREP_X_OPTIONS:-}'
-
-# History - Manage Bash's history of commands
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Shorthand for history.
-#
-alias hist=history
-
-# Synchronize histories between simultaneous shell sessions.
-#
-alias hist-sync='history -n && history -w && history -c && history -r'
 
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
