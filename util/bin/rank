@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Count command
-# =============
+# Rank command
+# ============
 # Tim Friske <me@tifr.de>
 #
 # Dependencies:
@@ -16,7 +16,7 @@ set -o errexit -o nounset
 # their counts.
 #
 main() {
-  sort "$@" | uniq --count | sort --sort=numeric
+  sort "$@" | uniq --count | sort --sort=numeric --reverse
 }
 
 main "$@"
