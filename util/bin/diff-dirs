@@ -17,7 +17,7 @@ set -o errexit -o nounset
 # result in cognitive overload.
 #
 main() {
-  diff ${DIFF_X_OPTIONS:-} --recursive --brief
+  diff ${DIFF_X_OPTIONS:-} --recursive --brief "${@}"
 }
 
 main "${@}"
