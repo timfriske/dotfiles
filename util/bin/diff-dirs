@@ -20,4 +20,4 @@ main() {
   diff ${DIFF_X_OPTIONS:-} --recursive --brief
 }
 
-main "$@"
+main "${@}"

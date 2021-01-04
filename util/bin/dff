@@ -15,7 +15,7 @@ set -o errexit -o nounset
 # exclude neglectable types of file systems.
 #
 main() {
-  df ${DF_X_OPTIONS:-} -x devtmpfs -x tmpfs "$@"
+  df ${DF_X_OPTIONS:-} -x devtmpfs -x tmpfs "${@}"
 }
 
-main "$@"
+main "${@}"

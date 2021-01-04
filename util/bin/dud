@@ -18,10 +18,10 @@ set -o errexit -o nounset
 # directory, sorted in descending order of disk usage.
 #
 main() {
-  find "$@" -maxdepth 1 -xtype d -print0 \
+  find "${@}" -maxdepth 1 -xtype d -print0 \
     | du ${DU_X_OPTIONS:-} --max-depth=1 --files0-from=- --null \
     | sort --human-numeric-sort --reverse --zero-terminated \
     | tr '\000' '\n'
 }
 
-main "$@"
+main "${@}"

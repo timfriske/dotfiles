@@ -16,7 +16,7 @@ set -o errexit -o nounset
 #
 main() {
   rsync ${RSYNC_X_OPTIONS:-} --archive --hard-links --acls --xattrs \
-    --delete "$@"
+    --delete "${@}"
 }
 
-main "$@"
+main "${@}"
