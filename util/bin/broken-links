@@ -17,7 +17,7 @@ set -o errexit -o nounset
 # updated.
 #
 main() {
-  find "$@" -xtype l
+  find "${@}" -xtype l
 }
 
-main "$@"
+main "${@}"

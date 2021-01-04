@@ -30,7 +30,7 @@ function git_location {
   local tco="${tco:-commit}"
 
   local branch="$(get_branch)"
-  if [[ -n "$branch" ]]; then
+  if [[ -n "${branch}" ]]; then
     fmt="${fmt/|type|/$tbr}"
     fmt="${fmt/|object|/$branch}"
     printf -- "${fmt}"
@@ -38,22 +38,22 @@ function git_location {
   fi
 
   local tag="$(get_tag)"
-  if [[ -n "$tag" ]]; then
+  if [[ -n "${tag}" ]]; then
     fmt="${fmt/|type|/$tta}"
     fmt="${fmt/|object|/$tag}"
-    printf -- "$fmt"
+    printf -- "${fmt}"
     exit 0
   fi
 
   local commit="$(get_commit)"
-  if [[ -n "$commit" ]]; then
+  if [[ -n "${commit}" ]]; then
     fmt="${fmt/|type|/$tco}"
     fmt="${fmt/|object|/$commit}"
-    printf -- "$fmt"
+    printf -- "${fmt}"
     exit 0
   fi
 
   exit 1
 }
 
-git_location "$@"
+git_location "${@}"

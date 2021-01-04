@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+# File path resolution
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Prints the absolute paths of the given paths.
+#
+# Dependencies:
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
+
+set -o errexit -o nounset
+
+main() {
+  if [ "${#}" = 0 ]; then
+    echo 'usage: file-path <path>...'
+    exit 1
+  fi
+  local path
+  for path in "${@}"; do
+    if [ "${path%/*}" = "${path}" ]; then
+      printf '%s/%s\n' "$PWD" "${path}"
+    else
+      printf '%s/%s\n' "$(cd "${path%/*}" && pwd)" "${path##*/}"
+    fi
+  done
+}
+
+main "${@}"

@@ -19,20 +19,20 @@
 shopt -os nounset pipefail errexit errtrace
 
 function file_type {
-  if [[ "$#" == 0 ]]; then
+  if [[ "${#}" == 0 ]]; then
     echo 'usage: file-type <file (on path)>...'
   fi
   local file
-  for file in "$@"; do
-    if [[ -e "$file" ]]; then
-      file "$file"
+  for file in "${@}"; do
+    if [[ -e "${file}" ]]; then
+      file "${file}"
     else
-      file="$(type -P $file)"
-      if [[ -n "$file" ]]; then
-        file "$file"
+      file="$(type -P ${file})"
+      if [[ -n "${file}" ]]; then
+        file "${file}"
       fi
     fi
   done
 }
 
-file_type "$@"
+file_type "${@}"

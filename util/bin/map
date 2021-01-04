@@ -16,7 +16,7 @@ set -o errexit -o nounset
 # known as `map'.
 #
 main() {
-  xargs --max-args=1 "$@"
+  xargs --max-args=1 "${@}"
 }
 
-main "$@"
+main "${@}"

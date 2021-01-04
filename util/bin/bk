@@ -18,4 +18,4 @@ main() {
   cp --backup=numbered --force --verbose -- "${1}" "${1}"
 }
 
-main "$@"
+main "${@}"

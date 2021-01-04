@@ -26,6 +26,12 @@
     dest: "{{ bin_dir }}/fb"
     state: link
 
+- name: Create Ft shortcut to File-path command
+  file:
+    src: file-path
+    dest: "{{ bin_dir }}/fp"
+    state: link
+
 - name: Create Ft shortcut to File-type command
   file:
     src: file-type

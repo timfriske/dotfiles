@@ -14,7 +14,7 @@ set -o errexit -o nounset
 # Summarize the disk usage of the current directory.
 #
 main() {
-  du ${DU_X_OPTIONS:-} --summarize "$@"
+  du ${DU_X_OPTIONS:-} --summarize "${@}"
 }
 
-main "$@"
+main "${@}"
