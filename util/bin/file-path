@@ -20,7 +20,7 @@ main() {
   local path
   for path in "${@}"; do
     if [ "${path%/*}" = "${path}" ]; then
-      printf '%s/%s\n' "$PWD" "${path}"
+      printf '%s/%s\n' "${PWD}" "${path}"
     else
       printf '%s/%s\n' "$(cd "${path%/*}" && pwd)" "${path##*/}"
     fi

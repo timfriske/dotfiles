@@ -34,4 +34,4 @@ Hardware platform:  ${hardware_platform:-n/a}
 OS_INFO
 }
 
-main "$@"
+main "${@}"
