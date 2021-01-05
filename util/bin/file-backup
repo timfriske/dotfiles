@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Numbered backup of single file
 # ==============================
@@ -14,18 +14,19 @@
 # Think about aliasing this helper program as e.g. `bk` (`backup`)
 # should you be using it frequently.
 #
-# See also:
-#   * man:bash[1]
-#   * man:cp[1]
+# Dependencies:
+#   cp:: Cp command.
+#   env:: Env command.
+#   sh:: POSIX-compatible shell.
 
-shopt -os nounset pipefail errexit errtrace
+set -o errexit -o nounset
 
-function file_backup {
-  if [[ "${#}" != 1 || ! -f "${1}" ]]; then
+main() {
+  if [ "${#}" != 1 || ! -f "${1}" ]; then
     echo 'usage: file-backup <file>'
     exit 1
   fi
   cp --force --backup=numbered --verbose -- "${1}" "${1}"
 }
 
-file_backup "${@}"
+main "${@}"
