@@ -13,11 +13,11 @@ function timestamp {
 }
 
 function timestamp_to_date {
-  date --date=@"$1"
+  date --date=@"${1}"
 }
 
 function timestamp_to_duration {
-  date --utc --date=@"$1" +%H:%M:%S
+  date --utc --date=@"${1}" +%H:%M:%S
 }
 
 function press_key {
@@ -30,12 +30,12 @@ function timer {
     exit 1
   fi
   local ts_started="$(timestamp)"
-  echo timer started: "$(timestamp_to_date $ts_started)"
+  echo timer started: "$(timestamp_to_date ${ts_started})"
   press_key
   local ts_stopped="$(timestamp)"
-  echo timer stopped: "$(timestamp_to_date $ts_stopped)"
-  local ts_elapsed=$(($ts_stopped - $ts_started))
-  echo timer elapsed: "$(timestamp_to_duration $ts_elapsed)"
+  echo timer stopped: "$(timestamp_to_date ${ts_stopped})"
+  local ts_elapsed=$((${ts_stopped} - ${ts_started}))
+  echo timer elapsed: "$(timestamp_to_duration ${ts_elapsed})"
 }
 
-timer "$@"
+timer "${@}"

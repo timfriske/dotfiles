@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Management of $PATH environment variable
+# Management of ${PATH} environment variable
 # ========================================
 # Tim Friske <me@tifr.de>
 #
@@ -8,7 +8,7 @@
 #   * man:bash[1]
 
 function path_raw {
-  echo "$PATH"
+  echo "${PATH}"
 }
 
 function path_pretty {
@@ -16,39 +16,39 @@ function path_pretty {
 }
 
 function path_appended {
-  if path_contains "$1"; then
-    echo "$PATH"
+  if path_contains "${1}"; then
+    echo "${PATH}"
   else
-    echo "$PATH:$1"
+    echo "${PATH}:${1}"
   fi
 }
 
 function path_prepended {
-  if path_contains "$1"; then
-    echo "$PATH"
+  if path_contains "${1}"; then
+    echo "${PATH}"
   else
-    echo "$1:$PATH"
+    echo "${1}:${PATH}"
   fi
 }
 
 function path_removed {
-  if [[ -z "$1" ]]; then
-    echo "$PATH"
+  if [[ -z "${1}" ]]; then
+    echo "${PATH}"
     return
   fi
-  local path_reduced="$PATH"
-  while [[ "$path_reduced" =~ (^|(.*):)"$1"($|:(.*)) ]]; do
+  local path_reduced="${PATH}"
+  while [[ "${path_reduced}" =~ (^|(.*):)"${1}"($|:(.*)) ]]; do
     local path_prefix="${BASH_REMATCH[2]}"
     local path_suffix="${BASH_REMATCH[4]}"
-    if [[ -z "$path_prefix" ]]; then
-      path_reduced="$path_suffix"
-    elif [[ -z "$path_suffix" ]]; then
-      path_reduced="$path_prefix"
+    if [[ -z "${path_prefix}" ]]; then
+      path_reduced="${path_suffix}"
+    elif [[ -z "${path_suffix}" ]]; then
+      path_reduced="${path_prefix}"
     else
-      path_reduced="$path_prefix:$path_suffix"
+      path_reduced="${path_prefix}:${path_suffix}"
     fi
   done
-  echo "$path_reduced"
+  echo "${path_reduced}"
 }
 
 function path_usage {
@@ -57,11 +57,11 @@ function path_usage {
 }
 
 function path_contains {
-  [[ -z "$1" || "$PATH" =~ (^|.*:)"$1"($|:.*) ]]
+  [[ -z "${1}" || "${PATH}" =~ (^|.*:)"${1}"($|:.*) ]]
 }
 
 function path {
-  case "$1" in
+  case "${1}" in
     raw) path_raw "${@:2}" ;;
     pretty) path_pretty "${@:2}" ;;
     appended) path_appended "${@:2}" ;;
@@ -71,4 +71,4 @@ function path {
   esac
 }
 
-path "$@"
+path "${@}"

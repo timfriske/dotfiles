@@ -16,7 +16,7 @@ set -o errexit -o nounset
 # their counts.
 #
 main() {
-  sort "$@" | uniq --count | sort --sort=numeric --reverse
+  sort "${@}" | uniq --count | sort --sort=numeric --reverse
 }
 
-main "$@"
+main "${@}"

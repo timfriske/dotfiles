@@ -31,24 +31,24 @@ function git_location {
 
   local branch="$(get_branch)"
   if [[ -n "${branch}" ]]; then
-    fmt="${fmt/|type|/$tbr}"
-    fmt="${fmt/|object|/$branch}"
+    fmt="${fmt/|type|/${tbr}}"
+    fmt="${fmt/|object|/${branch}}"
     printf -- "${fmt}"
     exit 0
   fi
 
   local tag="$(get_tag)"
   if [[ -n "${tag}" ]]; then
-    fmt="${fmt/|type|/$tta}"
-    fmt="${fmt/|object|/$tag}"
+    fmt="${fmt/|type|/${tta}}"
+    fmt="${fmt/|object|/${tag}}"
     printf -- "${fmt}"
     exit 0
   fi
 
   local commit="$(get_commit)"
   if [[ -n "${commit}" ]]; then
-    fmt="${fmt/|type|/$tco}"
-    fmt="${fmt/|object|/$commit}"
+    fmt="${fmt/|type|/${tco}}"
+    fmt="${fmt/|object|/${commit}}"
     printf -- "${fmt}"
     exit 0
   fi

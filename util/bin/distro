@@ -14,4 +14,4 @@ main() {
   lsb_release --all
 }
 
-main "$@"
+main "${@}"
