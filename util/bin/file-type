@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Simple file type detection
 # ==========================
@@ -9,30 +9,31 @@
 # is searched in the directories listed in the `PATH` environment
 # variable and the first match is returned if any.
 #
-# Think about aliasing this helper program as e.g. `ft` (file type)
+# Think about aliasing this helper program as e.g. `ft` (`file-type`)
 # should you be using it frequently.
 #
-# See also:
-#   * man:bash[1]
-#   * man:file[1]
+# Dependencies:
+#   env:: Env command.
+#   file:: File command.
+#   sh:: POSIX-compatible shell.
 
-shopt -os nounset pipefail errexit errtrace
+set -o errexit -o nounset
 
-function file_type {
-  if [[ "${#}" == 0 ]]; then
-    echo 'usage: file-type <file (on path)>...'
+main() {
+  if [ "${#}" = 0 ]; then
+    echo 'usage: file-type <file (on path)>+'
   fi
   local file
   for file in "${@}"; do
-    if [[ -e "${file}" ]]; then
-      file "${file}"
+    if [ -e "${file}" ]; then
+      file -- "${file}"
     else
-      file="$(type -P ${file})"
-      if [[ -n "${file}" ]]; then
-        file "${file}"
+      file="$(command -v "${file}")"
+      if [ -n "${file:+x}" ]; then
+        file -- "${file}"
       fi
     fi
   done
 }
 
-file_type "${@}"
+main "${@}"
