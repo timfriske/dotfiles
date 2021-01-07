@@ -14,10 +14,7 @@
 # Think about aliasing this helper program as `fb` (`file-backup`)
 # should you be using it frequently.
 #
-# Dependencies:
-#   cp:: Cp command.
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
+# Deps:: cp, env, sh
 
 set -o errexit -o nounset
 

@@ -6,6 +6,8 @@
 #
 # Display the location, i.e. the _Git_ branch, tag or commit at which
 # the symbolic ref `HEAD` points.
+#
+# Deps:: bash, env, git
 
 shopt -os nounset pipefail errexit errtrace
 

@@ -4,9 +4,7 @@
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   sh:: POSIX-compatible shell.
-#   uname:: Uname command.
+# Deps:: env, lsb_release, sh
 
 set -o errexit -o nounset
 

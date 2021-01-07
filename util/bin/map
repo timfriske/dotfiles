@@ -4,10 +4,7 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
-#   xargs:: Xargs command.
+# Deps:: env, sh, xargs
 
 set -o errexit -o nounset
 

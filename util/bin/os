@@ -4,10 +4,7 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   cat:: Cat command.
-#   sh:: POSIX-compatible shell.
-#   uname:: Uname command.
+# Deps:: cat, env, sh, uname
 
 set -o errexit -o nounset
 

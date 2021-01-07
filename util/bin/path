@@ -4,8 +4,7 @@
 # ========================================
 # Tim Friske <me@tifr.de>
 #
-# See also:
-#   * man:bash[1]
+# Deps:: bash, env
 
 function path_raw {
   echo "${PATH}"

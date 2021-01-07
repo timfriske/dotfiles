@@ -12,10 +12,7 @@
 # Think about aliasing this helper program as e.g. `ft` (`file-type`)
 # should you be using it frequently.
 #
-# Dependencies:
-#   env:: Env command.
-#   file:: File command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, file, sh
 
 set -o errexit -o nounset
 

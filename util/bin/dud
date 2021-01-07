@@ -4,13 +4,7 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   du:: Du command.
-#   env:: Env command.
-#   find:: Find command.
-#   sh:: POSIX-compatible shell.
-#   sort:: Sort command.
-#   tr:: Tr command.
+# Deps:: du, env, find, sh, sort, tr
 
 set -o errexit -o nounset
 
