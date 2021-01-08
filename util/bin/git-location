@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # Git Location
 # ============
@@ -6,54 +6,54 @@
 #
 # Display the location, i.e. the _Git_ branch, tag or commit at which
 # the symbolic ref `HEAD` points.
+#
+# Deps:: env, git, sh
 
-shopt -os nounset pipefail errexit errtrace
+set -o errexit -o nounset
 
-function get_branch {
+get_branch() {
   git symbolic-ref --quiet --short "${ref:-HEAD}"
 }
 
-function get_tag {
+get_tag() {
   git describe --tags --exact-match "${ref:-HEAD}" 2> /dev/null
 }
 
-function get_commit {
+get_commit() {
   git rev-parse --short "${ref:-HEAD}"
 }
 
-# Tries to display the current branch, tag or commit in this order.
-#
-function git_location {
+main() {
   local fmt="${fmt:-|type|:|object|\n}"
   local tbr="${tbr:-branch}"
   local tta="${tta:-tag}"
   local tco="${tco:-commit}"
 
   local branch="$(get_branch)"
-  if [[ -n "${branch}" ]]; then
+  if [ -n "${branch:+x}" ]; then
     fmt="${fmt/|type|/${tbr}}"
     fmt="${fmt/|object|/${branch}}"
-    printf -- "${fmt}"
+    printf '%s\n' "${fmt}"
     exit 0
   fi
 
   local tag="$(get_tag)"
-  if [[ -n "${tag}" ]]; then
+  if [ -n "${tag:+x}" ]; then
     fmt="${fmt/|type|/${tta}}"
     fmt="${fmt/|object|/${tag}}"
-    printf -- "${fmt}"
+    printf '%s\n' "${fmt}"
     exit 0
   fi
 
   local commit="$(get_commit)"
-  if [[ -n "${commit}" ]]; then
+  if [ -n "${commit:+x}" ]; then
     fmt="${fmt/|type|/${tco}}"
     fmt="${fmt/|object|/${commit}}"
-    printf -- "${fmt}"
+    printf '%s\n' "${fmt}"
     exit 0
   fi
 
   exit 1
 }
 
-git_location "${@}"
+main "${@}"

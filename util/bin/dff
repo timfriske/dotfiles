@@ -4,10 +4,7 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   df:: Df command.
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
+# Deps:: df, env, sh
 
 set -o errexit -o nounset
 
@@ -15,7 +12,7 @@ set -o errexit -o nounset
 # exclude neglectable types of file systems.
 #
 main() {
-  df ${DF_X_OPTIONS:-} -x devtmpfs -x tmpfs "${@}"
+  df ${DF_X_OPTIONS:-} --exclude-type=devtmpfs --exclude-type=tmpfs "${@}"
 }
 
 main "${@}"

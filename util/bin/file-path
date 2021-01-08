@@ -6,9 +6,7 @@
 #
 # Prints the absolute paths of the given paths.
 #
-# Dependencies:
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, sh
 
 set -o errexit -o nounset
 

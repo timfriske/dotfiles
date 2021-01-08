@@ -4,10 +4,7 @@
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   rsync:: Rsync command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, rsync, sh
 
 set -o errexit -o nounset
 

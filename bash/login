@@ -114,6 +114,7 @@ CHOWN_X_OPTIONS+='--changes '
 # Define default options for `df` command.
 export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
+DF_X_OPTIONS+='--print-type '
 
 # Define default options for `du` command.
 export DU_X_OPTIONS=''

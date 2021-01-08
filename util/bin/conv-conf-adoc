@@ -17,9 +17,7 @@
 # You might want to pipe the output of this command into `cat -s` in order to
 # condense repeated blank lines to only one such line.
 #
-# Dependencies:
-#   env:: Env command.
-#   awk:: Awk command.
+# Deps:: env, awk
 
 BEGIN {
     program = "conv-conf-adoc"

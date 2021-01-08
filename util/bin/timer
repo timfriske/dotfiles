@@ -4,9 +4,7 @@
 # ====================
 # Tim Friske <me@tifr.de>
 #
-# See also:
-#   * man:bash[1]
-#   * man:date[1]
+# Deps:: bash, date, env
 
 function timestamp {
   date +%s
@@ -21,21 +19,21 @@ function timestamp_to_duration {
 }
 
 function press_key {
-  read -rsn1 -p 'Press any key to stop.'; echo
+  read -rsn1 -p 'timer: Press any key to stop.'; echo
 }
 
 function timer {
-  if [[ "$#" != 0 ]]; then
+  if [[ "${#}" != 0 ]]; then
     echo 'usage: timer'
     exit 1
   fi
   local ts_started="$(timestamp)"
-  echo timer started: "$(timestamp_to_date ${ts_started})"
+  echo "timer: started: $(timestamp_to_date "${ts_started}")"
   press_key
   local ts_stopped="$(timestamp)"
-  echo timer stopped: "$(timestamp_to_date ${ts_stopped})"
-  local ts_elapsed=$((${ts_stopped} - ${ts_started}))
-  echo timer elapsed: "$(timestamp_to_duration ${ts_elapsed})"
+  echo "timer: stopped: $(timestamp_to_date "${ts_stopped}")"
+  local ts_elapsed="$((ts_stopped - ts_started))"
+  echo "timer: elapsed: $(timestamp_to_duration "${ts_elapsed}")"
 }
 
 timer "${@}"

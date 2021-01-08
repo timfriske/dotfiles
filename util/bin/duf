@@ -4,13 +4,7 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   du:: Du command.
-#   env:: Env command.
-#   find:: Find command.
-#   sh:: POSIX-compatible shell.
-#   sort:: Sort command.
-#   tr:: Tr command.
+# Deps:: du, env, find, sh, sort, tr
 
 set -o errexit -o nounset
 
@@ -19,9 +13,9 @@ set -o errexit -o nounset
 #
 main() {
   find "${@}" -maxdepth 1 -xtype f -print0 \
-    | du ${DU_X_OPTIONS:-} --max-depth=1 --files0-from=- --null \
-    | sort --human-numeric-sort --reverse --zero-terminated \
-    | tr '\000' '\n'
+  | du ${DU_X_OPTIONS:-} --max-depth=1 --files0-from=- --null \
+  | sort --human-numeric-sort --reverse --zero-terminated \
+  | tr '\000' '\n'
 }
 
 main "${@}"
