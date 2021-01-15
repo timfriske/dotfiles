@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+
 # K8S Suspend Cronjobs
 # ====================
 # Tim Friske <me@tifr.de>

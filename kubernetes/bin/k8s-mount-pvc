@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-#
+
 # K8S Mount PVC
 # =============
 # Tim Friske <me@tifr.de>
