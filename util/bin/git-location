@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # Git Location
 # ============
@@ -7,9 +7,9 @@
 # Display the location, i.e. the _Git_ branch, tag or commit at which
 # the symbolic ref `HEAD` points.
 #
-# Deps:: env, git, sh
+# Deps:: bash, env, git
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 get_branch() {
   git symbolic-ref --quiet --short "${ref:-HEAD}"
