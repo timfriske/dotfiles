@@ -6,6 +6,8 @@
 #
 # Lets users interactively filter and select from a list of Kubernetes
 # cronjobs the ones whose suspension state to toggle either on or off.
+#
+# Deps:: bash, column, env, fzf, awk, kubectl, parallel
 
 # Fail-fast script execution.
 #
