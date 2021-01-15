@@ -9,7 +9,7 @@
 set -o errexit -o nounset
 
 main() {
-  kubectl top "$@"
+  kubectl top "${@}"
 }
 
-main "$@"
+main "${@}"
