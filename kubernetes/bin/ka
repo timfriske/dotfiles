@@ -4,15 +4,12 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   kubectl:: Kubectl command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, kubectl, sh
 
 set -o errexit -o nounset
 
 main() {
-  kubectl apply "$@"
+  kubectl apply "${@}"
 }
 
-main "$@"
+main "${@}"

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-#
+
 # K8S Suspend Cronjobs
 # ====================
 # Tim Friske <me@tifr.de>
 #
 # Lets users interactively filter and select from a list of Kubernetes
 # cronjobs the ones whose suspension state to toggle either on or off.
-
-# Fail-fast script execution.
 #
+# Deps:: bash, column, env, fzf, awk, kubectl, parallel
+
 shopt -os nounset pipefail errexit errtrace
 
 kubectl get cronjobs \
