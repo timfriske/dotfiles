@@ -9,8 +9,6 @@
 #
 # Deps:: bash, column, env, fzf, awk, kubectl, parallel
 
-# Fail-fast script execution.
-#
 shopt -os nounset pipefail errexit errtrace
 
 kubectl get cronjobs \

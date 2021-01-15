@@ -18,8 +18,6 @@
 #
 # Deps:: env, kubectl, sh
 
-# Fail-fast script execution.
-#
 set -o errexit -o nounset
 
 if [ -z "${pvc:+x}" ]; then
