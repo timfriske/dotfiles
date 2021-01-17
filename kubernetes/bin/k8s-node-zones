@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+# K8S Node Zones
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Rank Kubernetes nodes by (availability-) zone (data center) they are
+# located at as an indicator to fault tolerance in the event one of the
+# zones becomes unavailable, e.g. due to some disastrous event like a
+# natural disaster or cyber attack.
+#
+# Deps:: env, kubectl, sh, sort, uniq
+
+set -o errexit -o nounset
+
+node_zones() {
+  kubectl get nodes \
+    --no-headers \
+    --output custom-columns='zone:.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
+}
+
+rank() {
+  sort | uniq --count | sort --sort=numeric --reverse
+}
+
+main() {
+  node_zones | rank
+}
+
+main "$@"
