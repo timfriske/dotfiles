@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Kubectl command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, kubectl, sh
+
+set -o errexit -o nounset
+
+main() {
+  kubectl top node --sort-by=cpu "${@}"
+}
+
+main "${@}"
