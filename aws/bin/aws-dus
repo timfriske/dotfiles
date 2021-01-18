@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+
+# AWS Dus command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Prints disk usage summary of AWS S3 objects in bucket below prefix.
+#
+# Deps:: aws, cat, env, jq, numfmt, sh
+
+set -o errexit -o nounset
+
+summarize_objects() {
+  local path="${1#s3://}"
+  local bucket="${path%%/*}"
+  local prefix="${2:-${path#${bucket}/}}"
+  aws s3api list-objects-v2 \
+    --output json \
+    --query \
+"{\
+\"total_number\":length(Contents[]),\
+\"total_size\":sum(Contents[].Size),\
+\"average_size\":avg(Contents[].Size)\
+}" \
+    --bucket "${bucket}" \
+    ${prefix:+--prefix "${prefix}"} \
+  | jq --raw-output \
+'[.total_number,.total_size,.average_size]|join("\n")'
+}
+
+format_object_summary() {
+  local total_number="$(numfmt --grouping "${1}") (${1})"
+  local total_size="$(LC_ALL=C numfmt --to=iec-i --format='%.2f' "${2}") (${2})"
+  local average_size="$(LC_ALL=C numfmt --to=iec-i --format='%.2f' "${3}") (${3})"
+  cat \
+<<OBJECT_SUMMARY
+Total number: ${total_number}
+Total size:   ${total_size}
+Average size: ${average_size}
+OBJECT_SUMMARY
+}
+
+main() {
+  : "${1:?usage: aws-dus <S3 URI> | <bucket> [prefix]}"
+  format_object_summary $(summarize_objects "${@}")
+}
+
+main "${@}"
