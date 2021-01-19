@@ -16,11 +16,11 @@ set -o errexit -o nounset
 # (`stdin`) and output (`stdout`).
 #
 main() {
-  if type -p xclip >/dev/null 2>&1; then
+  if command -v xclip >/dev/null 2>&1; then
     xclip -selection clipboard -out
-  elif type -p xsel >/dev/null 2>&1; then
+  elif command -v xsel >/dev/null 2>&1; then
     xsel --clipboard --output
-  elif type -p pbpaste >/dev/null 2>&1; then
+  elif command -v pbpaste >/dev/null 2>&1; then
     pbpaste
   else
     echo Please install xclip, xsel or pbpaste.
@@ -28,4 +28,3 @@ main() {
 }
 
 main
-
