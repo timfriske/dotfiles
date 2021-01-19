@@ -4,11 +4,7 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   pbpaste:: Pbpaste command.
-#   sh:: POSIX-compatible shell.
-#   xclip:: Xclip command.
-#   xsel:: Xsel command.
+# Deps:: env, pbpaste, sh, xclip, xsel
 
 set -o errexit -o nounset
 
