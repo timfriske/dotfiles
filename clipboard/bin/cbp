@@ -4,28 +4,29 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   pbpaste:: Pbpaste command.
-#   sh:: POSIX-compatible shell.
-#   xclip:: Xclip command.
-#   xsel:: Xsel command.
+# Paste data from clipboard to standard output with one of `xclip`,
+# `xsel` or `pbcopy`.  Output may go to a file or process via shell
+# redirection.
+#
+# Deps:: env, pbpaste, sh, xclip, xsel
 
 set -o errexit -o nounset
 
-# Paste clipboard with one of xclip, xsel or pbpaste via standard input
-# (`stdin`) and output (`stdout`).
-#
 main() {
-  if type -p xclip >/dev/null 2>&1; then
+  if [ "${#}" -gt 0 ]; then
+    echo >&2 "usage: cbp [> FILE | > >(PROCESS)]"
+    echo >&2 "usage: cbp | PROCESS"
+    exit 1
+  fi
+  if command -v xclip >/dev/null 2>&1; then
     xclip -selection clipboard -out
-  elif type -p xsel >/dev/null 2>&1; then
+  elif command -v xsel >/dev/null 2>&1; then
     xsel --clipboard --output
-  elif type -p pbpaste >/dev/null 2>&1; then
+  elif command -v pbpaste >/dev/null 2>&1; then
     pbpaste
   else
     echo Please install xclip, xsel or pbpaste.
   fi
 }
 
-main
-
+main "${@}"
