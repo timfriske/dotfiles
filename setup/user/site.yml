@@ -9,6 +9,14 @@
   hosts: "{{ hosts_var }}"
   roles:
 
+    # AWS CLI
+    # -------
+    - role: aws
+      tags:
+        - aws
+        - aws-cli
+        - cloud
+
     # GNU Bash shell
     # --------------
     - role: bash
