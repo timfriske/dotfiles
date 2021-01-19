@@ -4,13 +4,14 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
+# Copy data from standard input to clipboard with one of `xclip`, `xsel`
+# or `pbcopy`.  Input may come from a file or process via shell
+# redirection.
+#
 # Deps:: env, pbpaste, sh, xclip, xsel
 
 set -o errexit -o nounset
 
-# Copy clipboard with one of xclip, xsel or pbcopy via standard input
-# (`stdin`) and output (`stdout`).
-#
 main() {
   if command -v xclip >/dev/null 2>&1; then
     xclip -selection clipboard -in

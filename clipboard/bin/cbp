@@ -4,13 +4,14 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
+# Paste data from clipboard to standard output with one of `xclip`,
+# `xsel` or `pbcopy`.  Output may go to a file or process via shell
+# redirection.
+#
 # Deps:: env, pbpaste, sh, xclip, xsel
 
 set -o errexit -o nounset
 
-# Paste clipboard with one of xclip, xsel or pbpaste via standard input
-# (`stdin`) and output (`stdout`).
-#
 main() {
   if command -v xclip >/dev/null 2>&1; then
     xclip -selection clipboard -out
