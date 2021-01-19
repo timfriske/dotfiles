@@ -13,6 +13,11 @@
 set -o errexit -o nounset
 
 main() {
+  if [ "${#}" -gt 0 ]; then
+    echo >&2 "usage: cbc [< FILE | < <(PROCESS)]"
+    echo >&2 "usage: PROCESS | cbc"
+    exit 1
+  fi
   if command -v xclip >/dev/null 2>&1; then
     xclip -selection clipboard -in
   elif command -v xsel >/dev/null 2>&1; then
@@ -24,4 +29,4 @@ main() {
   fi
 }
 
-main
+main "${@}"
