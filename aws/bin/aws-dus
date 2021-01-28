@@ -13,7 +13,8 @@ set -o errexit -o nounset
 summarize_objects() {
   local path="${1#s3://}"
   local bucket="${path%%/*}"
-  local prefix="${2:-${path#${bucket}/}}"
+  local prefix="${2:-${path#${bucket}}}"
+  prefix="${prefix#/}"
   aws s3api list-objects-v2 \
     --output json \
     --query \
