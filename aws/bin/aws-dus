@@ -31,8 +31,8 @@ summarize_objects() {
 
 format_object_summary() {
   local total_number="$(numfmt --grouping "${1}") (${1})"
-  local total_size="$(LC_ALL=C numfmt --to=iec-i --format='%.2f' "${2}") (${2})"
-  local average_size="$(LC_ALL=C numfmt --to=iec-i --format='%.2f' "${3}") (${3})"
+  local total_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${2}") (${2})"
+  local average_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${3}") (${3})"
   cat \
 <<OBJECT_SUMMARY
 Total number: ${total_number}
