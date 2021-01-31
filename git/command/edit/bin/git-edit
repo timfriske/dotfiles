@@ -4,10 +4,7 @@
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-config:: Git Config command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-config, sh
 
 set -o errexit -o nounset
 

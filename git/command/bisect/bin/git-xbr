@@ -4,10 +4,7 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-bisect:: Git Bisect command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-bisect, sh
 
 set -o errexit -o nounset
 

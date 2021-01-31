@@ -4,12 +4,7 @@
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-diff:: Git Diff command.
-#   env:: Env command.
-#   git-edit:: Git Edit command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-diff, git-edit, sh
 
 set -o errexit -o nounset
 

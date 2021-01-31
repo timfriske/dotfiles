@@ -4,11 +4,7 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-config:: Git Config command.
-#   git-log:: Git Log command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-config, git-log, sh
 
 set -o errexit -o nounset
 

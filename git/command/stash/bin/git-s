@@ -4,10 +4,7 @@
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-stash:: Git Stash command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-stash, sh
 
 set -o errexit -o nounset
 

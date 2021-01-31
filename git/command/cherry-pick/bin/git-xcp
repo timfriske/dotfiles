@@ -4,10 +4,7 @@
 # =======================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-cherry-pick:: Git Cherry-pick command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-cherry-pick, sh
 
 set -o errexit -o nounset
 
