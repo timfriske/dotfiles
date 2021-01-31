@@ -4,10 +4,7 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   date:: Date command.
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
+# Deps:: date, env, sh
 
 set -o errexit -o nounset
 
