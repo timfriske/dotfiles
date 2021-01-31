@@ -4,10 +4,7 @@
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-merge:: Git Merge command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-merge, sh
 
 set -o errexit -o nounset
 
