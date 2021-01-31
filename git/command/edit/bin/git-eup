@@ -4,13 +4,7 @@
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-diff:: Git Diff command.
-#   env:: Env command.
-#   git-edit:: Git Edit command.
-#   parallel:: Moreutils Parallel command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-diff, git-edit, parallel, sh
 
 set -o errexit -o nounset
 
