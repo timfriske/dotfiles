@@ -4,12 +4,12 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
+# Shows _GMT_ _Greenwich Mean Time_.
+#
 # Deps:: date, env, sh
 
 set -o errexit -o nounset
 
-# Show the _GMT_ _Greenwich Mean Time_.
-#
 main() {
   TZ=GMT date
 }

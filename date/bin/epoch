@@ -4,12 +4,12 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
+# Shows seconds since _Epoch_.
+#
 # Deps:: date, env, sh
 
 set -o errexit -o nounset
 
-# Show the seconds since the _Epoch_.
-#
 main() {
   date '+%s'
 }
