@@ -4,17 +4,14 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   date:: Date command.
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
+# Shows _GMT_ _Greenwich Mean Time_.
+#
+# Deps:: date, env, sh
 
 set -o errexit -o nounset
 
-# Show the _GMT_ _Greenwich Mean Time_.
-#
 main() {
   TZ=GMT date
 }
 
-main "$@"
+main "${@}"

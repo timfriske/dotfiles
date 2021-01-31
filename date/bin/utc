@@ -4,17 +4,14 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   date:: Date command.
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
+# Shows _UTC_ _Universal Time Coordinated_.
+#
+# Deps:: date, env, sh
 
 set -o errexit -o nounset
 
-# Show the _UTC_ _Universal Time Coordinated_.
-#
 main() {
   TZ=UTC date
 }
 
-main "$@"
+main "${@}"
