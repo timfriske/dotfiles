@@ -4,10 +4,7 @@
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   git-fetch:: Git Fetch command.
-#   sh:: POSIX-compatible shell.
+# Deps:: env, git-fetch, sh
 
 set -o errexit -o nounset
 
