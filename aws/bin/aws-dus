@@ -13,7 +13,8 @@ set -o errexit -o nounset
 summarize_objects() {
   local path="${1#s3://}"
   local bucket="${path%%/*}"
-  local prefix="${2:-${path#${bucket}/}}"
+  local prefix="${2:-${path#${bucket}}}"
+  prefix="${prefix#/}"
   aws s3api list-objects-v2 \
     --output json \
     --query \
@@ -29,9 +30,9 @@ summarize_objects() {
 }
 
 format_object_summary() {
-  local total_number="$(numfmt --grouping "${1}") (${1})"
-  local total_size="$(LC_ALL=C numfmt --to=iec-i --format='%.2f' "${2}") (${2})"
-  local average_size="$(LC_ALL=C numfmt --to=iec-i --format='%.2f' "${3}") (${3})"
+  local total_number="$(LC_ALL=en_US.UTF-8 numfmt --grouping "${1}") (${1})"
+  local total_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${2}") (${2})"
+  local average_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${3}") (${3})"
   cat \
 <<OBJECT_SUMMARY
 Total number: ${total_number}
