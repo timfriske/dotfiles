@@ -14,4 +14,4 @@ main() {
   date '+week %V'
 }
 
-main "$@"
+main "${@}"

@@ -14,4 +14,4 @@ main() {
   TZ=UTC date
 }
 
-main "$@"
+main "${@}"
