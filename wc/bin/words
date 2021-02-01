@@ -9,7 +9,7 @@
 set -o errexit -o nounset
 
 main() {
-  wc --words "$@"
+  wc --words "${@}"
 }
 
-main "$@"
+main "${@}"

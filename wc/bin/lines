@@ -9,7 +9,7 @@
 set -o errexit -o nounset
 
 main() {
-  wc --lines "$@"
+  wc --lines "${@}"
 }
 
-main "$@"
+main "${@}"
