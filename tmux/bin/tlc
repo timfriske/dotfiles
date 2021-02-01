@@ -9,7 +9,7 @@
 set -o errexit -o nounset
 
 main() {
-  tmux list-clients "$@"
+  tmux list-clients "${@}"
 }
 
-main "$@"
+main "${@}"

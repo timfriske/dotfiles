@@ -9,7 +9,7 @@
 set -o errexit -o nounset
 
 main() {
-  tmux detach-client "$@"
+  tmux detach-client "${@}"
 }
 
-main "$@"
+main "${@}"

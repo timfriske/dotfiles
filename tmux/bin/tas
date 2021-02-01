@@ -9,7 +9,7 @@
 set -o errexit -o nounset
 
 main() {
-  tmux attach-session "$@"
+  tmux attach-session "${@}"
 }
 
-main "$@"
+main "${@}"

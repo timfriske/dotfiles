@@ -12,5 +12,5 @@ main() {
   tmux set-environment -g PWD "${PWD}"
 }
 
-main "$@"
+main "${@}"
 

@@ -9,7 +9,7 @@
 set -o errexit -o nounset
 
 main() {
-  tmux refresh-client "$@"
+  tmux refresh-client "${@}"
 }
 
-main "$@"
+main "${@}"
