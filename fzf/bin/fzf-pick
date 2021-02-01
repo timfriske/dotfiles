@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+
 # Fuzzy-find and pick records w/ Fzf
 # ==================================
 # Tim Friske <me@tifr.de>

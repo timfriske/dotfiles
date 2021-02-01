@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+
 # Find file system objects w/ Fd for Fzf
 # ======================================
 # Tim Friske <me@tifr.de>

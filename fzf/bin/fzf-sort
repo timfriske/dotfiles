@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+
 # Sort records w/ Sort for Fzf
 # ============================
 # Tim Friske <me@tifr.de>
