@@ -4,10 +4,7 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
-#   wc:: Wc command.
+# Deps:: env, sh, wc
 
 set -o errexit -o nounset
 
