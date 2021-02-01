@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
-#
+
 # Sort records w/ Sort for Fzf
 # ============================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies::
-#   _Bash_, _Cat_, _Sort_, _Tr_
+# Deps:: bash, cat, env, sort, tr
 
 shopt -os nounset pipefail errexit errtrace
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 Help
@@ -71,7 +70,7 @@ _Fzf-sort's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
-function sort_records {
+sort_records() {
   local opt_sort=()
   case "${order:-}" in
     month) opt_sort=('--sort' 'month');;
@@ -98,12 +97,12 @@ function sort_records {
       cmd_write='tr "\0" "\n"'
   fi
 
-  eval "$cmd_read" \
+  eval "${cmd_read}" \
     | sort "${opt_sort[@]}" "${opt_reverse[@]}" --zero-terminated \
-    | eval "$cmd_write"
+    | eval "${cmd_write}"
 }
 
-function fzf_sort {
+fzf_sort() {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit
@@ -112,4 +111,4 @@ function fzf_sort {
   sort_records
 }
 
-fzf_sort "$@"
+fzf_sort "${@}"

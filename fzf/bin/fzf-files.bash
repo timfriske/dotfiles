@@ -23,11 +23,9 @@
 # fi
 # ----
 #
-# Dependencies::
-#   _Bash_, _Fzf-finder_, _Fzf-insert_, _Fzf-pick_, _Fzf-quote_,
-#   _Fzf-sort_
+# Deps:: bash, fzf-finder, fzf-insert, fzf-pick, fzf-quote, fzf-sort
 
-function fzf_files {
+fzf_files() {
   cmd="kind=file fzf-finder \
     | fzf-quote \
     | order=version fzf-sort \

@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
-#
+
 # Quote records w/ Bash for Fzf
 # =============================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies::
-#   _Bash_, _Cat_
+# Deps:: bash, cat, env
 
 shopt -os nounset pipefail errexit errtrace
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 Help
@@ -60,7 +59,7 @@ or `true`.
 HELP
 }
 
-function fzf_quote {
+fzf_quote() {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit
@@ -74,13 +73,13 @@ function fzf_quote {
   local record=''
   if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
     while IFS='' read -r record; do
-      printf "$quoted_fmt" "$record"
+      printf "${quoted_fmt}" "${record}"
     done
   else
     while IFS='' read -r -d '' record; do
-      printf "$quoted_fmt" "$record"
+      printf "${quoted_fmt}" "${record}"
     done
   fi
 }
 
-fzf_quote "$@"
+fzf_quote "${@}"

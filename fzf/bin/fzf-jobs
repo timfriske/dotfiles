@@ -14,57 +14,57 @@
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 usage:
 
-  function jb {
-    eval "$(jobs | cmd='bg' fzf-jobs "$@")"
+  jb() {
+    eval "$(jobs | cmd='bg' fzf-jobs "${@}")"
   }
 
-  function jd {
-    eval "$(jobs | cmd='disown' fzf-jobs "$@")"
+  jd() {
+    eval "$(jobs | cmd='disown' fzf-jobs "${@}")"
   }
 
-  function jdh {
-    eval "$(jobs | cmd='disown -h' fzf-jobs "$@")"
+  jdh() {
+    eval "$(jobs | cmd='disown -h' fzf-jobs "${@}")"
   }
 
-  function jf {
-    eval "$(jobs | cmd='fg' fzf-jobs "$@")"
+  jf() {
+    eval "$(jobs | cmd='fg' fzf-jobs "${@}")"
   }
 
-  function jj {
-    eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
+  jj() {
+    eval "$(jobs | cmd='jobs' fzf-jobs "${@}")"
   }
 
-  function jkc {
-    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
+  jkc() {
+    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "${@}")"
   }
 
-  function jkk {
-    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
+  jkk() {
+    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "${@}")"
   }
 
-  function jkt {
-    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "$@")"
+  jkt() {
+    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "${@}")"
   }
 HELP
 }
 
-function print_job_cmd_line {
+print_job_cmd_line() {
   [[ "$#" -eq 0 ]] && return
-  printf '%s ' "$cmd" "$@"
+  printf '%s ' "${cmd}" "${@}"
   printf '\n'
 }
 
-function fzf_jobs {
+fzf_jobs() {
   if [[ -t 0 ]]; then
     print_help
     exit
   elif [[ "$#" -gt 0 ]]; then
-    print_job_cmd_line "$@"
+    print_job_cmd_line "${@}"
     exit
   fi
 
@@ -75,7 +75,7 @@ function fzf_jobs {
 
   local job='' jobspecs=()
   while read -r -d '' job; do
-    if [[ "$job" =~ ^\[([[:digit:]]+)\] ]]; then
+    if [[ "${job}" =~ ^\[([[:digit:]]+)\] ]]; then
       jobspecs+=("%${BASH_REMATCH[1]}")
     fi
   done < <(fzf "${fzf_options[@]}")
@@ -83,4 +83,4 @@ function fzf_jobs {
   print_job_cmd_line "${jobspecs[@]}"
 }
 
-fzf_jobs "$@"
+fzf_jobs "${@}"

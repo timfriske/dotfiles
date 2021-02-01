@@ -36,7 +36,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-function fzf_git_branch {
+fzf_git_branch() {
   local branch_options=()
   branch_options+=('--list')
   branch_options+=('--format=%(refname:lstrip=2)')
@@ -69,4 +69,4 @@ tta='Tag' tco='Commit' git-location)")
   git branch "${branch_options[@]}" | fzf "${fzf_options[@]}"
 }
 
-fzf_git_branch "$@"
+fzf_git_branch "${@}"
