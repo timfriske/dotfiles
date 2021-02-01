@@ -4,10 +4,7 @@
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env:: Env command.
-#   sh:: POSIX-compatible shell.
-#   systemctl:: Systemctl command.
+# Deps:: env, sh, systemctl
 
 set -o errexit -o nounset
 
