@@ -4,10 +4,7 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env: Env command.
-#   sh:: POSIX-compatible shell.
-#   tmux:: Tmux command.
+# Deps:: env, sh, tmux
 
 set -o errexit -o nounset
 
@@ -15,4 +12,4 @@ main() {
   { tmux attach-session || tmux new-session; } >/dev/null 2>&1
 }
 
-main "$@"
+main "${@}"

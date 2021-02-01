@@ -4,10 +4,7 @@
 # ========
 # Tim Friske <me@tifr.de>
 #
-# Dependencies:
-#   env: Env command.
-#   sh:: POSIX-compatible shell.
-#   tmux:: Tmux command.
+# Deps:: env, sh, tmux
 
 set -o errexit -o nounset
 
@@ -15,5 +12,5 @@ main() {
   tmux set-environment -g PWD "${PWD}"
 }
 
-main "$@"
+main "${@}"
 
