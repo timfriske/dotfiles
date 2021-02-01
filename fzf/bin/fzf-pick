@@ -4,8 +4,7 @@
 # ==================================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies::
-#   _Bash_, _Cat_, _Fzf_, _Xargs_
+# Deps:: bash, cat, env, fzf, xargs
 
 shopt -os nounset pipefail errexit errtrace
 

@@ -23,9 +23,7 @@
 # fi
 # ----
 #
-# Dependencies::
-#   _Bash_, _Fzf-finder_, _Fzf-insert_, _Fzf-pick_, _Fzf-quote_,
-#   _Fzf-sort_
+# Deps:: bash, fzf-finder, fzf-insert, fzf-pick, fzf-quote, fzf-sort
 
 function fzf_folders {
   cmd="kind=folder fzf-finder \

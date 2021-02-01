@@ -25,8 +25,7 @@
 # fi
 # ----
 #
-# Dependencies::
-#   _Bash_, _Fzf-git-tag_, _Fzf-insert_
+# Deps:: bash, fzf-git-tag, fzf-insert
 
 function fzf_git_tag_insert {
   cmd="fzf-git-tag" fzf_insert

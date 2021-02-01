@@ -4,8 +4,7 @@
 # ============================
 # Tim Friske <me@tifr.de>
 #
-# Dependencies::
-#   _Bash_, _Cat_, _Sort_, _Tr_
+# Deps:: bash, cat, env, sort, tr
 
 shopt -os nounset pipefail errexit errtrace
 

@@ -20,8 +20,7 @@
 # source fzf-insert.bash &> /dev/null
 # ----
 #
-# Dependencies::
-#   _Bash_
+# Deps:: bash
 
 function space {
   if [[ -n "$1" && ! "$1" =~ ^[[:space:]]$ ]]; then
