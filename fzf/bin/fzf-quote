@@ -8,7 +8,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 Help
@@ -59,7 +59,7 @@ or `true`.
 HELP
 }
 
-function fzf_quote {
+fzf_quote() {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit

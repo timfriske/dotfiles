@@ -8,7 +8,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 Help
@@ -70,7 +70,7 @@ _Fzf-sort's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
-function sort_records {
+sort_records() {
   local opt_sort=()
   case "${order:-}" in
     month) opt_sort=('--sort' 'month');;
@@ -102,7 +102,7 @@ function sort_records {
     | eval "$cmd_write"
 }
 
-function fzf_sort {
+fzf_sort() {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit

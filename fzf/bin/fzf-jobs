@@ -14,52 +14,52 @@
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 usage:
 
-  function jb {
+  jb() {
     eval "$(jobs | cmd='bg' fzf-jobs "$@")"
   }
 
-  function jd {
+  jd() {
     eval "$(jobs | cmd='disown' fzf-jobs "$@")"
   }
 
-  function jdh {
+  jdh() {
     eval "$(jobs | cmd='disown -h' fzf-jobs "$@")"
   }
 
-  function jf {
+  jf() {
     eval "$(jobs | cmd='fg' fzf-jobs "$@")"
   }
 
-  function jj {
+  jj() {
     eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
   }
 
-  function jkc {
+  jkc() {
     eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
   }
 
-  function jkk {
+  jkk() {
     eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
   }
 
-  function jkt {
+  jkt() {
     eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "$@")"
   }
 HELP
 }
 
-function print_job_cmd_line {
+print_job_cmd_line() {
   [[ "$#" -eq 0 ]] && return
   printf '%s ' "$cmd" "$@"
   printf '\n'
 }
 
-function fzf_jobs {
+fzf_jobs() {
   if [[ -t 0 ]]; then
     print_help
     exit

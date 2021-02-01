@@ -12,7 +12,7 @@
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 usage:
@@ -21,7 +21,7 @@ usage:
 HELP
 }
 
-function fzf_history {
+fzf_history() {
   if [[ -t 0 ]]; then
     print_help
     exit

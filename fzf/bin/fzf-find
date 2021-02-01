@@ -8,7 +8,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 Help
@@ -68,7 +68,7 @@ _Fzf-find's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
-function find_fs_objects {
+find_fs_objects() {
   local opt_path=('-false')
   if [[ ! "${hidden:-}" =~ 1|true ]]; then
     opt_path=('-path' '*/.*')
@@ -100,7 +100,7 @@ function find_fs_objects {
     "${opt_print[@]}"
 }
 
-function fzf_find {
+fzf_find() {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit

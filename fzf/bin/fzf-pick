@@ -8,7 +8,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 Help
@@ -65,7 +65,7 @@ _Fzf-pick's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
-function pick_records {
+pick_records() {
   local env_opts=()
   env_opts+=(${FZF_DEFAULT_OPTS:-})
   env_opts+=(${FZF_PICK_FZF_OPTS:-})
@@ -89,7 +89,7 @@ function pick_records {
     "${opt_print[@]}"
 }
 
-function fzf_pick {
+fzf_pick() {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit

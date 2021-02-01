@@ -33,7 +33,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-function fzf_git_tag {
+fzf_git_tag() {
   local tag_options=()
   tag_options+=('--list')
   tag_options+=('--format=%(refname:lstrip=2)')

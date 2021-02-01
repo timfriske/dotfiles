@@ -8,7 +8,7 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-function print_help {
+print_help() {
   1>&2 cat \
 <<'HELP'
 Help
@@ -63,7 +63,7 @@ character.  The latter decision may be overridden by passing _Fzf-fd's_
 HELP
 }
 
-function find_fs_objects {
+find_fs_objects() {
   local opt_hidden=()
   if [[ "${hidden:-}" =~ 1|true ]]; then
     opt_hidden=('--hidden')
@@ -88,7 +88,7 @@ function find_fs_objects {
     "${opt_print[@]}"
 }
 
-function fzf_fd {
+fzf_fd() {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit

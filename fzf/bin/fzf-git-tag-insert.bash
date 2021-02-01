@@ -27,6 +27,6 @@
 #
 # Deps:: bash, fzf-git-tag, fzf-insert
 
-function fzf_git_tag_insert {
+fzf_git_tag_insert() {
   cmd="fzf-git-tag" fzf_insert
 }

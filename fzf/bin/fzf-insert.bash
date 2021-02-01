@@ -22,13 +22,13 @@
 #
 # Deps:: bash
 
-function space {
+space() {
   if [[ -n "$1" && ! "$1" =~ ^[[:space:]]$ ]]; then
     printf ' '
   fi
 }
 
-function fzf_insert {
+fzf_insert() {
   local evaluated="$(eval "$cmd")"
 
   local rl="$READLINE_LINE" rp="$READLINE_POINT"
