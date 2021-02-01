@@ -23,20 +23,20 @@
 # Deps:: bash
 
 space() {
-  if [[ -n "$1" && ! "$1" =~ ^[[:space:]]$ ]]; then
+  if [[ -n "${1}" && ! "${1}" =~ ^[[:space:]]$ ]]; then
     printf ' '
   fi
 }
 
 fzf_insert() {
-  local evaluated="$(eval "$cmd")"
+  local evaluated="$(eval "${cmd}")"
 
-  local rl="$READLINE_LINE" rp="$READLINE_POINT"
+  local rl="${READLINE_LINE}" rp="${READLINE_POINT}"
   local left="${rl:0:$rp}" right="${rl:$rp}"
 
   local insertion=''
   insertion+="$(space "${left:0-1}")"
-  insertion+="$evaluated"
+  insertion+="${evaluated}"
   insertion+="$(space "${right:0:1}")"
 
   READLINE_LINE="${left}${insertion}${right}"

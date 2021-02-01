@@ -69,4 +69,4 @@ tta='Tag' tco='Commit' git-location)")
   git branch "${branch_options[@]}" | fzf "${fzf_options[@]}"
 }
 
-fzf_git_branch "$@"
+fzf_git_branch "${@}"

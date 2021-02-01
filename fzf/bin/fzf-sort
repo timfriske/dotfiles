@@ -97,9 +97,9 @@ sort_records() {
       cmd_write='tr "\0" "\n"'
   fi
 
-  eval "$cmd_read" \
+  eval "${cmd_read}" \
     | sort "${opt_sort[@]}" "${opt_reverse[@]}" --zero-terminated \
-    | eval "$cmd_write"
+    | eval "${cmd_write}"
 }
 
 fzf_sort() {
@@ -111,4 +111,4 @@ fzf_sort() {
   sort_records
 }
 
-fzf_sort "$@"
+fzf_sort "${@}"

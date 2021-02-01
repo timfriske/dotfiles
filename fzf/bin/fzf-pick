@@ -109,4 +109,4 @@ fzf_pick() {
   pick_records
 }
 
-fzf_pick "$@"
+fzf_pick "${@}"

@@ -62,4 +62,4 @@ tta='Tag' tco='Commit' git-location)")
   git tag "${tag_options[@]}" | fzf "${fzf_options[@]}"
 }
 
-fzf_git_tag "$@"
+fzf_git_tag "${@}"

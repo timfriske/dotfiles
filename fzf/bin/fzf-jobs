@@ -20,42 +20,42 @@ print_help() {
 usage:
 
   jb() {
-    eval "$(jobs | cmd='bg' fzf-jobs "$@")"
+    eval "$(jobs | cmd='bg' fzf-jobs "${@}")"
   }
 
   jd() {
-    eval "$(jobs | cmd='disown' fzf-jobs "$@")"
+    eval "$(jobs | cmd='disown' fzf-jobs "${@}")"
   }
 
   jdh() {
-    eval "$(jobs | cmd='disown -h' fzf-jobs "$@")"
+    eval "$(jobs | cmd='disown -h' fzf-jobs "${@}")"
   }
 
   jf() {
-    eval "$(jobs | cmd='fg' fzf-jobs "$@")"
+    eval "$(jobs | cmd='fg' fzf-jobs "${@}")"
   }
 
   jj() {
-    eval "$(jobs | cmd='jobs' fzf-jobs "$@")"
+    eval "$(jobs | cmd='jobs' fzf-jobs "${@}")"
   }
 
   jkc() {
-    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "$@")"
+    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "${@}")"
   }
 
   jkk() {
-    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "$@")"
+    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "${@}")"
   }
 
   jkt() {
-    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "$@")"
+    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "${@}")"
   }
 HELP
 }
 
 print_job_cmd_line() {
   [[ "$#" -eq 0 ]] && return
-  printf '%s ' "$cmd" "$@"
+  printf '%s ' "${cmd}" "${@}"
   printf '\n'
 }
 
@@ -64,7 +64,7 @@ fzf_jobs() {
     print_help
     exit
   elif [[ "$#" -gt 0 ]]; then
-    print_job_cmd_line "$@"
+    print_job_cmd_line "${@}"
     exit
   fi
 
@@ -75,7 +75,7 @@ fzf_jobs() {
 
   local job='' jobspecs=()
   while read -r -d '' job; do
-    if [[ "$job" =~ ^\[([[:digit:]]+)\] ]]; then
+    if [[ "${job}" =~ ^\[([[:digit:]]+)\] ]]; then
       jobspecs+=("%${BASH_REMATCH[1]}")
     fi
   done < <(fzf "${fzf_options[@]}")
@@ -83,4 +83,4 @@ fzf_jobs() {
   print_job_cmd_line "${jobspecs[@]}"
 }
 
-fzf_jobs "$@"
+fzf_jobs "${@}"

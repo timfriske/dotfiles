@@ -97,4 +97,4 @@ fzf_fd() {
   find_fs_objects
 }
 
-fzf_fd "$@"
+fzf_fd "${@}"

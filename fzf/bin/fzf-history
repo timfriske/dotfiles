@@ -42,4 +42,4 @@ fzf_history() {
   fi
 }
 
-fzf_history "$@"
+fzf_history "${@}"

@@ -73,13 +73,13 @@ fzf_quote() {
   local record=''
   if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
     while IFS='' read -r record; do
-      printf "$quoted_fmt" "$record"
+      printf "${quoted_fmt}" "${record}"
     done
   else
     while IFS='' read -r -d '' record; do
-      printf "$quoted_fmt" "$record"
+      printf "${quoted_fmt}" "${record}"
     done
   fi
 }
 
-fzf_quote "$@"
+fzf_quote "${@}"

@@ -109,4 +109,4 @@ fzf_find() {
   find_fs_objects
 }
 
-fzf_find "$@"
+fzf_find "${@}"
