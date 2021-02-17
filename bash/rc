@@ -318,6 +318,17 @@ alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
 #
 alias md='mkdir'
 
+# Make and change directory.
+#
+mdd() { md "${1:-.}" && cd "${_}"; }
+
+# Make and change temporary directory.  It is prefixed with _tmp_ by
+# default, followed by a dot and ending in 10 random alphanumeric
+# characters.  Prefix _tmp_ may be overridden by first argument to
+# _mdt_.
+#
+mdt() { cd "$(mktemp --tmpdir --directory "${1:-tmp}.XXXXXXXXXX")"; }
+
 # Mv - Move/rename files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
