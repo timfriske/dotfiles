@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, git-log, sh
+
+set -o errexit -o nounset
+
+# Log incoming commits from upstream branch, i.e. those ahead of
+# downstream branch, no merge commits.
+#
+main() {
+  local commit="${1:-HEAD}"
+  shift $(($#-($#${1+-1})))
+  cd "${GIT_PREFIX:-.}"
+  git log --no-merges --oneline --decorate=auto \
+    "${commit}..${commit}@{upstream}" -- "${@:-.}"
+}
+
+main "${@}"
