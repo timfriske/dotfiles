@@ -8,7 +8,8 @@
 
 set -o errexit -o nounset
 
-# Log commits of branch ahead of upstream branch, no merge commits.
+# Log outgoing commits from downstream branch, i.e. those ahead of
+# upstream branch, no merge commits.
 #
 main() {
   local commit="${1:-HEAD}"
