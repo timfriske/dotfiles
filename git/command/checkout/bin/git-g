@@ -8,8 +8,12 @@
 
 set -o errexit -o nounset
 
+# Toggle branches by default, i.e. switch from the current to the
+# previous branch unless another Git checkout operation is chosen by
+# passing arguments.
+#
 main() {
-  git checkout "${@}"
+  git checkout "${@:--}"
 }
 
 main "${@}"
