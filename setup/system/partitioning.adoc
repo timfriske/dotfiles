@@ -23,3 +23,21 @@ set up this way:
   * Files live on Ext4 file systems because this block-based journaling
     file system is proven to be robust and fast on HDDs as well as SSDs
     and thus well-suited for everyday workloads and usage patterns.
+
+Placeholder Value Definition
+----------------------------
+
+Shell variables are used as placeholders for user-defined values to
+which the rest of this document may refer.
+
+----
+# Substitute placeholder values with something like:
+# /dev/nvme[0-9]n[1-9]:: For NVMe disks.
+# /dev/nvme[0-9]n[1-9]p[0-9]:: For NVMe partitions.
+# /dev/sd[a-z]:: For SATA disks.
+# /dev/sd[a-z][0-9]:: For SATA partitions.
+prim_disk_dev="REPLACE-WITH-DISK-DEVICE"
+boot_part_dev="REPLACE-WITH-PART-DEVICE"
+uefi_part_dev="REPLACE-WITH-PART-DEVICE"
+data_part_dev="REPLACE-WITH-PART-DEVICE"
+----
