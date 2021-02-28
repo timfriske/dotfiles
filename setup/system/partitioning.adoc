@@ -109,6 +109,15 @@ sudo file --special-files "${uefi_part_dev}"
 LUKS Encrypted Container Creation
 ---------------------------------
 
+Important note: As of February 28 2021 most Linux distriubtions that
+sport GRUB Grand Unified Boot Loader version 2.04 or earlier do not
+support yet booting from a LUKS container with the new on-disk format
+LUKS2. Should that still be the case resort to format version 1 for the
+time being.
+
+LUKS On-Disk Format version 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ----
 # Get an overview of the disk's partitions.
 lsblk "${prim_disk_dev}"
@@ -123,6 +132,28 @@ sudo cryptsetup \
   --pbkdf pbkdf2 \
   --type luks2 \
   --label data \
+  luksFormat \
+  "${data_part_dev}"
+
+# Check properties of container just created.
+sudo cryptsetup luksDump "${data_part_dev}"
+----
+
+LUKS On-Disk Format version 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Create a LUKS encrypted container.
+sudo cryptsetup \
+  --verbose \
+  --verify-passphrase \
+  --cipher aes-xts-plain64 \
+  --key-size 512 \
+  --hash sha512 \
+  --type luks1 \
   luksFormat \
   "${data_part_dev}"
 
