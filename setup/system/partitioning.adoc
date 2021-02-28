@@ -67,4 +67,14 @@ cust_parted() { \
     -- \
     "${prim_disk_dev}" "${@}"; \
 }
+
+# Create GPT partition table with named partitions.
+# Enable flags required to recognize partitions.
+cust_parted \
+  mklabel gpt \
+  mkpart bios 1MiB 2MiB \
+  mkpart uefi 2MiB 34MiB \
+  mkpart data 34MiB 100% \
+  set 1 bios_grub on \
+  set 2 esp on
 ----
