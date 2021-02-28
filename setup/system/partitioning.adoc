@@ -1,0 +1,165 @@
+Partitioning
+============
+
+This document describes how to setup a personal computer's primary disk
+such that it can boot a distribution of the Linux operating system. All
+data on that disk shall reside in encrypted form while the computer is
+turned off to protect it from adverse actions like espionage and theft.
+
+To sum up what should have been accomplished once a computer has been
+set up this way:
+
+  * The disk is partitioned according to the GPT GUID partition table
+    scheme as specified by the UEFI Unified Extensible Firmware
+    Interface standard.
+  * The UEFI of the computer is able to boot into Linux.
+  * Only the bare minimum of data required to boot up Linux should be
+    stored in plaintext form. Everything else should encrypted at rest.
+  * The LUKS Linux Unified Key Setup is used to realize the full-disk
+    encryption utilizing the on-disk format LUKS2.
+  * The LVM Logical Volume Manager allows for a flexible arrangment of
+    logical volumes in terms of number and size.
+  * Swap space spans an entire logical volume of appropriate size.
+  * Files live on Ext4 file systems because this block-based journaling
+    file system is proven to be robust and fast on HDDs as well as SSDs
+    and thus well-suited for everyday workloads and usage patterns.
+
+Placeholder Value Definition
+----------------------------
+
+Shell variables are used as placeholders for user-defined values to
+which the rest of this document may refer.
+
+Important note: Take great care as to which values you assign. Choosing
+the wrong values will result in data loss. Make a backup of all your
+data. You have been warned.
+
+Hint: Open up new shell session that can be closed again once this
+setup procedure is over. By doing so all shell variables and functions
+defined here will cease to exist instead of cluttering the current
+shell session.
+
+----
+# Get an overview about all disks and their partitions.
+lsblk
+
+# Substitute placeholder values with something like:
+# /dev/nvme[0-9]n[1-9]:: For NVMe disks.
+# /dev/nvme[0-9]n[1-9]p[0-9]:: For NVMe partitions.
+# /dev/sd[a-z]:: For SATA disks.
+# /dev/sd[a-z][0-9]:: For SATA partitions.
+prim_disk_dev="REPLACE-WITH-DISK-DEVICE"
+boot_part_dev="REPLACE-WITH-PART-DEVICE"
+uefi_part_dev="REPLACE-WITH-PART-DEVICE"
+data_part_dev="REPLACE-WITH-PART-DEVICE"
+----
+
+GPT Partition Table Creation
+----------------------------
+
+For partitioning disks the GNU Parted software is chosen. It is run in
+its scripted rather than interactive mode such that the user can replay
+the following commands easily from the command line.
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Calls parted with common options.
+cust_parted() { \
+  sudo parted \
+    --script \
+    --align optimal \
+    --wipesignatures \
+    -- \
+    "${prim_disk_dev}" "${@}"; \
+}
+
+# Get a detailed disk usage and free report.
+cust_parted print free
+
+# Create GPT partition table with named partitions.
+# Enable flags required to recognize partitions.
+cust_parted \
+  mklabel gpt \
+  mkpart bios 1MiB 2MiB \
+  mkpart uefi 2MiB 34MiB \
+  mkpart data 34MiB 100% \
+  set 1 bios_grub on \
+  set 2 esp on
+
+# Get a detailed disk usage and free report.
+cust_parted print free
+----
+
+UEFI FAT Filesystem Creation
+----------------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Create a FAT filesystem inside the UEFI partition.
+sudo mkfs.fat -n UEFI "${uefi_part_dev}"
+
+# Check properties of FAT filesystem just created.
+sudo file --special-files "${uefi_part_dev}"
+----
+
+LUKS Encrypted Container Creation
+---------------------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Create a LUKS encrypted container.
+sudo cryptsetup \
+  --verbose \
+  --verify-passphrase \
+  --cipher aes-xts-plain64 \
+  --key-size 512 \
+  --hash sha512 \
+  --pbkdf pbkdf2 \
+  --type luks2 \
+  --label data \
+  luksFormat \
+  "${data_part_dev}"
+
+# Check properties of container just created.
+sudo cryptsetup luksDump "${data_part_dev}"
+----
+
+LVM Logical Volume Creation
+---------------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Open LUKS encrypted container.
+sudo cryptsetup open ${data_part_dev} crypt-data
+
+# Make container a LVM physical volume.
+# Create a LVM volume group.
+sudo pvcreate /dev/mapper/crypt-data
+sudo vgcreate data /dev/mapper/crypt-data
+sudo lvcreate --name swap --size 4G data
+sudo lvcreate --name root --size 32G data
+sudo lvcreate --name home --extents 100%FREE data
+
+# Check properties of logical volumes just created.
+sudo lvs data
+----
+
+Filesystem Creation
+-------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+sudo mkswap --label swap /dev/data/swap
+sudo mkfs.ext4 -L root /dev/data/root
+sudo mkfs.ext4 -L home /dev/data/home
+----
