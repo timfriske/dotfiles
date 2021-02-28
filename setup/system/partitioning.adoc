@@ -129,3 +129,25 @@ sudo cryptsetup \
 # Check properties of container just created.
 sudo cryptsetup luksDump "${data_part_dev}"
 ----
+
+LVM Logical Volume Creation
+---------------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Open LUKS encrypted container.
+sudo cryptsetup open ${data_part_dev} crypt-data
+
+# Make container a LVM physical volume.
+# Create a LVM volume group.
+sudo pvcreate /dev/mapper/crypt-data
+sudo vgcreate data /dev/mapper/crypt-data
+sudo lvcreate --name swap --size 4G data
+sudo lvcreate --name root --size 32G data
+sudo lvcreate --name home --extents 100%FREE data
+
+# Check properties of logical volumes just created.
+sudo lvs data
+----
