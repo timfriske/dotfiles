@@ -53,3 +53,18 @@ boot_part_dev="REPLACE-WITH-PART-DEVICE"
 uefi_part_dev="REPLACE-WITH-PART-DEVICE"
 data_part_dev="REPLACE-WITH-PART-DEVICE"
 ----
+
+GPT Partition Table Creation
+----------------------------
+
+----
+# Calls parted with common options.
+cust_parted() { \
+  sudo parted \
+    --script \
+    --align optimal \
+    --wipesignatures \
+    -- \
+    "${prim_disk_dev}" "${@}"; \
+}
+----
