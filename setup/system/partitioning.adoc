@@ -5,3 +5,21 @@ This document describes how to setup a personal computer's primary disk
 such that it can boot a distribution of the Linux operating system. All
 data on that disk shall reside in encrypted form while the computer is
 turned off to protect it from adverse actions like espionage and theft.
+
+To sum up what should have been accomplished once a computer has been
+set up this way:
+
+  * The disk is partitioned according to the GPT GUID partition table
+    scheme as specified by the UEFI Unified Extensible Firmware
+    Interface standard.
+  * The UEFI of the computer is able to boot into Linux.
+  * Only the bare minimum of data required to boot up Linux should be
+    stored in plaintext form. Everything else should encrypted at rest.
+  * The LUKS Linux Unified Key Setup is used to realize the full-disk
+    encryption utilizing the on-disk format LUKS2.
+  * The LVM Logical Volume Manager allows for a flexible arrangment of
+    logical volumes in terms of number and size.
+  * Swap space spans an entire logical volume of appropriate size.
+  * Files live on Ext4 file systems because this block-based journaling
+    file system is proven to be robust and fast on HDDs as well as SSDs
+    and thus well-suited for everyday workloads and usage patterns.
