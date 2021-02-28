@@ -58,6 +58,9 @@ GPT Partition Table Creation
 ----------------------------
 
 ----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
 # Calls parted with common options.
 cust_parted() { \
   sudo parted \
@@ -68,6 +71,9 @@ cust_parted() { \
     "${prim_disk_dev}" "${@}"; \
 }
 
+# Get a detailed disk usage and free report.
+cust_parted print free
+
 # Create GPT partition table with named partitions.
 # Enable flags required to recognize partitions.
 cust_parted \
@@ -77,4 +83,7 @@ cust_parted \
   mkpart data 34MiB 100% \
   set 1 bios_grub on \
   set 2 esp on
+
+# Get a detailed disk usage and free report.
+cust_parted print free
 ----
