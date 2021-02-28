@@ -31,6 +31,9 @@ Shell variables are used as placeholders for user-defined values to
 which the rest of this document may refer.
 
 ----
+# Get an overview about all disks and their partitions.
+lsblk
+
 # Substitute placeholder values with something like:
 # /dev/nvme[0-9]n[1-9]:: For NVMe disks.
 # /dev/nvme[0-9]n[1-9]p[0-9]:: For NVMe partitions.
