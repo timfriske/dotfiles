@@ -57,6 +57,10 @@ data_part_dev="REPLACE-WITH-PART-DEVICE"
 GPT Partition Table Creation
 ----------------------------
 
+For partitioning disks the GNU Parted software is chosen. It is run in
+its scripted rather than interactive mode such that the user can replay
+the following commands easily from the command line.
+
 ----
 # Get an overview of the disk's partitions.
 lsblk "${prim_disk_dev}"
