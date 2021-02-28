@@ -105,3 +105,27 @@ sudo mkfs.fat -n UEFI "${uefi_part_dev}"
 # Check properties of FAT filesystem just created.
 sudo file --special-files "${uefi_part_dev}"
 ----
+
+LUKS Encrypted Container Creation
+---------------------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Create a LUKS encrypted container.
+sudo cryptsetup \
+  --verbose \
+  --verify-passphrase \
+  --cipher aes-xts-plain64 \
+  --key-size 512 \
+  --hash sha512 \
+  --pbkdf pbkdf2 \
+  --type luks2 \
+  --label data \
+  luksFormat \
+  "${data_part_dev}"
+
+# Check properties of container just created.
+sudo cryptsetup luksDump "${data_part_dev}"
+----
