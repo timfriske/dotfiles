@@ -1,0 +1,7 @@
+Partitioning
+============
+
+This document describes how to setup a personal computer's primary disk
+such that it can boot a distribution of the Linux operating system. All
+data on that disk shall reside in encrypted form while the computer is
+turned off to protect it from adverse actions like espionage and theft.
