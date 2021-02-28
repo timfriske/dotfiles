@@ -34,6 +34,11 @@ Important note: Take great care as to which values you assign. Choosing
 the wrong values will result in data loss. Make a backup of all your
 data. You have been warned.
 
+Hint: Open up new shell session that can be closed again once this
+setup procedure is over. By doing so all shell variables and functions
+defined here will cease to exist instead of cluttering the current
+shell session.
+
 ----
 # Get an overview about all disks and their partitions.
 lsblk
