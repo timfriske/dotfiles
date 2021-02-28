@@ -151,3 +151,15 @@ sudo lvcreate --name home --extents 100%FREE data
 # Check properties of logical volumes just created.
 sudo lvs data
 ----
+
+Filesystem Creation
+-------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+sudo mkswap --label swap /dev/data/swap
+sudo mkfs.ext4 -L root /dev/data/root
+sudo mkfs.ext4 -L home /dev/data/home
+----
