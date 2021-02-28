@@ -91,3 +91,17 @@ cust_parted \
 # Get a detailed disk usage and free report.
 cust_parted print free
 ----
+
+UEFI FAT Filesystem Creation
+----------------------------
+
+----
+# Get an overview of the disk's partitions.
+lsblk "${prim_disk_dev}"
+
+# Create a FAT filesystem inside the UEFI partition.
+sudo mkfs.fat -n UEFI "${uefi_part_dev}"
+
+# Check properties of FAT filesystem just created.
+sudo file --special-files "${uefi_part_dev}"
+----
