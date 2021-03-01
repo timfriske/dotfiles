@@ -9,3 +9,15 @@
 #       Keygrip = 602FB1A2031860FDE6E2991036CE1B2DE9C3716F
 #
 602FB1A2031860FDE6E2991036CE1B2DE9C3716F
+
+# Lufthansa Industry Solutions GmbH & Co. KG OpenPGP authentication key
+# ---------------------------------------------------------------------
+# pub   ed25519 2019-05-11 [C] [expires: 2021-05-10]
+#       9BDECD77DF9C8557DACBD99420843255A168CE07
+#      Keygrip = D08581093D8C3E215F606318769E77F573C74931
+# uid           [ultimate] Tim Friske <tim.friske@lhind.dlh.de>
+# sub   ed25519 2019-05-11 [A] [expires: 2021-05-10]
+#       0F707F29944E35F566EC75F75C52476AAB288FA5
+#       Keygrip = 8A2A63FE01707A4202591A26F6567C63B4D3CE93
+#
+8A2A63FE01707A4202591A26F6567C63B4D3CE93
