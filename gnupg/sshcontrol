@@ -1,3 +1,28 @@
+# GPG Agent as SSH Agent
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Configures the GPG agent to serve authentication capable OpenPGP
+# sub-/keys to SSH clients connecting via the SSH agent protocol to the
+# UNIX socket specified via the environment variable `SSH_AUTH_SOCK`.
+# Make sure this environment variable is exported because otherwise
+# clients won't be able to connect. A robust setting that should work
+# at least accross various Linux distributions looks like:
+#
+# ----
+# export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# ----
+#
+# Only keys listed in this file will be served by the GPG Agent to SSH
+# clients. Authentication capable OpenGPG sub-/keys are those marked
+# with `[A]` in key listings. Only keys whose keygrips are listed here,
+# that is not fingerprints, are recognized. To view keygrips execute
+# `gpg --list-keys --with-keygrip`.
+#
+# For an easier mental mapping you should include the listings of the
+# primary key and any authentication capable subkey [A] as a comment
+# that shall be served.
+
 # Personal OpenPGP authentication key
 # -----------------------------------
 # pub   ed25519 2018-04-08 [C] [expires: 2022-05-10]
