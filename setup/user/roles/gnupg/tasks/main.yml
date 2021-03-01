@@ -13,21 +13,6 @@
     - "{{ bin_dir }}"
     - "{{ gnupg_dir }}"
 
-- name: Copy GnuPG Dirmngr configuration file
-  copy:
-    src: dirmngr.conf
-    dest: "{{ gnupg_dir }}/dirmngr.conf"
-
-- name: Copy GnuPG GPG Agent configuration file
-  copy:
-    src: gpg-agent.conf
-    dest: "{{ gnupg_dir }}/gpg-agent.conf"
-
-- name: Copy GnuPG GPG configuration file
-  copy:
-    src: gpg.conf
-    dest: "{{ gnupg_dir }}/gpg.conf"
-
 - name: Copy GnuPG backup utility program
   copy:
     src: gpg-backup
@@ -49,3 +34,6 @@
 - name: Enable GnuPG daemons via Systemd user units
   import_tasks: systemd/user/main.yml
   when: systemctl.matched > 0
+
+- name: Set up GnuPG configuration files
+  import_tasks: config/main.yml
