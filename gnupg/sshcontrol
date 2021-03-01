@@ -1,0 +1,11 @@
+# Personal OpenPGP authentication key
+# -----------------------------------
+# pub   ed25519 2018-04-08 [C] [expires: 2022-05-10]
+#       95156C8A37B53001FC565E54CED967A4A6AD2126
+#       Keygrip = 312EFAA909819F99980900D0AADD096ABBD62B08
+# uid           [ultimate] Tim Friske <me@tifr.de>
+# sub   ed25519 2018-04-08 [A] [expires: 2022-05-10]
+#       473A586659704DF7DAF89CEAA80A0EE218ED3D4B
+#       Keygrip = 602FB1A2031860FDE6E2991036CE1B2DE9C3716F
+#
+602FB1A2031860FDE6E2991036CE1B2DE9C3716F
