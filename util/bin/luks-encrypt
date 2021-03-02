@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Creates a LUKS encrypted container with on-disk format version 2.
+modern_crypt() {
+    local device="${1:-${device:?'required'}}"
+    local label="${2:-${label:-}}"
+    cryptsetup \
+      --verbose \
+      --verify-passphrase \
+      --cipher aes-xts-plain64 \
+      --key-size 512 \
+      --hash sha512 \
+      --pbkdf pbkdf2 \
+      --type luks2 \
+      ${label:+--label "${label}"} \
+      luksFormat \
+      "${device}"
+}
