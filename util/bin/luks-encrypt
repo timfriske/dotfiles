@@ -1,5 +1,14 @@
 #!/usr/bin/env sh
 
+# LUKS device encryption
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Encrypts a device according to the LUKS Linux Unified Key Setup
+# standard. That device is usually a portable USB drive but could also
+# be a virtual block device accessed through a previously created loop
+# file.
+
 ensure_block_special_file() {
     local file="${1:-${file:?'required'}}"
     if [ ! -b "${file}" ]; then
