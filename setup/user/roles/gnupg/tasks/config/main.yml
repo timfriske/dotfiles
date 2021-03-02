@@ -1,0 +1,34 @@
+---
+# User-specific GnuPG setup
+# =========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ bin_dir }}"
+    - "{{ gnupg_dir }}"
+
+- name: Copy GnuPG Dirmngr configuration file
+  copy:
+    src: config/dirmngr.conf
+    dest: "{{ gnupg_dir }}/dirmngr.conf"
+
+- name: Copy GnuPG GPG Agent configuration file
+  copy:
+    src: config/gpg-agent.conf
+    dest: "{{ gnupg_dir }}/gpg-agent.conf"
+
+- name: Copy GnuPG GPG configuration file
+  copy:
+    src: config/gpg.conf
+    dest: "{{ gnupg_dir }}/gpg.conf"
+
+- name: Copy GnuPG SSH control configuration file
+  copy:
+    src: config/sshcontrol
+    dest: "{{ gnupg_dir }}/sshcontrol"
