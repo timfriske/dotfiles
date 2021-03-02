@@ -13,17 +13,11 @@
     - "{{ bin_dir }}"
     - "{{ gnupg_dir }}"
 
-- name: Copy GnuPG backup utility program
-  copy:
-    src: gpg-backup
-    dest: "{{ bin_dir }}/gpg-backup"
-    mode: preserve
+- name: Set up GnuPG configuration files
+  import_tasks: config/main.yml
 
-- name: Copy GnuPG user key generation utility program
-  copy:
-    src: gpg-gen-key-for-user
-    dest: "{{ bin_dir }}/gpg-gen-key-for-user"
-    mode: preserve
+- name: Set up GnuPG utility programs
+  import_tasks: bin/main.yml
 
 - name: Test if operating system is using Systemd
   find:
@@ -34,6 +28,3 @@
 - name: Enable GnuPG daemons via Systemd user units
   import_tasks: systemd/user/main.yml
   when: systemctl.matched > 0
-
-- name: Set up GnuPG configuration files
-  import_tasks: config/main.yml
