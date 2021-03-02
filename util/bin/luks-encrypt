@@ -17,6 +17,8 @@
 # privileges. If you do not have permission to do so try to rerun this
 # program with `sudo`, `su` etc. this time authenticating as a user
 # with appropriate permissions.
+#
+# Deps:: cryptsetup, env, sh
 
 ensure_block_special_file() {
     local file="${1:-${file:?'required'}}"
