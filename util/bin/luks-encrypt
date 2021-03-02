@@ -16,3 +16,12 @@ modern_crypt() {
       luksFormat \
       "${device}"
 }
+
+main() {
+  local device="${1:-${device:?'required'}}"
+  local label="${2:-${label:-}}"
+  shift $(($#-($#${1+-1}${2+-1})))
+  modern_crypt "${device}" "${label}"
+}
+
+main "${@}"
