@@ -1,8 +1,17 @@
 #!/usr/bin/env sh
 
+ensure_block_special_file() {
+    local file="${1:-${file:?'required'}}"
+    if [ ! -b "${file}" ]; then
+        echo >&2 Given file must be a block special device! Aborting...
+        exit 1
+    fi
+}
+
 # Creates a LUKS encrypted container with on-disk format version 2.
 modern_crypt() {
     local device="${1:-${device:?'required'}}"
+    ensure_block_special_file "${device}"
     local label="${2:-${label:-}}"
     cryptsetup \
       --verbose \
@@ -20,6 +29,7 @@ modern_crypt() {
 # Creates a LUKS encrypted container with on-disk format version 1.
 compat_crypt() {
   local device="${1:-${device:?'required'}}"
+  ensure_block_special_file "${device}"
   cryptsetup \
     --verbose \
     --verify-passphrase \
