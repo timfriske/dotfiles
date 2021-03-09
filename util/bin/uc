@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+# Uc command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Convert characters read from standard input stream or command line
+# arguments to uppercase and print them to standard output stream.
+#
+# Deps:: awk, env, sh
+
+set -o errexit -o nounset
+
+uppercase() {
+  # `tr '[:lower:]' '[:upper:]'` only works for ASCII [a-z].
+  awk '{print toupper($0)}'
+}
+
+newlines() {
+  printf '%s\n' "${@}"
+}
+
+main() {
+  if [ "${#}" -eq 0 ]; then
+    uppercase
+  else
+    newlines "${@}" | uppercase
+  fi
+}
+
+main "${@}"
