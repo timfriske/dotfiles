@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+# Lc command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Convert characters read from standard input stream or command line
+# arguments to lowercase and print them to standard output stream.
+#
+# Deps:: awk, env, sh
+
+set -o errexit -o nounset
+
+lowercase() {
+  # `tr '[:upper:]' '[:lower:]'` only works for ASCII [A-Z].
+  awk '{print tolower($0)}'
+}
+
+newlines() {
+  printf '%s\n' "${@}"
+}
+
+main() {
+  if [ "${#}" -eq 0 ]; then
+    lowercase
+  else
+    newlines "${@}" | lowercase
+  fi
+}
+
+main "${@}"
