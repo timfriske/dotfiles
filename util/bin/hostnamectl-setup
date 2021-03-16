@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Hostnamectl Setup command
+# =========================
+# Tim Friske <me@tifr.de>
+#
+# Deps:: awk, bash, env, hostnamectl
+
+set -o errexit -o nounset
+
+machine_info_var_val() {
+  local var="${1:-${var:?'required'}}"
+  if [ -f /etc/machine-info ]; then
+    awk -F '=' -v "VAR=${var}" '$1==VAR{gsub(/"/,"",$2);print $2}' /etc/machine-info
+  fi
+}
+
+static_hostname="$(hostnamectl --static)"
+pretty_hostname="$(hostnamectl --pretty)"
+host_location="$(machine_info_var_val LOCATION)"
+
+read -er -p "Static host name: " -i "${static_hostname}" static_hostname
+read -er -p "Pretty host name: " -i "${pretty_hostname}" pretty_hostname
+read -er -p "Location of host: " -i "${host_location}" host_location
+
+hostnamectl set-hostname --static "${static_hostname}"
+hostnamectl set-hostname --pretty "${pretty_hostname}"
+hostnamectl set-location "${host_location}"
