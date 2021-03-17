@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Lists each local branch whose remote tracking branch is gone on a new
+# line.
+#
+# Deps:: env, git-for-each-ref, sh, xargs
+
+set -o errexit -o nounset
+
+main() {
+  git for-each-ref \
+    --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' \
+    refs/heads \
+  | xargs --no-run-if-empty printf '%s\n'
+}
+
+main "${@}"
