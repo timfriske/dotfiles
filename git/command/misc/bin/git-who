@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# Git Who command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: awk, column, env, git-config, sh
+
+set -o errexit -o nounset
+
+git_config_show() {
+  git config --show-scope --show-origin "${1}.${2}" \
+  | awk -v "title=${1} ${2}" \
+    '{FS="\t";OFS="\t";idx=split($2,origin,"/"); print title":", $3, "("$1" "origin[idx]")"}'
+}
+
+git_config_user() {
+  git_config_show User Name
+  git_config_show User Email
+  git_config_show User SigningKey
+}
+
+main() {
+    git_config_user | column --table --separator "$(printf '\t')"
+}
+
+main "${@}"
