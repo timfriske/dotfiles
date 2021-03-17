@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Deletes each local branch whose remote tracking branch is gone but
+# which was not yet merged.
+#
+# Deps:: env, git-bdd, git-bg, sh, xargs
+
+set -o errexit -o nounset
+
+main() {
+  git-bg | xargs --no-run-if-empty git-bdd
+}
+
+main "${@}"
