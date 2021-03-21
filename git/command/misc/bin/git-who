@@ -4,20 +4,44 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: awk, column, env, git-config, sh
+# Deps:: awk, column, env, git-config, git-semver, sh
 
 set -o errexit -o nounset
 
 git_config_show() {
-  git config --show-scope --show-origin "${1}.${2}" \
+  git config --show-origin "${1}.${2}" \
   | awk -v "title=${1} ${2}" \
-    '{FS="\t";OFS="\t";idx=split($2,origin,"/"); print title":", $3, "("$1" "origin[idx]")"}'
+    '{
+      FS="\t"
+      OFS="\t"
+      idx=split($1,origin,"/")
+     print title":",$2,"("origin[idx]")"
+    }'
+}
+
+git_config_show_scope() {
+  git config --show-origin --show-scope "${1}.${2}" \
+  | awk -v "title=${1} ${2}" \
+    '{
+      FS="\t"
+      OFS="\t"
+      idx=split($2,origin,"/")
+      print title":",$3,"("$1" "origin[idx]")"
+    }'
 }
 
 git_config_user() {
-  git_config_show User Name
-  git_config_show User Email
-  git_config_show User SigningKey
+  if [ "$(git semver major)" -le 2 ]; then
+    if [ "$(git semver minor)" -lt 26 ]; then
+      git_config_show User Name
+      git_config_show User Email
+      git_config_show User SigningKey
+      return
+    fi
+  fi
+  git_config_show_scope User Name
+  git_config_show_scope User Email
+  git_config_show_scope User SigningKey
 }
 
 main() {
