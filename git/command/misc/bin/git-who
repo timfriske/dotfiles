@@ -4,6 +4,9 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
+# Shows the user's name, email and signing key. With recent versions of
+# Git also a setting's origin and scope are displayed next to it.
+#
 # Deps:: awk, column, env, git-config, git-semver, sh
 
 set -o errexit -o nounset
