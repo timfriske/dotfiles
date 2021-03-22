@@ -111,7 +111,7 @@ suggestions for improvements always welcome:
 
       *** is forked by a user who wants to contribute to it.
 
-  * The branch `master'
+  * The branch `main'
 
     ** REQUIRED
 
@@ -139,12 +139,12 @@ suggestions for improvements always welcome:
       *** is where all kinds of development happens. It is used for
           features, bugfixes, reworks, experiments etc.
 
-      *** is branched by the contributor from `master' when he starts
+      *** is branched by the contributor from `main' when he starts
           working on the topic.
 
       *** is completed by marking it with a signed tag.
 
-      *** is merged via a signed tag by the maintainer into `master' when he is
+      *** is merged via a signed tag by the maintainer into `main' when he is
           convinced that the topic has matured enough to form a solid
           foundation for others to base their work upon.
 
