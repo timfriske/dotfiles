@@ -45,7 +45,8 @@ git_config_user() {
 }
 
 main() {
-    git_config_user | column --table --separator "$(printf '\t')"
+    # `column -t -s` equivalent to `column --table --separator`
+    git_config_user | column -t -s "$(printf '\t')"
 }
 
 main "${@}"
