@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Git You command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Resets the user's name, email and signing key in a Git repository's
+# local configuration. The user is prompted for each setting with the
+# previous value preset. If none of the settings exist locally the
+# configuration file is not touched. The same goes if all settings
+# stayed the same.
+#
+# Deps:: bash, env, git-config
+
+set -o errexit -o nounset
+
+git_config_reset() {
+    local option_key="${1}.${2}"
+    local old_opt_val="$(git config "${option_key}")" new_opt_val
+    read -er -p "${1} ${2}: " -i "${old_opt_val}" new_opt_val
+    if [ "${new_opt_val}" = "${old_opt_val}" ]; then
+      if git config --local --get "${option_key}" &> /dev/null; then
+        return
+      fi
+    fi
+    if [ -z "${new_opt_val:+x}" ]; then
+      if git config --local --get "${option_key}" &> /dev/null; then
+        git config --local --unset "${option_key}"
+      fi
+      return
+    fi
+    git config --local "${option_key}" "${new_opt_val}"
+}
+
+main() {
+    git_config_reset User Name
+    git_config_reset User Email
+    git_config_reset User SigningKey
+}
+
+main "${@}"
