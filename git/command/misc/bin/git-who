@@ -11,26 +11,31 @@
 
 set -o errexit -o nounset
 
+tabulator="$(printf '\t')"
+
+awk_tab() {
+  awk \
+    --assign="FS=${tabulator}" \
+    --assign="OFS=${tabulator}" \
+    "${@}"
+}
+
 git_config_show() {
   git config --show-origin "${1}.${2}" \
-  | awk -v "title=${1} ${2}" \
-    '{
-      FS="\t"
-      OFS="\t"
-      idx=split($1,origin,"/")
-     print title":",$2,"("origin[idx]")"
-    }'
+  | awk_tab --assign="title=${1} ${2}" \
+      '{
+        idx=split($1,origin,"/")
+        print title":",$2,"("origin[idx]")"
+      }'
 }
 
 git_config_show_scope() {
   git config --show-origin --show-scope "${1}.${2}" \
-  | awk -v "title=${1} ${2}" \
-    '{
-      FS="\t"
-      OFS="\t"
-      idx=split($2,origin,"/")
-      print title":",$3,"("$1" "origin[idx]")"
-    }'
+  | awk_tab --assign="title=${1} ${2}" \
+      '{
+        idx=split($2,origin,"/")
+        print title":",$3,"("$1" "origin[idx]")"
+      }'
 }
 
 git_config_user() {
@@ -49,7 +54,7 @@ git_config_user() {
 
 main() {
     # `column -t -s` equivalent to `column --table --separator`
-    git_config_user | column -t -s "$(printf '\t')"
+    git_config_user | column -t -s "${tabulator}"
 }
 
 main "${@}"
