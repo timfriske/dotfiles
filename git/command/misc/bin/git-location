@@ -24,7 +24,7 @@ get_commit() {
 }
 
 main() {
-  local fmt="${fmt:-|type|:|object|\n}"
+  local fmt="${fmt:-|type|:|object|}"
   local tbr="${tbr:-branch}"
   local tta="${tta:-tag}"
   local tco="${tco:-commit}"
