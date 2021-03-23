@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Delete each merged local branch except the current one because it
+# cannot be deleted.
+#
+# Deps:: env, git-bd, git-for-each-ref, sh, xargs
+
+set -o errexit -o nounset
+
+main() {
+  git for-each-ref \
+    --format='%(if:notequals=*)%(HEAD)%(then)%(refname:lstrip=2)%(end)' \
+    refs/heads/ \
+    --merged \
+  | xargs --no-run-if-empty git-bd
+}
+
+main "${@}"
