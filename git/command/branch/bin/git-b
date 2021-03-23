@@ -4,12 +4,15 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
+# Show the current branch name by default unless another Git branch
+# operation is chosen by passing arguments.
+#
 # Deps:: env, git-branch, sh
 
 set -o errexit -o nounset
 
 main() {
-  git branch "${@}"
+  git branch "${@:---show-current}"
 }
 
 main "${@}"
