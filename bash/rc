@@ -247,6 +247,14 @@ fi
 #
 alias grep='grep ${GREP_X_OPTIONS:-}'
 
+# Horizontal Ruler - Print horizontal ruler
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+if type -p horizontal-ruler &> /dev/null; then
+  bind -m vi-insert -x '"\C-l": "horizontal-ruler;clear -x"'
+  bind -m vi-command '"\C-l": "i\C-l"'
+fi
+
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
