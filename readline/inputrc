@@ -134,4 +134,14 @@ $if mode=vi
 
   Control-l: clear-screen
 
+  # Upon inserting one of the following characters insert a pair of
+  # them and place the cursor inbetween.
+  #
+  "\"": "\C-v\"\C-v\"\ei"
+  "'": "\C-v'\C-v'\ei"
+  "`": "\C-v`\C-v`\ei"
+  "(": "\C-v()\ei"
+  "{": "\C-v{}\ei"
+  "[": "\C-v[]\ei"
+
 $endif
