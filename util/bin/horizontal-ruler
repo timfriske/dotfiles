@@ -17,7 +17,11 @@ main() {
   local sign="${1:-${sign:-=}}"
   local width="${2:-${width:-$(tput cols)}}"
   local height="${3:-${height:-1}}"
-  printf "%$((width*height))s\n" | sed "s/ /${sign}/g"
+  local i=0
+  while [ "${i}" -lt "${height}" ]; do
+    printf "%${width}s\n"
+    i="$((i+1))"
+  done | sed "s/ /${sign}/g"
 }
 
 main "${@}"
