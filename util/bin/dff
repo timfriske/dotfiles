@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Dff command
-# ===========
+# Disk Free command
+# =================
 # Tim Friske <me@tifr.de>
 #
 # Report the free disk space only for common file system types, i.e.

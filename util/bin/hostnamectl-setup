@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Hostnamectl Setup command
-# =========================
+# Hostname Control Setup command
+# ==============================
 # Tim Friske <me@tifr.de>
 #
 # Deps:: awk, bash, env, hostnamectl

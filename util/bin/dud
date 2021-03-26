@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Dud command
-# ===========
+# Disk Usage Directory command
+# ============================
 # Tim Friske <me@tifr.de>
 #
 # Summarize the disk usage of the directories up to the current

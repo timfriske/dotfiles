@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Management of ${PATH} environment variable
-# ========================================
+# PATH Environment Variable Management command
+# ============================================
 # Tim Friske <me@tifr.de>
 #
 # Deps:: bash, env

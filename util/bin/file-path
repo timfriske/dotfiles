@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# File path resolution
-# ====================
+# File Path command
+# =================
 # Tim Friske <me@tifr.de>
 #
 # Prints the absolute paths of the given paths.

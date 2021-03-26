@@ -1,7 +1,7 @@
 #!/usr/bin/env -S awk -f
 
-# Conv-conf-adoc command
-# ======================
+# Conversion of Configuration File to ASCII Documentation command
+# ===============================================================
 # Tim Friske <me@tifr.de>
 #
 # Converts _conf_ configuration files into AsciiDoc formatted documentation

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Lc command
-# ==========
+# Lower Case Conversion command
+# =============================
 # Tim Friske <me@tifr.de>
 #
 # Convert characters read from standard input stream or command line
