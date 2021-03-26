@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
 
-# Simple timer program
-# ====================
+# Timer command
+# =============
 # Tim Friske <me@tifr.de>
 #
 # Deps:: bash, date, env
 
-function timestamp {
+timestamp() {
   date +%s
 }
 
-function timestamp_to_date {
-  date --date=@"${1}"
+timestamp_to_date() {
+  date --date="@${1}"
 }
 
-function timestamp_to_duration {
-  date --utc --date=@"${1}" +%H:%M:%S
+timestamp_to_duration() {
+  date --utc --date="@${1}" +%H:%M:%S
 }
 
-function press_key {
-  read -rsn1 -p 'timer: Press any key to stop.'; echo
+press_key() {
+  read -rsn1 -p "timer: Press any key to stop."; echo
 }
 
-function timer {
-  if [[ "${#}" != 0 ]]; then
-    echo 'usage: timer'
+main() {
+  if [ "${#}" -ne 0 ]; then
+    echo "usage: timer"
     exit 1
   fi
   local ts_started="$(timestamp)"
@@ -36,4 +36,4 @@ function timer {
   echo "timer: elapsed: $(timestamp_to_duration "${ts_elapsed}")"
 }
 
-timer "${@}"
+main "${@}"

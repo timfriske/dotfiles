@@ -1,16 +1,16 @@
 #!/usr/bin/env sh
 
-# Dff command
-# ===========
+# Disk Free command
+# =================
 # Tim Friske <me@tifr.de>
+#
+# Report the free disk space only for common file system types, i.e.
+# exclude neglectable types of file systems.
 #
 # Deps:: df, env, sh
 
 set -o errexit -o nounset
 
-# Report the free disk space only for common file system types, i.e.
-# exclude neglectable types of file systems.
-#
 main() {
   df ${DF_X_OPTIONS:-} --exclude-type=devtmpfs --exclude-type=tmpfs "${@}"
 }

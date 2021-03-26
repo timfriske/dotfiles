@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
-# Dus command
-# ===========
+# Disk Usage Summary command
+# ==========================
 # Tim Friske <me@tifr.de>
+#
+# Summarize the disk usage of the current directory.
 #
 # Deps:: du, env, sh
 
 set -o errexit -o nounset
 
-# Summarize the disk usage of the current directory.
-#
 main() {
   du ${DU_X_OPTIONS:-} --summarize "${@}"
 }

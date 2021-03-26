@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 
-# Os command
-# ==========
+# Operating System Information command
+# ====================================
+#
+# Prints information about the operating system.
+#
 # Tim Friske <me@tifr.de>
 #
 # Deps:: cat, env, sh, uname

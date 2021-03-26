@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# LUKS device encryption
-# ======================
+# LUKS Device Encryption command
+# ==============================
 # Tim Friske <me@tifr.de>
 #
 # Encrypts a device according to the LUKS Linux Unified Key Setup
