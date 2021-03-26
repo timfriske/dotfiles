@@ -2,6 +2,9 @@
 
 # Os command
 # ==========
+#
+# Prints information about the operating system.
+#
 # Tim Friske <me@tifr.de>
 #
 # Deps:: cat, env, sh, uname

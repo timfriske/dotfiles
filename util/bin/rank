@@ -4,13 +4,13 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
+# Count the number of occurrences and list them in ascending order of
+# their counts.
+#
 # Deps:: env, sh, sort, uniq
 
 set -o errexit -o nounset
 
-# Count the number of occurrences and list them in ascending order of
-# their counts.
-#
 main() {
   sort "${@}" | uniq --count | sort --sort=numeric --reverse
 }
