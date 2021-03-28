@@ -1,0 +1,18 @@
+---
+# User-specific Tmux setup
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ user_dir }}"
+
+- name: Copy Tmux configuration file
+  copy:
+    src: config/tmux.conf
+    dest: "{{ user_dir }}/.tmux.conf"
