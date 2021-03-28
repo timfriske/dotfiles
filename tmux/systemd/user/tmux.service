@@ -1,0 +1,32 @@
+# Systemd user service unit for Tmux server
+# =========================================
+# Tim Friske <me@tifr.de>
+#
+# Controls and supervises Tmux's server via Systemd.
+#
+# Tmux is a terminal multiplexer. It enables a number of terminals to be
+# created, accessed, and controlled from a single screen. Tmux may be
+# detached from a screen and continue running in the background, then
+# later reattached.
+#
+# Important: By default the Tmux server will exit with no sessions.
+# Therefore Tmux's `start-server` command only keeps the server running
+# if a session is created in its configuration file, `its exit-empty`
+# option is turned off, or another command is run as part of the same
+# command sequence, e.g. `tmux start-server \; show-options -g`.
+
+[Unit]
+Description=Terminal multiplexer server
+Documentation=man:tmux(1)
+StartLimitBurst=12
+StartLimitIntervalSec=60
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/tmux start-server
+ExecStop=/usr/bin/tmux kill-server
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
