@@ -1,0 +1,29 @@
+---
+# User-specific Tmux setup
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ systemd_user_dir }}"
+
+- name: Copy Systemd user unit files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ systemd_user_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - systemd/user/*
+
+- name: Enable Systemd user service for Tmux server
+  systemd:
+    unit: tmux.service
+    scope: user
+    enabled: yes
+    state: started
+    no_block: yes

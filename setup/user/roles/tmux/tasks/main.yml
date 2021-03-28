@@ -19,3 +19,13 @@
 
 - name: Set up binary directory with programs and scripts
   import_tasks: bin/main.yml
+
+- name: Test if operating system is using Systemd
+  find:
+    patterns: systemctl
+    paths: "{{ ansible_env.PATH.split(':') }}"
+  register: systemctl
+
+- name: Enable Tmux server via Systemd user units
+  import_tasks: systemd/user/main.yml
+  when: systemctl.matched > 0
