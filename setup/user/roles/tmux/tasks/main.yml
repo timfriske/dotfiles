@@ -12,10 +12,18 @@
   loop:
     - "{{ user_dir }}"
 
-- name: Copy Tmux configuration file
-  copy:
-    src: tmux.conf
-    dest: "{{ user_dir }}/.tmux.conf"
+- name: Set up configuration files
+  import_tasks: config/main.yml
 
-- name: Set up binary directory with programs and scripts
+- name: Set up programs and scripts
   import_tasks: bin/main.yml
+
+- name: Check if operating system uses Systemd
+  find:
+    patterns: systemctl
+    paths: "{{ ansible_env.PATH.split(':') }}"
+  register: systemctl
+
+- name: Set up Systemd units
+  import_tasks: systemd/user/main.yml
+  when: systemctl.matched > 0

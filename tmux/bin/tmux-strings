@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+# Tmux Strings
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Print all strings of the current Tmux pane, e.g. for searching and
+# selecting individual strings. The output can be written into a file
+# or piped into programs such as _awk_, _sed_, _grep_, _fzf_ etc. for
+# further processing.
+#
+# For the user to easier select embedded strings the lines are split
+# into strings around whitespace and each string printed on a new line.
+# Blank lines and lines consisting of only punctation are removed from
+# the output because they are most likely of no interest to the user.
+#
+# Deps:: env, sed, sh, sort, tmux
+
+set -o errexit -o nounset
+
+main() {
+  # 1. Capture entire pane and print it.
+  # 2. Split strings around whitespace and print one string per line.
+  # 3. Delete duplicate lines.
+  # 4. Delete lines only consisting of whitespace or punctation.
+  tmux capture-pane -S- -E- -p \
+  | sed --regexp-extended --expression='s/[[:space:]]+/\n/g' \
+  | sort --unique \
+  | sed --regexp-extended --expression='/^[[:space:][:punct:]]*$/d'
+}
+
+main "${@}"
