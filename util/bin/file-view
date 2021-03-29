@@ -1,0 +1,51 @@
+#!/usr/bin/env sh
+
+# File View command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Simple utility program to view a file. If the given file does not
+# exist it is searched in the directories listed in the `PATH`
+# environment variable and the first match is viewed if any. In case
+# the wrong number of arguments were given or the file could not be
+# found an error message is printed and this program aborts with a non-
+# zero exit status.
+#
+# The file is viewed with a pager program. The pagers `less` and `more`
+# are used unless another one is chosen via the `PAGER` environment
+# variable. The pager program must recognize a double dash as the end-
+# of-options marker and accept the given file as its first positional
+# argument.
+#
+# Think about aliasing this helper program as e.g. `fv` (`file-view`)
+# should you be using it frequently.
+#
+# Deps:: env, less, more, sh
+
+set -o errexit -o nounset
+
+prog="${0##*/}"
+
+PAGER="${PAGER:-$(command -v less)}"
+PAGER="${PAGER:-$(command -v more)}"
+
+main() {
+  if [ "${#}" -ne 1 ]; then
+    echo >&2 "${prog}: usage: ${prog} <file (on path)>"
+    exit 1
+  fi
+  local file="${1}"
+  if [ -f "${file}" ]; then
+    "${PAGER}" -- "${file}"
+    exit
+  fi
+  local on_path="$(command -v "${file}")"
+  if [ -n "${on_path:+x}" ]; then
+    "${PAGER}" -- "${on_path}"
+    exit
+  fi
+  echo >&2 "${prog}: file not found: ${file}"
+  exit 1
+}
+
+main "${@}"

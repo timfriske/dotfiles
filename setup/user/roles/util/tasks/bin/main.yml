@@ -37,3 +37,9 @@
     src: file-type
     dest: "{{ bin_dir }}/ft"
     state: link
+
+- name: Create Fv shortcut to File-view command
+  file:
+    src: file-view
+    dest: "{{ bin_dir }}/fv"
+    state: link
