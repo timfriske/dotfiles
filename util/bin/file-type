@@ -4,10 +4,12 @@
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Simple utility program to detect the type of a file.  Detects the
-# types of any given number of files.  If a given file does not exist it
-# is searched in the directories listed in the `PATH` environment
-# variable and the first match is returned if any.
+# Simple utility program to detect the type of a file. If the given
+# file does not exist it is searched in the directories listed in the
+# `PATH` environment variable and the first match is detected if any.
+# In case the wrong number of arguments were given or the file could
+# not be found an error message is printed and this program aborts with
+# a non-zero exit status.
 #
 # Think about aliasing this helper program as e.g. `ft` (`file-type`)
 # should you be using it frequently.
@@ -16,21 +18,25 @@
 
 set -o errexit -o nounset
 
+prog="${0##*/}"
+
 main() {
-  if [ "${#}" = 0 ]; then
-    echo 'usage: file-type <file (on path)>+'
+  if [ "${#}" -ne 1 ]; then
+    echo >&2 "${prog}: usage: ${prog} <file (on path)>"
+    exit 1
   fi
-  local file
-  for file in "${@}"; do
-    if [ -e "${file}" ]; then
-      file -- "${file}"
-    else
-      file="$(command -v "${file}")"
-      if [ -n "${file:+x}" ]; then
-        file -- "${file}"
-      fi
-    fi
-  done
+  local file="${1}"
+  if [ -e "${file}" ]; then
+    file -- "${file}"
+    exit
+  fi
+  local on_path="$(command -v "${file}")"
+  if [ -n "${on_path:+x}" ]; then
+    file -- "${on_path}"
+    exit
+  fi
+  echo >&2 "${prog}: file not found: ${file}"
+  exit 1
 }
 
 main "${@}"
