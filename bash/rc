@@ -238,6 +238,10 @@ if type -p fzf &> /dev/null; then
     bind -m vi-insert -x '"\C-at": "fzf_git_tag_insert"'
     bind -m vi-command '"\C-at": "i\C-at"'
   fi
+  if source fzf-tmux-strings.bash &> /dev/null; then
+    bind -m vi-insert -x '"\C-as": "tmux_strings"'
+    bind -m vi-command '"\C-as": "i\C-as"'
+  fi
 fi
 
 # Grep - Search files for content

@@ -89,6 +89,11 @@
     dest: "{{ bin_dir }}/fzf-sort"
     mode: preserve
 
+- name: Copy Fzf Tmux Strings utility Bash script
+  copy:
+    src: bin/fzf-tmux-strings.bash
+    dest: "{{ bin_dir }}/fzf-tmux-strings.bash"
+
 - name: Check if Fd utility program is in PATH
   shell: "which fd"
   register: fd_in_path
