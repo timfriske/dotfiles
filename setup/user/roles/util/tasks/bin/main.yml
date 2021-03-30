@@ -12,7 +12,7 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy commands and scripts to binary directory
+- name: Copy utility programs to binary directory
   copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
@@ -20,26 +20,13 @@
   with_fileglob:
     - bin/*
 
-- name: Create Fb shortcut to File-backup command
+- name: Create shortcuts to utility programs
   file:
-    src: file-backup
-    dest: "{{ bin_dir }}/fb"
+    src: "{{ item.src }}"
+    dest: "{{ bin_dir }}/{{ item.dest }}"
     state: link
-
-- name: Create Fp shortcut to File-path command
-  file:
-    src: file-path
-    dest: "{{ bin_dir }}/fp"
-    state: link
-
-- name: Create Ft shortcut to File-type command
-  file:
-    src: file-type
-    dest: "{{ bin_dir }}/ft"
-    state: link
-
-- name: Create Fv shortcut to File-view command
-  file:
-    src: file-view
-    dest: "{{ bin_dir }}/fv"
-    state: link
+  loop:
+    - { src: 'file-backup', dest: 'fb' }
+    - { src: 'file-path', dest: 'fp' }
+    - { src: 'file-type', dest: 'ft' }
+    - { src: 'file-view', dest: 'fv' }
