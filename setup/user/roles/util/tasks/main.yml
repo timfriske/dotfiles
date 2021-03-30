@@ -5,5 +5,5 @@
 
 # Main tasks
 # ----------
-- name: Set up binary directory with programs and scripts
+- name: Set up utility programs
   import_tasks: bin/main.yml
