@@ -12,26 +12,10 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Date Epoch program
+- name: Copy Date programs
   copy:
-    src: bin/epoch
-    dest: "{{ bin_dir }}/epoch"
+    src: "{{ item }}"
+    dest: "{{ bin_dir }}/{{ item | basename }}"
     mode: preserve
-
-- name: Copy Date GMT program
-  copy:
-    src: bin/gmt
-    dest: "{{ bin_dir }}/gmt"
-    mode: preserve
-
-- name: Copy Date UTC program
-  copy:
-    src: bin/utc
-    dest: "{{ bin_dir }}/utc"
-    mode: preserve
-
-- name: Copy Date Week program
-  copy:
-    src: bin/week
-    dest: "{{ bin_dir }}/week"
-    mode: preserve
+  with_fileglob:
+    - bin/*

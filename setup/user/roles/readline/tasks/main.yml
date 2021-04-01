@@ -12,12 +12,11 @@
   loop:
     - "{{ user_dir }}"
 
-- name: Copy Readline Inputrc configuration file
+- name: Copy Readline configuration files
   copy:
-    src: inputrc
-    dest: "{{ user_dir }}/.inputrc"
-
-- name: Copy Readline Inputrc Fzf configuration file
-  copy:
-    src: inputrc.fzf
-    dest: "{{ user_dir }}/.inputrc.fzf"
+    src: "{{ item.src }}"
+    dest: "{{ user_dir }}/{{ item.dest | basename }}"
+    mode: preserve
+  loop:
+    - { src: inputrc, dest: .inputrc }
+    - { src: inputrc.fzf, dest: .inputrc.fzf }

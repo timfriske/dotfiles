@@ -12,12 +12,10 @@
   loop:
     - "{{ config_dir }}"
 
-- name: Copy OpenSSH client configuration file for GitHub
+- name: Copy OpenSSH configuration files
   copy:
-    src: config.d/github
-    dest: "{{ config_dir }}/github"
-
-- name: Copy OpenSSH client configuration file for Localhost
-  copy:
-    src: config.d/localhost
-    dest: "{{ config_dir }}/localhost"
+    src: "{{ item }}"
+    dest: "{{ config_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - config.d/*
