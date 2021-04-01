@@ -18,20 +18,20 @@
   with_fileglob:
     - bin/*
 
-- name: Check if Fd utility program is in PATH
+- name: Check if Fd program is in PATH
   shell: "which fd"
   register: fd_in_path
   ignore_errors: true
   changed_when: false
 
-- name: Link Fzf Finder to Fzf Fd utility program
+- name: Link Fzf Finder to Fzf Fd program
   file:
     src: "{{ bin_dir }}/fzf-fd"
     dest: "{{ bin_dir }}/fzf-finder"
     state: link
   when: fd_in_path.rc == 0
 
-- name: Link Fzf Finder to Fzf Find utility program
+- name: Link Fzf Finder to Fzf Find program
   file:
     src: "{{ bin_dir }}/fzf-find"
     dest: "{{ bin_dir }}/fzf-finder"
