@@ -3,10 +3,31 @@
 # =========================
 # Tim Friske <me@tifr.de>
 
-# Systemd user unit setup
-# -----------------------
-- name: Copy GnuPG's Systemd user unit files
-  import_tasks: copy.yml
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ systemd_user_dir }}"
 
-- name: Enable GnuPG's Systemd user unit files
-  import_tasks: enable.yml
+- name: Copy GnuPG Systemd user unit files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ systemd_user_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - systemd/user/*
+
+- name: Enable GnuPG Systemd user unit files
+  systemd:
+    unit: "{{ item }}"
+    scope: user
+    enabled: yes
+    state: started
+    no_block: yes
+  loop:
+    - dirmngr.socket
+    - gpg-agent.socket
+    - gpg-agent-browser.socket
+    - gpg-agent-extra.socket
+    - gpg-agent-ssh.socket

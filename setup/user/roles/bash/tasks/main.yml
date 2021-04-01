@@ -12,12 +12,10 @@
   loop:
     - "{{ user_dir }}"
 
-- name: Copy Bash startup file for login shells
+- name: Copy Bash startup files
   copy:
-    src: login
-    dest: "{{ user_dir }}/.bash_login"
-
-- name: Copy Bash startup file for interactive shells
-  copy:
-    src: rc
-    dest: "{{ user_dir }}/.bashrc"
+    src: "{{ item.src }}"
+    dest: "{{ user_dir }}/{{ item.dest }}"
+  loop:
+    - { src: login, dest: .bash_login }
+    - { src: rc, dest: .bashrc }

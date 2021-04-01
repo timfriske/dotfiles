@@ -20,10 +20,12 @@
   with_fileglob:
     - systemd/user/*
 
-- name: Enable Systemd user service for Tmux server
+- name: Enable Systemd user unit files
   systemd:
-    unit: tmux.service
+    unit: "{{ item }}"
     scope: user
     enabled: yes
     state: started
     no_block: yes
+  loop:
+    - tmux.service

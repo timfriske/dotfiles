@@ -26,12 +26,12 @@
     dest: "{{ bin_dir }}/{{ item.dest }}"
     state: link
   loop:
-    - { src: 'df-common', dest: 'dfc' }
-    - { src: 'du-dirs', dest: 'dud' }
-    - { src: 'du-summary', dest: 'dus' }
-    - { src: 'file-backup', dest: 'fb' }
-    - { src: 'file-path', dest: 'fp' }
-    - { src: 'file-type', dest: 'ft' }
-    - { src: 'file-view', dest: 'fv' }
-    - { src: 'lower-case', dest: 'lc' }
-    - { src: 'upper-case', dest: 'uc' }
+    - { src: df-common, dest: dfc }
+    - { src: du-dirs, dest: dud }
+    - { src: du-summary, dest: dus }
+    - { src: file-backup, dest: fb }
+    - { src: file-path, dest: fp }
+    - { src: file-type, dest: ft }
+    - { src: file-view, dest: fv }
+    - { src: lower-case, dest: lc }
+    - { src: upper-case, dest: uc }

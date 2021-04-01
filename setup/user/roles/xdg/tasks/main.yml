@@ -12,91 +12,10 @@
   loop:
     - "{{ autostart_dir }}"
 
-- name: Copy Chromium XDG autostart configuration file
+- name: Copy XDG autostart configuration files
   copy:
-    src: autostart/chromium-web-browser.desktop
-    dest: "{{ autostart_dir }}/\
-            chromium-web-browser.desktop"
-
-- name: Copy Gnome Keyring SSH XDG autostart configuration file
-  copy:
-    src: autostart/gnome-keyring-ssh.desktop
-    dest: "{{ autostart_dir }}/\
-            gnome-keyring-ssh.desktop"
-
-- name: Copy Gnome Nautilus XDG autostart configuration file
-  copy:
-    src: autostart/gnome-nautilus-file-browser.desktop
-    dest: "{{ autostart_dir }}/\
-            gnome-nautilus-file-browser.desktop"
-
-- name: Copy Gnome System Monitor XDG autostart configuration file
-  copy:
-    src: autostart/gnome-system-monitor.desktop
-    dest: "{{ autostart_dir }}/\
-            gnome-system-monitor.desktop"
-
-- name: Copy Gnome Terminal Emulator XDG autostart configuration file
-  copy:
-    src: autostart/gnome-terminal-emulator.desktop
-    dest: "{{ autostart_dir }}/\
-            gnome-terminal-emulator.desktop"
-
-- name:
-    Copy JetBrains PyCharm Community XDG autostart configuration file
-  copy:
-    src: autostart/jetbrains-pycharm-professional-ide.desktop
-    dest: "{{ autostart_dir }}/\
-            jetbrains-pycharm-professional-ide.desktop"
-
-- name:
-    Copy JetBrains PyCharm Professional XDG autostart configuration file
-  copy:
-    src: autostart/jetbrains-pycharm-community-ide.desktop
-    dest: "{{ autostart_dir }}/\
-            jetbrains-pycharm-community-ide.desktop"
-
-- name: Copy KDE Dolphin XDG autostart configuration file
-  copy:
-    src: autostart/kde-dolphin-file-browser.desktop
-    dest: "{{ autostart_dir }}/\
-            kde-dolphin-file-browser.desktop"
-
-- name: Copy KDE Konsole XDG autostart configuration file
-  copy:
-    src: autostart/kde-konsole-terminal-emulator.desktop
-    dest: "{{ autostart_dir }}/\
-            kde-konsole-terminal-emulator.desktop"
-
-- name: Copy KDE KSysGuard XDG autostart configuration file
-  copy:
-    src: autostart/kde-ksysguard-os-monitor.desktop
-    dest: "{{ autostart_dir }}/\
-            kde-ksysguard-os-monitor.desktop"
-
-- name: Copy Microsoft Teams XDG autostart configuration file
-  copy:
-    src: autostart/microsoft-teams-collaboration.desktop
-    dest: "{{ autostart_dir }}/\
-            microsoft-teams-collaboration.desktop"
-
-- name:
-    Copy Microsoft Visual Studio Code XDG autostart configuration file
-  copy:
-    src: autostart/microsoft-vscode-editor.desktop
-    dest: "{{ autostart_dir }}/\
-            microsoft-vscode-editor.desktop"
-
-- name: Copy Mozilla Firefox XDG autostart configuration file
-  copy:
-    src: autostart/mozilla-firefox-web-browser.desktop
-    dest: "{{ autostart_dir }}/\
-            mozilla-firefox-web-browser.desktop"
-
-- name:
-    Copy Transmission BitTorrent Client GTK XDG autostart configuration
-    file
-  copy:
-    src: autostart/transmission-bittorrent-client-gtk.desktop
-    dest: "{{ autostart_dir }}/\
-            transmission-bittorrent-client-gtk.desktop"
+    src: "{{ item }}"
+    dest: "{{ autostart_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - autostart/*
