@@ -10,104 +10,28 @@
   loop:
     - "{{ bin_dir }}"
 
-- name: Copy Fzf Fd utility program
+- name: Copy Fzf programs
   copy:
-    src: bin/fzf-fd
-    dest: "{{ bin_dir }}/fzf-fd"
+    src: "{{ item }}"
+    dest: "{{ bin_dir }}/{{ item | basename }}"
     mode: preserve
+  with_fileglob:
+    - bin/*
 
-- name: Copy Fzf Files utility Bash script
-  copy:
-    src: bin/fzf-files.bash
-    dest: "{{ bin_dir }}/fzf-files.bash"
-
-- name: Copy Fzf Find utility program
-  copy:
-    src: bin/fzf-find
-    dest: "{{ bin_dir }}/fzf-find"
-    mode: preserve
-
-- name: Copy Fzf Folders utility Bash script
-  copy:
-    src: bin/fzf-folders.bash
-    dest: "{{ bin_dir }}/fzf-folders.bash"
-
-- name: Copy Fzf Git Branch utility program
-  copy:
-    src: bin/fzf-git-branch
-    dest: "{{ bin_dir }}/fzf-git-branch"
-    mode: preserve
-
-- name: Copy Fzf Git Branch Insert utility Bash script
-  copy:
-    src: bin/fzf-git-branch-insert.bash
-    dest: "{{ bin_dir }}/fzf-git-branch-insert.bash"
-
-- name: Copy Fzf Git Tag utility program
-  copy:
-    src: bin/fzf-git-tag
-    dest: "{{ bin_dir }}/fzf-git-tag"
-    mode: preserve
-
-- name: Copy Fzf Git Tag Insert utility Bash script
-  copy:
-    src: bin/fzf-git-tag-insert.bash
-    dest: "{{ bin_dir }}/fzf-git-tag-insert.bash"
-
-- name: Copy Fzf history utility program
-  copy:
-    src: bin/fzf-history
-    dest: "{{ bin_dir }}/fzf-history"
-    mode: preserve
-
-- name: Copy Fzf Insert utility Bash script
-  copy:
-    src: bin/fzf-insert.bash
-    dest: "{{ bin_dir }}/fzf-insert.bash"
-
-- name: Copy Fzf Jobs utility program
-  copy:
-    src: bin/fzf-jobs
-    dest: "{{ bin_dir }}/fzf-jobs"
-    mode: preserve
-
-- name: Copy Fzf pick utility program
-  copy:
-    src: bin/fzf-pick
-    dest: "{{ bin_dir }}/fzf-pick"
-    mode: preserve
-
-- name: Copy Fzf Quote utility program
-  copy:
-    src: bin/fzf-quote
-    dest: "{{ bin_dir }}/fzf-quote"
-    mode: preserve
-
-- name: Copy Fzf Sort utility program
-  copy:
-    src: bin/fzf-sort
-    dest: "{{ bin_dir }}/fzf-sort"
-    mode: preserve
-
-- name: Copy Fzf Tmux Strings utility Bash script
-  copy:
-    src: bin/fzf-tmux-strings.bash
-    dest: "{{ bin_dir }}/fzf-tmux-strings.bash"
-
-- name: Check if Fd utility program is in PATH
+- name: Check if Fd program is in PATH
   shell: "which fd"
   register: fd_in_path
   ignore_errors: true
   changed_when: false
 
-- name: Link Fzf Finder to Fzf Fd utility program
+- name: Link Fzf Finder to Fzf Fd program
   file:
     src: "{{ bin_dir }}/fzf-fd"
     dest: "{{ bin_dir }}/fzf-finder"
     state: link
   when: fd_in_path.rc == 0
 
-- name: Link Fzf Finder to Fzf Find utility program
+- name: Link Fzf Finder to Fzf Find program
   file:
     src: "{{ bin_dir }}/fzf-find"
     dest: "{{ bin_dir }}/fzf-finder"
