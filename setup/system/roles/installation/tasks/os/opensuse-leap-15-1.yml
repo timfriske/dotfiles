@@ -28,5 +28,3 @@
   zypper:
     name: "{{ packages }}"
     state: present
-    disable_recommends: no
-    update_cache: yes
