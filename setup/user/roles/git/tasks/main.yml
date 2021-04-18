@@ -11,6 +11,7 @@
     state: directory
   loop:
     - "{{ git_dir }}"
+  tags: always
 
 - name: Copy Git global configuration file
   copy:
