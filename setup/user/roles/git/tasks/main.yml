@@ -12,17 +12,10 @@
   loop:
     - "{{ git_dir }}"
 
-- name: Copy Git Global configuration file
+- name: Copy Git global configuration file
   copy:
     src: global.conf
-    dest: "{{ git_dir }}/global.conf"
-  tags: git-config
-
-- name: Link Git Config file to Global configuration file
-  file:
-    src: global.conf
     dest: "{{ git_dir }}/config"
-    state: link
   tags: git-config
 
 - name: Set up binary directory with Git commands
@@ -112,7 +105,3 @@
 - name: Set up binary directory with Git Tag commands
   import_tasks: command/tag/bin/main.yml
   tags: [git-command, git-tag]
-
-- name: Set up Git Global configuration directory
-  import_tasks: global.d/main.yml
-  tags: [git-command, git-config]
