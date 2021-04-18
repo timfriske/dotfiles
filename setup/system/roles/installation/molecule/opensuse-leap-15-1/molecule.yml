@@ -1,0 +1,18 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: opensuse-leap-15-1
+    image: opensuse/leap:15.1
+    dockerfile: Dockerfile.j2
+    override_command: false
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_user: ansible-test
+verifier:
+  name: ansible
