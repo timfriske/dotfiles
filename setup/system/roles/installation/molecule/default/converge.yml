@@ -1,7 +1,1 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include installation"
-      include_role:
-        name: "installation"
+../converge.yml
