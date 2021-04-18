@@ -14,5 +14,7 @@ provisioner:
     group_vars:
       all:
         ansible_user: ansible-test
+  env:
+    ANSIBLE_FORCE_COLOR: "1"
 verifier:
   name: ansible
