@@ -1,0 +1,17 @@
+---
+# System-specific setup
+# =====================
+# Tim Friske <me@tifr.de>
+
+# Site tasks
+# ----------
+- name: Setup of hosts with configuration files
+  hosts: "{{ hosts_var }}"
+  roles:
+
+    # Installation
+    # ------------
+    - role: installation
+      tags:
+        - software
+        - packages

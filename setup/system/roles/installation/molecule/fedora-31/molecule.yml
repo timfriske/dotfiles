@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: fedora-31
+    image: fedora:31
+    dockerfile: Dockerfile.j2
+    override_command: false
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
+        ansible_user: ansible-test
+  env:
+    ANSIBLE_FORCE_COLOR: "1"
+verifier:
+  name: ansible

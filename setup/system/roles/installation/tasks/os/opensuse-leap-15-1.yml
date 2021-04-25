@@ -6,10 +6,25 @@
 # OpenSUSE Leap tasks
 # -------------------
 
+- name: Add Microsoft Visual Studio Code zypper repository
+  become: yes
+  block:
+
+  - rpm_key:
+      key: https://packages.microsoft.com/keys/microsoft.asc
+      fingerprint: BC528686B50D79E339D3721CEB3E94ADBE1229CF
+      state: present
+
+  - zypper_repository:
+      name: microsoft-visual-studio-code
+      description:
+        Zypper repository to install Microsoft Visual Studio Code and
+        update to new versions of it.
+      repo: https://packages.microsoft.com/yumrepos/vscode
+      state: present
+
 - name: Install packages with zypper
   become: yes
   zypper:
     name: "{{ packages }}"
     state: present
-    disable_recommends: no
-    update_cache: yes

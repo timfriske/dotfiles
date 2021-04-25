@@ -6,6 +6,17 @@
 # Fedora tasks
 # ------------
 
+- name: Add Microsoft Visual Studio Code dnf repository
+  become: yes
+  yum_repository:
+    name: microsoft-visual-studio-code
+    description:
+      Dnf repository to install Microsoft Visual Studio Code and update
+      to new versions of it.
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
 - name: Install packages with dnf
   become: yes
   dnf:

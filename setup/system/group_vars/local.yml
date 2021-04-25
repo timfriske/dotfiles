@@ -1,0 +1,8 @@
+---
+# System-specific setup
+# =====================
+# Tim Friske <me@tifr.de>
+
+# Local host group variables
+# --------------------------
+ansible_connection: local

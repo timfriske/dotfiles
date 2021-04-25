@@ -13,3 +13,7 @@ vars.yml
 # Ansible's Retry files
 # ---------------------
 *.retry
+
+# Python virtual environment
+# --------------------------
+.venv

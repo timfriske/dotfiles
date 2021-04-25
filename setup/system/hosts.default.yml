@@ -1,0 +1,12 @@
+---
+# System-specific setup
+# =====================
+# Tim Friske <me@tifr.de>
+
+# Default host inventory
+# ----------------------
+all:
+  children:
+    local:
+      hosts:
+        localhost:
