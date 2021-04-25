@@ -7,52 +7,38 @@
 # -----------------------------
 
 packages:
-  - adobe-sourcecodepro-fonts
-  - adobe-sourcesanspro-fonts
-  - adobe-sourceserifpro-fonts
   - ansible
-  - ansible-doc
-  - asciidoc
-  - ruby2.6-rubygem-asciidoctor
-  - ruby2.6-rubygem-asciidoctor-doc
-  - bash
+  - aws-cli
   - borgbackup
   - checkbashisms
-  - chromium
-  - code
   - dash
   - docker
   - docker-machine-driver-kvm2
-  - fzf
+  - fd
+  - ffmpeg-4
   - git
   - gnu_parallel
   - go
-  - gpg2
+  - gstreamer-plugins-bad
+  - gstreamer-plugins-good
+  - gstreamer-plugins-libav
+  - gstreamer-plugins-ugly
   - htop
-  - java-11-openjdk
-  - java-11-openjdk-javadoc
-  - java-11-openjdk-src
-  - java-13-openjdk
-  - java-13-openjdk-javadoc
-  - java-13-openjdk-src
-  - java-1_8_0-openjdk
-  - java-1_8_0-openjdk-javadoc
-  - java-1_8_0-openjdk-src
+  - iotop
+  - java-11-openjdk-devel
   - jq
-  - libreoffice
-  - libreoffice-l10n-de
-  - libreoffice-l10n-en
-  - MozillaFirefox
-  - MozillaFirefox-translations-common
+  - kubernetes-client
+  - lsb-release
   - minikube
+  - nmap
   - openssh
-  - python3
-  - python3-docker-compose
-  - python3-yamllint
-  - rsync
+  - pam_kwallet
+  - pattern:kvm_tools
   - rust
-  - ssh-audit
+  - sysstat
   - tmux
   - transmission
   - vim
+  - vlc
+  - vlc-codec-gstreamer
   - zstd
