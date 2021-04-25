@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# Main script of system setup
+# ===========================
+# Tim Friske <me@tifr.de>
+
+shopt -os nounset pipefail errexit errtrace
+
+declare -r site_dir="${0%/*}"
+
+function get_readable_file {
+  for file in "$@"; do
+    if [[ -f "$file" && -r "$file" ]]; then
+      printf '%s\n' "$file"
+      return 0
+    fi
+  done
+  return 1
+}
+
+function site {
+  cd -- "$site_dir"
+  local hosts_file="$(get_readable_file hosts{,.default}.yml)"
+  local vars_file="$(get_readable_file vars{,.default}.yml)"
+  ansible-playbook \
+    "${hosts_file:+--inventory-file=$hosts_file}" \
+    "${vars_file:+--extra-vars=@$vars_file}" \
+    "$@" \
+    -- \
+    site.yml
+}
+
+site "$@"
