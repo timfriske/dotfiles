@@ -10,7 +10,6 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ bin_dir }}"
     - "{{ ssh_dir }}"
 
 - name: Copy OpenSSH client configuration file
@@ -18,17 +17,8 @@
     src: config
     dest: "{{ ssh_dir }}/config"
 
-- name: Copy OpenSSH host key generation utility program
-  copy:
-    src: ssh-keygen-host
-    dest: "{{ bin_dir }}/ssh-keygen-host"
-    mode: preserve
-
-- name: Copy OpenSSH user key generation utility program
-  copy:
-    src: ssh-keygen-user
-    dest: "{{ bin_dir }}/ssh-keygen-user"
-    mode: preserve
+- name: Set up OpenSSH utility programs
+  import_tasks: bin/main.yml
 
 - name: Set up OpenSSH client configuration drop-in directory
   import_tasks: config.d/main.yml
