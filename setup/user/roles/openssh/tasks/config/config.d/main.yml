@@ -12,10 +12,10 @@
   loop:
     - "{{ config_dir }}"
 
-- name: Copy OpenSSH configuration files
+- name: Copy OpenSSH drop-in configuration files
   copy:
     src: "{{ item }}"
     dest: "{{ config_dir }}/{{ item | basename }}"
     mode: preserve
   with_fileglob:
-    - config.d/*
+    - config/config.d/*

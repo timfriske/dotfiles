@@ -5,20 +5,8 @@
 
 # Main tasks
 # ----------
-- name: Make target directories
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ ssh_dir }}"
-
-- name: Copy OpenSSH client configuration file
-  copy:
-    src: config
-    dest: "{{ ssh_dir }}/config"
-
 - name: Set up OpenSSH utility programs
   import_tasks: bin/main.yml
 
-- name: Set up OpenSSH client configuration drop-in directory
-  import_tasks: config.d/main.yml
+- name: Set up OpenSSH configuration files
+  import_tasks: config/main.yml
