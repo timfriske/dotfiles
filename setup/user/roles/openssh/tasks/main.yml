@@ -10,3 +10,6 @@
 
 - name: Set up OpenSSH configuration files
   import_tasks: config/main.yml
+
+- name: Set up OpenSSH keys
+  import_tasks: key/main.yml

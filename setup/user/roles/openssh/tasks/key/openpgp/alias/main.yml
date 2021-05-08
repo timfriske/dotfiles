@@ -1,0 +1,28 @@
+---
+# User-specific OpenSSH setup
+# ===========================
+# Tim Friske <me@tifr.de>
+
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ openpgp_alias_dir }}"
+
+- name: Stat OpenPGP key aliases
+  stat:
+    path: "{{ item }}"
+  with_fileglob:
+    - key/openpgp/alias/*
+  register: openpgp_alias
+
+- name: Copy OpenSSH key aliases
+  file:
+    src: "{{ item.stat.lnk_target }}"
+    dest: "{{ openpgp_alias_dir }}/{{ item.stat.path | basename }}"
+    state: link
+  when: item.stat.islnk
+  loop: "{{ openpgp_alias.results }}"
+  loop_control:
+     label: "{{ item.stat.path }}"

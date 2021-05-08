@@ -1,0 +1,22 @@
+---
+# User-specific OpenSSH setup
+# ===========================
+# Tim Friske <me@tifr.de>
+
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ openpgp_dir }}"
+
+- name: Copy OpenSSH keys derived from OpenPGP keys
+  copy:
+    src: "{{ item }}"
+    dest: "{{ openpgp_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - key/openpgp/*
+
+- name: Set up OpenSSH key aliases derived from OpenPGP key aliases
+  import_tasks: alias/main.yml
