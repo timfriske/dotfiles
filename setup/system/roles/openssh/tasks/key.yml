@@ -2,3 +2,13 @@
 # System-specific OpenSSH setup
 # =============================
 # Tim Friske <me@tifr.de>
+
+- name: Check if secret OpenSSH host key exists
+  stat:
+    path: "{{ item.secret_key }}"
+  register: secret_key
+
+- name: Check if public OpenSSH host key exists
+  stat:
+    path: "{{ item.public_key }}"
+  register: public_key
