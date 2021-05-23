@@ -5,30 +5,11 @@
 
 # Main tasks
 # ----------
-- name: Make target directories
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ bin_dir }}"
-    - "{{ ssh_dir }}"
+- name: Set up OpenSSH utility programs
+  import_tasks: bin/main.yml
 
-- name: Copy OpenSSH client configuration file
-  copy:
-    src: config
-    dest: "{{ ssh_dir }}/config"
+- name: Set up OpenSSH configuration files
+  import_tasks: config/main.yml
 
-- name: Copy OpenSSH host key generation utility program
-  copy:
-    src: ssh-keygen-host
-    dest: "{{ bin_dir }}/ssh-keygen-host"
-    mode: preserve
-
-- name: Copy OpenSSH user key generation utility program
-  copy:
-    src: ssh-keygen-user
-    dest: "{{ bin_dir }}/ssh-keygen-user"
-    mode: preserve
-
-- name: Set up OpenSSH client configuration drop-in directory
-  import_tasks: config.d/main.yml
+- name: Set up OpenSSH keys
+  import_tasks: key/main.yml

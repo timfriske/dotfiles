@@ -3,19 +3,20 @@
 # ===========================
 # Tim Friske <me@tifr.de>
 
-# Drop-in configuration directory setup
-# -------------------------------------
 - name: Make target directories
   file:
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ config_dir }}"
+    - "{{ openpgp_dir }}"
 
-- name: Copy OpenSSH configuration files
+- name: Copy OpenSSH keys derived from OpenPGP keys
   copy:
     src: "{{ item }}"
-    dest: "{{ config_dir }}/{{ item | basename }}"
+    dest: "{{ openpgp_dir }}/{{ item | basename }}"
     mode: preserve
   with_fileglob:
-    - config.d/*
+    - key/openpgp/*
+
+- name: Set up OpenSSH key aliases derived from OpenPGP key aliases
+  import_tasks: alias/main.yml

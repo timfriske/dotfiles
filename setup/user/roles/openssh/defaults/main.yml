@@ -12,3 +12,9 @@ bin_dir: "{{ user_dir }}/.local/bin"
 ssh_dir: "{{ user_dir }}/.ssh"
 
 config_dir: "{{ ssh_dir }}/config.d"
+
+key_dir: "{{ ssh_dir }}/key"
+
+openpgp_dir: "{{ key_dir }}/openpgp"
+
+openpgp_alias_dir: "{{ openpgp_dir }}/alias"

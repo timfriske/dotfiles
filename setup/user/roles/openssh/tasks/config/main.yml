@@ -1,0 +1,22 @@
+---
+# User-specific OpenSSH setup
+# ===========================
+# Tim Friske <me@tifr.de>
+
+- name: Make target directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ ssh_dir }}"
+
+- name: Copy OpenSSH configuration files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ssh_dir }}/{{ item | basename }}"
+    mode: preserve
+  with_fileglob:
+    - config/*
+
+- name: Set up OpenSSH configuration drop-in directory
+  import_tasks: config.d/main.yml

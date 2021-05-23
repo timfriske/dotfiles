@@ -1,0 +1,9 @@
+---
+# User-specific OpenSSH setup
+# ===========================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Set up OpenSSH keys derived from OpenPGP keys
+  import_tasks: openpgp/main.yml
