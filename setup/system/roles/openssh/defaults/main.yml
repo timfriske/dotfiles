@@ -2,3 +2,5 @@
 # System-specific OpenSSH setup
 # =============================
 # Tim Friske <me@tifr.de>
+
+ssh_host_keys_dir: /etc/ssh
