@@ -31,3 +31,11 @@
   loop:
     - ssh_config.d
     - sshd_config.d
+
+- name: Create non-existing OpenSSH host keys
+  include_tasks: key.yml
+  loop:
+    - "{{ ssh_host_keys_dsa_key }}"
+    - "{{ ssh_host_keys_rsa_key }}"
+    - "{{ ssh_host_keys_ecdsa_key }}"
+    - "{{ ssh_host_keys_ed25519_key }}"
