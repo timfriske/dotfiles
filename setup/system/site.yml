@@ -15,3 +15,13 @@
       tags:
         - software
         - packages
+
+    # OpenSSH
+    # -------
+    - role: openssh
+      tags:
+        - openssh
+        - openssh-client
+        - openssh-server
+        - ssh
+        - sshd
