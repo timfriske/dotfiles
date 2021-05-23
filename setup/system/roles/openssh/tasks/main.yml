@@ -23,3 +23,11 @@
     line: SSHD_AUTO_KEYGEN="no"
     path: /etc/sysconfig/ssh
     state: present
+
+- name: Delete OpenSSH drop-in configuration directories
+  file:
+    path: "/etc/ssh/{{ item }}"
+    state: absent
+  loop:
+    - ssh_config.d
+    - sshd_config.d
