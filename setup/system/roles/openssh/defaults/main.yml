@@ -4,3 +4,43 @@
 # Tim Friske <me@tifr.de>
 
 ssh_host_keys_dir: /etc/ssh
+
+ssh_host_keys_dsa_key:
+  algorithm: dsa
+  # size_bits is fixed (FIPS 186-2 Change Notice 1)
+  size_bits: 1024
+  supported_version: "2.2"
+  deprecated_version: "7.0"
+  state: present
+  secret_key: "{{ ssh_host_keys_dir }}/ssh_host_dsa_key"
+  public_key: "{{ ssh_host_keys_dir }}/ssh_host_dsa_key.pub"
+
+ssh_host_keys_rsa_key:
+  algorithm: rsa
+  # increase size_bits to 4096 bits for security
+  size_bits: 4096
+  supported_version: "5.3"
+  # deprecated_version: unset
+  state: present
+  secret_key: "{{ ssh_host_keys_dir }}/ssh_host_rsa_key"
+  public_key: "{{ ssh_host_keys_dir }}/ssh_host_rsa_key.pub"
+
+ssh_host_keys_ecdsa_key:
+  algorithm: ecdsa
+  # increase size_bits to 521 bits for security
+  size_bits: 521
+  supported_version: "6.0"
+  # deprecated_version: unset
+  state: present
+  secret_key: "{{ ssh_host_keys_dir }}/ssh_host_ecdsa_key"
+  public_key: "{{ ssh_host_keys_dir }}/ssh_host_ecdsa_key.pub"
+
+ssh_host_keys_ed25519_key:
+  algorithm: ed25519
+  # size_bits is fixed
+  # size_bits: unset
+  supported_version: "6.3"
+  # deprecated_version: unset
+  state: present
+  secret_key: "{{ ssh_host_keys_dir }}/ssh_host_ed25519_key"
+  public_key: "{{ ssh_host_keys_dir }}/ssh_host_ed25519_key.pub"
