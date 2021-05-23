@@ -16,3 +16,10 @@
         sshd_version_raw.stderr
         | regex_replace('.*_([0-9]*.[0-9]).*', '\\1')
       }}
+
+- name: Disable auto generation of OpenSSH host keys
+  lineinfile:
+    regexp: '^SSHD_AUTO_KEYGEN="yes"$'
+    line: SSHD_AUTO_KEYGEN="no"
+    path: /etc/sysconfig/ssh
+    state: present
