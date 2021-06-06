@@ -24,3 +24,25 @@
     comment: >-
       OpenSSH {{ item.algorithm | upper }} key
       of host {{ ansible_hostname }}
+
+- name: Detect state of secret OpenSSH host key
+  stat:
+    path: "{{ item.secret_key }}"
+  register: secret_key
+
+- name: Adjust state of secret OpenSSH host key
+  file:
+    path: "{{ item.secret_key }}"
+    state: "{{ 'file' if secret_key.stat.exists else 'absent' }}"
+    mode: a=,u=r
+
+- name: Detect state of public OpenSSH host key
+  stat:
+    path: "{{ item.public_key }}"
+  register: public_key
+
+- name: Adjust state of public OpenSSH host key
+  file:
+    path: "{{ item.public_key }}"
+    state: "{{ 'file' if public_key.stat.exists else 'absent' }}"
+    mode: a=r
