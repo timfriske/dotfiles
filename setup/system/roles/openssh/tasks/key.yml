@@ -24,4 +24,3 @@
     comment: >-
       OpenSSH {{ item.algorithm | upper }} key
       of host {{ ansible_hostname }}
-      created on {{ ansible_date_time.iso8601 }}
