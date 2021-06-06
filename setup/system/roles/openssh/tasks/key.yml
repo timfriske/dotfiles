@@ -3,33 +3,24 @@
 # =============================
 # Tim Friske <me@tifr.de>
 
-- name: Check if secret OpenSSH host key exists
-  stat:
-    path: "{{ item.secret_key }}"
-  register: secret_key
-
-- name: Check if public OpenSSH host key exists
-  stat:
-    path: "{{ item.public_key }}"
-  register: public_key
-
-- name: Create new OpenSSH host key
+- name: Manage state of OpenSSH host key
   community.crypto.openssh_keypair:
     type: "{{ item.algorithm }}"
     size: "{{ item.size_bits | default(omit) }}"
     path: "{{ item.secret_key }}"
-    state: "{{ item.state }}"
+    state: >-
+      {{
+        item.state | default(
+          'present'
+            if item.supported_version <= sshd_version
+              and (
+              item.deprecated_version is not defined
+              or not item.deprecated_version <= sshd_version
+            )
+            else 'absent'
+        )
+      }}
     comment: >-
       OpenSSH {{ item.algorithm | upper }} key
       of host {{ ansible_hostname }}
       created on {{ ansible_date_time.iso8601 }}
-  when: >-
-    item.supported_version <= sshd_version
-    and (
-      item.deprecated_version is not defined
-      or not item.deprecated_version <= sshd_version
-    )
-    and (
-      not secret_key.stat.exists
-      or not public_key.stat.exists
-    )

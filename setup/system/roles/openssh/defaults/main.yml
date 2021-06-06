@@ -2,6 +2,10 @@
 # System-specific OpenSSH setup
 # =============================
 # Tim Friske <me@tifr.de>
+#
+# Unless the _state_ property is of a key specified the absence or
+# presence of it depends on since when the key algorithm is supported
+# and/or deprecated (see _key.yml_ task file).
 
 ssh_host_keys_dir: /etc/ssh
 
@@ -11,7 +15,7 @@ ssh_host_keys_dsa_key:
   size_bits: 1024
   supported_version: "2.2"
   deprecated_version: "7.0"
-  state: present
+  # state: unset
   secret_key: "{{ ssh_host_keys_dir }}/ssh_host_dsa_key"
   public_key: "{{ ssh_host_keys_dir }}/ssh_host_dsa_key.pub"
 
@@ -21,7 +25,7 @@ ssh_host_keys_rsa_key:
   size_bits: 4096
   supported_version: "5.3"
   # deprecated_version: unset
-  state: present
+  # state: unset
   secret_key: "{{ ssh_host_keys_dir }}/ssh_host_rsa_key"
   public_key: "{{ ssh_host_keys_dir }}/ssh_host_rsa_key.pub"
 
@@ -31,7 +35,7 @@ ssh_host_keys_ecdsa_key:
   size_bits: 521
   supported_version: "6.0"
   # deprecated_version: unset
-  state: present
+  # state: unset
   secret_key: "{{ ssh_host_keys_dir }}/ssh_host_ecdsa_key"
   public_key: "{{ ssh_host_keys_dir }}/ssh_host_ecdsa_key.pub"
 
@@ -41,6 +45,6 @@ ssh_host_keys_ed25519_key:
   # size_bits: unset
   supported_version: "6.3"
   # deprecated_version: unset
-  state: present
+  # state: unset
   secret_key: "{{ ssh_host_keys_dir }}/ssh_host_ed25519_key"
   public_key: "{{ ssh_host_keys_dir }}/ssh_host_ed25519_key.pub"
