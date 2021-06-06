@@ -20,6 +20,7 @@
             else 'absent'
         )
       }}
+    regenerate: "{{ item.regenerate | default('fail') }}"
     comment: >-
       OpenSSH {{ item.algorithm | upper }} key
       of host {{ ansible_hostname }}
