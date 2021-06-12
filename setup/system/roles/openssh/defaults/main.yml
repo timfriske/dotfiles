@@ -39,6 +39,12 @@ openssh_host_key_dsa_version_deprecated: "7.0"
 openssh_host_key_dsa_state: null
 openssh_host_key_dsa_regenerate: null
 openssh_host_key_dsa_path_prefix: "{{ openssh_config_dir }}/ssh_host_dsa_key"
+openssh_host_key_dsa_secret_owner: root
+openssh_host_key_dsa_secret_group: root
+openssh_host_key_dsa_secret_perms: u=r,go=
+openssh_host_key_dsa_public_owner: root
+openssh_host_key_dsa_public_group: root
+openssh_host_key_dsa_public_perms: ugo=r
 
 # OpenSSH host key - RSA algorithm
 # --------------------------------
@@ -51,6 +57,12 @@ openssh_host_key_rsa_version_deprecated: null
 openssh_host_key_rsa_state: null
 openssh_host_key_rsa_regenerate: null
 openssh_host_key_rsa_path_prefix: "{{ openssh_config_dir }}/ssh_host_rsa_key"
+openssh_host_key_rsa_secret_owner: root
+openssh_host_key_rsa_secret_group: root
+openssh_host_key_rsa_secret_perms: u=r,go=
+openssh_host_key_rsa_public_owner: root
+openssh_host_key_rsa_public_group: root
+openssh_host_key_rsa_public_perms: ugo=r
 
 # OpenSSH host key - ECDSA algorithm
 # ----------------------------------
@@ -63,6 +75,12 @@ openssh_host_key_ecdsa_version_deprecated: null
 openssh_host_key_ecdsa_state: null
 openssh_host_key_ecdsa_regenerate: null
 openssh_host_key_ecdsa_path_prefix: "{{ openssh_config_dir }}/ssh_host_ecdsa_key"
+openssh_host_key_ecdsa_secret_owner: root
+openssh_host_key_ecdsa_secret_group: root
+openssh_host_key_ecdsa_secret_perms: u=r,go=
+openssh_host_key_ecdsa_public_owner: root
+openssh_host_key_ecdsa_public_group: root
+openssh_host_key_ecdsa_public_perms: ugo=r
 
 # OpenSSH host key - ED25519 algorithm
 # ------------------------------------
@@ -75,3 +93,9 @@ openssh_host_key_ed25519_version_deprecated: null
 openssh_host_key_ed25519_state: null
 openssh_host_key_ed25519_regenerate: null
 openssh_host_key_ed25519_path_prefix: "{{ openssh_config_dir }}/ssh_host_ed25519_key"
+openssh_host_key_ed25519_secret_owner: root
+openssh_host_key_ed25519_secret_group: root
+openssh_host_key_ed25519_secret_perms: u=r,go=
+openssh_host_key_ed25519_public_owner: root
+openssh_host_key_ed25519_public_group: root
+openssh_host_key_ed25519_public_perms: ugo=r

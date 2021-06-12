@@ -12,6 +12,12 @@
     openssh_host_key_state: "{{ lookup('vars', 'openssh_host_key_' + item + '_state') }}"
     openssh_host_key_regenerate: "{{ lookup('vars', 'openssh_host_key_' + item + '_regenerate') }}"
     openssh_host_key_path_prefix: "{{ lookup('vars', 'openssh_host_key_' + item + '_path_prefix') }}"
+    openssh_host_key_secret_owner: "{{ lookup('vars', 'openssh_host_key_' + item + '_secret_owner') }}"
+    openssh_host_key_secret_group: "{{ lookup('vars', 'openssh_host_key_' + item + '_secret_group') }}"
+    openssh_host_key_secret_perms: "{{ lookup('vars', 'openssh_host_key_' + item + '_secret_perms') }}"
+    openssh_host_key_public_owner: "{{ lookup('vars', 'openssh_host_key_' + item + '_public_owner') }}"
+    openssh_host_key_public_group: "{{ lookup('vars', 'openssh_host_key_' + item + '_public_group') }}"
+    openssh_host_key_public_perms: "{{ lookup('vars', 'openssh_host_key_' + item + '_public_perms') }}"
 
 - name: Manage state of OpenSSH host key
   community.crypto.openssh_keypair:
@@ -43,8 +49,10 @@
 - name: Adjust state of secret OpenSSH host key
   file:
     path: "{{ openssh_host_key_path_prefix }}"
+    owner: "{{ openssh_host_key_secret_owner }}"
+    group: "{{ openssh_host_key_secret_group }}"
+    mode: "{{ openssh_host_key_secret_perms }}"
     state: "{{ 'file' if openssh_host_key_secret_stat.stat.exists else 'absent' }}"
-    mode: a=,u=r
 
 - name: Detect state of public OpenSSH host key
   stat:
@@ -54,5 +62,7 @@
 - name: Adjust state of public OpenSSH host key
   file:
     path: "{{ openssh_host_key_path_prefix }}.pub"
+    owner: "{{ openssh_host_key_public_owner }}"
+    group: "{{ openssh_host_key_public_group }}"
+    mode: "{{ openssh_host_key_public_perms }}"
     state: "{{ 'file' if openssh_host_key_public_stat.stat.exists else 'absent' }}"
-    mode: a=r
