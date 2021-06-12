@@ -5,15 +5,15 @@
 
 - name: Get OpenSSH version
   command: ssh -V
-  register: sshd_version_raw
+  register: openssh_sshd_version_raw
   changed_when: false
   check_mode: false
 
 - name: Parse OpenSSH version
   set_fact:
-    sshd_version: >-
+    openssh_sshd_version: >-
       {{
-        sshd_version_raw.stderr
+        openssh_sshd_version_raw.stderr
         | regex_replace('.*_([0-9]*.[0-9]).*', '\\1')
       }}
 
@@ -35,7 +35,7 @@
 - name: Create non-existing OpenSSH host keys
   include_tasks: key.yml
   loop:
-    - "{{ ssh_host_keys_dsa_key }}"
-    - "{{ ssh_host_keys_rsa_key }}"
-    - "{{ ssh_host_keys_ecdsa_key }}"
-    - "{{ ssh_host_keys_ed25519_key }}"
+    - "{{ openssh_key_dsa }}"
+    - "{{ openssh_key_rsa }}"
+    - "{{ openssh_key_ecdsa }}"
+    - "{{ openssh_key_ed25519 }}"
