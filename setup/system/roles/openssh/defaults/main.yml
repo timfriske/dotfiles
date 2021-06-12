@@ -15,6 +15,8 @@ openssh_config_dir: /etc/ssh
 openssh_config_dir_client: "{{ openssh_config_dir }}/ssh_config.d"
 openssh_config_dir_daemon: "{{ openssh_config_dir }}/sshd_config.d"
 
+openssh_sysconfig_file: /etc/sysconfig/ssh
+
 openssh_key_dsa:
   algorithm: dsa
   # size_bits is fixed (FIPS 186-2 Change Notice 1)

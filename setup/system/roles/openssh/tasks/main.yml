@@ -21,7 +21,7 @@
   lineinfile:
     regexp: '^SSHD_AUTO_KEYGEN="yes"$'
     line: SSHD_AUTO_KEYGEN="no"
-    path: /etc/sysconfig/ssh
+    path: "{{ openssh_sysconfig_file }}"
     state: present
 
 - name: Detect state of OpenSSH client drop-in configuration directory
