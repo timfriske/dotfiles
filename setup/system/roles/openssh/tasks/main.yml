@@ -42,4 +42,4 @@
 
 - name: Manage OpenSSH host keys
   include_tasks: key.yml
-  loop: "{{ openssh_key_algorithms }}"
+  loop: "{{ openssh_host_key_algorithms }}"
