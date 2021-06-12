@@ -5,15 +5,15 @@
 
 - name: Get OpenSSH version
   command: ssh -V
-  register: openssh_sshd_version_raw
+  register: openssh_version_raw
   changed_when: false
   check_mode: false
 
 - name: Parse OpenSSH version
   set_fact:
-    openssh_sshd_version: >-
+    openssh_version: >-
       {{
-        openssh_sshd_version_raw.stderr
+        openssh_version_raw.stderr
         | regex_replace('.*_([0-9]*.[0-9]).*', '\\1')
       }}
 

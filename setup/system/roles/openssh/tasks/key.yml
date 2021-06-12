@@ -22,10 +22,10 @@
       {{
         openssh_host_key_state | default(
           'present'
-            if openssh_host_key_version_supported <= openssh_sshd_version
+            if openssh_host_key_version_supported <= openssh_version
               and (
                 openssh_host_key_version_deprecated | length == 0
-                or not openssh_host_key_version_deprecated <= openssh_sshd_version
+                or not openssh_host_key_version_deprecated <= openssh_version
               )
             else 'absent', true
           )
