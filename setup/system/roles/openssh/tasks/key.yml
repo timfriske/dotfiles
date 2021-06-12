@@ -12,10 +12,10 @@
       {{
         item.state | default(
           'present'
-            if item.supported_version <= openssh_sshd_version
+            if item.version.supported <= openssh_sshd_version
               and (
-              item.deprecated_version is not defined
-              or not item.deprecated_version <= openssh_sshd_version
+              item.version.deprecated is not defined
+              or not item.version.deprecated <= openssh_sshd_version
             )
             else 'absent'
         )
