@@ -7,7 +7,7 @@
   community.crypto.openssh_keypair:
     type: "{{ item.algorithm }}"
     size: "{{ item.size_bits | default(omit) }}"
-    path: "{{ item.secret_key }}"
+    path: "{{ item.path_prefix }}"
     state: >-
       {{
         item.state | default(
@@ -27,22 +27,22 @@
 
 - name: Detect state of secret OpenSSH host key
   stat:
-    path: "{{ item.secret_key }}"
+    path: "{{ item.path_prefix }}"
   register: openssh_key_secret_stat
 
 - name: Adjust state of secret OpenSSH host key
   file:
-    path: "{{ item.secret_key }}"
+    path: "{{ item.path_prefix }}"
     state: "{{ 'file' if openssh_key_secret_stat.stat.exists else 'absent' }}"
     mode: a=,u=r
 
 - name: Detect state of public OpenSSH host key
   stat:
-    path: "{{ item.public_key }}"
+    path: "{{ item.path_prefix }}.pub"
   register: openssh_key_public_stat
 
 - name: Adjust state of public OpenSSH host key
   file:
-    path: "{{ item.public_key }}"
+    path: "{{ item.path_prefix }}.pub"
     state: "{{ 'file' if openssh_key_public_stat.stat.exists else 'absent' }}"
     mode: a=r

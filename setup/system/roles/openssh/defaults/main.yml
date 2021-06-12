@@ -26,8 +26,7 @@ openssh_key_dsa:
     deprecated: "{{ openssh_key_dsa_version_deprecated | default('7.0') }}"
   state: "{{ openssh_key_dsa_state | default(omit) }}"
   regenerate: "{{ openssh_key_dsa_regenerate | default(omit) }}"
-  secret_key: "{{ openssh_config_dir }}/ssh_host_dsa_key"
-  public_key: "{{ openssh_config_dir }}/ssh_host_dsa_key.pub"
+  path_prefix: "{{ openssh_config_dir }}/ssh_host_dsa_key"
 
 openssh_key_rsa:
   algorithm: "{{ openssh_key_rsa_algorithm | default('rsa') }}"
@@ -38,8 +37,7 @@ openssh_key_rsa:
     deprecated: "{{ openssh_key_rsa_version_deprecated | default(omit) }}"
   state: "{{ openssh_key_rsa_state | default(omit) }}"
   regenerate: "{{ openssh_key_rsa_regenerate | default(omit) }}"
-  secret_key: "{{ openssh_config_dir }}/ssh_host_rsa_key"
-  public_key: "{{ openssh_config_dir }}/ssh_host_rsa_key.pub"
+  path_prefix: "{{ openssh_config_dir }}/ssh_host_rsa_key"
 
 openssh_key_ecdsa:
   algorithm: "{{ openssh_key_ecdsa_algorithm | default('ecdsa') }}"
@@ -50,8 +48,7 @@ openssh_key_ecdsa:
     deprecated: "{{ openssh_key_ecdsa_version_deprecated | default(omit) }}"
   state: "{{ openssh_key_ecdsa_state | default(omit) }}"
   regenerate: "{{ openssh_key_ecdsa_regenerate | default(omit) }}"
-  secret_key: "{{ openssh_config_dir }}/ssh_host_ecdsa_key"
-  public_key: "{{ openssh_config_dir }}/ssh_host_ecdsa_key.pub"
+  path_prefix: "{{ openssh_config_dir }}/ssh_host_ecdsa_key"
 
 openssh_key_ed25519:
   algorithm: "{{ openssh_key_ed25519_algorithm | default('ed25519') }}"
@@ -62,5 +59,4 @@ openssh_key_ed25519:
     deprecated: "{{ openssh_key_ed25519_version_deprecated | default(omit) }}"
   state: "{{ openssh_key_ed25519_state | default(omit) }}"
   regenerate: "{{ openssh_key_ed25519_regenerate | default(omit) }}"
-  secret_key: "{{ openssh_config_dir }}/ssh_host_ed25519_key"
-  public_key: "{{ openssh_config_dir }}/ssh_host_ed25519_key.pub"
+  path_prefix: "{{ openssh_config_dir }}/ssh_host_ed25519_key"
