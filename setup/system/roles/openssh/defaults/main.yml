@@ -12,6 +12,8 @@
 # diverting properties (see _key.yml_ task file).
 
 openssh_config_dir: /etc/ssh
+openssh_config_dir_client: "{{ openssh_config_dir }}/ssh_config.d"
+openssh_config_dir_daemon: "{{ openssh_config_dir }}/sshd_config.d"
 
 openssh_key_dsa:
   algorithm: dsa

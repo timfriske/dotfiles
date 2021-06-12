@@ -24,13 +24,15 @@
     path: /etc/sysconfig/ssh
     state: present
 
-- name: Delete OpenSSH drop-in configuration directories
-  file:
-    path: "/etc/ssh/{{ item }}"
-    state: absent
-  loop:
-    - ssh_config.d
-    - sshd_config.d
+- name: Detect state of OpenSSH client drop-in configuration directory
+  stat:
+    path: "{{ openssh_config_dir_client }}"
+  register: openssh_config_dir_client_stat
+
+- name: Detect state of OpenSSH daemon drop-in configuration directory
+  stat:
+    path: "{{ openssh_config_dir_daemon }}"
+  register: openssh_config_dir_daemon_stat
 
 - name: Create non-existing OpenSSH host keys
   include_tasks: key.yml
