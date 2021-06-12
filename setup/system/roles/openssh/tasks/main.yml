@@ -40,10 +40,6 @@
     state: present
   when: openssh_sysconfig_file_stat.stat.exists
 
-- name: Create non-existing OpenSSH host keys
+- name: Manage OpenSSH host keys
   include_tasks: key.yml
-  loop:
-    - "{{ openssh_key_dsa }}"
-    - "{{ openssh_key_rsa }}"
-    - "{{ openssh_key_ecdsa }}"
-    - "{{ openssh_key_ed25519 }}"
+  loop: "{{ openssh_key_algorithms }}"

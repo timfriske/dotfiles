@@ -3,46 +3,56 @@
 # =============================
 # Tim Friske <me@tifr.de>
 
+- name: Lookup OpenSSH key variables
+  set_fact:
+    openssh_key_algorithm: "{{ lookup('vars', 'openssh_key_' + item + '_algorithm') }}"
+    openssh_key_size_bits: "{{ lookup('vars', 'openssh_key_' + item + '_size_bits') }}"
+    openssh_key_version_supported: "{{ lookup('vars', 'openssh_key_' + item +  '_version_supported') }}"
+    openssh_key_version_deprecated: "{{ lookup('vars', 'openssh_key_' + item +  '_version_deprecated') }}"
+    openssh_key_state: "{{ lookup('vars', 'openssh_key_' + item + '_state') }}"
+    openssh_key_regenerate: "{{ lookup('vars', 'openssh_key_' + item + '_regenerate') }}"
+    openssh_key_path_prefix: "{{ lookup('vars', 'openssh_key_' + item + '_path_prefix') }}"
+
 - name: Manage state of OpenSSH host key
   community.crypto.openssh_keypair:
-    type: "{{ item.algorithm }}"
-    size: "{{ item.size_bits | default(omit) }}"
-    path: "{{ item.path_prefix }}"
+    type: "{{ openssh_key_algorithm }}"
+    size: "{{ openssh_key_size_bits | default(omit, true) }}"
+    path: "{{ openssh_key_path_prefix }}"
     state: >-
       {{
-        item.state | default(
+        openssh_key_state | default(
           'present'
-            if item.version.supported <= openssh_sshd_version
+            if openssh_key_version_supported <= openssh_sshd_version
               and (
-              item.version.deprecated is not defined
-              or not item.version.deprecated <= openssh_sshd_version
-            )
-            else 'absent'
-        )
+                openssh_key_version_deprecated | length == 0
+                or not openssh_key_version_deprecated <= openssh_sshd_version
+              )
+            else 'absent', true
+          )
       }}
-    regenerate: "{{ item.regenerate | default('fail') }}"
+    regenerate: "{{ openssh_key_regenerate | default('fail', true) }}"
     comment: >-
-      OpenSSH {{ item.algorithm | upper }} key
+      OpenSSH {{ openssh_key_algorithm | upper }} key
       of host {{ ansible_hostname }}
 
 - name: Detect state of secret OpenSSH host key
   stat:
-    path: "{{ item.path_prefix }}"
+    path: "{{ openssh_key_path_prefix }}"
   register: openssh_key_secret_stat
 
 - name: Adjust state of secret OpenSSH host key
   file:
-    path: "{{ item.path_prefix }}"
+    path: "{{ openssh_key_path_prefix }}"
     state: "{{ 'file' if openssh_key_secret_stat.stat.exists else 'absent' }}"
     mode: a=,u=r
 
 - name: Detect state of public OpenSSH host key
   stat:
-    path: "{{ item.path_prefix }}.pub"
+    path: "{{ openssh_key_path_prefix }}.pub"
   register: openssh_key_public_stat
 
 - name: Adjust state of public OpenSSH host key
   file:
-    path: "{{ item.path_prefix }}.pub"
+    path: "{{ openssh_key_path_prefix }}.pub"
     state: "{{ 'file' if openssh_key_public_stat.stat.exists else 'absent' }}"
     mode: a=r

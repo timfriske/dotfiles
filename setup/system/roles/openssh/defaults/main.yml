@@ -11,52 +11,67 @@
 # to regenerate it if a key at that path already exists and exposes
 # diverting properties (see _key.yml_ task file).
 
+# Various directories
+# -------------------
+
 openssh_config_dir: /etc/ssh
 openssh_config_dir_client: "{{ openssh_config_dir }}/ssh_config.d"
 openssh_config_dir_daemon: "{{ openssh_config_dir }}/sshd_config.d"
 
+# Various files
+# -------------
+
 openssh_sysconfig_file: /etc/sysconfig/ssh
 
-openssh_key_dsa:
-  algorithm: "{{ openssh_key_dsa_algorithm | default('dsa') }}"
-  # size_bits is fixed (FIPS 186-2 Change Notice 1)
-  size_bits: "{{ openssh_key_dsa_size_bits | default(1024) }}"
-  version:
-    supported: "{{ openssh_key_dsa_version_supported | default('2.2') }}"
-    deprecated: "{{ openssh_key_dsa_version_deprecated | default('7.0') }}"
-  state: "{{ openssh_key_dsa_state | default(omit) }}"
-  regenerate: "{{ openssh_key_dsa_regenerate | default(omit) }}"
-  path_prefix: "{{ openssh_key_dsa_path_prefix | default(openssh_config_dir + '/ssh_host_dsa_key') }}"
+# OpenSSH key
+# -----------
 
-openssh_key_rsa:
-  algorithm: "{{ openssh_key_rsa_algorithm | default('rsa') }}"
-  # increase size_bits to 4096 bits for security
-  size_bits: "{{ openssh_key_rsa_size_bits | default(4096) }}"
-  version:
-    supported: "{{ openssh_key_rsa_version_supported | default('5.3') }}"
-    deprecated: "{{ openssh_key_rsa_version_deprecated | default(omit) }}"
-  state: "{{ openssh_key_rsa_state | default(omit) }}"
-  regenerate: "{{ openssh_key_rsa_regenerate | default(omit) }}"
-  path_prefix: "{{ openssh_key_rsa_path_prefix | default(openssh_config_dir + '/ssh_host_rsa_key') }}"
+openssh_key_algorithms: [dsa, rsa, ecdsa, ed25519]
 
-openssh_key_ecdsa:
-  algorithm: "{{ openssh_key_ecdsa_algorithm | default('ecdsa') }}"
-  # increase size_bits to 521 bits for security
-  size_bits: "{{ openssh_key_ecdsa_size_bits | default(521) }}"
-  version:
-    supported: "{{ openssh_key_ecdsa_version_supported | default('6.0') }}"
-    deprecated: "{{ openssh_key_ecdsa_version_deprecated | default(omit) }}"
-  state: "{{ openssh_key_ecdsa_state | default(omit) }}"
-  regenerate: "{{ openssh_key_ecdsa_regenerate | default(omit) }}"
-  path_prefix: "{{ openssh_key_ecdsa_path_prefix | default(openssh_config_dir + '/ssh_host_ecdsa_key') }}"
+# OpenSSH key - DSA alogorithm
+# ----------------------------
 
-openssh_key_ed25519:
-  algorithm: "{{ openssh_key_ed25519_algorithm | default('ed25519') }}"
-  # size_bits is fixed
-  size_bits: "{{ openssh_key_ed25519_size_bits | default(omit) }}"
-  version:
-    supported: "{{ openssh_key_ed25519_version_supported | default('6.3') }}"
-    deprecated: "{{ openssh_key_ed25519_version_deprecated | default(omit) }}"
-  state: "{{ openssh_key_ed25519_state | default(omit) }}"
-  regenerate: "{{ openssh_key_ed25519_regenerate | default(omit) }}"
-  path_prefix: "{{ openssh_key_ed25519_path_prefix | default(openssh_config_dir + '/ssh_host_ed25519_key') }}"
+openssh_key_dsa_algorithm: dsa
+# size_bits is fixed (FIPS 186-2 Change Notice 1)
+openssh_key_dsa_size_bits: 1024
+openssh_key_dsa_version_supported: "2.2"
+openssh_key_dsa_version_deprecated: "7.0"
+openssh_key_dsa_state: null
+openssh_key_dsa_regenerate: null
+openssh_key_dsa_path_prefix: "{{ openssh_config_dir }}/ssh_host_dsa_key"
+
+# OpenSSH key - RSA algorithm
+# ---------------------------
+
+openssh_key_rsa_algorithm: rsa
+# size_bits is increased to 4096 bits for security
+openssh_key_rsa_size_bits: 4096
+openssh_key_rsa_version_supported: "5.3"
+openssh_key_rsa_version_deprecated: null
+openssh_key_rsa_state: null
+openssh_key_rsa_regenerate: null
+openssh_key_rsa_path_prefix: "{{ openssh_config_dir }}/ssh_host_rsa_key"
+
+# OpenSSH key - ECDSA algorithm
+# -----------------------------
+
+openssh_key_ecdsa_algorithm: ecdsa
+# size_bits is increased to 521 bits for security
+openssh_key_ecdsa_size_bits: 521
+openssh_key_ecdsa_version_supported: "6.0"
+openssh_key_ecdsa_version_deprecated: null
+openssh_key_ecdsa_state: null
+openssh_key_ecdsa_regenerate: null
+openssh_key_ecdsa_path_prefix: "{{ openssh_config_dir }}/ssh_host_ecdsa_key"
+
+# OpenSSH key - ED25519 algorithm
+# -------------------------------
+
+openssh_key_ed25519_algorithm: ed25519
+# size_bits is fixed
+openssh_key_ed25519_size_bits: null
+openssh_key_ed25519_version_supported: "6.3"
+openssh_key_ed25519_version_deprecated: null
+openssh_key_ed25519_state: null
+openssh_key_ed25519_regenerate: null
+openssh_key_ed25519_path_prefix: "{{ openssh_config_dir }}/ssh_host_ed25519_key"
