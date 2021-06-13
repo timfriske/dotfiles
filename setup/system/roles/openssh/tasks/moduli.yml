@@ -1,0 +1,75 @@
+---
+# System-specific OpenSSH setup
+# =============================
+# Tim Friske <me@tifr.de>
+
+- name: Detect state of moduli file
+  stat:
+    path: "{{ openssh_moduli_file }}"
+  register: openssh_moduli_file_stat
+
+- name: Detect state of moduli file shipped with distribution
+  stat:
+    path: "{{ openssh_moduli_file_shipped }}"
+  register: openssh_moduli_file_shipped_stat
+
+- name: Use moduli file shipped with distribution as moduli file
+  copy:
+    src: "{{ openssh_moduli_file_shipped }}"
+    dest: "{{ openssh_moduli_file }}"
+    owner: "{{ openssh_moduli_file_owner }}"
+    group: "{{ openssh_moduli_file_group }}"
+    mode: "{{ openssh_moduli_file_perms }}"
+  when:
+    - openssh_moduli_file_shipped_stat.stat.exists
+    - not openssh_moduli_file_stat.stat.exists
+
+- name: Detect state of moduli file
+  stat:
+    path: "{{ openssh_moduli_file }}"
+  register: openssh_moduli_file_stat
+
+- name: Check if moduli file contains weak DH parameters
+  shell: |
+    awk 'NF==7&&$5<{{ openssh_moduli_file_size_bits_min }}' \
+      {{ openssh_moduli_file }}
+  register: openssh_moduli_file_weak
+  changed_when: false
+  check_mode: false
+  when: openssh_moduli_file_stat.stat.exists
+
+- name: Ensure moduli file contains strong DH parameters only
+  block:
+    - name: Create new moduli file
+      tempfile:
+        state: file
+        prefix: moduli-
+      register: openssh_moduli_file_new
+    - name: Keep strong DH parameters
+      shell: |
+        awk 'NF==7&&$5>={{ openssh_moduli_file_size_bits_min }}' \
+          {{ openssh_moduli_file }} \
+        > {{ openssh_moduli_file_new.path }}
+    - name: Detect state of new moduli file
+      stat:
+        path: "{{ openssh_moduli_file_new.path }}"
+      register: openssh_moduli_file_new_stat
+    - name: Replace moduli file with new one
+      copy:
+        src: "{{ openssh_moduli_file_new.path }}"
+        dest: "{{ openssh_moduli_file }}"
+        owner: "{{ openssh_moduli_file_owner }}"
+        group: "{{ openssh_moduli_file_group }}"
+        mode: "{{ openssh_moduli_file_perms }}"
+      when: openssh_moduli_file_new_stat.stat.size > 0
+  when:
+    - openssh_moduli_file_stat.stat.exists
+    - openssh_moduli_file_weak.stdout
+
+- name: Adjust state of moduli file
+  file:
+    path: "{{ openssh_moduli_file }}"
+    owner: "{{ openssh_moduli_file_owner }}"
+    group: "{{ openssh_moduli_file_group }}"
+    mode: "{{ openssh_moduli_file_perms }}"
+    state: "{{ 'file' if openssh_moduli_file_stat.stat.exists else 'absent' }}"

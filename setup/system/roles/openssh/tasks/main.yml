@@ -32,6 +32,9 @@
     path: "{{ openssh_config_dir_daemon }}"
   register: openssh_config_dir_daemon_stat
 
+- name: Manage moduli file
+  import_tasks: moduli.yml
+
 - name: Disable auto generation of OpenSSH host keys
   lineinfile:
     regexp: '^SSHD_AUTO_KEYGEN="yes"$'

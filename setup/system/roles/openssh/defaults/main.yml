@@ -11,17 +11,27 @@
 # to regenerate it if a key at that path already exists and exposes
 # diverting properties (see _key.yml_ task file).
 
-# OpenSSH directories
-# -------------------
+# OpenSSH directory
+# -----------------
 
 openssh_config_dir: /etc/ssh
 openssh_config_dir_client: "{{ openssh_config_dir }}/ssh_config.d"
 openssh_config_dir_daemon: "{{ openssh_config_dir }}/sshd_config.d"
 
-# OpenSSH files
-# -------------
+# OpenSSH file
+# ------------
 
 openssh_sysconfig_file: /etc/sysconfig/ssh
+
+# OpenSSH file - moduli
+# ---------------------
+
+openssh_moduli_file: "{{ openssh_config_dir }}/moduli"
+openssh_moduli_file_shipped: /usr/etc/ssh/moduli
+openssh_moduli_file_owner: root
+openssh_moduli_file_group: root
+openssh_moduli_file_perms: u=rw,go=
+openssh_moduli_file_size_bits_min: 2048
 
 # OpenSSH host key
 # ----------------
