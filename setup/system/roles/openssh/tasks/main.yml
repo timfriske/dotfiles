@@ -17,20 +17,13 @@
         | regex_replace('.*_([0-9]*.[0-9]).*', '\\1')
       }}
 
+- name: Manage OpenSSH directories
+  import_tasks: directory.yml
+
 - name: Detect state of sysconfig file
   stat:
     path: "{{ openssh_sysconfig_file }}"
   register: openssh_sysconfig_file_stat
-
-- name: Detect state of OpenSSH client drop-in configuration directory
-  stat:
-    path: "{{ openssh_config_dir_client }}"
-  register: openssh_config_dir_client_stat
-
-- name: Detect state of OpenSSH daemon drop-in configuration directory
-  stat:
-    path: "{{ openssh_config_dir_daemon }}"
-  register: openssh_config_dir_daemon_stat
 
 - name: Manage moduli file
   import_tasks: moduli.yml

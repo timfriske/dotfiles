@@ -11,12 +11,32 @@
 # to regenerate it if a key at that path already exists and exposes
 # diverting properties (see _key.yml_ task file).
 
-# OpenSSH directory
-# -----------------
+# OpenSSH directory - configuration
+# ---------------------------------
 
 openssh_config_dir: /etc/ssh
+openssh_config_dir_owner: root
+openssh_config_dir_group: root
+openssh_config_dir_perms: u=rwx,go=rx
+openssh_config_dir_state: directory
+
+# OpenSSH directory - configuration client
+# ----------------------------------------
+
 openssh_config_dir_client: "{{ openssh_config_dir }}/ssh_config.d"
+openssh_config_dir_client_owner: root
+openssh_config_dir_client_group: root
+openssh_config_dir_client_perms: u=rwx,go=rx
+openssh_config_dir_client_state: directory
+
+# OpenSSH directory - configuration daemon
+# ----------------------------------------
+
 openssh_config_dir_daemon: "{{ openssh_config_dir }}/sshd_config.d"
+openssh_config_dir_daemon_owner: root
+openssh_config_dir_daemon_group: root
+openssh_config_dir_daemon_perms: u=rwx,go=rx
+openssh_config_dir_daemon_state: directory
 
 # OpenSSH file
 # ------------

@@ -1,0 +1,28 @@
+---
+# System-specific OpenSSH setup
+# =============================
+# Tim Friske <me@tifr.de>
+
+- name: Adjust state of OpenSSH configuration directory
+  file:
+    path: "{{ openssh_config_dir }}"
+    owner: "{{ openssh_config_dir_owner }}"
+    group: "{{ openssh_config_dir_group }}"
+    mode: "{{ openssh_config_dir_perms }}"
+    state: "{{ openssh_config_dir_state }}"
+
+- name: Adjust state of OpenSSH client drop-in configuration directory
+  file:
+    path: "{{ openssh_config_dir_client }}"
+    owner: "{{ openssh_config_dir_client_owner }}"
+    group: "{{ openssh_config_dir_client_group }}"
+    mode: "{{ openssh_config_dir_client_perms }}"
+    state: "{{ openssh_config_dir_client_state }}"
+
+- name: Adjust state of OpenSSH daemon drop-in configuration directory
+  file:
+    path: "{{ openssh_config_dir_daemon }}"
+    owner: "{{ openssh_config_dir_daemon_owner }}"
+    group: "{{ openssh_config_dir_daemon_group }}"
+    mode: "{{ openssh_config_dir_daemon_perms }}"
+    state: "{{ openssh_config_dir_daemon_state }}"
