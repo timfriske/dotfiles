@@ -38,10 +38,14 @@ openssh_config_dir_daemon_group: root
 openssh_config_dir_daemon_perms: u=rwx,go=rx
 openssh_config_dir_daemon_state: directory
 
-# OpenSSH file
-# ------------
+# OpenSSH file - sysconfig
+# ------------------------
 
 openssh_sysconfig_file: /etc/sysconfig/ssh
+openssh_sysconfig_file_owner: root
+openssh_sysconfig_file_group: root
+openssh_sysconfig_file_perms: u=rw,go=r
+openssh_sysconfig_file_state: file
 
 # OpenSSH file - moduli
 # ---------------------

@@ -20,21 +20,11 @@
 - name: Manage OpenSSH directories
   import_tasks: directory.yml
 
-- name: Detect state of sysconfig file
-  stat:
-    path: "{{ openssh_sysconfig_file }}"
-  register: openssh_sysconfig_file_stat
+- name: Manage sysconfig file
+  import_tasks: sysconfig.yml
 
 - name: Manage moduli file
   import_tasks: moduli.yml
-
-- name: Disable auto generation of OpenSSH host keys
-  lineinfile:
-    regexp: '^SSHD_AUTO_KEYGEN="yes"$'
-    line: SSHD_AUTO_KEYGEN="no"
-    path: "{{ openssh_sysconfig_file }}"
-    state: present
-  when: openssh_sysconfig_file_stat.stat.exists
 
 - name: Manage OpenSSH host keys
   include_tasks: key.yml

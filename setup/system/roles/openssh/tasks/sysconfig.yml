@@ -1,0 +1,28 @@
+---
+# System-specific OpenSSH setup
+# =============================
+# Tim Friske <me@tifr.de>
+
+- name: Detect state of sysconfig file
+  stat:
+    path: "{{ openssh_sysconfig_file }}"
+  register: openssh_sysconfig_file_stat
+
+- name: Adjust state of sysconfig file
+  file:
+    path: "{{ openssh_sysconfig_file }}"
+    owner: "{{ openssh_sysconfig_file_owner }}"
+    group: "{{ openssh_sysconfig_file_group }}"
+    mode: "{{ openssh_sysconfig_file_perms }}"
+    state: "{{ openssh_sysconfig_file_state }}"
+  when: openssh_sysconfig_file_stat.stat.exists
+
+- name: Disable automatic generation of OpenSSH host keys
+  lineinfile:
+    regexp: '^SSHD_AUTO_KEYGEN="yes"$'
+    line: SSHD_AUTO_KEYGEN="no"
+    path: "{{ openssh_sysconfig_file }}"
+    state: present
+  when:
+    - openssh_sysconfig_file_stat.stat.exists
+    - openssh_sysconfig_file_state == 'file'
