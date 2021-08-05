@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# K8S Node Type Zone
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Prints the name, type and zone of Kubernetes nodes.
+# Output columns: NODE NAME, -TYPE, -ZONE
+#
+# Deps:: bash, env, kubectl
+
+# Fail-fast
+shopt -os nounset pipefail errexit errtrace
+
+custom_columns=(
+  'NAME:.metadata.name'
+  'TYPE:.metadata.labels.beta\.kubernetes\.io/instance-type'
+  'ZONE:.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
+)
+
+kubectl get nodes --no-headers \
+  --output "custom-columns=$(IFS=,; printf '%s' "${custom_columns[*]}")"
