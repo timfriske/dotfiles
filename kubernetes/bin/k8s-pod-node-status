@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# K8S Pod Node Status
+# ===================
+# Tim Friske <me@tifr.de>
+#
+# Prints the name, node and status of Kubernetes pods.
+# Output columns: POD NAME, NODE NAME, POD STATUS
+#
+# Deps:: bash, env, kubectl
+
+# Fail-fast
+shopt -os nounset pipefail errexit errtrace
+
+custom_columns=(
+  'NAME:.metadata.name'
+  'NODE:.spec.nodeName'
+  'STATUS:.status.phase'
+)
+
+kubectl get pods --no-headers \
+  --output "custom-columns=$(IFS=,; printf '%s' "${custom_columns[*]}")"
