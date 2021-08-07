@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# K8S Switch Storage Class
+# ========================
+# Tim Friske <me@tifr.de>
+#
+# Switches the Kubernetes storage class from the given old to new
+# default class.
+#
+# Deps:: env, kubectl, sh
+
+set -o errexit -o nounset
+
+old="${1:-${old:?'required'}}"
+new="${2:-${new:?'required'}}"
+
+annotation='storageclass.kubernetes.io/is-default-class'
+
+# Delete annotation from old default storage class.
+kubectl annotate storageclass "${old}" "${annotation}-"
+# Attach annotation to new default storage class.
+kubectl annotate storageclass --overwrite "${new}" "${annotation}=true"
