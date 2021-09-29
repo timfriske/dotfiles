@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Fix Home Ownership command
+# ==========================
+# Tim Friske <me@tifr.de>
+#
+# WARNING: Potentially dangerous command because it may change the
+# ownership inadvertently and irreversible of many files and folders
+# below the given directory to the respective user's ID and its primary
+# group!
+#
+# Utility program that reverts the user ID and group ID of all files
+# below each user home directory whose name matches the name of an
+# existing user to the user ID and primary group ID of that user.
+#
+# When invoked without arguments the program operates on all directories
+# below the `/home` directory. Otherwise on the given directory itself
+# or on all subdirectories thereof.
+#
+# Note: Changing the ownership of files with `chown` usually requires
+# super user priviliges which can be obtained with `sudo` and/or `su`.
+#
+# Deps:: bash, chown, env, find, id
+
+shopt -os nounset pipefail errexit errtrace
+
+get_user_id() {
+  id --user -- "${1}" 2>/dev/null
+}
+
+get_group_id() {
+  id --group -- "${1}" 2>/dev/null
+}
+
+try_set_owner_of_path() {
+  local path="${1}"
+  local user="${path##*/}"
+  local user_id="$(get_user_id "${user}")"
+  local group_id="$(get_group_id "${user}")"
+  if [ -n "${user_id}" ] && [ -n "${group_id}" ]; then
+    chown --recursive -- "${user_id}:${group_id}" "${path}"
+  fi
+}
+
+home_folder="${home:-"${1:-/home}"}"
+if [ -n "$(get_user_id "${home_folder##*/}")" ]; then
+  try_set_owner_of_path "${home_folder}"
+else
+  while IFS= read -r -d '' user_folder; do
+    try_set_owner_of_path "${user_folder}"
+  done < <(find "${home_folder}" -mindepth 1 -maxdepth 1 -type d -print0)
+fi
