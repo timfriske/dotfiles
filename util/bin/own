@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Own command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# WARNING: Potentially dangerous command because it may change the
+# ownership inadvertently and irreversible of many files and folders
+# below the given directory to the given user's ID and its primary
+# group!
+#
+# Utility program that changes the user ID and group ID of the given
+# file or all files below the given folder to the given user's ID and
+# its primary group. Unless specified the user defaults to the current
+# user and the path to the current working directory.
+#
+# Deps:: bash, chown, env, id
+
+shopt -os nounset pipefail errexit errtrace
+
+get_user_id() {
+  id --user -- "${1}" 2>/dev/null
+}
+
+get_group_id() {
+  id --group -- "${1}" 2>/dev/null
+}
+
+user="${1:-"${user:?required}"}"
+path="${2:-"${path:-${PWD}}"}"
+
+user_id="$(get_user_id "${user}")"
+group_id="$(get_group_id "${user}")"
+if [ -n "${user_id}" ] && [ -n "${group_id}" ]; then
+  if [ "${#}" -lt 2 ]; then
+    chown -- "${user_id}:${group_id}" "${path}"
+  elif [ "${#}" -eq 2 ]; then
+    chown --recursive -- "${user_id}:${group_id}" "${path}"
+  fi
+fi
