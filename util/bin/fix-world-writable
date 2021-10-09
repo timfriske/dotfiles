@@ -13,6 +13,8 @@
 #
 # Note: Changing filesystem object metadata usually requires super user
 # privileges which can be obtained with `sudo` and/or `su`.
+#
+# Deps:: bash, chmod, env, find, xargs
 
 shopt -os nounset pipefail errexit errtrace
 
