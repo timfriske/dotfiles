@@ -17,8 +17,9 @@
 # below the `/home` directory. Otherwise on the given directory itself
 # or on all subdirectories thereof.
 #
-# Note: Changing the ownership of files with `chown` usually requires
-# super user privileges which can be obtained with `sudo` and/or `su`.
+# Note: Changing the permissions of filesystem objects with `chmod`
+# usually requires super user privileges which can be obtained with
+# `sudo` and/or `su`.
 #
 # Deps:: bash, chown, env, find, id
 
