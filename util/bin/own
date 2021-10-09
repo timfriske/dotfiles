@@ -4,10 +4,8 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# WARNING: Potentially dangerous command because it may change the
-# ownership inadvertently and irreversible of many files and folders
-# below the given directory to the given user's ID and its primary
-# group!
+# WARNING: Potentially dangerous command because it may change metadata
+# of filesystem objects inadvertently and irreversible!
 #
 # Utility program that changes the user ID and group ID of the given
 # file or all files below the given folder to the given user's ID and
