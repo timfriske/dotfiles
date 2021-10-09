@@ -38,7 +38,7 @@ try_set_owner_of_path() {
   local user_id="$(get_user_id "${user}")"
   local group_id="$(get_group_id "${user}")"
   if [ -n "${user_id}" ] && [ -n "${group_id}" ]; then
-    chown --recursive -- "${user_id}:${group_id}" "${path}"
+    chown --recursive --changes -- "${user_id}:${group_id}" "${path}"
   fi
 }
 
