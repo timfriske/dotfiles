@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Fix World-Writable command
+# ==========================
+# Tim Friske <me@tifr.de>
+#
+# WARNING: Potentially dangerous command because it may change the
+# filesystem permissions inadvertently and irreversible of many files
+# and folders below the given directory by removing the write-bit for
+# other users!
+#
+# Utility program that finds files and folders which are world-readable,
+# i.e. have the write-bit for other users set, and makes them
+# inaccessible by removing that bit.
+#
+# Note: Changing the permissions of files with `chmod` usually requires
+# super user privileges which can be obtained with `sudo` and/or `su`.
+
+shopt -os nounset pipefail errexit errtrace
+
+path="${1:-"${path:?required}"}"
+
+find "${path}" \( -type f -o -type d \) -perm -o+w -print0 \
+  | xargs --no-run-if-empty --null chmod --changes -- o-w
