@@ -13,9 +13,8 @@
 # these permissions eventually. Whether the group has write access
 # depends on whether it has the same name as the user.
 #
-# Note: Changing the permissions of filesystem objects with `chmod`
-# usually requires super user privileges which can be obtained with
-# `sudo` and/or `su`.
+# Note: Changing filesystem object metadata usually requires super user
+# privileges which can be obtained with `sudo` and/or `su`.
 #
 # Deps:: bash, chmod, env, find, sh, xargs
 

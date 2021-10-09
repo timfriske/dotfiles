@@ -11,9 +11,8 @@
 # i.e. have the write-bit for other users set, and makes them
 # inaccessible by removing that bit.
 #
-# Note: Changing the permissions of filesystem objects with `chmod`
-# usually requires super user privileges which can be obtained with
-# `sudo` and/or `su`.
+# Note: Changing filesystem object metadata usually requires super user
+# privileges which can be obtained with `sudo` and/or `su`.
 
 shopt -os nounset pipefail errexit errtrace
 
