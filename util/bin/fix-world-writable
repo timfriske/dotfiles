@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Fix World-Writable command
+# ==========================
+# Tim Friske <me@tifr.de>
+#
+# WARNING: Potentially dangerous command because it may change metadata
+# of filesystem objects inadvertently and irreversible!
+#
+# Utility program that finds files and folders which are world-readable,
+# i.e. have the write-bit for other users set, and makes them
+# inaccessible by removing that bit.
+#
+# Note: Changing filesystem object metadata usually requires super user
+# privileges which can be obtained with `sudo` and/or `su`.
+#
+# Deps:: bash, chmod, env, find, xargs
+
+shopt -os nounset pipefail errexit errtrace
+
+path="${1:-"${path:?required}"}"
+
+find "${path}" \( -type f -o -type d \) -perm -o+w -print0 \
+  | xargs --no-run-if-empty --null \
+    chmod --preserve-root --changes -- o-w

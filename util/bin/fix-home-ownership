@@ -4,10 +4,8 @@
 # ==========================
 # Tim Friske <me@tifr.de>
 #
-# WARNING: Potentially dangerous command because it may change the
-# ownership inadvertently and irreversible of many files and folders
-# below the given directory to the respective user's ID and its primary
-# group!
+# WARNING: Potentially dangerous command because it may change metadata
+# of filesystem objects inadvertently and irreversible!
 #
 # Utility program that reverts the user ID and group ID of all files
 # below each user home directory whose name matches the name of an
@@ -17,8 +15,8 @@
 # below the `/home` directory. Otherwise on the given directory itself
 # or on all subdirectories thereof.
 #
-# Note: Changing the ownership of files with `chown` usually requires
-# super user priviliges which can be obtained with `sudo` and/or `su`.
+# Note: Changing filesystem object metadata usually requires super user
+# privileges which can be obtained with `sudo` and/or `su`.
 #
 # Deps:: bash, chown, env, find, id
 
@@ -38,7 +36,8 @@ try_set_owner_of_path() {
   local user_id="$(get_user_id "${user}")"
   local group_id="$(get_group_id "${user}")"
   if [ -n "${user_id}" ] && [ -n "${group_id}" ]; then
-    chown --recursive -- "${user_id}:${group_id}" "${path}"
+    chown --preserve-root --recursive --changes \
+      -- "${user_id}:${group_id}" "${path}"
   fi
 }
 

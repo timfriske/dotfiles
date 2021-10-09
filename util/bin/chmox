@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Chmox command
+# =============
+# Tim Friske <me@tifr.de>
+#
+# Make the given file(s) executable and the given folder(s) traversable.
+#
+# Note: Changing the permissions of filesystem objects with `chmod`
+# usually requires super user privileges which can be obtained with
+# `sudo` and/or `su`.
+#
+# Deps:: chmod, env, sh
+
+set -o errexit -o nounset
+
+chmod --preserve-root --changes -- a+x "${@}"
