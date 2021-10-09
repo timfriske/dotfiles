@@ -22,22 +22,32 @@ shopt -os nounset pipefail errexit errtrace
 
 path="${1:-"${path:?required}"}"
 
-stat_dir='stat --printf="%U %G %a %n\0" --'
-awk_begin='BEGIN{RS="\0";ORS=RS}'
-awk_same_name='$1==$2&&$3!~/775$/'
-awk_diff_name='$1!=$2&&$3!~/755$/'
-awk_print_path='{print substr($0, length($1 FS $2 FS $3 FS) + 1)}'
-perm_same_name='ug=rwx,o=rx'
-perm_diff_name='u=rwx,go=rx'
+dir_list() {
+  find "${1}" -type d -print0
+}
+
+dir_stats() {
+  xargs --no-run-if-empty --null stat --printf="%U %G %a %n\0" --
+}
+
+dir_perms() {
+  awk 'BEGIN{RS="\0";ORS=RS}'"${1}"'{print substr($0, length($1 FS $2 FS $3 FS) + 1)}'
+}
+
+change_perms() {
+  xargs --no-run-if-empty --null chmod --preserve-root --changes -- "${1}"
+}
 
 # Make folders readable and writable by user and group if user and
 # group have same name.
-find "${path}" -type d \
-    -exec sh -c "${stat_dir} '{}' | awk '${awk_begin}${awk_same_name}${awk_print_path}'" \; \
-  | xargs --no-run-if-empty --null chmod --preserve-root --changes -- "${perm_same_name}"
+dir_list "${path}" \
+  | dir_stats \
+  | dir_perms '$1==$2&&$3!~/775$/' \
+  | change_perms 'ug=rwx,o=rx'
 
 # Make folders readable and writable by user but not by group and
 # others if user and group have different name.
-find "${path}" -type d \
-    -exec sh -c "${stat_dir} '{}' | awk '${awk_begin}${awk_diff_name}${awk_print_path}'" \; \
-  | xargs --no-run-if-empty --null chmod --preserve-root --changes -- "${perm_diff_name}"
+dir_list "${path}" \
+  | dir_stats \
+  | dir_perms '$1!=$2&&$3!~/755$/' \
+  | change_perms 'u=rwx,go=rx'
