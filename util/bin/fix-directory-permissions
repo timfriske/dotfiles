@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# Fix Directory Permissions command
+# =================================
+# Tim Friske <me@tifr.de>
+#
+# WARNING: Potentially dangerous command because it may change the
+# permissions of filesystem objects inadvertently and irreversible!
+#
+# Utility program that finds folders which are not readable, writable
+# and traversable by the owning user and group and/or not readable and
+# traversable by others, and resets the deviating folders to exactly
+# these permissions eventually. Whether the group has write access
+# depends on whether it has the same name as the user.
+#
+# Note: Changing the permissions of filesystem objects with `chmod`
+# usually requires super user privileges which can be obtained with
+# `sudo` and/or `su`.
+#
+# Deps:: bash, chmod, env, find, sh, xargs
+
+shopt -os nounset pipefail errexit errtrace
+
+path="${1:-"${path:?required}"}"
+
+stat_dir='stat --printf="%U %G %a %n\0" --'
+awk_begin='BEGIN{RS="\0";ORS=RS}'
+awk_same_name='$1==$2&&$3!~/775$/'
+awk_diff_name='$1!=$2&&$3!~/755$/'
+awk_print_path='{print substr($0, length($1 FS $2 FS $3 FS) + 1)}'
+perm_same_name='ug=rwx,o=rx'
+perm_diff_name='u=rwx,go=rx'
+
+# Make folders readable and writable by user and group if user and
+# group have same name.
+find "${path}" -type d \
+    -exec sh -c "${stat_dir} '{}' | awk '${awk_begin}${awk_same_name}${awk_print_path}'" \; \
+  | xargs --no-run-if-empty --null chmod --preserve-root --changes -- "${perm_same_name}"
+
+# Make folders readable and writable by user but not by group and
+# others if user and group have different name.
+find "${path}" -type d \
+    -exec sh -c "${stat_dir} '{}' | awk '${awk_begin}${awk_diff_name}${awk_print_path}'" \; \
+  | xargs --no-run-if-empty --null chmod --preserve-root --changes -- "${perm_diff_name}"
