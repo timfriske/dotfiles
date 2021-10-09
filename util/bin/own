@@ -14,27 +14,14 @@
 # its primary group. Unless specified the user defaults to the current
 # user and the path to the current working directory.
 #
-# Deps:: bash, chown, env, id
+# Deps:: bash, chown, env, id, sudo
 
 shopt -os nounset pipefail errexit errtrace
 
-get_user_id() {
-  id --user -- "${1}" 2>/dev/null
-}
+path="${1:-"${path:?required}"}"
 
-get_group_id() {
-  id --group -- "${1}" 2>/dev/null
-}
-
-user="${1:-"${user:?required}"}"
-path="${2:-"${path:-${PWD}}"}"
-
-user_id="$(get_user_id "${user}")"
-group_id="$(get_group_id "${user}")"
-if [ -n "${user_id}" ] && [ -n "${group_id}" ]; then
-  if [ "${#}" -lt 2 ]; then
-    chown -- "${user_id}:${group_id}" "${path}"
-  elif [ "${#}" -eq 2 ]; then
-    chown --recursive -- "${user_id}:${group_id}" "${path}"
-  fi
-fi
+# Get user and primary group of calling user *before* `sudo` switches
+# user identities. This information is lost otherwise.
+user_name="$(id --user --name)"
+group_name="$(id --group --name)"
+sudo chown --recursive --changes -- "${user_name}:${group_name}" "${path}"
