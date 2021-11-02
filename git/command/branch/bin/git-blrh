@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Lists the default branches of all remotes or the one of the given
+# remote, i.e. the branch the HEAD symbolic reference below each remote
+# point to.
+#
+# Deps:: env, git-branch, sh
+
+set -o errexit -o nounset
+
+main() {
+  git branch --list --remotes "${1:-*}/HEAD"
+}
+
+main "${@}"
