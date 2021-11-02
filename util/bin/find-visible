@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Find Visible command
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Utility program that finds only visible files and folders below the
+# given folder or current one by default.
+#
+# Additional arguments may be specified in which case the first one is
+# treated as the search folder and the remaining ones as search
+# criteria.
+#
+# Hidden files and folders are those starting with a dot sign. Hidden
+# directories are entirely skipped to speed up the search process.
+# Consider the `fd` program as a modern alternative to `find` because it
+# excludes hidden entries by default.
+#
+# Deps:: bash, env, find
+
+shopt -os nounset pipefail errexit errtrace
+
+if [ -d "${1:-}" ]; then
+  find "${1}" -type d -path '*/\.*' -prune -o -not -name '.*' "${@:2}"
+else
+  find "${PWD}" -type d -path '*/\.*' -prune -o -not -name '.*' "${@}"
+fi
