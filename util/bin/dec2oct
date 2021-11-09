@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Dec2Oct command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Print the given decimal (base 10) numbers and their octal (base 8)
+# equivalents side-by-side, separated by a tabulator sign.
+#
+# Deps:: bash, env, paste
+
+shopt -os nounset pipefail errexit errtrace
+
+main() {
+  : "${1:?usage: dec2oct DECIMAL... }"
+  paste -- <(printf '%d\n' "${@}") <(printf '%o\n' "${@}")
+}
+
+main "${@}"
