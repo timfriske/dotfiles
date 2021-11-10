@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Dec2Bin command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Print the given decimal (base 10) numbers and their binary (base 2)
+# equivalents side-by-side, separated by a tabulator sign.
+#
+# Deps:: bash, bc, env, paste
+
+shopt -os nounset pipefail errexit errtrace
+
+main() {
+  : "${1:?usage: dec2bin DECIMAL... }"
+  paste -- \
+    <(printf '%d\n' "${@}") \
+    <(printf 'obase=2;%d\n' "${@}" | bc)
+}
+
+main "${@}"
