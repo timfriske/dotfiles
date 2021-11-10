@@ -11,10 +11,7 @@
 set -o errexit -o nounset
 
 main() {
-  if [ "${#}" = 0 ]; then
-    echo 'usage: file-path <path>...'
-    exit 1
-  fi
+  : "${1:?usage: file-path <path>...}"
   local path
   for path in "${@}"; do
     if [ "${path%/*}" = "${path}" ]; then

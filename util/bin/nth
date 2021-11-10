@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# Nth command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Print the nth line read from standard input or given file.
+#
+# Deps:: env, sed, sh
+
+set -o errexit -o nounset
+
+main() {
+  : "${1:?usage: nth NUM [FILE]}"
+  local num="$((${1}))"
+  local file="${2:--}"
+  # Exit when line reached to save CPU cycles.
+  # Faster than:
+  #   * `sed --quiet --expression="${num}p"`
+  #   * `sed --expression="${num}!d"`
+  sed --expression="${num}q;d" -- "${file}"
+}
+
+main "${@}"

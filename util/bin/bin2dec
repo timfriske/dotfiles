@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Bin2Dec command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Print the given binary (base 2) numbers and their decimal (base 10)
+# equivalents side-by-side, separated by a tabulator sign.
+#
+# Deps:: bash, bc, env, paste
+
+shopt -os nounset pipefail errexit errtrace
+
+main() {
+  : "${1:?usage: bin2dec BINARY... }"
+  paste -- \
+    <(printf '%s\n' "${@}") \
+    <(printf 'ibase=2;%s\n' "${@}" | bc)
+}
+
+main "${@}"
