@@ -30,3 +30,24 @@
     state: link
   with_fileglob:
     - command/branch/bin/git-b*
+
+- block:
+    - name: Create extra shortcuts to Git Branch Commands
+      file:
+        src: "{{ item.value }}"
+        dest: "{{ bin_dir }}/{{ item.key }}"
+        state: link
+      loop: "{{ extra_shortcuts | dict2items }}"
+    - name: Create extra shortcuts to Git Branch Commands
+      file:
+        src: "{{ item.key }}"
+        dest: "{{ bin_dir }}/\
+               {{ item.key \
+               | regex_replace('^git-b(.*)', '/gb\\1') }}"
+        state: link
+      loop: "{{ extra_shortcuts | dict2items }}"
+  vars:
+    extra_shortcuts:
+      git-bcc: git-bcf
+      git-bdd: git-bdf
+      git-bmm: git-bmf
