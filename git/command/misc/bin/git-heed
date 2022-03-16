@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Git Heed command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Assume tracked files as changed again which were assumed as unchanged
+# previously with the command `git update-index --assume-unchanged` or
+# its shortcut `git shun`.
+#
+# Deps:: env, git, sh
+
+set -o errexit -o nounset
+
+main() {
+  git update-index --no-assume-unchanged "${@}"
+}
+
+main "${@}"
