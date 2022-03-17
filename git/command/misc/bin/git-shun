@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Git Shun command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Assume tracked files as unchanged. List files which are assumed
+# unchanged with the command `git ls-files -v "${@}" | grep '^[a-z?]'`
+# or its shortcut `git-shunned`.
+#
+# Deps:: env, git, sh
+
+set -o errexit -o nounset
+
+main() {
+  git update-index --assume-unchanged "${@}"
+}
+
+main "${@}"

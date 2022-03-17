@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Git Shunned command
+# ===================
+# Tim Friske <me@tifr.de>
+#
+# List tracked files which were assumed unchanged previously with
+# the command `git update-index --assume-unchanged` or its shortcut
+# `git shun` and not yet assumed changed again with
+# `git update-index --no-assume-unchanged` or `git heed`.
+#
+# Deps:: env, git, sh
+
+set -o errexit -o nounset
+
+main() {
+  git ls-files -v "${@}" | grep '^[a-z?]'
+}
+
+main "${@}"
