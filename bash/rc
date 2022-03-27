@@ -31,7 +31,9 @@
 # because this function is not very useful and just confuses most users.
 # The previously bound hot keys can be assigned new functions hereafter.
 #
-stty -ixon
+if [[ "${-}" == *i* ]]; then
+  stty -ixon
+fi
 
 # Shell options
 # -------------
