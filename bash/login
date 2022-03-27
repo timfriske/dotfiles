@@ -38,15 +38,15 @@ declare -a _paths=()
 declare -A _paths_real=()
 
 # Use _Bash's_ brace expansion for brevity.
-for _path in "$HOME"/{.local/,}bin {/usr/{local/,},/}{,s}bin; do
-  if [[ -d "$_path" ]]; then
+for _path in "${HOME}"/{.local/,}bin {/usr/{local/,},/}{,s}bin; do
+  if [[ -d "${_path}" ]]; then
     # Resolve symlinks in path.
-    _path_real="$(cd "$_path" && pwd -P)"
+    _path_real="$(cd "${_path}" && pwd -P)"
 
     # Add path only if not already added.
-    if [[ ! -n "${_paths_real[$_path_real]+x}" ]]; then
-      _paths_real["$_path_real"]+=''
-      _paths+=("$_path")
+    if [[ ! -n "${_paths_real[${_path_real}]+x}" ]]; then
+      _paths_real["${_path_real}"]+=''
+      _paths+=("${_path}")
     fi
   fi
 done
@@ -255,7 +255,7 @@ GREP_X_OPTIONS+='--color=auto '
 #
 export HISTSIZE=100000
 export HISTFILE=~/.bash_history
-export HISTFILESIZE="$HISTSIZE"
+export HISTFILESIZE="${HISTSIZE}"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTCONTROL='erasedups:ignorespace'
 export HISTIGNORE=''
@@ -412,7 +412,7 @@ MV_X_OPTIONS+='--verbose '
 # Tell programs to open files in favorite pager _Less_.
 #
 export PAGER='less'
-export SYSTEMD_LESS="$LESS"
+export SYSTEMD_LESS="${LESS}"
 
 # Prompt - Command line prompt
 #
@@ -499,7 +499,7 @@ fi
 # ------------------------
 
 # Test if interactive shell and its startup file is readable.
-if [[ "$-" == *i* && -f ~/.bashrc && -r ~/.bashrc ]]; then
+if [[ "${-}" == *i* && -f ~/.bashrc && -r ~/.bashrc ]]; then
   # Read and execute commands from its startup file.
   source ~/.bashrc
 fi
