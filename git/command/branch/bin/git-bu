@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, git-rev-parse, sh
+
+set -o errexit -o nounset
+
+main() {
+  git rev-parse --abbrev-ref --symbolic-full-name "${1:-HEAD}@{u}"
+}
+
+main "${@}"
