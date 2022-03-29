@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# Git Root command
+# ================
+# Tim Friske <me@tifr.de>
+#
+#
+# Deps:: env, git-rev-parse, sh
+
+set -o errexit -o nounset
+
+main() {
+  git rev-parse --show-toplevel "${@}"
+}
+
+main "${@}"
