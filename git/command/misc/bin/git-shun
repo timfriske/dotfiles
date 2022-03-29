@@ -8,7 +8,7 @@
 # unchanged with the command `git ls-files -v "${@}" | grep '^[a-z?]'`
 # or its shortcut `git-shunned`.
 #
-# Deps:: env, git, sh
+# Deps:: env, git-update-index, sh
 
 set -o errexit -o nounset
 
