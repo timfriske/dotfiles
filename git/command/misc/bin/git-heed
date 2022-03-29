@@ -8,7 +8,7 @@
 # previously with the command `git update-index --assume-unchanged` or
 # its shortcut `git shun`.
 #
-# Deps:: env, git, sh
+# Deps:: env, git-update-index, sh
 
 set -o errexit -o nounset
 

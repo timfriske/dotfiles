@@ -9,7 +9,7 @@
 # `git shun` and not yet assumed changed again with
 # `git update-index --no-assume-unchanged` or `git heed`.
 #
-# Deps:: env, git, sh
+# Deps:: env, git-ls-files, grep, sh
 
 set -o errexit -o nounset
 
