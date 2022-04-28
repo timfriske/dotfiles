@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# AWS Who command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Prints the AWS Security Token Service (STS) caller identity, i.e. the
+# details about the IAM user or role whose credentials are used to call
+# the operation.
+#
+# Deps:: aws, env, sh
+
+set -o errexit -o nounset
+
+main() {
+  aws sts get-caller-identity "${@}"
+}
+
+main "${@}"
