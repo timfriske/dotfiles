@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Git Ls-remote command
+# =====================
+# Tim Friske <me@tifr.de>
+#
+# Deps:: awk, env, git-ls-remote, sh
+
+set -o errexit -o nounset
+
+main() {
+  git ls-remote --tags --refs "${@:-origin}" | awk '{sub(".*/", "", $2);print $2}'
+}
+
+main "${@}"
