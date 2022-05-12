@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Git Ls-remote command
+# =====================
+# Tim Friske <me@tifr.de>
+#
+# Lists tags of given remote repository or `origin` by default.
+#
+# Deps:: awk, env, git-ls-remote, sh
+
+set -o errexit -o nounset
+
+main() {
+  # List remote tags. Drop commit IDs in first column. Keep tags in
+  # second column. Strip prefix `refs/tags/` from tags.
+  git ls-remote --tags --refs "${@:-origin}" \
+    | awk '{sub("refs/tags/","",$2);print $2}'
+}
+
+main "${@}"
