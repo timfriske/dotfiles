@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Git Push command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, git-push, sh
+
+set -o errexit -o nounset
+
+main() {
+  git push --mirror "${@}"
+}
+
+main "${@}"
