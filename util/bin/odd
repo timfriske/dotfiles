@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Odd command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Prints lines on odd line numbers.
+#
+# Deps:: env, sh, awk
+
+set -o errexit -o nounset
+
+main() {
+  awk 'FNR%2==1' "${@}"
+}
+
+main "${@}"
