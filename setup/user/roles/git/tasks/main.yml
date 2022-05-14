@@ -79,6 +79,10 @@
   import_tasks: command/misc/bin/main.yml
   tags: [git-command, git-misc]
 
+- name: Set up binary directory with Git Push commands
+  import_tasks: command/push/bin/main.yml
+  tags: [git-command, git-push]
+
 - name: Set up binary directory with Git Rebase commands
   import_tasks: command/rebase/bin/main.yml
   tags: [git-command, git-rebase]
