@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+# Ppds command
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Prints the parent directories starting from the current working
+# directory upwards.
+#
+# Deps:: env, sh
+
+set -o errexit -o nounset
+
+main() {
+  local folder="${PWD}"
+  until [ -z "${folder}" ]; do
+    printf '%s\n' "${folder}"
+    folder="${folder%/*}"
+  done
+  if [ "${PWD}" != '/' ]; then
+    echo '/'
+  fi
+}
+
+main "${@}"

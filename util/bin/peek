@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Peek command
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Print the output of one command that is piped as input to another
+# command to the standard error stream in order to have a peek at it.
+#
+# Deps:: cat, env, sh, tee
+
+set -o errexit -o nounset
+
+tee >(cat >&2)
