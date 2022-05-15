@@ -14,7 +14,7 @@ set -o errexit -o nounset
 main() {
   local folder="${PWD}"
   until [ -z "${folder}" ]; do
-    printf '%s\n' "${folder}"
+    printf '%q\n' "${folder}"
     folder="${folder%/*}"
   done
   if [ "${PWD}" != '/' ]; then

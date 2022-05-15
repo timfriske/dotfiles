@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Fzf-ppds command
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Prints the parent directories starting from the current working
+# directory upwards and lets the user select the ones s/he is interested
+# in.
+#
+# Deps:: bash, cut, env, fzf, nl, ppds
+
+shopt -os nounset pipefail errexit errtrace
+
+main() {
+  local env_opts=()
+  env_opts+=(${FZF_DEFAULT_OPTS:-})
+  env_opts+=(${FZF_PPDS_FZF_OPTS:-})
+  ppds | nl | fzf "${env_opts[@]}" "${@}" \
+    | cut --delimiter=$'\t' --complement --fields=1
+}
+
+main "${@}"
+

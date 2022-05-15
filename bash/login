@@ -177,14 +177,24 @@ FREE_X_OPTIONS+='--si '
 # Fzf - Fuzzy-search and select all kinds of items
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
+# height::
+#   display fzf window below cursor with given height in percent instead
+#   of using full screen.
+# layout::
+#   reverse;;
+#     display from top of screen.
 # multi::
-#   allow selecting multiple items
+#   allow selecting multiple items.
 # exit-0::
-#   exit immediately if none of the items matches
+#   exit immediately if none of the items matches.
 
 # 1. Allow user to select multiple _Git_ branches with _Fzf_.
 # 2. Exit immediately if there is no matching _Git_ branch.
 export FZF_GIT_BRANCH_FZF_OPTS='--multi --exit-0'
+
+export FZF_PPDS_FZF_OPTS=''
+FZF_PPDS_FZF_OPTS+='--height=1% --layout=reverse --multi '
+FZF_PPDS_FZF_OPTS+='--bind=ctrl-a:select-all,ctrl-d:deselect-all '
 
 # 1. Allow user to select multiple _Git_ tags with _Fzf_.
 # 2. Exit immediately if there is no matching _Git_ tag.
