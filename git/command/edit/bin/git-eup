@@ -8,10 +8,5 @@
 
 set -o errexit -o nounset
 
-main() {
-  git diff --name-only --diff-filter=U -z \
-    | parallel --tty -Xj1 --no-run-if-empty --max-args=10 --null \
-      git edit
-}
-
-main "${@}"
+git diff --name-only --diff-filter=U -z \
+  | parallel --tty -Xj1 --no-run-if-empty --max-args=10 --null git edit
