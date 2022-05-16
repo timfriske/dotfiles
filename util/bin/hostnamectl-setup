@@ -4,6 +4,9 @@
 # ==============================
 # Tim Friske <me@tifr.de>
 #
+# Provides information about the given host or localhost by default,
+# currently its static and pretty hostname as well as its location.
+#
 # Deps:: awk, bash, env, hostnamectl
 
 set -o errexit -o nounset
@@ -19,10 +22,13 @@ static_hostname="$(hostnamectl --static)"
 pretty_hostname="$(hostnamectl --pretty)"
 host_location="$(machine_info_var_val LOCATION)"
 
-read -er -p "Static host name: " -i "${static_hostname}" static_hostname
-read -er -p "Pretty host name: " -i "${pretty_hostname}" pretty_hostname
-read -er -p "Location of host: " -i "${host_location}" host_location
+read -er -p 'Host (localhost): ' host
+read -er -p 'Static host name: ' -i "${static_hostname}" static_hostname
+read -er -p 'Pretty host name: ' -i "${pretty_hostname}" pretty_hostname
+read -er -p 'Location of host: ' -i "${host_location}" host_location
 
-hostnamectl set-hostname --static "${static_hostname}"
-hostnamectl set-hostname --pretty "${pretty_hostname}"
-hostnamectl set-location "${host_location}"
+hostnamectl ${host:+--host="${host}"} set-hostname --static -- "${static_hostname}"
+hostnamectl ${host:+--host="${host}"} set-hostname --pretty -- "${pretty_hostname}"
+hostnamectl ${host:+--host="${host}"} set-location -- "${host_location}"
+
+hostnamectl ${host:+--host="${host}"} status
