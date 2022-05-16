@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git push --prune "${@}"
-}
-
-main "${@}"
+git push --prune "${@}"
