@@ -10,8 +10,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  TZ=UTC date
-}
-
-main "${@}"
+TZ=UTC date "${@}"
