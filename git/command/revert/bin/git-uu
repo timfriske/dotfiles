@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git revert ${GIT_X_SIGNOFF:-} "${@}"
-}
-
-main "${@}"
+git revert ${GIT_X_SIGNOFF:-} "${@}"
