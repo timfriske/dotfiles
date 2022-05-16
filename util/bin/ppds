@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Ppds command
 # ============
@@ -7,7 +7,7 @@
 # Prints the parent directories starting from the current working
 # directory upwards.
 #
-# Deps:: env, sh
+# Deps:: bash, env
 
 set -o errexit -o nounset
 
