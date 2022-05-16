@@ -8,9 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  local head_at_commit="${1:-HEAD}"
-  git checkout --detach "${head_at_commit}"
-}
-
-main "${@}"
+git checkout --detach "${1:-HEAD}"
