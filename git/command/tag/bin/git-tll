@@ -10,15 +10,11 @@
 
 set -o errexit -o nounset
 
-main() {
-  # List tags. Drop commit IDs in first column. Keep tags in second
-  # column. Strip prefix `refs/tags/` and suffix `^{}` from tags. Keep
-  # light-weight tags, i.e. those that appear once because they are already
-  # references which cannot be dereferenced and thus are not printed a
-  # second time ending in `^{}`.
-  git show-ref --tags --dereference "${@}" \
-    | awk '{sub("refs/tags/","",$2);sub(/\^\{\}$/,"",$2);print $2}' \
-    | uniq --unique
-}
-
-main "${@}"
+# List tags. Drop commit IDs in first column. Keep tags in second
+# column. Strip prefix `refs/tags/` and suffix `^{}` from tags. Keep
+# light-weight tags, i.e. those that appear once because they are
+# already references which cannot be dereferenced and thus are not
+# printed a second time ending in `^{}`.
+git show-ref --tags --dereference "${@}" \
+  | awk '{sub("refs/tags/","",$2);sub(/\^\{\}$/,"",$2);print $2}' \
+  | uniq --unique

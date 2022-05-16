@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git tag --annotate --force "${@}"
-}
-
-main "${@}"
+git tag --annotate --force "${@}"
