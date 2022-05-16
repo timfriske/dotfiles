@@ -8,4 +8,4 @@
 
 set -o errexit -o nounset
 
-git count-objects --vH
+git count-objects --verbose --human-readable
