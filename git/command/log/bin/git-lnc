@@ -10,8 +10,4 @@ set -o errexit -o nounset
 
 # Log nth changes.
 #
-main() {
-  git log --max-count=1 --oneline --name-status "${@}"
-}
-
-main "${@}"
+git log --max-count=1 --oneline --name-status "${@}"
