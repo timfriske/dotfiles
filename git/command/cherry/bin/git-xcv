@@ -1,15 +1,11 @@
 #!/usr/bin/env sh
 
-# Git Cherry-pick command
-# =======================
+# Git Cherry command
+# ==================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-cherry-pick, sh
+# Deps:: env, git-cherry, sh
 
 set -o errexit -o nounset
 
-main() {
-  git cherry -v
-}
-
-main "${@}"
+git cherry -v "${@}"
