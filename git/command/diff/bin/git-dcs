@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git diff --cached --stat "${@}"
-}
-
-main "${@}"
+git diff --cached --stat "${@}"
