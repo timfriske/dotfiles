@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git shortlog --summary --numbered --email "${@}"
-}
-
-main "${@}"
+git shortlog --summary --numbered --email "${@}"

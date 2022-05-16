@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git stash show "${@}"
-}
-
-main "${@}"
+git stash show "${@}"

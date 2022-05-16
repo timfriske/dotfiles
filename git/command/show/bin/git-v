@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git show "${@}"
-}
-
-main "${@}"
+git show "${@}"

@@ -11,12 +11,8 @@
 
 set -o errexit -o nounset
 
-main() {
-  git for-each-ref \
-    --format='%(if:notequals=*)%(HEAD)%(then)%(refname:lstrip=2)%(end)' \
-    refs/heads/ \
-    --merged \
+git for-each-ref \
+  --format='%(if:notequals=*)%(HEAD)%(then)%(refname:lstrip=2)%(end)' \
+  refs/heads/ \
+  --merged \
   | xargs --no-run-if-empty git-bd
-}
-
-main "${@}"

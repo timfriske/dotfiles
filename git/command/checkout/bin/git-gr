@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git checkout --recurse-submodules "${@}"
-}
-
-main "${@}"
+git checkout --recurse-submodules "${@}"

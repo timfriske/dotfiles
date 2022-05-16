@@ -12,8 +12,4 @@ set -o errexit -o nounset
 # previous branch unless another Git checkout operation is chosen by
 # passing arguments.
 #
-main() {
-  git checkout "${@:--}"
-}
-
-main "${@}"
+git checkout "${@:--}"

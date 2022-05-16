@@ -14,15 +14,12 @@ set -o errexit -o nounset
 tabulator="$(printf '\t')"
 
 awk_tab() {
-  awk \
-    --assign="FS=${tabulator}" \
-    --assign="OFS=${tabulator}" \
-    "${@}"
+  awk -v FS="${tabulator}" -v OFS="${tabulator}" "${@}"
 }
 
 git_config_show() {
   git config --show-origin "${1}.${2}" \
-  | awk_tab --assign="title=${1} ${2}" \
+  | awk_tab -v "title=${1} ${2}" \
       '{
         idx=split($1,origin,"/")
         print title":",$2,"("origin[idx]")"
@@ -31,7 +28,7 @@ git_config_show() {
 
 git_config_show_scope() {
   git config --show-origin --show-scope "${1}.${2}" \
-  | awk_tab --assign="title=${1} ${2}" \
+  | awk_tab -v "title=${1} ${2}" \
       '{
         idx=split($2,origin,"/")
         print title":",$3,"("$1" "origin[idx]")"

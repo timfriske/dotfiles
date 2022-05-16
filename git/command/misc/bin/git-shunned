@@ -13,8 +13,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git ls-files -v "${@}" | grep '^[a-z?]'
-}
-
-main "${@}"
+git ls-files -v "${@}" | grep '^[a-z?]'

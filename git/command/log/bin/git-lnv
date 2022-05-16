@@ -10,8 +10,4 @@ set -o errexit -o nounset
 
 # Log nth commit's cryptograhpic signature.
 #
-main() {
-  git log --max-count=1 --oneline --show-signature "${@}"
-}
-
-main "${@}"
+git log --max-count=1 --oneline --show-signature "${@}"

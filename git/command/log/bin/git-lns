@@ -10,8 +10,4 @@ set -o errexit -o nounset
 
 # Log nth statistics.
 #
-main() {
-  git log --max-count=1 --oneline --stat "${@}"
-}
-
-main "${@}"
+git log --max-count=1 --oneline --stat "${@}"

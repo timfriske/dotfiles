@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git reset --hard @{upstream} "${@}"
-}
-
-main "${@}"
+git reset --hard @{upstream} "${@}"

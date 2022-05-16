@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git bisect skip "${@}"
-}
-
-main "${@}"
+git bisect skip "${@}"

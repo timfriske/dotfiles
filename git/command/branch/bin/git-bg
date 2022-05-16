@@ -11,11 +11,7 @@
 
 set -o errexit -o nounset
 
-main() {
-  git for-each-ref \
-    --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' \
-    refs/heads \
+git for-each-ref \
+  --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' \
+  refs/heads \
   | xargs --no-run-if-empty printf '%s\n'
-}
-
-main "${@}"

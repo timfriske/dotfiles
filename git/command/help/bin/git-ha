@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git help --all "${@}"
-}
-
-main "${@}"
+git help --all "${@}"

@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git status --short --branch --untracked-files=no "${@}"
-}
-
-main "${@}"
+git status --short --branch --untracked-files=no "${@}"

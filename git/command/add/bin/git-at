@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git add --intent-to-add --verbose "${@}"
-}
-
-main "${@}"
+git add --intent-to-add --verbose "${@}"

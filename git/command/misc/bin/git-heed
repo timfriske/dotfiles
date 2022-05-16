@@ -12,8 +12,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git update-index --no-assume-unchanged "${@}"
-}
-
-main "${@}"
+git update-index --no-assume-unchanged "${@}"

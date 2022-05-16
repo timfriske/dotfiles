@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git branch --copy --force "${@}"
-}
-
-main "${@}"
+git branch --copy --force "${@}"

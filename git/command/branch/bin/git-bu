@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git rev-parse --abbrev-ref --symbolic-full-name "${1:-HEAD}@{u}"
-}
-
-main "${@}"
+git rev-parse --abbrev-ref --symbolic-full-name "${1:-HEAD}@{upstream}"

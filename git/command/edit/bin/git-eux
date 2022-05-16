@@ -8,9 +8,5 @@
 
 set -o errexit -o nounset
 
-main() {
-  git diff --name-only --diff-filter=U -z \
-    | xargs -o -n 10 -0 git edit
-}
-
-main "${@}"
+git diff --name-only --diff-filter=U -z \
+  | xargs -o -n 10 -0 git edit

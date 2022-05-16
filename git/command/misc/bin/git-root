@@ -9,8 +9,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git rev-parse --show-toplevel "${@}"
-}
-
-main "${@}"
+git rev-parse --show-toplevel "${@}"

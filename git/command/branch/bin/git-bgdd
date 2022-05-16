@@ -11,8 +11,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git-bg | xargs --no-run-if-empty git-bdd
-}
-
-main "${@}"
+git-bg | xargs --no-run-if-empty git-bdd

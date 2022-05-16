@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git fetch --recurse-submodules=on-demand --prune --jobs=2 "${@}"
-}
-
-main "${@}"
+git fetch --recurse-submodules=on-demand --prune --jobs=2 "${@}"

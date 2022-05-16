@@ -8,9 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  local downstream_branch="${1:-HEAD}"
-  git branch --unset-upstream "${downstream_branch}"
-}
-
-main "${@}"
+git branch --unset-upstream "${1:-HEAD}"

@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git fetch --all --prune "${@}"
-}
-
-main "${@}"
+git fetch --all --prune "${@}"
