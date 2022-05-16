@@ -4,6 +4,9 @@
 # =============
 # Tim Friske <me@tifr.de>
 #
+# Starts a CLI timer and stops it when any key is pressed. It reports
+# when the timer was started, stopped and how much time elapsed inbetween.
+#
 # Deps:: bash, date, env
 
 timestamp() {
