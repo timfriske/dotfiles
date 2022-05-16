@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git add --patch "${@}"
-}
-
-main "${@}"
+git add --patch "${@}"
