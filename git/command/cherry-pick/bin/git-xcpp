@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git cherry-pick ${GIT_X_SIGNOFF} "${@}"
-}
-
-main "${@}"
+git cherry-pick ${GIT_X_SIGNOFF} "${@}"

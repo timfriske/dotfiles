@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git cherry-pick --quit "${@}"
-}
-
-main "${@}"
+git cherry-pick --quit "${@}"
