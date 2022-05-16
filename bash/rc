@@ -132,6 +132,11 @@ alias cdd='cd -'
 #
 alias cdg='cd -- "$(git rev-parse --show-toplevel)"'
 
+# Change to the root directory.  Faster to type because characters are
+# closer.
+#
+alias cdr='cd /'
+
 # With the shell option `autocd` switched on executing `..` already
 # changes to the parent directory.  This alias acts as a fallback in
 # case that shell option is switched off.

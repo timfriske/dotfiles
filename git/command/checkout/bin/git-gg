@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Git Checkout command
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, git-checkout, sh
+
+set -o errexit -o nounset
+
+main() {
+  local remote="${1:-origin}"
+  local default_branch="$(git rev-parse --abbrev-ref "${remote}/HEAD")"
+  git checkout "${default_branch#"${remote}/"}"
+}
+
+main "${@}"

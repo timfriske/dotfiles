@@ -10,8 +10,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  date '+week %V'
-}
-
-main "${@}"
+date '+week %V'
