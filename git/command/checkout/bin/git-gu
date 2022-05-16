@@ -1,11 +1,16 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Checkout command
 # ====================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-checkout, sh
+# Deps:: bash, env, git-checkout
 
 set -o errexit -o nounset
 
-git checkout @{upstream}
+# Does upstream branch differ from current branch? Without this check
+# the current branch would be checked out in detached HEAD state if it
+# had no upstream configured.
+if [[ "$(git rev-parse --abbrev-ref "${1:-HEAD}@{upstream}")" != */"$(git branch --show-current)" ]]; then
+  git checkout "${1:-HEAD}@{upstream}"
+fi
