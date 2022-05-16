@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git commit --amend --edit ${GIT_X_SIGNOFF:-} "${@}"
-}
-
-main "${@}"
+git commit --amend --edit ${GIT_X_SIGNOFF:-} "${@}"
