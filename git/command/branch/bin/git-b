@@ -11,8 +11,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git branch "${@:---show-current}"
-}
-
-main "${@}"
+git branch "${@:---show-current}"

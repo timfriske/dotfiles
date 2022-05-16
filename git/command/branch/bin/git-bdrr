@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git branch --delete --remotes --force "${@}"
-}
-
-main "${@}"
+git branch --delete --remotes --force "${@}"

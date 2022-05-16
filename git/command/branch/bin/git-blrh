@@ -12,8 +12,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git branch --list --remotes "${1:-*}/HEAD"
-}
-
-main "${@}"
+git branch --list --remotes "${1:-*}/HEAD"

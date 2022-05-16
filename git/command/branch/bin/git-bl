@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git branch --list "${@}"
-}
-
-main "${@}"
+git branch --list "${@}"
