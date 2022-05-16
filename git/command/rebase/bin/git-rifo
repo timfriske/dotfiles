@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  git rebase --interactive --no-ff ${GIT_X_SIGNOFF:-} --onto "${@}"
-}
-
-main "${@}"
+git rebase --interactive --no-ff ${GIT_X_SIGNOFF:-} --onto "${@}"
