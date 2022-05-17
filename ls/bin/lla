@@ -4,12 +4,13 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
+# Lists information about given files or files in current working
+# directory by default. Lists files in long format, i.e. with additional
+# information. List visible files, i.e. those not starting with a dot
+# character.
+#
 # Deps:: env, ls, sh
 
 set -o errexit -o nounset
 
-main() {
-  ls ${LS_X_OPTIONS:-} --format=long --almost-all "${@}"
-}
-
-main "${@}"
+ls ${LS_X_OPTIONS:-} --format=long --almost-all "${@}"

@@ -4,12 +4,12 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
+# Lists information about given files or files in current working
+# directory by default. Sorts files by alphanumerical version numbers in
+# ascending order.
+#
 # Deps:: env, ls, sh
 
 set -o errexit -o nounset
 
-main() {
-  ls ${LS_X_OPTIONS:-} --sort=version "${@}"
-}
-
-main "${@}"
+ls ${LS_X_OPTIONS:-} --sort=version "${@}"

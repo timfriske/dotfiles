@@ -4,12 +4,11 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
+# Lists information about given files or files in current working
+# directory by default. Sorts files by time in ascending order.
+#
 # Deps:: env, ls, sh
 
 set -o errexit -o nounset
 
-main() {
-  ls ${LS_X_OPTIONS:-} --sort=time "${@}"
-}
-
-main "${@}"
+ls ${LS_X_OPTIONS:-} --sort=time --reverse "${@}"
