@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  ls ${LS_X_OPTIONS:-} --sort=extension "${@}"
-}
-
-main "${@}"
+ls ${LS_X_OPTIONS:-} --sort=extension "${@}"
