@@ -2,7 +2,18 @@
 # ================================ 
 # Tim Friske <me@tifr.de>
 
+# Default SSH key
 Host github github.com
   HostName github.com
   User git
-  IdentityFile ~/.ssh/id_ed25519.pub
+  IdentityFile ~/.ssh/key/openpgp/alias/me-tifr-de_ed25519.pub
+
+Host leisure.github leisure.github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/key/openpgp/alias/me-tifr-de_ed25519.pub
+
+Host work.github work.github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/key/openpgp/alias/friske-tim-indivumed-com_ed25519.pub
