@@ -4,6 +4,9 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
+# Lists information about given files or files in current working
+# directory by default. Sorts files by extension in ascending order.
+#
 # Deps:: env, ls, sh
 
 set -o errexit -o nounset

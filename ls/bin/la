@@ -4,6 +4,10 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
+# Lists information about given files or files in current working
+# directory by default. List visible files, i.e. those not starting with
+# a dot character.
+#
 # Deps:: env, ls, sh
 
 set -o errexit -o nounset
