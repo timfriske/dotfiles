@@ -6,10 +6,10 @@
 #
 # Lists information about given files or files in current working
 # directory by default. Lists files in long format, i.e. with additional
-# information. Sorts files by size in descending order.
+# information. Sorts files by size in ascending order.
 #
 # Deps:: env, ls, sh
 
 set -o errexit -o nounset
 
-ls ${LS_X_OPTIONS:-} --format=long --sort=size "${@}"
+ls ${LS_X_OPTIONS:-} --format=long --sort=size --reverse "${@}"
