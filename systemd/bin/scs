@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  systemctl --user "${@}"
-}
-
-main "${@}"
+systemctl --system "${@}"
