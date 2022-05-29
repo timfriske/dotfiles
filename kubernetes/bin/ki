@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  kubectl cluster-info "${@}"
-}
-
-main "${@}"
+kubectl cluster-info "${@}"

@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  kubectl explain "${@}"
-}
-
-main "${@}"
+kubectl explain "${@}"

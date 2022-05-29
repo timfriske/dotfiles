@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  kubectl top node --sort-by=memory "${@}"
-}
-
-main "${@}"
+kubectl top node --sort-by=memory "${@}"

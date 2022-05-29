@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  kubectl version --short "${@}"
-}
-
-main "${@}"
+kubectl version --short "${@}"
