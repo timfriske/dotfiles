@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  kubectl top node "${@}"
-}
-
-main "${@}"
+kubectl top node "${@}"

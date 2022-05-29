@@ -23,8 +23,4 @@ rank() {
   sort | uniq --count | sort --sort=numeric --reverse
 }
 
-main() {
-  node_zones | rank
-}
-
-main "$@"
+node_zones | rank
