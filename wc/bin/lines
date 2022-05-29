@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  wc --lines "${@}"
-}
-
-main "${@}"
+wc --lines "${@}"
