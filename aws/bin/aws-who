@@ -12,8 +12,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  aws sts get-caller-identity "${@}"
-}
-
-main "${@}"
+aws sts get-caller-identity "${@}"
