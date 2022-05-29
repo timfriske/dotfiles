@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# GPG Agent TTY command
+# =====================
+# Tim Friske <me@tifr.de>
+#
+# Updates the GPG agent's TTY in order to tell it on which TTY to prompt
+# the user for passphrases.
+#
+# Deps:: env, gpg-connect-agent, sh
+
+set -o errexit -o nounset
+
+echo Updating GPG TTY...
+echo UPDATESTARTUPTTY | gpg-connect-agent
