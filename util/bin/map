@@ -13,7 +13,7 @@
 set -o errexit -o nounset
 
 main() {
-  xargs --max-args=1 "${@}"
+  xargs --max-args=1 --no-run-if-empty "${@}"
 }
 
 main "${@}"
