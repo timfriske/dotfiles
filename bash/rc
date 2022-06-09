@@ -388,13 +388,6 @@ alias rd='rmdir'
 #
 alias rsync='rsync ${RSYNC_X_OPTIONS:-}'
 
-# Tar - Re-/store files from/to tape archives
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Define alias to call `tar` command with default options.
-#
-alias tar='tar ${TAR_X_OPTIONS:-}'
-
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
