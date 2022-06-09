@@ -13,8 +13,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  diff ${DIFF_X_OPTIONS:-} --recursive --brief "${@}"
-}
-
-main "${@}"
+diff ${DIFF_X_OPTIONS:-} --recursive --brief "${@}"

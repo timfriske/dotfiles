@@ -8,8 +8,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  lsb_release --all
-}
-
-main "${@}"
+lsb_release --all

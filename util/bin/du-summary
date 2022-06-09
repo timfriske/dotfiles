@@ -10,8 +10,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  du ${DU_X_OPTIONS:-} --summarize "${@}"
-}
-
-main "${@}"
+du ${DU_X_OPTIONS:-} --summarize "${@}"
