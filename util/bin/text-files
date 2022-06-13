@@ -6,8 +6,10 @@
 #
 # Search for text files, i.e. non-binary files.
 #
-# Deps:: env, find, grep, sh
+# Deps:: env, find, grep, sh, xargs
 
 set -o errexit -o nounset
 
-find "${@}" -type f -exec grep --binary-files=without-match --files-with-matches . {} +
+find "${@}" -type f -print0 \
+  | xargs --null --no-run-if-empty -- \
+    grep --binary-files=without-match --files-with-matches --regexp='.'
