@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Text files command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Search for text files, i.e. non-binary files.
+#
+# Deps:: env, find, grep, sh
+
+set -o errexit -o nounset
+
+find "${@}" -type f -exec grep --binary-files=without-match --files-with-matches . {} +
