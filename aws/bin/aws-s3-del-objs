@@ -16,14 +16,28 @@ shopt -os nounset pipefail errexit errtrace
 bucket="${1:?'bucket required'}"
 s3_prefixes_text_file="${2:--}"
 
+# Create a temporary directory with the given bucket as a prefix and a
+# random suffix as its name. It is used to store intermediate results
+# such as the json files which are generated to list up to 1,000 S3 keys
+# of objects to delete. Also GNU parallel stores its joblog file in this
+# directory.
 temp_dir=$(mktemp --directory --tmpdir="${PWD}" -- "${bucket}.XXXXXXXXXX")
 temp_dir="${temp_dir#"${PWD}/"}"
 printf 'Temporary directory: %s\n' "${temp_dir}"
 
+# From the given text file with S3 keys of objects to delete generate
+# json files with up to 1,000 of these S3 keys. Produce as many json
+# files as needed in order to not exceed the maximum number of objects
+# which the `aws s3api delete-objects` can handle at once, i.e. per HTTP
+# request.
 cat -- "${s3_prefixes_text_file}" \
   | parallel --max-lines 1000 --max-args 1 --keep-order --pipe -- \
     sh -c "cat | jq --raw-input '{Key:.}' | jq --slurp '{Objects:.,Quiet:true}' > ${temp_dir}/{#}.json"
 
+# For every previously produced json file run as many processes of the
+# `aws s3api delete-objects` command in parallel as there are threads
+# in order to maximize the number of S3 objects which are deleted per
+# time unit.
 find "${temp_dir}" -type f -name '*.json' \
   | sort --numeric-sort \
   | parallel --max-args 1 --keep-order --joblog "${temp_dir}/joblog" --verbose -- \
