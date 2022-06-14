@@ -9,7 +9,8 @@
 # using the higher-level command `aws sr rm` which is only able to
 # delete one S3 object per invocation.
 #
-# Deps:: awk, aws, bash, cat, env, find, jq, mktemp, parallel, sh, sort
+# Deps:: awk, aws, bash, cat, env, find, jq, less, mktemp, parallel, sh
+# Deps:: sort
 
 shopt -os nounset pipefail errexit errtrace
 
@@ -51,6 +52,23 @@ awk 'NF&&!a[$0]++' "${s3_keys_text_file}" > "${temp_dir}/unique_s3_keys.txt"
 cat "${temp_dir}/unique_s3_keys.txt" \
   | parallel --max-lines 1000 --max-args 1 --keep-order --pipe -- \
     sh -c "cat | jq --raw-input '{Key:.}' | jq --slurp '{Objects:.,Quiet:true}' > ${temp_dir}/{#}.json"
+
+
+echo ==========================================================================
+echo = WARNING: CAREFULLY REVIEW THE S3 OBJECTS BEFORE THEY WILL BE DELETED   =
+echo = WARNING: AFTER REVIEW YOU ARE ASKED AGAIN WHETHER YOU WANT TO CONTINUE =
+echo ==========================================================================
+read -n 1 -s -r -p 'Press CTRL-C to abort or any other key to continue...'
+find "${temp_dir}" -type f -name '*.json' \
+  | sort --numeric-sort \
+  | xargs --no-run-if-empty -- jq --raw-output '.Objects[].Key' -- \
+  | less
+
+echo ==========================================================================
+echo = WARNING: YOU ARE ABOUT TO DELETE THE S3 OBJECTS YOU JUST REVIEWED      =
+echo = WARNING: ARE YOU ABSOLUTELY SURE TO IRREVERSIBLY DELETE THE S3 OBJECTS =
+echo ==========================================================================
+read -n 1 -s -r -p 'Press CTRL-C to abort or any other key to continue...'
 
 # For every previously produced json file run as many processes of the
 # `aws s3api delete-objects` command in parallel as there are threads
