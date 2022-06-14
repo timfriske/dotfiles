@@ -14,9 +14,10 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-# Script must be connected to terminal in order to prompt the user.
+# Standard input stream of script must be connected to terminal in order
+# to prompt the user.
 if [ ! -t 0 ]; then
-  printf >&2 '%s must be connected to a terminal\n' "${0##*/}"
+  echo >&2 stdin must be connected to terminal
   exit 1
 fi
 
@@ -45,15 +46,14 @@ temp_dir="$(mktemp --directory --tmpdir="${PWD}" -- "${bucket}.XXXXXXXXXX")"
 temp_dir="${temp_dir#"${PWD}/"}"
 printf 'Temporary directory: %s\n' "${temp_dir}"
 
-# Delete non-blank lines and duplicate S3 keys. Objects can be deleted
-# only once.
+# Delete blank and duplicate lines. S3 objects can be deleted only once.
 awk 'NF&&!a[$0]++' "${s3_keys_text_file}" > "${temp_dir}/unique_s3_keys.txt"
 
 # From the given text file with S3 keys of objects to delete generate
 # json files with up to 1,000 of these S3 keys. Produce as many json
 # files as needed in order to not exceed the maximum number of objects
-# which the `aws s3api delete-objects` can handle at once, i.e. per HTTP
-# request.
+# which the `aws s3api delete-objects` command can handle at once, i.e.
+# per HTTP request.
 cat "${temp_dir}/unique_s3_keys.txt" \
   | parallel --max-lines 1000 --max-args 1 --keep-order --pipe -- \
     sh -c "cat | jq --raw-input '{Key:.}' | jq --slurp '{Objects:.,Quiet:true}' > ${temp_dir}/{#}.json"
