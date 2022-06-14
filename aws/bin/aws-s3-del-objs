@@ -33,7 +33,7 @@ s3_keys_text_file="${2:?'S3 keys text file required'}"
 # Abort if file with S3 keys is not in plain-text format, i.e. contains
 # binary data.
 if ! grep --binary-files=without-match --regexp='.' --quiet -- "${s3_keys_text_file}"; then
-  printf >&2 'file with S3 keys must be plain-text: %s\n' "${s3_keys_text_file/#-/<stdin>}"
+  printf >&2 'file with S3 keys must be plain-text: %s\n' "${s3_keys_text_file}"
   exit 1
 fi
 
@@ -62,6 +62,7 @@ echo ==========================================================================
 echo WARNING: CAREFULLY REVIEW THE S3 OBJECTS BEFORE THEY WILL BE DELETED
 echo WARNING: AFTER REVIEW YOU ARE ASKED AGAIN WHETHER YOU WANT TO CONTINUE
 echo ==========================================================================
+printf 'Bucket: %s\n' "${bucket}"
 read -n 1 -s -r -p 'Press CTRL-C to abort or any other key to continue...'
 echo
 
@@ -74,6 +75,7 @@ echo ==========================================================================
 echo WARNING: YOU ARE ABOUT TO DELETE THE S3 OBJECTS YOU JUST REVIEWED
 echo WARNING: ARE YOU ABSOLUTELY SURE TO IRREVERSIBLY DELETE THE S3 OBJECTS
 echo ==========================================================================
+printf 'Bucket: %s\n' "${bucket}"
 read -n 1 -s -r -p 'Press CTRL-C to abort or any other key to continue...'
 echo
 
