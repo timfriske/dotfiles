@@ -9,28 +9,46 @@
 # using the higher-level command `aws sr rm` which is only able to
 # delete one S3 object per invocation.
 #
-# Deps:: bash, aws, cat, env, find, jq, mktemp, parallel, sh, sort
+# Deps:: awk, aws, bash, cat, env, find, jq, mktemp, parallel, sh, sort
 
 shopt -os nounset pipefail errexit errtrace
 
 bucket="${1:?'bucket required'}"
-s3_prefixes_text_file="${2:--}"
+# Plain-text listing with each S3 key on a separate line. Blank and
+# duplicate lines are ignored. Read from standard input if file not
+# specified or hyphen sign (-) given.
+#
+# Example listing:
+#   top-level-s3-object.csv
+#   parent/child_s3-object.txt
+s3_keys_text_file="${2:--}"
+
+# Abort if file with S3 keys is not in plain-text format, i.e. contains
+# binary data.
+if ! grep --binary-files=without-match --regexp='.' --quiet -- "${s3_keys_text_file}"; then
+  printf >&2 'file with S3 keys must be plain-text: %s\n' "${s3_keys_text_file/#-/<stdin>}"
+  exit 1
+fi
 
 # Create a temporary directory with the given bucket as a prefix and a
 # random suffix as its name. It is used to store intermediate results
 # such as the json files which are generated to list up to 1,000 S3 keys
 # of objects to delete. Also GNU parallel stores its joblog file in this
 # directory.
-temp_dir=$(mktemp --directory --tmpdir="${PWD}" -- "${bucket}.XXXXXXXXXX")
+temp_dir="$(mktemp --directory --tmpdir="${PWD}" -- "${bucket}.XXXXXXXXXX")"
 temp_dir="${temp_dir#"${PWD}/"}"
 printf 'Temporary directory: %s\n' "${temp_dir}"
+
+# Delete non-blank lines and duplicate S3 keys. Objects can be deleted
+# only once.
+awk 'NF&&!a[$0]++' "${s3_keys_text_file}" > "${temp_dir}/unique_s3_keys.txt"
 
 # From the given text file with S3 keys of objects to delete generate
 # json files with up to 1,000 of these S3 keys. Produce as many json
 # files as needed in order to not exceed the maximum number of objects
 # which the `aws s3api delete-objects` can handle at once, i.e. per HTTP
 # request.
-cat -- "${s3_prefixes_text_file}" \
+cat "${temp_dir}/unique_s3_keys.txt" \
   | parallel --max-lines 1000 --max-args 1 --keep-order --pipe -- \
     sh -c "cat | jq --raw-input '{Key:.}' | jq --slurp '{Objects:.,Quiet:true}' > ${temp_dir}/{#}.json"
 
