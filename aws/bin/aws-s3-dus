@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# AWS Dus command
-# ===============
+# AWS S3 Dus command
+# ==================
 # Tim Friske <me@tifr.de>
 #
 # Prints disk usage summary of AWS S3 objects in bucket below prefix.
