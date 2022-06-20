@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# AWS Ls command
-# ==============
+# AWS S3 Ls command
+# =================
 # Tim Friske <me@tifr.de>
 #
 # Prints paths of AWS S3 objects in bucket below prefix.
