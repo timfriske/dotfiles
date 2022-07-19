@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# GPG List Keys command
+# =====================
+# Tim Friske <me@tifr.de>
+#
+# Lists the OpenPGP keys in the local keyring.
+#
+# Deps:: env, gpg, sh
+
+set -o errexit -o nounset
+
+gpg --list-keys --with-fingerprint --with-keygrip "${@}"
