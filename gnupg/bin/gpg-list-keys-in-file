@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# GPG List Keys In File command
+# =============================
+# Tim Friske <me@tifr.de>
+#
+# Lists the OpenPGP keys in the given file without importing them to the
+# keyring. This command supports all the file formats the GnuPG program
+# does support.
+#
+# Deps:: env, gpg, sh
+
+set -o errexit -o nounset
+
+gpg --show-keys --with-fingerprint --with-keygrip "${@}"
