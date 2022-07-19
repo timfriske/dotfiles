@@ -88,3 +88,6 @@ find "${temp_dir}" -type f -name '*.json' \
   | sort --numeric-sort \
   | parallel --max-args 1 --keep-order --joblog "${temp_dir}/joblog" --verbose -- \
     aws s3api delete-objects --bucket "${bucket}" --delete 'file://{}'
+
+# Archive deletion protocol for auditing purposes in the future.
+tar --create --auto-compress --verbose --file="${temp_dir}.tar.gz" -- "${temp_dir}"
