@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# AWS Delete Objects command
-# ==========================
+# AWS S3 Delete Objects command
+# =============================
 # Tim Friske <me@tifr.de>
 #
 # Deletes batches of up to 1,000 S3 objects per request via the low-
