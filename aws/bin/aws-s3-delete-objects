@@ -76,6 +76,7 @@ echo WARNING: YOU ARE ABOUT TO DELETE THE S3 OBJECTS YOU JUST REVIEWED
 echo WARNING: ARE YOU ABSOLUTELY SURE TO IRREVERSIBLY DELETE THE S3 OBJECTS
 echo ==========================================================================
 printf 'Bucket: %s\n' "${bucket}"
+printf 'Temporary directory: %s\n' "${temp_dir}"
 read -n 1 -s -r -p 'Press CTRL-C to abort or any other key to continue...'
 echo
 
