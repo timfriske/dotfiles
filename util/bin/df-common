@@ -11,8 +11,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  df ${DF_X_OPTIONS:-} --exclude-type=devtmpfs --exclude-type=tmpfs "${@}"
-}
-
-main "${@}"
+df ${DF_X_OPTIONS:-} --exclude-type=devtmpfs --exclude-type=tmpfs "${@}"

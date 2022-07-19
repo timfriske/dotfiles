@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Fix Trailing Whitespace command
+# ===============================
+# Tim Friske <me@tifr.de>
+#
+# Delete any whitespace after the last printable character and before
+# the end of a line of each given text file.
+#
+# Deps:: env, sed, sh
+
+set -o errexit -o nounset
+
+sed --regexp-extended --expression='s/[[:space:]]*$//' --in-place "${@}"

@@ -10,8 +10,4 @@
 
 set -o errexit -o nounset
 
-main() {
-  awk 'FNR%2==0' "${@}"
-}
-
-main "${@}"
+awk 'FNR%2==0' "${@}"
