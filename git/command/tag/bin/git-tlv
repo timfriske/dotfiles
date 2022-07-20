@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+# Git Tag command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, git-tag, sh
+
+set -o errexit -o nounset
+
+git tag --list --sort=version:refname "${@}"
