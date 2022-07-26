@@ -1,0 +1,22 @@
+= Kubernetes cheatsheet
+
+== Kubernetes cronjobs
+
+=== How to list names of un/suspended cronjobs
+
+[source,bash]
+----
+# Can be combined with selector expressions to reduce set of cronjobs to operate upon.
+kubectl get cronjob \
+  --output=jsonpath='{range .items[?(.spec.suspend==true)]}{.metadata.name}{"\n"}{end}'
+----
+
+=== How to unsuspend suspended cronjobs
+
+[source,bash]
+----
+# Can be combined with selector expressions to reduce set of cronjobs to operate upon.
+kubectl get cronjob \
+  --output=jsonpath='{range .items[?(.spec.suspend==true)]}{.metadata.name}{"\n"}{end}' \
+  | parallel --keep-order kubectl patch cronjob {} --patch '{\"spec\":{\"suspend\":false}}'
+----
