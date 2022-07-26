@@ -345,9 +345,6 @@ alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
 #
 alias md='mkdir'
 
-# Make and change directory.
-#
-
 # Make and change to given, random (mdr) or temporary (mdt) directory.
 #
 # In the two latter cases the directory is prefixed with the name of the
