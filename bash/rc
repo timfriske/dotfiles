@@ -363,6 +363,14 @@ mdt() { cd "$(mktemp --tmpdir --directory "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
 #
 alias mv='mv ${MV_X_OPTIONS:-}'
 
+# Parallel - run commands in parallel
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+
+# Define alias to call `parallel` command with default options.
+#
+alias parallel='parallel ${PARALLEL_X_OPTIONS:-}'
+
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

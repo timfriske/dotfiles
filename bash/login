@@ -424,6 +424,13 @@ MV_X_OPTIONS+='--verbose '
 export PAGER='less'
 export SYSTEMD_LESS="${LESS}"
 
+# Parallel - run commands in parallel
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+export PARALLEL_X_OPTIONS=''
+PARALLEL_X_OPTIONS+='--no-run-if-empty '
+PARALLEL_X_OPTIONS+='--keep-order '
+
 # Prompt - Command line prompt
 #
 # Save space for the actual command line by showing only the trailing
