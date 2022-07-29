@@ -4,10 +4,11 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Shows calendar week of year.
+# Shows calendar week of year. Prints `week WEEK` if standard output
+# file descriptor is connected to terminal, else just WEEK.
 #
 # Deps:: date, env, sh
 
 set -o errexit -o nounset
 
-date '+week %V'
+[ -t 1 ] && date '+week %V' || date '+%V'
