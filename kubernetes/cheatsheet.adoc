@@ -1,5 +1,23 @@
 = Kubernetes cheatsheet
 
+= Cluster management
+
+== How to configure cluster connection
+
+=== Amazon Elastic Kubernetes Service
+
+[source,bash]
+----
+# Delete pre-existing context to avoid conflicts.
+kubectl config delete-context my-kubernetes-cluster
+# Add AWS EKS cluster context. Region is where the cluster lives.
+aws eks update-kubeconfig --name my-aws-eks-cluster --region eu-central-1
+# Rename unwieldy context to name that is easy to remember and type.
+kubectl config rename-context arn:aws:eks:eu-central-1:123456789012:cluster/my-aws-eks-cluster my-aws-eks-cluster
+# Configure namespace that should be implicitly assumed in this context.
+kubectl config set-context my-aws-eks-cluster --namespace my-namespace
+----
+
 == Kubernetes cronjobs
 
 === How to list names of un/suspended cronjobs
