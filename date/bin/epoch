@@ -4,10 +4,13 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Shows seconds since _Epoch_.
+# Shows seconds since _UNIX Epoch_. Prints `epoch SECONDSs` if standard
+# output file descriptor is connected to terminal, else just SECONDS.
+#
+# The UNIX epoch is 00:00:00 UTC on 1 January 1970.
 #
 # Deps:: date, env, sh
 
 set -o errexit -o nounset
 
-date '+%s'
+[ -t 1 ] && date '+epoch %ss' || date '+%s'
