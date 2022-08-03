@@ -116,6 +116,12 @@ export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
 DF_X_OPTIONS+='--print-type '
 
+# Define default options for `df-common` command.
+export DF_COMMON_X_OPTIONS=''
+DF_COMMON_X_OPTIONS+='--exclude-type=devtmpfs '
+DF_COMMON_X_OPTIONS+='--exclude-type=squashfs '
+DF_COMMON_X_OPTIONS+='--exclude-type=tmpfs '
+
 # Define default options for `du` command.
 export DU_X_OPTIONS=''
 DU_X_OPTIONS+='--si '
@@ -423,6 +429,13 @@ MV_X_OPTIONS+='--verbose '
 #
 export PAGER='less'
 export SYSTEMD_LESS="${LESS}"
+
+# Parallel - run commands in parallel
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+export PARALLEL_X_OPTIONS=''
+PARALLEL_X_OPTIONS+='--no-run-if-empty '
+PARALLEL_X_OPTIONS+='--keep-order '
 
 # Prompt - Command line prompt
 #

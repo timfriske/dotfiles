@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# AWS S3 Ls Prefixes command
+# ==========================
+# Tim Friske <me@tifr.de>
+#
+# Prints paths of AWS S3 prefixes in bucket below prefix.
+#
+# Deps:: aws, bash, env, sed
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+aws s3 ls -- "${1:?URI required}" \
+  | sed --regexp-extended --expression='s|^\s+PRE\s||'

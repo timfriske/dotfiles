@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# K8S Get Labels
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Gets the Kubernetes labels of the given class of objects, e.g.
+# cronjobs, pods etc.
+#
+# This script groups the labels by key and collects the values of each
+# key into its own array. During this first iteration values are likely
+# non-unique and unsorted. Therefore during a second pass the array of
+# values of each key is deduplicated and hereby also sorted.
+#
+# Eventually the accumulated Kubernetes labels are printed as JSON
+# document with its object keys in sorted order for human-readability.
+#
+# Deps:: bash, env, jq, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+# Read multi-line jq script into variable for legibility.
+read -r -d '' JQ_GET_LABELS <<'JQ_GET_LABELS' || true
+# A single Kubernetes object is represented as a top-level JSON object.
+.metadata?.labels
+//
+# Multiple Kubernetes objects are represented as JSON objects in an
+# array of the `items` property of the top-level JSON object.
+# Print the labels as key-value pair objects in an array.
+[.items[].metadata.labels | to_entries[]]
+  # Group the key-value pair objects by their `key` property.
+  | group_by(.key)
+  # For each key collect the values into its own array.
+  | map({key: .[0].key, value: [.[] | .value]})
+  # For each key deduplicate its values and hereby also sort them.
+  | map({key, value: .value | unique})
+  # Convert the key-value pair objects back to a JSON object with the
+  # label keys as object keys and the label values as their array
+  # values.
+  | from_entries
+JQ_GET_LABELS
+
+# Print the Kubernetes labels.
+kubectl get "${@}" --output json | jq --sort-keys "${JQ_GET_LABELS}"

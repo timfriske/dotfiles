@@ -345,9 +345,6 @@ alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
 #
 alias md='mkdir'
 
-# Make and change directory.
-#
-
 # Make and change to given, random (mdr) or temporary (mdt) directory.
 #
 # In the two latter cases the directory is prefixed with the name of the
@@ -365,6 +362,14 @@ mdt() { cd "$(mktemp --tmpdir --directory "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
 # Define alias to call `mv` command with default options.
 #
 alias mv='mv ${MV_X_OPTIONS:-}'
+
+# Parallel - run commands in parallel
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+
+# Define alias to call `parallel` command with default options.
+#
+alias parallel='parallel ${PARALLEL_X_OPTIONS:-}'
 
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

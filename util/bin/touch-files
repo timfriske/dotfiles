@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Touch Files command
+# ===================
+# Tim Friske <me@tifr.de>
+#
+# Touches not only the given files and creates empty files if non-
+# existent but also any non-existent parent directory leading to those
+# files.
+#
+# Deps:: bash, env, mkdir, touch
+
+shopt -os nounset pipefail errexit errtrace
+
+main() {
+  local path
+  for path in "${@}"; do
+    printf '%s\n' "${path}"
+    mkdir --parents -- "$(dirname "${path}")"
+    touch -- "${path}"
+  done
+}
+
+main "${@}"

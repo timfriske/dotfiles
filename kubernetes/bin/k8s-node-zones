@@ -9,7 +9,7 @@
 # zones becomes unavailable, e.g. due to some disastrous event like a
 # natural disaster or cyber attack.
 #
-# Deps:: env, kubectl, sh, sort, uniq
+# Deps:: env, kubectl, rank, sh, sort, uniq
 
 set -o errexit -o nounset
 
@@ -17,10 +17,6 @@ node_zones() {
   kubectl get nodes \
     --no-headers \
     --output custom-columns='zone:.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
-}
-
-rank() {
-  sort | uniq --count | sort --sort=numeric --reverse
 }
 
 node_zones | rank
