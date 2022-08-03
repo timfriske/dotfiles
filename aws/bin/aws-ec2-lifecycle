@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+# AWS EC2 Lifecycle command
+# =========================
+# Tim Friske <me@tifr.de>
+#
+# Lists the running AWS EC2 instances and their lifecycles, i.e. whether
+# they are (more expensive) on-demand or (cheaper) spot instances.
+#
+# By passing additional arguments to this utility one can for example
+# select AWS EC2 instances by tags like so:
+#
+# [source,bash]
+# ----
+# aws-ec2-lifecycle --filters Name=tag:foo,Values=bar`
+# ----
+#
+# Deps:: aws, env, rank, sed, sh
+
+set -o errexit -o nounset
+
+aws ec2 describe-instances "${@}" \
+  --query 'Reservations[*].Instances[?State.Name==`running`].[@.InstanceType,@.InstanceLifecycle]' \
+  --output=text \
+  | rank | sed --expression='s/None$/norm/'
