@@ -5,10 +5,10 @@
 # Tim Friske <me@tifr.de>
 #
 # Rank Kubernetes nodes by type of instance as an indicator how the work
-# load on the cluster is distriubted by a load balancer accross instance
+# load on the cluster is distributed by a load balancer across instance
 # types.
 #
-# Deps:: env, kubectl, sh, sort, uniq
+# Deps:: env, kubectl, rank, sh, sort, uniq
 
 set -o errexit -o nounset
 
@@ -16,10 +16,6 @@ node_types() {
   kubectl get nodes \
     --no-headers \
     --output custom-columns='instance_type:.metadata.labels.beta\.kubernetes\.io/instance-type'
-}
-
-rank() {
-  sort | uniq --count | sort --sort=numeric --reverse
 }
 
 node_types | rank
