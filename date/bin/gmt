@@ -6,8 +6,12 @@
 #
 # Shows _GMT_ _Greenwich Mean Time_.
 #
+# Prints `date-gmt: DATE-GMT` if standard output file descriptor is
+# connected to terminal, else just `DATE-GMT`.
+#
 # Deps:: date, env, sh
 
 set -o errexit -o nounset
 
+[ -t 1 ] && printf 'date-gmt: '
 TZ=GMT date "${@}"

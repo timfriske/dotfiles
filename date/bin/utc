@@ -6,8 +6,12 @@
 #
 # Shows _UTC_ _Universal Time Coordinated_.
 #
+# Prints `date-utc: DATE-UTC` if standard output file descriptor is
+# connected to terminal, else just `DATE-UTC`.
+#
 # Deps:: date, env, sh
 
 set -o errexit -o nounset
 
+[ -t 1 ] && printf 'date-utc: '
 TZ=UTC date "${@}"
