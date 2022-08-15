@@ -9,7 +9,7 @@
 #
 # Deps:: awk, bash, env, hostnamectl
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 machine_info_var_val() {
   local var="${1:-${var:?'required'}}"

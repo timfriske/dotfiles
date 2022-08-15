@@ -10,7 +10,7 @@
 #
 # Deps:: bash, cbc, env, gpg, tee
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 echo Exporting GnuPG public key "'${1:?GPG key ID}'"...
 gpg --export --armor --output - -- "${1}" | tee >(cbc)

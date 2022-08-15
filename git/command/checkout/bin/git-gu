@@ -6,7 +6,7 @@
 #
 # Deps:: bash, env, git-checkout
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 # Does upstream branch differ from current branch? Without this check
 # the current branch would be checked out in detached HEAD state if it

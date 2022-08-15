@@ -9,7 +9,7 @@
 #
 # Deps:: bash, env
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 main() {
   local folder="${PWD}"

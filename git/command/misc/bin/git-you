@@ -12,7 +12,7 @@
 #
 # Deps:: bash, env, git-config
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 git_config_reset() {
     local option_key="${1}.${2}"
