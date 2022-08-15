@@ -371,6 +371,25 @@ alias mv='mv ${MV_X_OPTIONS:-}'
 #
 alias parallel='parallel ${PARALLEL_X_OPTIONS:-}'
 
+# Python - Programming language
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+
+#  Creates and/or de-/activates Python virtual environment in given directory or "venv" by default.
+function pynv {
+  local venv_dir="${1:-venv}"
+  if [[ ! -d "${venv_dir}" ]]; then
+    python3 -m venv "${venv_dir}"
+  fi
+  if declare -F deactivate &> /dev/null; then
+    deactivate
+  elif [[ -f "${venv_dir}/bin/activate" ]]; then
+    source "${venv_dir}/bin/activate"
+  else
+    echo >&2 "pynv: Neither Python virtual environment's 'deactivate' function nor 'activate' shell script found!"
+  fi
+}
+
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
