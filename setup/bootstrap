@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+#
+# Provisions Tim Friske's configuration management Git repository and
+# sets up the system this program is run on and the user this program is
+# run as by executing the Ansible playbooks provided by that repository.
+#
+# Download this program from Tim Friske's configuration management Git
+# repository via its https://github.com/timfriske/config[GitHub page]
+# either from the website or from the command line with one of these
+# commands curl, wget2, wget depending on availability and preference.
+#
+# .Download with cURL
+# [source,bash]
+# ----
+# curl --fail --location --output timfriske-config-bootstrap \
+#  https://raw.githubusercontent.com/timfriske/config/main/setup/bootstrap
+# chmod --changes -- a+x timfriske-config-bootstrap
+# ----
+#
+# .Download with Wget
+# [source,bash]
+# ----
+# wget --output-document=timfriske-config-bootstrap \
+#   https://raw.githubusercontent.com/timfriske/config/main/setup/bootstrap
+# chmod --changes -- a+x timfriske-config-bootstrap
+# ----
+#
+#
+# Deps:: ansible, apt-get, bash, env, git, zypper
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+program="${0##*/}"
+repo_dir="${HOME}/Projects/mine/timfriske/config"
+
+# Install minimal set of packages required by this program.
+if command -v "zypper" &> /dev/null; then
+  sudo zypper refresh
+  sudo zypper install --no-confirm ansible git
+elif command -v "apt-get" &> /dev/null; then
+  sudo apt-get update
+  sudo apt-get install --assume-yes ansibe git
+fi
+
+# Clone Tim Friske's configuration management Git repository.
+if [[ ! -d "${repo_dir}" ]]; then
+  mkdir --parents --verbose -- "${repo_dir}";
+  git clone -- "https://github.com/timfriske/config.git" "${repo_dir}"
+  # Configure SSH fetch/push and user info, and checkout "next" branch.
+  (
+    cd -- ${repo_dir}
+    git remote set-url "origin" \
+      "git@github.com:timfriske/config.git" \
+      "https://github.com/timfriske/config.git"
+    git config --local "user.name" "Tim Friske"
+    git config --local "user.email" "me@tifr.de"
+    git config --local "user.signingkey" \
+      "7DC02297679182342252DFC4D0920BA3A28B1CF7!"
+    git checkout --track "origin/next"
+  )
+fi
+
+# Setup system and user via Ansible playbooks.
+(
+  cd -- ${repo_dir}
+  setup/system/site --tags software
+  setup/user/site
+)

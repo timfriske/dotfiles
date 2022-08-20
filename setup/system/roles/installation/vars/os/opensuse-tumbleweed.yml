@@ -10,30 +10,40 @@ packages:
   - ansible
   - aws-cli
   - borgbackup
+  - btop
   - checkbashisms
+  - curl
   - dash
   - docker
   - docker-machine-driver-kvm2
   - fd
   - ffmpeg-4
+  - fzf
   - git
   - gnu_parallel
   - go
+  - gpg2
   - gstreamer-plugins-bad
   - gstreamer-plugins-good
   - gstreamer-plugins-libav
   - gstreamer-plugins-ugly
   - htop
   - iotop
-  - java-11-openjdk-devel
+  - iperf
+  - java-17-openjdk-devel
   - jq
+  - keepassxc
   - kubernetes-client
   - lsb-release
   - minikube
+  - neovim
   - nmap
   - openssh
   - pam_kwallet
   - pattern:kvm_tools
+  - rclone
+  - ripgrep
+  - rsync
   - rust
   - sysstat
   - tmux
@@ -41,4 +51,6 @@ packages:
   - vim
   - vlc
   - vlc-codec-gstreamer
+  - wget
+  - wget2
   - zstd
