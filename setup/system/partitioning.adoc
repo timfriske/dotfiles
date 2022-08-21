@@ -1,7 +1,7 @@
 Partitioning
 ============
 
-This document describes how to setup a personal computer's primary disk
+This document describes how to set up a personal computer's primary disk
 such that it can boot a distribution of the Linux operating system. All
 data on that disk shall reside in encrypted form while the computer is
 turned off to protect it from adverse actions like espionage and theft.
@@ -14,15 +14,22 @@ set up this way:
     Interface standard.
   * The UEFI of the computer is able to boot into Linux.
   * Only the bare minimum of data required to boot up Linux should be
-    stored in plaintext form. Everything else should encrypted at rest.
+    stored in plaintext form. Everything else should be encrypted at
+    rest.
   * The LUKS Linux Unified Key Setup is used to realize the full-disk
     encryption utilizing the on-disk format LUKS2.
-  * The LVM Logical Volume Manager allows for a flexible arrangment of
+  * The LVM Logical Volume Manager allows for a flexible arrangement of
     logical volumes in terms of number and size.
   * Swap space spans an entire logical volume of appropriate size.
   * Files live on Ext4 file systems because this block-based journaling
     file system is proven to be robust and fast on HDDs as well as SSDs
     and thus well-suited for everyday workloads and usage patterns.
+  * The user is prompted for the LUKS passphrase only once by the GRUB2
+    Grand Unified Bootloader Version 2 to decrypt the LUKS container
+    that contains the LVM volume group which in turn holds the logical
+    volume with the root file system. The initial ramdisk image stores
+    a keyfile to decrypt the LUKS container a second time during boot
+    without user intervention.
 
 Placeholder Value Definition
 ----------------------------
@@ -64,7 +71,7 @@ the following commands easily from the command line.
 
 [source,bash]
 ----
-# Get an overview of the disk's partitions.
+# Get overview of disk's partitions.
 lsblk "${prim_disk_dev}"
 
 # Calls parted with common options.
@@ -77,7 +84,7 @@ cust_parted() { \
     "${prim_disk_dev}" "${@}"; \
 }
 
-# Get a detailed disk usage and free report.
+# Get detailed disk usage and free report.
 cust_parted print free
 
 # Create GPT partition table with named partitions.
@@ -90,7 +97,7 @@ cust_parted \
   set 1 bios_grub on \
   set 2 esp on
 
-# Get a detailed disk usage and free report.
+# Get detailed disk usage and free report.
 cust_parted print free
 ----
 
@@ -99,20 +106,20 @@ UEFI FAT Filesystem Creation
 
 [source,bash]
 ----
-# Get an overview of the disk's partitions.
-lsblk "${prim_disk_dev}"
+# Get overview of disk's partitions.
+lsblk -- "${prim_disk_dev}"
 
-# Create a FAT filesystem inside the UEFI partition.
-sudo mkfs.fat -n UEFI "${uefi_part_dev}"
+# Create FAT filesystem inside UEFI partition.
+sudo mkfs.fat -n UEFI -- "${uefi_part_dev}"
 
-# Check properties of FAT filesystem just created.
-sudo file --special-files "${uefi_part_dev}"
+# Check properties of FAT filesystem.
+sudo file --special-files -- "${uefi_part_dev}"
 ----
 
 LUKS Encrypted Container Creation
 ---------------------------------
 
-Important note: As of February 28 2021 most Linux distriubtions that
+Important note: As of February 28, 2021, most Linux distributions that
 sport GRUB Grand Unified Boot Loader version 2.04 or earlier do not
 support yet booting from a LUKS container with the new on-disk format
 LUKS2. Should that still be the case resort to format version 1 for the
@@ -123,10 +130,10 @@ LUKS On-Disk Format Version 2
 
 [source,bash]
 ----
-# Get an overview of the disk's partitions.
+# Get overview of disk's partitions.
 lsblk "${prim_disk_dev}"
 
-# Create a LUKS encrypted container.
+# Create LUKS-encrypted container.
 sudo cryptsetup \
   --verbose \
   --verify-passphrase \
@@ -137,10 +144,11 @@ sudo cryptsetup \
   --type luks2 \
   --label data \
   luksFormat \
+  -- \
   "${data_part_dev}"
 
-# Check properties of container just created.
-sudo cryptsetup luksDump "${data_part_dev}"
+# Check properties of partition with LUKS container.
+sudo cryptsetup luksDump -- "${data_part_dev}"
 ----
 
 LUKS On-Disk Format Version 1
@@ -148,10 +156,10 @@ LUKS On-Disk Format Version 1
 
 [source,bash]
 ----
-# Get an overview of the disk's partitions.
+# Get overview of disk's partitions.
 lsblk "${prim_disk_dev}"
 
-# Create a LUKS encrypted container.
+# Create LUKS-encrypted container.
 sudo cryptsetup \
   --verbose \
   --verify-passphrase \
@@ -160,10 +168,11 @@ sudo cryptsetup \
   --hash sha512 \
   --type luks1 \
   luksFormat \
+  -- \
   "${data_part_dev}"
 
-# Check properties of container just created.
-sudo cryptsetup luksDump "${data_part_dev}"
+# Check properties of partition with LUKS container.
+sudo cryptsetup luksDump -- "${data_part_dev}"
 ----
 
 LVM Logical Volume Creation
@@ -171,13 +180,13 @@ LVM Logical Volume Creation
 
 [source,bash]
 ----
-# Get an overview of the disk's partitions.
+# Get overview of disk's partitions.
 lsblk "${prim_disk_dev}"
 
 # Open LUKS encrypted container.
 sudo cryptsetup open ${data_part_dev} crypt-data
 
-# Make container a LVM physical volume.
+# Make container LVM physical volume.
 # Create a LVM volume group.
 sudo pvcreate /dev/mapper/crypt-data
 sudo vgcreate data /dev/mapper/crypt-data
@@ -185,7 +194,7 @@ sudo lvcreate --name swap --size 4G data
 sudo lvcreate --name root --size 32G data
 sudo lvcreate --name home --extents 100%FREE data
 
-# Check properties of logical volumes just created.
+# Check properties of logical volumes.
 sudo lvs data
 ----
 
@@ -194,10 +203,84 @@ Filesystem Creation
 
 [source,bash]
 ----
-# Get an overview of the disk's partitions.
+# Get overview of the disk's partitions.
 lsblk "${prim_disk_dev}"
 
 sudo mkswap --label swap /dev/data/swap
 sudo mkfs.ext4 -L root /dev/data/root
 sudo mkfs.ext4 -L home /dev/data/home
+----
+
+LUKS Automated Container Decryption Via Keyfile
+-----------------------------------------------
+
+[source,bash]
+----
+# Allow access to entire "/boot" directory to system administrators
+# only. Filesystem permissions will be permanently enforced later.
+sudo chmod --changes 0700 /boot
+
+# Create binary keyfile which consists out of 1024 random bytes.
+sudo truncate --size=0 /boot/.open-sesame
+sudo chmod --changes 0600 /boot/.open-sesame
+sudo dd if=/dev/urandom of=/boot/.open-sesame bs=1024 count=1
+sudo chmod --changes 0400 /boot/.open-sesame
+
+# Get overview of disk's partitions.
+lsblk -- "${prim_disk_dev}"
+
+# Check properties of partition with LUKS container.
+sudo cryptsetup luksDump -- "${data_part_dev}"
+
+# Allow LUKS container to be decrypted with given keyfile.
+sudo cryptsetup luksAddKey -- "${data_part_dev}" /boot/.open-sesame
+
+# Check properties of partition with LUKS container.
+sudo cryptsetup luksDump -- "${data_part_dev}"
+
+# Get UUID of partition with LUKS container.
+lsblk --nodeps --output UUID --noheadings -- "${data_part_dev}"
+
+# Check content of file with info about encrypted containers.
+sudo cat /etc/crypttab
+
+# Replace keyfile value "none" with path to actual keyfile for
+# partition holding LUKS container to enable automatic decryption
+# during boot.
+lsblk --nodeps --output UUID --noheadings -- "${data_part_dev}" \
+  | sudo xargs --no-run-if-empty --replace={} \
+    sed --expression='/UUID={}/s|none|/boot/.open-sesame|' \
+    --in-place /etc/crypttab
+
+# Check content of file with info about encrypted containers.
+sudo cat /etc/crypttab
+
+# Embed keyfile in initial ramdisk image to automatically decrypt LUKS
+# container.
+grep \
+  --fixed-strings \
+  --line-regexp \
+  --regexp='install_items+=" /boot/.open-sesame "' \
+  --quiet \
+  /etc/dracut.conf.d/99-luks-keyfile.conf \
+  || echo 'install_items+=" /boot/.open-sesame "' \
+  | sudo tee --append /etc/dracut.conf.d/99-luks-keyfile.conf > /dev/null
+
+# Allow access to unencrypted keyfile only to system administrators by
+# denying access to entire "/boot" directory to normal users.
+grep \
+  --fixed-strings \
+  --line-regexp \
+  --regexp='/boot/ root:root 700' \
+  --quiet \
+  /etc/permissions.local \
+  || echo '/boot/ root:root 700' \
+  | sudo tee --append /etc/permissions.local > /dev/null
+
+# Immediately enforce permissions on filesystem-level.
+sudo chkstat --system --set
+
+# Regenerate initial ramdisk in order to embed keyfile used for
+# automatic decryption of LUKS container holding root filesystem.
+sudo mkinitrd
 ----
