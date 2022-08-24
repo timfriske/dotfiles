@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Date command
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Shows the local timezone offset from _Universal Time Coordinated_
+# (UTC).
+#
+# Prints `date-ltz-off: OFFSET` if standard output file descriptor is
+# connected to terminal, else just `OFFSET`.
+#
+# Deps:: date, env, sh
+
+set -o errexit -o nounset
+
+[ -t 1 ] && printf 'date-ltz-off: '
+date '+%z'
