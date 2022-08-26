@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Find Binary command
+# ===================
+# Tim Friske <me@tifr.de>
+#
+# Utility program that finds only binary files below the given folder
+# or current one, excluding hidden directories by default.
+#
+# Deps:: bash, env, grep
+
+shopt -os nounset pipefail errexit errtrace
+
+function find_binary_files {
+  grep \
+    --regexp='' \
+    --recursive \
+    --binary-files=without-match \
+    --files-without-match \
+    "${@}"
+}
+
+if [[ "${#}" -gt 0 ]]; then
+  find_binary_files "${@}"
+else
+  # Start searching from current working directory, excluding hidden
+  # directories by default if no arguments were given.
+  find_binary_files --exclude-dir='.*' "${PWD}"
+fi
