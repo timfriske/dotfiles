@@ -26,7 +26,7 @@ TryExec=alacritty
 Exec=alacritty
 Terminal=false
 StartupNotify=true
-StartupWMClass=Alacritty
+StartupWMClass=alacritty
 
 # Desktop Actions
 # ---------------

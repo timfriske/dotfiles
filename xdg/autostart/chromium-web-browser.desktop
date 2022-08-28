@@ -27,7 +27,7 @@ Icon=chromium-browser
 TryExec=chromium
 Exec=chromium %u
 Terminal=false
-StartupWMClass=Chromium
+StartupWMClass=chromium
 
 X-MultipleArgs=false
 X-Desktop-File-Install-Version=0.23
