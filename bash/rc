@@ -377,16 +377,26 @@ alias parallel='parallel ${PARALLEL_X_OPTIONS:-}'
 
 #  Creates and/or de-/activates Python virtual environment in given directory or "venv" by default.
 function pynv {
-  local venv_dir="${1:-venv}"
-  if [[ ! -d "${venv_dir}" ]]; then
-    python3 -m venv "${venv_dir}"
-  fi
+  local venv="${1:-venv}"
   if declare -F deactivate &> /dev/null; then
     deactivate
-  elif [[ -f "${venv_dir}/bin/activate" ]]; then
-    source "${venv_dir}/bin/activate"
+  elif [[ -f "${venv}/bin/activate" ]]; then
+    source "${venv}/bin/activate"
   else
-    echo >&2 "pynv: Neither Python virtual environment's 'deactivate' function nor 'activate' shell script found!"
+    local dir venv_path="${PWD}/${venv}"
+    for dir in $(ppds "${PWD}"); do
+      if [[ -d "${dir}/${venv}" ]]; then
+          venv_path="${dir}/${venv}"; break
+      fi
+    done
+    if [[ ! -d "${venv_path}" ]]; then
+      python3 -m venv "${venv_path}"
+    fi
+    if [[ -f "${venv_path}/bin/activate" ]]; then
+      source "${venv_path}/bin/activate"
+    else
+      echo >&2 "pynv: Neither Python virtual environment's 'deactivate' function nor 'activate' shell script found!"
+    fi
   fi
 }
 

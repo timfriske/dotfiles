@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Date command
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Shows the local timezone.
+#
+# Prints `date-ltz: TIMEZONE` if standard output file descriptor is
+# connected to terminal, else just `TIMEZONE`.
+#
+# Deps:: date, env, sh
+
+set -o errexit -o nounset
+
+[ -t 1 ] && printf 'date-ltz: '
+date '+%Z'

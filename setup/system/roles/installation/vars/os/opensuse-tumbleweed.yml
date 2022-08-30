@@ -7,18 +7,23 @@
 # -----------------------------
 
 packages:
+  - alacritty
   - ansible
   - aws-cli
   - borgbackup
   - btop
   - checkbashisms
+  - code
   - curl
   - dash
   - docker
   - docker-machine-driver-kvm2
+  - dragonplayer
+  - fail2ban
   - fd
   - ffmpeg-4
   - fzf
+  - gimp
   - git
   - gnu_parallel
   - go
@@ -28,11 +33,14 @@ packages:
   - gstreamer-plugins-libav
   - gstreamer-plugins-ugly
   - htop
+  - inkscape
+  - inotify-tools
   - iotop
   - iperf
   - java-17-openjdk-devel
   - jq
   - keepassxc
+  - krita
   - kubernetes-client
   - lsb-release
   - minikube
@@ -41,6 +49,7 @@ packages:
   - openssh
   - pam_kwallet
   - pattern:kvm_tools
+  - permissions-zypp-plugin
   - rclone
   - ripgrep
   - rsync

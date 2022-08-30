@@ -1,0 +1,42 @@
+# Autostart Of Alacritty Terminal Emulator
+# ========================================
+# Tim Friske <me@tifr.de>
+
+[Desktop Entry]
+# -------------
+
+Type=Application
+
+Name=Alacritty
+Name[de]=Alacritty
+
+GenericName=Terminal Emulator
+GenericName[de]=Terminalemulator
+
+Comment=Runs command line programs
+Comment[de]=Führt Kommandozeilen-Programme aus
+
+Keywords=cmd;command;emulator;line;prompt;shell;terminal;
+Keywords[de]=Befehl;Befehlszeile;Emulator;Prompt;Shell;Terminal;
+
+Categories=System;TerminalEmulator;
+
+Icon=Alacritty
+TryExec=alacritty
+Exec=alacritty
+Terminal=false
+StartupNotify=true
+StartupWMClass=alacritty
+
+# Desktop Actions
+# ---------------
+
+Actions=New;
+
+[Desktop Action New]
+# ~~~~~~~~~~~~~~~~~~
+
+Name=New Terminal
+Name[de]=Neues Terminal
+
+Exec=alacritty
