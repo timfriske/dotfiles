@@ -14,28 +14,28 @@
 
 shopt -os nounset pipefail errexit errtrace
 
-git_config_reset() {
-    local option_key="${1}.${2}"
-    local old_opt_val="$(git config "${option_key}")" new_opt_val
-    read -er -p "${1} ${2}: " -i "${old_opt_val}" new_opt_val
-    if [ "${new_opt_val}" = "${old_opt_val}" ]; then
-      if git config --local --get "${option_key}" &> /dev/null; then
-        return
-      fi
-    fi
-    if [ -z "${new_opt_val:+x}" ]; then
-      if git config --local --get "${option_key}" &> /dev/null; then
-        git config --local --unset "${option_key}"
-      fi
+function git_config_reset {
+  local option_key="${1}.${2}"
+  local old_opt_val="$(git config "${option_key}")" new_opt_val
+  read -er -p "${1} ${2}: " -i "${old_opt_val}" new_opt_val
+  if [ "${new_opt_val}" = "${old_opt_val}" ]; then
+    if git config --local --get "${option_key}" &> /dev/null; then
       return
     fi
-    git config --local "${option_key}" "${new_opt_val}"
+  fi
+  if [ -z "${new_opt_val:+x}" ]; then
+    if git config --local --get "${option_key}" &> /dev/null; then
+      git config --local --unset "${option_key}"
+    fi
+    return
+  fi
+  git config --local "${option_key}" "${new_opt_val}"
 }
 
-main() {
-    git_config_reset User Name
-    git_config_reset User Email
-    git_config_reset User SigningKey
+function main {
+  git_config_reset User Name
+  git_config_reset User Email
+  git_config_reset User SigningKey
 }
 
 main "${@}"
