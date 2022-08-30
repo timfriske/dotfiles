@@ -15,27 +15,20 @@
 shopt -os nounset pipefail errexit errtrace
 
 function git_config_reset {
-  local option_key="${1}.${2}"
-  local old_opt_val="$(git config "${option_key}")" new_opt_val
-  read -er -p "${1} ${2}: " -i "${old_opt_val}" new_opt_val
-  if [ "${new_opt_val}" = "${old_opt_val}" ]; then
-    if git config --local --get "${option_key}" &> /dev/null; then
-      return
-    fi
+  local opt_val="$(git config "${1}.${2:+${2}.}${3}")"
+  read -er -p "${1}${2:+${2}} ${3}: " -i "${opt_val}" opt_val
+  if [[ -z "${opt_val:+x}" ]]; then
+    git config --local --unset "${1}.${3}" || true
+  else
+    git config --local "${1}.${3}" "${opt_val}"
   fi
-  if [ -z "${new_opt_val:+x}" ]; then
-    if git config --local --get "${option_key}" &> /dev/null; then
-      git config --local --unset "${option_key}"
-    fi
-    return
-  fi
-  git config --local "${option_key}" "${new_opt_val}"
 }
 
 function main {
-  git_config_reset User Name
-  git_config_reset User Email
-  git_config_reset User SigningKey
+  local subsection="${1:-}" option
+  for option in Name Email SigningKey; do
+    git_config_reset User "${subsection}" "${option}"
+  done
 }
 
 main "${@}"
