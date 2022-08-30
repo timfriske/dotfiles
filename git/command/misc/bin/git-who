@@ -18,8 +18,8 @@ awk_tab() {
 }
 
 git_config_show() {
-  git config --show-origin "${1}.${2}" \
-  | awk_tab -v "title=${1} ${2}" \
+  git config --show-origin "${1}.${2:+${2}.}${3}" \
+  | awk_tab -v "title=${1}${2:+${2}} ${3}" \
       '{
         idx=split($1,origin,"/")
         print title":",$2,"("origin[idx]")"
@@ -27,8 +27,8 @@ git_config_show() {
 }
 
 git_config_show_scope() {
-  git config --show-origin --show-scope "${1}.${2}" \
-  | awk_tab -v "title=${1} ${2}" \
+  git config --show-origin --show-scope "${1}.${2:+${2}.}${3}" \
+  | awk_tab -v "title=${1}${2:+${2}} ${3}" \
       '{
         idx=split($2,origin,"/")
         print title":",$3,"("$1" "origin[idx]")"
@@ -36,22 +36,23 @@ git_config_show_scope() {
 }
 
 git_config_user() {
+  subsection="${1:-}"
   if [ "$(git semver major)" -le 2 ]; then
     if [ "$(git semver minor)" -lt 26 ]; then
-      git_config_show User Name
-      git_config_show User Email
-      git_config_show User SigningKey
+      for option in Name Email SigningKey; do
+        git_config_show User "${subsection}" "${option}"
+      done
       return
     fi
   fi
-  git_config_show_scope User Name
-  git_config_show_scope User Email
-  git_config_show_scope User SigningKey
+  for option in Name Email SigningKey; do
+    git_config_show_scope User "${subsection}" "${option}"
+  done
 }
 
 main() {
     # `column -t -s` equivalent to `column --table --separator`
-    git_config_user | column -t -s "${tabulator}"
+    git_config_user "${1:-}" | column -t -s "${tabulator}"
 }
 
 main "${@}"
