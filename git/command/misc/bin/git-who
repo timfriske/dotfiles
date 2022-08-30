@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Who command
 # ===============
@@ -7,18 +7,16 @@
 # Shows the user's name, email and signing key. With recent versions of
 # Git also a setting's origin and scope are displayed next to it.
 #
-# Deps:: awk, column, env, git-config, git-semver, sh
+# Deps:: awk, bash, column, env, git-config, git-semver
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
-tabulator="$(printf '\t')"
-
-awk_tab() {
-  awk -v FS="${tabulator}" -v OFS="${tabulator}" "${@}"
+function awk_tab {
+  awk -v FS='\t' -v OFS='\t' "${@}"
 }
 
-git_config_show() {
-  git config --show-origin "${1}.${2:+${2}.}${3}" \
+function git_config_show {
+  (git config --show-origin "${1}.${2:+${2}.}${3}" || true) \
   | awk_tab -v "title=${1}${2:+${2}} ${3}" \
       '{
         idx=split($1,origin,"/")
@@ -26,8 +24,8 @@ git_config_show() {
       }'
 }
 
-git_config_show_scope() {
-  git config --show-origin --show-scope "${1}.${2:+${2}.}${3}" \
+function git_config_show_scope {
+  (git config --show-origin --show-scope "${1}.${2:+${2}.}${3}" || true) \
   | awk_tab -v "title=${1}${2:+${2}} ${3}" \
       '{
         idx=split($2,origin,"/")
@@ -35,8 +33,8 @@ git_config_show_scope() {
       }'
 }
 
-git_config_user() {
-  subsection="${1:-}"
+function git_config_user {
+  local subsection="${1:-}" option
   if [ "$(git semver major)" -le 2 ]; then
     if [ "$(git semver minor)" -lt 26 ]; then
       for option in Name Email SigningKey; do
@@ -50,9 +48,9 @@ git_config_user() {
   done
 }
 
-main() {
+function main {
     # `column -t -s` equivalent to `column --table --separator`
-    git_config_user "${1:-}" | column -t -s "${tabulator}"
+    git_config_user "${1:-}" | column -t -s $'\t'
 }
 
 main "${@}"
