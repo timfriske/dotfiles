@@ -1,0 +1,4 @@
+## Mouse Settings For Alacritty Terminal Emulator
+
+mouse:
+  hide_when_typing: true

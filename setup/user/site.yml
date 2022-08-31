@@ -9,6 +9,14 @@
   hosts: "{{ hosts_var }}"
   roles:
 
+    # Alacritty Terminal Emulator
+    # ---------------------------
+    - role: alacritty
+      tags:
+        - alacritty
+        - emulator
+        - terminal
+
     # AWS CLI
     # -------
     - role: aws

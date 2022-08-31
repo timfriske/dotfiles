@@ -1,0 +1,5 @@
+## Shell Settings For Alacritty Terminal Emulator
+
+shell:
+  program: /usr/bin/bash
+  args: [--login]

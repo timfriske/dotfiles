@@ -1,0 +1,19 @@
+## Font Scheme Source Code Pro For Alacritty Terminal Emulator
+
+font:
+  normal:
+    family: Source Code Pro
+    style: Regular
+  bold:
+    family: Source Code Pro
+    style: Bold
+  italic:
+    family: Source Code Pro
+    style: Italic
+  bold_italic:
+    family: Source Code Pro
+    style: Bold Italic
+  size: 9.0
+  offset: {x: 0, y: 0}
+  glyph_offset: {x: 0, y: 0}
+  use_thin_strokes: true

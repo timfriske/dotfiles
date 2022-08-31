@@ -1,0 +1,8 @@
+## Window Settings For Alacritty Terminal Emulator
+
+window:
+  padding: {x: 1, y: 1}
+  dynamic_padding: true
+  startup_mode: Maximized
+  dynamic_title: true
+  gtk_theme_variant: dark

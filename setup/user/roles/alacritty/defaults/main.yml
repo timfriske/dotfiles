@@ -1,0 +1,12 @@
+---
+# User-specific Alacritty setup
+# =============================
+# Tim Friske <me@tifr.de>
+
+# Default main variables
+# ----------------------
+user_dir: "{{ ansible_env.HOME }}"
+
+config_dir: "{{ user_dir }}/.config"
+
+alacritty_dir: "{{ config_dir }}/alacritty"
