@@ -7,6 +7,7 @@
 # -----------------------------
 
 packages:
+  - adobe-sourcecodepro-fonts
   - alacritty
   - ansible
   - aws-cli
@@ -22,6 +23,7 @@ packages:
   - fail2ban
   - fd
   - ffmpeg-4
+  - fira-code-fonts
   - fzf
   - gimp
   - git
@@ -32,6 +34,7 @@ packages:
   - gstreamer-plugins-good
   - gstreamer-plugins-libav
   - gstreamer-plugins-ugly
+  - hack-fonts
   - htop
   - inkscape
   - inotify-tools
