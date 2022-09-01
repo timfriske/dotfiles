@@ -43,6 +43,7 @@ packages:
   - iozone
   - iperf
   - java-17-openjdk-devel
+  - jetbrains-mono-fonts
   - jq
   - keepassxc
   - krita
