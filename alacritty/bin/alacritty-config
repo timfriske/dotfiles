@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Alacritty Config command
+# ========================
+# Tim Friske <me@tifr.de>
+#
+# Configures the Alacritty terminal emulator with one of the preset
+# configuration files underneath its configuration directory, namely
+# either `${XDG_CONFIG_HOME}/alacritty` or `${HOME}/.config/alacritty`.
+#
+# Deps:: alacritty, bash, env, find, fzf, ln, nl, realpath, sort
+
+shopt -os nounset pipefail errexit errtrace
+
+export config_prefix="${XDG_CONFIG_HOME:-${HOME}/.config}/alacritty"
+export config_dir="${config_prefix}"
+export config_file="$(realpath -- "${config_prefix}.yml")"
+
+function configure {
+  local fields=($1) file="${fields[-1]}"
+  ln --relative --symbolic --force -- "${file:-"${config_file}"}" "${config_prefix}.yml"
+}
+export -f configure
+
+bindings=(
+  'up:execute-silent(configure {})+up'
+  'down:execute-silent(configure {})+down'
+  'tab:execute-silent(configure {})'
+  'shift-tab:execute-silent(configure)'
+  'esc:execute-silent(configure)+abort'
+  'ctrl-c:execute-silent(configure)+abort'
+)
+
+find "${config_dir}" -type f -name '*.yml' | sort | nl \
+  | fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" \
+    --cycle --no-multi --select-1 --exit-0
