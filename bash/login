@@ -67,7 +67,6 @@ export PROMPT_COMMAND="tmux-pwd;${PROMPT_COMMAND}"
 # verbose::
 #   Let _Cp_ report what it is doing.
 
-# Define default options for `cp` command.
 export CP_X_OPTIONS=''
 CP_X_OPTIONS+='--interactive '
 CP_X_OPTIONS+='--verbose '
@@ -86,21 +85,17 @@ CP_X_OPTIONS+='--verbose '
 # V::
 #   Verbose output.
 
-# Define default options for `chattr` command.
 export CHGRP_X_OPTIONS=''
 CHGRP_X_OPTIONS+='-V '
 
-# Define default options for `chgrp` command.
 export CHGRP_X_OPTIONS=''
 CHGRP_X_OPTIONS+='--preserve-root '
 CHGRP_X_OPTIONS+='--changes '
 
-# Define default options for `chmod` command.
 export CHMOD_X_OPTIONS=''
 CHMOD_X_OPTIONS+='--preserve-root '
 CHMOD_X_OPTIONS+='--changes '
 
-# Define default options for `chown` command.
 export CHOWN_X_OPTIONS=''
 CHOWN_X_OPTIONS+='--preserve-root '
 CHOWN_X_OPTIONS+='--changes '
@@ -111,18 +106,15 @@ CHOWN_X_OPTIONS+='--changes '
 # si::
 #   Show human-readable file system sizes in powers of 1,000.
 
-# Define default options for `df` command.
 export DF_X_OPTIONS=''
 DF_X_OPTIONS+='--si '
 DF_X_OPTIONS+='--print-type '
 
-# Define default options for `df-common` command.
 export DF_COMMON_X_OPTIONS=''
 DF_COMMON_X_OPTIONS+='--exclude-type=devtmpfs '
 DF_COMMON_X_OPTIONS+='--exclude-type=squashfs '
 DF_COMMON_X_OPTIONS+='--exclude-type=tmpfs '
 
-# Define default options for `du` command.
 export DU_X_OPTIONS=''
 DU_X_OPTIONS+='--si '
 
@@ -147,7 +139,6 @@ DU_X_OPTIONS+='--si '
 #  color=auto::
 #    If _Diff_ output is to a terminal colorize it.
 
-# Define default options for `diff` command.
 export DIFF_X_OPTIONS=''
 DIFF_X_OPTIONS+='--unified '
 DIFF_X_OPTIONS+='--ignore-tab-expansion '
@@ -163,7 +154,7 @@ DIFF_X_OPTIONS+='--color=auto '
 # Tell programs to open files in favorite text editor _Vim_ _Vi
 # Improved_.  Don't care about line-oriented vs. visual editors just
 # assign both `$EDITOR` and `$VISUAL` the same editor.
-#
+
 export EDITOR='vim'
 export VISUAL='vim'
 
@@ -175,7 +166,6 @@ export VISUAL='vim'
 # si::
 #   show sizes in powers of 1,000 instead of e.g. 1,204.
 
-# Define default options for `free` command.
 export FREE_X_OPTIONS=''
 FREE_X_OPTIONS+='--human '
 FREE_X_OPTIONS+='--si '
@@ -212,16 +202,15 @@ export FZF_JOBS_FZF_OPTS='--multi --exit-0'
 
 # Git - Version control system to track files
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+#
 # Let _Git_ skip reading settings from its system-wide configuration
 # file `{system-home}/gitconfig`.  Assume that the user is a power user
 # of _Git_ and configured every aspect of it down to the smallest detail
 # in her/his personal _Git_ configuration files.
-#
+
 export GIT_CONFIG_NOSYSTEM=true
 
 # Add _Git's_ commit message footer line `Signed-off-by`.
-#
 export GIT_X_SIGNOFF='--signoff'
 
 # Grep - Search files for content
@@ -242,7 +231,7 @@ export GIT_X_SIGNOFF='--signoff'
 #
 #   color=auto::
 #     If _Grep_ output is to a terminal colorize it.
-#
+
 export GREP_X_OPTIONS=''
 GREP_X_OPTIONS+='--directories=recurse '
 GREP_X_OPTIONS+='--binary-files=without-match '
@@ -268,7 +257,7 @@ GREP_X_OPTIONS+='--color=auto '
 # With the `$HISTIGNORE` shell globs (patterns) exclude any single-word
 # commands from history because such trivial commands can be easily
 # recalled just by typing them again.
-#
+
 export HISTSIZE=100000
 export HISTFILE=~/.bash_history
 export HISTFILESIZE="${HISTSIZE}"
@@ -283,7 +272,7 @@ HISTIGNORE+='+([[:alnum:]])*([[:space:]])'
 # vi-keys::
 #   Use keybindings to navigate through info pages similar to those of
 #   the Vi text editor.
-#
+
 export INFO_X_OPTIONS=''
 INFO_X_OPTIONS='--vi-keys '
 
@@ -333,7 +322,7 @@ INFO_X_OPTIONS='--vi-keys '
 #     Let _Less_ display automatically quit itself if there is less than
 #     a screen full of output to display.  Don't let the user have to do
 #     that every time.
-#
+
 export LESS=''
 LESS+='--no-init '
 LESS+='--tabs=4 '
@@ -352,7 +341,7 @@ LESS+='--quit-if-one-screen '
 #   Let _Ln_ prompt before overwriting.
 # verbose::
 #   Let _Ln_ report what it is doing.
-#
+
 export LN_X_OPTIONS=''
 LN_X_OPTIONS+='--interactive '
 LN_X_OPTIONS+='--verbose '
@@ -388,7 +377,7 @@ LN_X_OPTIONS+='--verbose '
 #     Let _Ls_ list all directories before all other kinds of files,
 #     e.g. regular files, symbolic links etc. because such directory
 #     listings might be easier on the eye and therefore to comprehend.
-#
+
 export LS_X_OPTIONS=''
 LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
@@ -404,7 +393,7 @@ LS_X_OPTIONS+='--group-directories-first '
 #
 # verbose::
 #   Let _Mkdir_ report what it is doing.
-#
+
 export MKDIR_X_OPTIONS=''
 MKDIR_X_OPTIONS+='--parents '
 MKDIR_X_OPTIONS+='--verbose '
@@ -417,7 +406,7 @@ MKDIR_X_OPTIONS+='--verbose '
 #
 # verbose::
 #   Let _Mv_ report what it is doing.
-#
+
 export MV_X_OPTIONS=''
 MV_X_OPTIONS+='--interactive '
 MV_X_OPTIONS+='--verbose '
@@ -426,13 +415,13 @@ MV_X_OPTIONS+='--verbose '
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Tell programs to open files in favorite pager _Less_.
-#
+
 export PAGER='less'
 export SYSTEMD_LESS="${LESS}"
 
 # Parallel - run commands in parallel
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
+
 export PARALLEL_X_OPTIONS=''
 PARALLEL_X_OPTIONS+='--no-run-if-empty '
 PARALLEL_X_OPTIONS+='--keep-order '
@@ -442,7 +431,7 @@ PARALLEL_X_OPTIONS+='--keep-order '
 # Save space for the actual command line by showing only the trailing
 # number of path components of the working directory in the command
 # prompt.  The rest of the path is represented by an ellipsis.
-#
+
 export PROMPT_DIRTRIM=3
 
 # Rm - Delete files and non-empty folders
@@ -453,7 +442,7 @@ export PROMPT_DIRTRIM=3
 #
 # verbose::
 #   Let _Rm_ report what it is doing.
-#
+
 export RM_X_OPTIONS=''
 RM_X_OPTIONS+='--interactive '
 RM_X_OPTIONS+='--verbose '
@@ -466,7 +455,7 @@ RM_X_OPTIONS+='--verbose '
 #
 # verbose::
 #   Let _Rmdir_ report what it is doing.
-#
+
 export RMDIR_X_OPTIONS=''
 RMDIR_X_OPTIONS+='--parents '
 RMDIR_X_OPTIONS+='--verbose '
@@ -483,13 +472,14 @@ RMDIR_X_OPTIONS+='--verbose '
 #   Let _Rsync_ report what it is doing on a per-file basis.  See also
 #   `info=progress2` option if you want to see statistics about the
 #   transfer as a whole.
-#
+
 export RSYNC_X_OPTIONS=''
 RSYNC_X_OPTIONS+='--human-readable '
 RSYNC_X_OPTIONS+='--progress '
 
 # Rust programming language
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
+
 export CARGO_HOME=~/.local
 export RUSTUP_HOME=~/.local/rustup
 
@@ -498,7 +488,7 @@ export RUSTUP_HOME=~/.local/rustup
 #
 # regexp-extended::
 #   Let _Sed_ use extended instead of basic regular expressions.
-#
+
 export SED_X_OPTIONS=''
 SED_X_OPTIONS+='--regexp-extended '
 
