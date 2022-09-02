@@ -8,7 +8,8 @@
 # configuration files underneath its configuration directory, namely
 # either `${XDG_CONFIG_HOME}/alacritty` or `${HOME}/.config/alacritty`.
 #
-# Deps:: alacritty, bash, env, find, fzf, ln, nl, realpath, sort
+# Deps:: alacritty, basename, bash, cut, env, find, fzf, ln, nl
+# Deps:: realpath, sort, xargs
 
 shopt -os nounset pipefail errexit errtrace
 
@@ -16,21 +17,31 @@ export config_prefix="${XDG_CONFIG_HOME:-${HOME}/.config}/alacritty"
 export config_dir="${config_prefix}"
 export config_file="$(realpath -- "${config_prefix}.yml")"
 
+function current() {
+  basename --suffix='.yml' -- "${config_file}"
+}
+
 function configure {
-  local fields=($1) file="${fields[-1]}"
-  ln --relative --symbolic --force -- "${file:-"${config_file}"}" "${config_prefix}.yml"
+  local fields=($1) config="${fields[-1]}"
+  ln --relative --symbolic --force -- "${config_dir}/${config}.yml" "${config_prefix}.yml"
 }
 export -f configure
+
+function undo {
+  ln --relative --symbolic --force -- "${config_file}" "${config_prefix}.yml"
+}
+export -f undo
 
 bindings=(
   'up:execute-silent(configure {})+up'
   'down:execute-silent(configure {})+down'
+  'enter:execute-silent(configure {})+accept'
   'tab:execute-silent(configure {})'
-  'shift-tab:execute-silent(configure)'
-  'esc:execute-silent(configure)+abort'
-  'ctrl-c:execute-silent(configure)+abort'
+  'shift-tab:execute-silent(undo)'
+  'esc:execute-silent(undo)+abort'
+  'ctrl-c:execute-silent(undo)+abort'
 )
 
-find "${config_dir}" -type f -name '*.yml' | sort | nl \
-  | fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" \
-    --cycle --no-multi --select-1 --exit-0
+find "${config_dir}" -type f -name '*.yml' | xargs --no-run-if-empty basename --suffix='.yml' | sort | nl \
+  | fzf --header="$(current)" --bind="$(IFS=,; printf '%s' "${bindings[*]}")" --cycle --no-multi --select-1 --exit-0 \
+  | cut --fields=2
