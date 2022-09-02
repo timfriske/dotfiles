@@ -52,6 +52,7 @@ done
 : "${TIER:?required}"
 
 # Restore AWS S3 object.
+printf '%s\n' "s3://${BUCKET}/${KEY}"
 aws s3api restore-object \
   --bucket "${BUCKET}" \
   --key "${KEY}" \
