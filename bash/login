@@ -58,6 +58,12 @@ unset _path _paths _path_real _paths_real
 # Execute command everytime a new prompt is displayed.
 export PROMPT_COMMAND="tmux-pwd;${PROMPT_COMMAND}"
 
+# File/directory name utilities
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+export BASENAME_X_OPTIONS=''
+BASENAME_X_OPTIONS='--multiple '
+
 # Copy - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #

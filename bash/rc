@@ -104,6 +104,11 @@ alias reload-shell='exec "${SHELL}"'
 # Show _Bash's_ version.
 alias version='echo "bash version ${BASH_VERSION}"'
 
+# File/directory name utilities
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias basename='basename ${BASENAME_X_OPTIONS:-}'
+
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
 
