@@ -4,11 +4,11 @@
 # Tim Friske <me@tifr.de>
 
 - name: Make target directories
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ ssh_dir }}"
+  block:
+    - name: OpenSSH configuration directory
+      file:
+        path: "{{ ssh_dir }}"
+        mode: u=rwx,g=,o=
 
 - name: Copy OpenSSH configuration files
   copy:

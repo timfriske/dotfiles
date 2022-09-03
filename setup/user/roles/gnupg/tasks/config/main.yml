@@ -6,12 +6,15 @@
 # Main tasks
 # ----------
 - name: Make target directories
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ bin_dir }}"
-    - "{{ gnupg_dir }}"
+  block:
+    - name: Program directory
+      file:
+        path: "{{ bin_dir }}"
+        state: directory
+    - name: GnuPG configuration directory
+      file:
+        path: "{{ gnupg_dir }}"
+        mode: u=rwx,g=,o=
 
 - name: Copy GnuPG configuration files
   copy:
