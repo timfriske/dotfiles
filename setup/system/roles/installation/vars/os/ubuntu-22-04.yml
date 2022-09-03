@@ -1,0 +1,86 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Ubuntu variables
+# ----------------
+
+packages:
+  - ansible
+  - ansible-lint
+  - asciidoc
+  - asciidoctor
+  - asciidoctor-doc
+  - awscli
+  - bash
+  - borgbackup
+  - borgbackup-doc
+  - btop
+  - cargo
+  - cargo-doc
+  - curl
+  - dash
+  - devscripts
+  - docker-compose
+  - docker-doc
+  - docker.io
+  - dragonplayer
+  - fail2ban
+  - ffmpeg
+  - ffmpeg-doc
+  - fzf
+  - gimp
+  - git
+  - git-doc
+  - gnupg
+  - golang
+  - htop
+  - inkscape
+  - inotify-tools
+  - iotop
+  - iperf
+  - iperf3
+  - jq
+  - keepassxc
+  - krita
+  - libpam-kwallet5
+  - libreoffice
+  - libreoffice-help-de
+  - libreoffice-help-en-us
+  - libreoffice-l10n-de
+  - lsb-core
+  - lsb-release
+  - neovim
+  - nmap
+  - openjdk-17-doc
+  - openjdk-17-jdk
+  - openjdk-17-source
+  - openjdk-18-doc
+  - openjdk-18-jdk
+  - openjdk-18-source
+  - openssh-client
+  - openssh-server
+  - parallel
+  - python3
+  - python3-doc
+  - rclone
+  - ripgrep
+  - rsync
+  - rustc
+  - rust-doc
+  - rust-src
+  - ssh-audit
+  - sysstat
+  - tmux
+  - transmission
+  - vim
+  - vim-doc
+  - visualvm
+  - vlc
+  - wget
+  - wget2
+  - xclip
+  - xsel
+  - yamllint
+  - zstd
