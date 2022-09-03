@@ -90,3 +90,5 @@ packages:
 snaps:
   - intellij-idea-community
   - intellij-idea-ultimate
+  - teams
+  - teams-insiders
