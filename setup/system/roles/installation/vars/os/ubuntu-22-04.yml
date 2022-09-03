@@ -30,6 +30,7 @@ packages:
   - fail2ban
   - ffmpeg
   - ffmpeg-doc
+  - fonts-jetbrains-mono
   - fzf
   - gimp
   - git
@@ -85,3 +86,7 @@ packages:
   - xsel
   - yamllint
   - zstd
+
+snaps:
+  - intellij-idea-community
+  - intellij-idea-ultimate

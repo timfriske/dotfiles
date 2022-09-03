@@ -25,3 +25,11 @@
     install_recommends: yes
     update_cache: yes
     cache_valid_time: 86400
+
+- name: Install packages with snap
+  become: yes
+  snap:
+    name: "{{ snaps }}"
+    channel: stable
+    classic: yes
+    state: present
