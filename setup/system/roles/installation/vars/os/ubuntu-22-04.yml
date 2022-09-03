@@ -19,6 +19,7 @@ packages:
   - btop
   - cargo
   - cargo-doc
+  - code
   - curl
   - dash
   - devscripts
