@@ -1,0 +1,25 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Argo Workflows tasks
+# --------------------
+
+- name: Download Argo Workflow gzip file
+  ansible.builtin.get_url:
+    url: https://github.com/argoproj/argo-workflows/releases/download/v{{ release.version }}/argo-linux-amd64.gz
+    dest: "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}.gz"
+    checksum: "{{ release.checksum }}"
+
+- name: Unpack Argo Workflows gzip file
+  ansible.builtin.shell: |
+    gunzip "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}.gz"
+    chmod -- a+x "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}"
+
+- name: Copy Argo Workflows program file
+  become: yes
+  ansible.builtin.copy:
+    src: "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}"
+    dest: "/usr/local/bin/argo-{{ release.version }}"
+    mode: a+x

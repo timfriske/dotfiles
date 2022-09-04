@@ -30,3 +30,6 @@
 
 - name: Install AWS CLI version 2
   ansible.builtin.import_tasks: aws-cli-v2.yml
+
+- name: Install Argo Workflows
+  ansible.builtin.import_tasks: argo-workflows.yml
