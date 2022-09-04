@@ -6,6 +6,17 @@
 # Ubuntu tasks
 # ------------
 
+- name: Add Alacritty Terminal Emulator apt repository
+  become: yes
+  block:
+  - apt_key:
+      id: 3A160895CC2CE253085D08A552B24DF7D43B5377
+      url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3a160895cc2ce253085d08a552b24df7d43b5377
+      state: present
+  - apt_repository:
+      repo: deb https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu jammy main
+      state: present
+
 - name: Add Microsoft Visual Studio Code apt repository
   become: yes
   block:
