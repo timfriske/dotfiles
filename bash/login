@@ -456,14 +456,10 @@ RM_X_OPTIONS+='--verbose '
 # Rmdir - Delete empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# parents::
-#   Let _Rmdir_ delete all folders, i.e. also the intermediate ones.
-#
 # verbose::
 #   Let _Rmdir_ report what it is doing.
 
 export RMDIR_X_OPTIONS=''
-RMDIR_X_OPTIONS+='--parents '
 RMDIR_X_OPTIONS+='--verbose '
 
 # Rsync - Synchronize file system trees
