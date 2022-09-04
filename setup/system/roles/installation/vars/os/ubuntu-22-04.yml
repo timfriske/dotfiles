@@ -32,6 +32,8 @@ packages:
   - fd-find
   - ffmpeg
   - ffmpeg-doc
+  - fonts-firacode
+  - fonts-hack
   - fonts-jetbrains-mono
   - fzf
   - gimp
