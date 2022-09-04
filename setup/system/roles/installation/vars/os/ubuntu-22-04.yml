@@ -29,6 +29,7 @@ packages:
   - docker.io
   - dragonplayer
   - fail2ban
+  - fd-find
   - ffmpeg
   - ffmpeg-doc
   - fonts-jetbrains-mono
