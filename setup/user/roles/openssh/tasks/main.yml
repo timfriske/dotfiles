@@ -6,10 +6,10 @@
 # Main tasks
 # ----------
 - name: Set up OpenSSH utility programs
-  import_tasks: bin/main.yml
+  ansible.builtin.import_tasks: bin/main.yml
 
 - name: Set up OpenSSH configuration files
-  import_tasks: config/main.yml
+  ansible.builtin.import_tasks: config/main.yml
 
 - name: Set up OpenSSH keys
-  import_tasks: key/main.yml
+  ansible.builtin.import_tasks: key/main.yml

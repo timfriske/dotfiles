@@ -6,33 +6,33 @@
 # Main tasks
 # ----------
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
     - "{{ alacritty_dir }}"
 
 - name: List configuration files
-  set_fact:
+  ansible.builtin.set_fact:
     config_files: "{{ lookup('ansible.builtin.fileglob', 'config/*.yml', wantlist=True) }}"
     config_files_color: "{{ lookup('ansible.builtin.fileglob', 'config/color/*.yml', wantlist=True) }}"
     config_files_font: "{{ lookup('ansible.builtin.fileglob', 'config/font/*.yml', wantlist=True) }}"
 
 - name: Set configuration file header
-  set_fact:
+  ansible.builtin.set_fact:
     config_file_content: "# Configuration File For Alacritty Terminal Emulator"
 
 - name: Concatenate configuration files
-  set_fact:
+  ansible.builtin.set_fact:
     config_file_content: "{{ config_file_content }}\n\n{{ item }}"
-  with_file: "{{ config_files }}"
+  with_ansible.builtin.file: "{{ config_files }}"
 
 - name: List of paired configuration files
-  set_fact:
+  ansible.builtin.set_fact:
     config_file_pairs: "{{ config_files_color | product(config_files_font) | list }}"
 
 - name: Write configuration files
-  copy:
+  ansible.builtin.copy:
     dest: "{{ alacritty_dir }}/{{ item[0] | basename | splitext | first }}-{{ item[1] | basename | splitext | first }}.yml"
     content: "{{ config_file_content }}\n\n{{ lookup('ansible.builtin.file', item[0]) }}\n\n{{ lookup('ansible.builtin.file', item[1]) }}"
   loop: "{{ config_file_pairs }}"

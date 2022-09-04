@@ -9,7 +9,7 @@
 - name: Add Alacritty Terminal Emulator apt repository
   become: yes
   block:
-  - apt_key:
+  - ansible.builtin.apt_key:
       id: 3A160895CC2CE253085D08A552B24DF7D43B5377
       url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3a160895cc2ce253085d08a552b24df7d43b5377
       state: present
@@ -20,7 +20,7 @@
 - name: Add Microsoft Visual Studio Code apt repository
   become: yes
   block:
-  - apt_key:
+  - ansible.builtin.apt_key:
       id: BC528686B50D79E339D3721CEB3E94ADBE1229CF
       url: https://packages.microsoft.com/keys/microsoft.asc
       state: present
@@ -30,7 +30,7 @@
 
 - name: Install packages with apt
   become: yes
-  apt:
+  ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
     install_recommends: yes
@@ -39,7 +39,7 @@
 
 - name: Install packages with snap
   become: yes
-  snap:
+  community.general.snap:
     name: "{{ snaps }}"
     channel: stable
     classic: yes
@@ -47,7 +47,7 @@
 
 - name: Make fdfind available as fd
   become: yes
-  file:
+  ansible.builtin.file:
     src: /usr/bin/fdfind
     dest: /usr/local/bin/fd
     state: link

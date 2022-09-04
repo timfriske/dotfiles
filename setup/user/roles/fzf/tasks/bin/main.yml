@@ -4,14 +4,14 @@
 # Tim Friske <me@tifr.de>
 
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
     - "{{ bin_dir }}"
 
 - name: Copy Fzf programs
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
     mode: preserve
@@ -19,20 +19,20 @@
     - bin/*
 
 - name: Check if Fd program is in PATH
-  shell: "which fd"
+  ansible.builtin.shell: "which fd"
   register: fd_in_path
   ignore_errors: true
   changed_when: false
 
 - name: Link Fzf Finder to Fzf Fd program
-  file:
+  ansible.builtin.file:
     src: "{{ bin_dir }}/fzf-fd"
     dest: "{{ bin_dir }}/fzf-finder"
     state: link
   when: fd_in_path.rc == 0
 
 - name: Link Fzf Finder to Fzf Find program
-  file:
+  ansible.builtin.file:
     src: "{{ bin_dir }}/fzf-find"
     dest: "{{ bin_dir }}/fzf-finder"
     state: link

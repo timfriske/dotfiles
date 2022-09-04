@@ -6,7 +6,7 @@
 # Main tasks
 # ----------
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
@@ -14,7 +14,7 @@
     - "{{ gnupg_dir }}"
 
 - name: Copy GnuPG utility programs
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
     mode: preserve

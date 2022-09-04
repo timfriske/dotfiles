@@ -33,7 +33,7 @@
     - sshd_config.d
 
 - name: Create non-existing OpenSSH host keys
-  include_tasks: key.yml
+  ansible.builtin.include_tasks: key.yml
   loop:
     - "{{ ssh_host_keys_dsa_key }}"
     - "{{ ssh_host_keys_rsa_key }}"

@@ -6,4 +6,4 @@
 # Main tasks
 # ----------
 - name: Set up Vim configuration directory
-  import_tasks: vim/main.yml
+  ansible.builtin.import_tasks: vim/main.yml

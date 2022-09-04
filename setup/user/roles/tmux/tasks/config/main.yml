@@ -6,13 +6,13 @@
 # Main tasks
 # ----------
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
     - "{{ user_dir }}"
 
 - name: Copy Tmux configuration file
-  copy:
+  ansible.builtin.copy:
     src: config/tmux.conf
     dest: "{{ user_dir }}/.tmux.conf"
