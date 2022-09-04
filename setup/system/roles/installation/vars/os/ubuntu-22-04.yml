@@ -96,5 +96,6 @@ packages:
 snaps:
   - intellij-idea-community
   - intellij-idea-ultimate
+  - kubectl
   - teams
   - teams-insiders
