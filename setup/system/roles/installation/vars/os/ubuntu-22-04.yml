@@ -78,6 +78,7 @@ packages:
   - sysstat
   - tmux
   - transmission
+  - tree
   - vim
   - vim-doc
   - visualvm
