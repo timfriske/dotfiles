@@ -51,3 +51,6 @@
     src: /usr/bin/fdfind
     dest: /usr/local/bin/fd
     state: link
+
+- name: Install Minikube
+  ansible.builtin.import_tasks: ../minikube.yml
