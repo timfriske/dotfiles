@@ -344,6 +344,11 @@ function pynv {
   fi
 }
 
+# Ripgrep - Search file contents
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias rg='rg ${RIPGREP_X_OPTIONS:-}'
+
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

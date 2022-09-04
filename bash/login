@@ -440,6 +440,12 @@ PARALLEL_X_OPTIONS+='--keep-order '
 
 export PROMPT_DIRTRIM=3
 
+# Ripgrep file content searcher
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+export RIPGREP_X_OPTIONS=''
+RIPGREP_X_OPTIONS='--smart-case '
+
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
