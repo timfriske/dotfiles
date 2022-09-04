@@ -25,3 +25,9 @@
         - openssh-server
         - ssh
         - sshd
+
+    # User
+    # ----
+    - role: user
+      tags:
+        - user

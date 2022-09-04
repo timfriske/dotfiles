@@ -1,0 +1,17 @@
+---
+# System-wide user setup
+# ======================
+# Tim Friske <me@tifr.de>
+
+# Main variables
+# --------------
+
+os_name: "{{ ansible_distribution }}"
+os_name_id: "{{ os_name | lower | replace(' ', '-') }}"
+
+os_version: "{{ ansible_distribution_version }}"
+os_version_id: "{{ os_version | lower | replace('.', '-') }}"
+
+os_variable_files:
+  - os/{{ os_name_id }}-{{ os_version_id }}.yml
+  - os/{{ os_name_id }}.yml
