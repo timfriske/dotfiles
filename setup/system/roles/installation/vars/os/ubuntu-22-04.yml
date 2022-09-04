@@ -58,6 +58,7 @@ packages:
   - lsb-core
   - lsb-release
   - neovim
+  - network-manager-openvpn
   - nmap
   - openjdk-17-doc
   - openjdk-17-jdk
