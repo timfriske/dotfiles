@@ -1,0 +1,4 @@
+---
+# Ansible Galaxy Collections
+collections:
+  - community.general
