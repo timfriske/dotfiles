@@ -43,11 +43,13 @@ packages:
   - iozone
   - iperf
   - java-17-openjdk-devel
+  - java-18-openjdk-devel
   - jetbrains-mono-fonts
   - jq
   - keepassxc
   - krita
   - kubernetes-client
+  - kustomize
   - lsb-release
   - minikube
   - neovim
