@@ -98,5 +98,6 @@ snaps:
   - intellij-idea-community
   - intellij-idea-ultimate
   - kubectl
+  - kustomize
   - teams
   - teams-insiders
