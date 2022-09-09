@@ -1,0 +1,9 @@
+---
+# System-wide kernel parameter setup
+# ==================================
+# Tim Friske <me@tifr.de>
+
+# Default main variables
+# ----------------------
+
+sysctl_kernel_parameters: []

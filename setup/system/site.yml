@@ -26,6 +26,14 @@
         - ssh
         - sshd
 
+    # Sysctl
+    # ----
+    - role: sysctl
+      tags:
+        - sysctl
+        - kernel
+        - parameter
+
     # User
     # ----
     - role: user
