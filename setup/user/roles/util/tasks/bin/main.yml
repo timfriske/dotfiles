@@ -20,6 +20,22 @@
   with_fileglob:
     - bin/*
 
+- name: Test if operating system is using Systemd
+  ansible.builtin.find:
+    patterns: systemctl
+    paths: "{{ ansible_env.PATH.split(':') }}"
+  register: systemctl
+
+- name: Link utility program os to os-systemd
+  ansible.builtin.set_fact:
+    utility_program_os: { src: os-systemd, dest: os }
+  when: systemctl.matched != 0
+
+- name: Link utility program os to os-uname
+  ansible.builtin.set_fact:
+    utility_program_os: { src: os-uname, dest: os }
+  when: systemctl.matched == 0
+
 - name: Create shortcuts to utility programs
   ansible.builtin.file:
     src: "{{ item.src }}"
@@ -35,3 +51,4 @@
     - { src: file-view, dest: fv }
     - { src: lower-case, dest: lc }
     - { src: upper-case, dest: uc }
+    - "{{ utility_program_os }}"
