@@ -1,0 +1,31 @@
+---
+# System-wide user setup
+# ======================
+# Tim Friske <me@tifr.de>
+
+# Default main variables
+# ----------------------
+
+working_environment: ""
+
+user_groups_normal: []
+
+user_groups_admin: []
+
+user_normal: {}
+
+user_admin: {}
+
+user_disabled: {}
+
+user_admins: []
+
+user_admins_at_home: []
+
+user_admins_at_indivumed: []
+
+user_normals: []
+
+user_normals_at_home: []
+
+user_normals_at_indivumed: []

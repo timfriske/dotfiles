@@ -6,4 +6,4 @@
 # Main tasks
 # ----------
 - name: Set up binary directory with programs and scripts
-  import_tasks: bin/main.yml
+  ansible.builtin.import_tasks: bin/main.yml

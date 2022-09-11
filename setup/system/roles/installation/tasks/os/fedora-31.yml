@@ -8,7 +8,7 @@
 
 - name: Add Microsoft Visual Studio Code dnf repository
   become: yes
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: microsoft-visual-studio-code
     description:
       Dnf repository to install Microsoft Visual Studio Code and update
@@ -19,7 +19,7 @@
 
 - name: Install packages with dnf
   become: yes
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ packages }}"
     state: present
     skip_broken: yes

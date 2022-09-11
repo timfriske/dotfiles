@@ -6,7 +6,7 @@
 # Vim main tasks
 # --------------
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
@@ -16,6 +16,6 @@
     - "{{ vim_dir }}"
 
 - name: Copy Vim configuration file
-  copy:
+  ansible.builtin.copy:
     src: vim/vimrc
     dest: "{{ vim_dir }}/vimrc"

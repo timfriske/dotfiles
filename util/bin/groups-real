@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Groups Real command
+# ===================
+# Tim Friske <me@tifr.de>
+#
+# Prints group memberships for the given usernames or current user by
+# default. This command behaves similar to `groups` but retrieves its
+# information from the _group_ database and not from the current
+# process. This is why this command is named `groups-real`.
+#
+# Deps:: awk, bash, env, getent, id
+
+shopt -os nounset pipefail errexit errtrace
+
+function user_groups {
+  if getent passwd "${1}" &> /dev/null; then
+    id --group --name
+    getent group | awk -F: -v user="${1}" '$4~user{print $1}'
+  else
+    printf >&2 "%s: '%s': no such user\n" "${0##*/}" "${1}"
+  fi
+}
+
+function groups_real {
+  local groups
+  if [[ "${#}" -eq 0 ]]; then
+    groups=($(user_groups "${USER}"))
+    printf '%s\n' "${groups[*]}"
+  else
+    for user in "${@}"; do
+      groups=($(user_groups "${user}"))
+      if [[ "${#groups[@]}" -gt 0 ]]; then
+        printf "%s : %s\n" "${user}" "${groups[*]}" 
+      fi
+    done
+  fi
+}
+
+groups_real "${@}"

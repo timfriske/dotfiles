@@ -4,14 +4,14 @@
 # Tim Friske <me@tifr.de>
 
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
     - "{{ systemd_user_dir }}"
 
 - name: Copy GnuPG Systemd user unit files
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ systemd_user_dir }}/{{ item | basename }}"
     mode: preserve
@@ -19,7 +19,7 @@
     - systemd/user/*
 
 - name: Enable GnuPG Systemd user unit files
-  systemd:
+  ansible.builtin.systemd:
     unit: "{{ item }}"
     scope: user
     enabled: yes

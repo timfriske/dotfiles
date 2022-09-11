@@ -4,14 +4,14 @@
 # Tim Friske <me@tifr.de>
 
 - name: Make target directories
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ ssh_dir }}"
+  block:
+    - name: OpenSSH configuration directory
+      ansible.builtin.file:
+        path: "{{ ssh_dir }}"
+        mode: u=rwx,g=,o=
 
 - name: Copy OpenSSH configuration files
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ ssh_dir }}/{{ item | basename }}"
     mode: preserve
@@ -19,4 +19,4 @@
     - config/*
 
 - name: Set up OpenSSH configuration drop-in directory
-  import_tasks: config.d/main.yml
+  ansible.builtin.import_tasks: config.d/main.yml

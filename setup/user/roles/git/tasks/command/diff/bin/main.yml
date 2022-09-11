@@ -6,14 +6,14 @@
 # Main tasks
 # ----------
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
     - "{{ bin_dir }}"
 
 - name: Copy Git Diff commands
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
     mode: preserve
@@ -21,7 +21,7 @@
     - command/diff/bin/git-d*
 
 - name: Create shortcuts to Git Diff commands
-  file:
+  ansible.builtin.file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
            {{ item \

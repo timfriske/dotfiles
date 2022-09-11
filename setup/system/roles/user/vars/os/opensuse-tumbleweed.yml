@@ -1,0 +1,53 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# OpenSUSE Tumbleweed
+# -------------------
+
+user_groups_normal: &user_groups_normal
+  - docker
+
+user_groups_amdin: &user_groups_admin
+  - wheel
+
+user_normal: &user_normal
+  state: present
+  groups_nested:
+    - *user_groups_normal
+  expires: -1
+  password_lock: no
+  update_password: on_create
+  shell: /bin/bash
+
+user_admin: &user_admin
+  <<: *user_normal
+  groups_nested:
+    - *user_groups_normal
+    - *user_groups_admin
+
+user_disabled: &user_disabled
+  expires: 0
+  password_lock: yes
+  shell: /usr/sbin/nologin
+
+user_admins_at_home:
+  - <<: *user_admin
+    uid: 1000
+    name: timfriske
+    group: timfriske
+    comment: Tim Friske
+    email: me@timfriske.de
+    public_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICk8tfnIwMEnqcbyc0k+fieEvpgsKWUzortIEcRE+RKj openpgp:0x18ED3D4B
+
+user_admins_at_indivumed:
+  - <<: *user_admin
+    uid: 1000
+    name: friske
+    group: friske
+    comment: Tim Friske
+    email: friske.tim@indivumed.com
+    public_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJFc348E4ED5FJbb4qdImu93BoxAZJF63YIhJCNw7Pou openpgp:0xB710DF63

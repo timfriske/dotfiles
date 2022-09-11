@@ -10,12 +10,12 @@
   become: yes
   block:
 
-  - rpm_key:
+  - ansible.builtin.rpm_key:
       key: https://packages.microsoft.com/keys/microsoft.asc
       fingerprint: BC528686B50D79E339D3721CEB3E94ADBE1229CF
       state: present
 
-  - zypper_repository:
+  - community.general.zypper_repository:
       name: microsoft-visual-studio-code
       description:
         Zypper repository to install Microsoft Visual Studio Code and
@@ -25,6 +25,6 @@
 
 - name: Install packages with zypper
   become: yes
-  zypper:
+  community.general.zypper:
     name: "{{ packages }}"
     state: present

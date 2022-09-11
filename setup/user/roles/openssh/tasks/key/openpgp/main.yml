@@ -4,14 +4,14 @@
 # Tim Friske <me@tifr.de>
 
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
     - "{{ openpgp_dir }}"
 
 - name: Copy OpenSSH keys derived from OpenPGP keys
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ openpgp_dir }}/{{ item | basename }}"
     mode: preserve
@@ -19,4 +19,4 @@
     - key/openpgp/*
 
 - name: Set up OpenSSH key aliases derived from OpenPGP key aliases
-  import_tasks: alias/main.yml
+  ansible.builtin.import_tasks: alias/main.yml

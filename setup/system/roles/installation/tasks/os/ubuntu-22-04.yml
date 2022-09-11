@@ -1,0 +1,56 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Ubuntu tasks
+# ------------
+
+- name: Add Alacritty Terminal Emulator apt repository
+  become: yes
+  block:
+  - ansible.builtin.apt_key:
+      id: 3A160895CC2CE253085D08A552B24DF7D43B5377
+      url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3a160895cc2ce253085d08a552b24df7d43b5377
+      state: present
+  - apt_repository:
+      repo: deb https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu jammy main
+      state: present
+
+- name: Add Microsoft Visual Studio Code apt repository
+  become: yes
+  block:
+  - ansible.builtin.apt_key:
+      id: BC528686B50D79E339D3721CEB3E94ADBE1229CF
+      url: https://packages.microsoft.com/keys/microsoft.asc
+      state: present
+  - apt_repository:
+      repo: deb https://packages.microsoft.com/repos/code stable main
+      state: present
+
+- name: Install packages with apt
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+    install_recommends: yes
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install packages with snap
+  become: yes
+  community.general.snap:
+    name: "{{ snaps }}"
+    channel: stable
+    classic: yes
+    state: present
+
+- name: Make fdfind available as fd
+  become: yes
+  ansible.builtin.file:
+    src: /usr/bin/fdfind
+    dest: /usr/local/bin/fd
+    state: link
+
+- name: Install Minikube
+  ansible.builtin.import_tasks: ../minikube.yml

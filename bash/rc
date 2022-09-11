@@ -30,7 +30,7 @@
 # Disable `CTRL-S` and `CTRL-Q` to stop and start terminal output
 # because this function is not very useful and just confuses most users.
 # The previously bound hot keys can be assigned new functions hereafter.
-#
+
 if [[ "${-}" == *i* ]]; then
   stty -ixon
 fi
@@ -39,11 +39,9 @@ fi
 # -------------
 
 # Edit commands with Vi- instead of Emacs-like key bindings.
-#
 shopt -os vi
 
 # Make it easy to name and navigate directories.
-#
 shopt -s autocd cdable_vars cdspell dirspell
 
 # List any stopped and running jobs before exiting an interactive shell
@@ -51,40 +49,32 @@ shopt -s autocd cdable_vars cdspell dirspell
 # manually, e.g. by saving their data first.  To list the remaining jobs
 # is what most users would usually do if the shell they are about to
 # exit reports that there are a number of stopped jobs.
-#
 shopt -s checkjobs
 
 # Update window size after each command.
-#
 shopt -s checkwinsize
 
 # Also store multi-line commands in history in case the user wants to
 # adapt them later on, e.g. in case of syntax errors.
-#
 shopt -s cmdhist lithist
 
 # Recognize extended set of patterns during pattern matching and path
 # name expansion.
-#
 shopt -s extglob globstar
 
 # Make command history more accessible.
-#
 shopt -s histappend histreedit histverify
 
 # Don't overwrite files with `>` file redirection operator.  This
 # setting may be overruled adhoc by using the `>|` operator.
-#
 shopt -os noclobber
 
 # Attempt to complete commands once a non-empty prefix is given in order
 # to not list the entire arsenal of commands but an already reduced list.
-#
 shopt -s no_empty_cmd_completion
 
 # Ignore upper- and lower case during path name expansion and pattern
 # matching.
-#
 shopt -s nocaseglob nocasematch
 
 # Shell aliases
@@ -94,132 +84,101 @@ shopt -s nocaseglob nocasematch
 # user to shorten frequently used commands, introduce easy to remember
 # alternative names, etc.  The user should be fully aware of which
 # aliases are defined in order to also benefit from using them.
-#
 unalias -a
 
 # Bash built-ins
 # ~~~~~~~~~~~~~~
 
 # Shorthand for `history` built-in.
-#
 alias hist=history
 
 # Synchronize histories between simultaneously running shell sessions.
-#
 alias hist-sync='history -n && history -w && history -c && history -r'
 
 # Reload interactive login shell by replacing current shell.
-#
 alias reload-login='reload-shell -l'
 
 # Reload interactive shell by replacing current shell.
-#
 alias reload-shell='exec "${SHELL}"'
 
 # Show _Bash's_ version.
-#
 alias version='echo "bash version ${BASH_VERSION}"'
+
+# File/directory name utilities
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias basename='basename ${BASENAME_X_OPTIONS:-}'
 
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
 
 # Toggle between current and previous directory.  Hitting `cdd` should
 # be much faster than typing `cd`, space, and then reaching out for `-`.
-#
 alias cdd='cd -'
 
 # Change to the directory containing the given file.
-#
 function cdf { cd -- "${1%/*}"; }
 
 # Change to the top-level (root) directory of a Git repository.
-#
 alias cdg='cd -- "$(git rev-parse --show-toplevel)"'
 
 # Change to the root directory.  Faster to type because characters are
 # closer.
-#
 alias cdr='cd /'
 
 # With the shell option `autocd` switched on executing `..` already
 # changes to the parent directory.  This alias acts as a fallback in
 # case that shell option is switched off.
-#
 alias ..='cd ..'
 
 # The alias `...` expands on the idea of `..` by making it possible to
 # go up two directories at once.  More than two levels in one go would
 # mean too much mental work.
-#
 alias ...='cd ../..'
 
 # Cp - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `cp` command with default options.
-#
 alias cp='cp ${CP_X_OPTIONS:-}'
 
 # Ch(attr|grp|mod|own) - Change file metadata
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `chattr` command with default options.
-#
 alias chattr='chattr ${CHATTR_X_OPTIONS:-}'
-
-# Define alias to call `chgrp` command with default options.
-#
 alias chgrp='chgrp ${CHGRP_X_OPTIONS:-}'
-
-# Define alias to call `chmod` command with default options.
-#
 alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
-
-# Define alias to call `chown` command with default options.
-#
 alias chown='chown ${CHOWN_X_OPTIONS:-}'
 
 # Df - Disk free
 # ~~~~~~~~~~~~~~
 
-# Define alias to call `df` command with default options.
-#
 alias df='df ${DF_X_OPTIONS:-}'
 
 # Df - Disk usage
 # ~~~~~~~~~~~~~~~
 
-# Define alias to call `du` command with default options.
-#
 alias du='du ${DU_X_OPTIONS:-}'
 
 # Diff - Differences between files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `diff` command with default options.
-#
 alias diff='diff ${DIFF_X_OPTIONS:-}'
 
 # Free - Show free main memory and swap space
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `free` command with default options.
-#
 alias free='free ${FREE_X_OPTIONS:-}'
 
 # Fzf - Fuzzy-search and select all kinds of items
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Test if fuzzy finder program _Fzf_ is installed.
-#
 if type -p fzf &> /dev/null; then
 
   # Test if _Fzf_ specific _Readline_ file is readable.
-  #
   if [[ -f ~/.inputrc.fzf && -r ~/.inputrc.fzf ]]; then
 
     # Make _Fzf_ available through _Readline_ key bindings.
-    #
     bind -f ~/.inputrc.fzf
   fi
   source fzf-insert.bash &> /dev/null
@@ -262,8 +221,6 @@ fi
 # Grep - Search files for content
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Call `grep` with default options.
-#
 alias grep='grep ${GREP_X_OPTIONS:-}'
 
 # Horizontal Ruler - Print horizontal ruler
@@ -277,8 +234,6 @@ fi
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `info` command with default options.
-#
 alias info='info ${INFO_X_OPTIONS:-}'
 
 # Jobs - Management of processes in foreground and background
@@ -330,19 +285,13 @@ fi
 # Ln - Create hard and soft links to files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `ln` command with default options.
-#
 alias ln='ln ${LN_X_OPTIONS:-}'
 
 # Mkdir - Create folders
 # ~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `mkdir` command with default options.
-#
 alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
 
-# Define an alias that is similar to `rd` for symmetry.
-#
 alias md='mkdir'
 
 # Make and change to given, random (mdr) or temporary (mdt) directory.
@@ -351,7 +300,7 @@ alias md='mkdir'
 # current user or _tmp_ by default, followed by a dot and ending in 10
 # random alphanumeric characters. The default prefix may be overridden
 # by the first argument.
-#
+
 mdd() { md "${1:-.}" && cd "${_}"; }
 mdr() { cd "$(mktemp --directory "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
 mdt() { cd "$(mktemp --tmpdir --directory "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
@@ -359,16 +308,11 @@ mdt() { cd "$(mktemp --tmpdir --directory "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
 # Mv - Move/rename files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `mv` command with default options.
-#
 alias mv='mv ${MV_X_OPTIONS:-}'
 
 # Parallel - run commands in parallel
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
 
-# Define alias to call `parallel` command with default options.
-#
 alias parallel='parallel ${PARALLEL_X_OPTIONS:-}'
 
 # Python - Programming language
@@ -400,43 +344,36 @@ function pynv {
   fi
 }
 
+# Ripgrep - Search file contents
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias rg='rg ${RIPGREP_X_OPTIONS:-}'
+
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `rm` command with default options.
-#
 alias rm='rm ${RM_X_OPTIONS:-}'
 
 # Rmdir - Delete empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `rmdir` command with default options.
-#
 alias rmdir='rmdir ${RMDIR_X_OPTIONS:-}'
-
-# Define an alias that is similar to `rm` for symmetry.
-#
 alias rd='rmdir'
 
 # Rsync - Synchronize file system trees
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `rsync` command with default options.
-#
 alias rsync='rsync ${RSYNC_X_OPTIONS:-}'
 
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Define alias to call `sed` command with default options.
-#
 alias sed='sed ${SED_X_OPTIONS:-}'
 
 # Sudo - Execute programs as another user
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Make `sudo` command also work with aliases.
-#
 alias sudo='sudo '
 
 # Xdg-open - Open files and folders w/ appropriate programs
@@ -451,7 +388,6 @@ fi
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
 
   # Read and execute commands from that startup file.
-  #
   source ~/.bashrc.local
 fi
 
@@ -461,19 +397,16 @@ if type -p gpg &> /dev/null; then
 
   # Let _GnuPG_ know on which terminal to interact with the user; for
   # example the _Gpg-agent_ daemon prompting for the passphrase.
-  #
   export GPG_TTY="$(tty)"
   echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null
 fi
 
 # Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from
 # `localhost` is running.
-#
 if ! [[ -n "${TMUX}" || "${TERM}" =~ screen
     || "${SSH_CONNECTION}" =~ ^::1|^127\.0\.0\.1 ]]; then
 
   # Test if _Tmux_ is on the `$PATH`.
-  #
   if type -p tmux &> /dev/null; then
     # Try to attach to latest unattached session or start a new one.
     { tmux attach-session || tmux new-session; } &> /dev/null
@@ -481,19 +414,14 @@ if ! [[ -n "${TMUX}" || "${TERM}" =~ screen
 fi
 
 function _on_exit {
-
   # Prevent duplicates when merging Bash shell histories.
-  #
   if [[ "${HISTCONTROL}" =~ erasedups ]]; then
-
     # 1. Read new commands from history file into memory.
     # 2. Write all commands from memory into history file.
     # 3. Clear all commands from memory.
     # 4. Read all commands from history file into memory.
-    #
     history -n && history -w && history -c && history -r
   fi
-
 }
 
 trap _on_exit EXIT

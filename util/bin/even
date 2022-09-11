@@ -6,7 +6,7 @@
 #
 # Prints lines on even line numbers.
 #
-# Deps:: env, sh, awk
+# Deps:: awk, env, sh
 
 set -o errexit -o nounset
 

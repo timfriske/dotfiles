@@ -1,0 +1,4 @@
+## Selection Settings For Alacritty Terminal Emulator
+
+selection:
+  save_to_clipboard: true

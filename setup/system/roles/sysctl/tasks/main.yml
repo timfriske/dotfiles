@@ -1,0 +1,34 @@
+---
+# System-wide kernel parameter setup
+# ==================================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+
+- name: Running as user
+  ansible.builtin.debug:
+    var: ansible_user
+
+- name: Search for OS specific variables in files
+  ansible.builtin.debug:
+    var: os_variable_files
+
+- name: Include OS specific variables of first found file
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - files: "{{ os_variable_files }}"
+
+- name: Configure kernel parameters
+  become: yes
+  loop: "{{ sysctl_kernel_parameters }}"
+  loop_control:
+    loop_var: item
+    label: "{{ item.name }}"
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    reload: "{{ item.reload | default(omit) }}"
+    sysctl_file: "{{ item.sysctl_file | default(omit) }}"
+    sysctl_set: "{{ item.sysctl_set | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"

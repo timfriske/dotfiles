@@ -1,0 +1,15 @@
+---
+# System-wide kernel parameter setup
+# ==================================
+# Tim Friske <me@tifr.de>
+
+# Ubuntu variables
+# ----------------
+
+sysctl_kernel_parameters:
+  -
+    name: fs.inotify.max_user_watches
+    value: 495170 # default: 247585
+  -
+    name: vm.max_map_count
+    value: 131060 # default: 65530

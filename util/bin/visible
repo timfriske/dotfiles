@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Visible command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Makes non-printing, tabulator and line ending characters visible.
+#
+# Deps:: cat, env, sh
+
+set -o errexit -o nounset
+
+cat --show-nonprinting --show-tabs --show-ends "${@}"

@@ -8,7 +8,7 @@
 
 - name: Install packages with apt
   become: yes
-  apt:
+  ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
     install_recommends: yes

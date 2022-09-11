@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Argo Control command
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Control objects managed by the `argo` program.
+#
+# Deps:: argo, awk, bash, env, fzf, xargs
+
+shopt -os nounset pipefail errexit errtrace
+
+function workflows { printf '%s\n' "${@}" | awk '{print $1}'; }
+function xargs { command xargs --no-run-if-empty -- "${@}"; }
+export -f workflows xargs
+
+function pick {
+  local bindings=(
+    'ctrl-a:toggle-all'
+    'ctrl-d:execute(workflows {+} | xargs argo delete --)+abort'
+    'ctrl-g:execute(workflows {+} | xargs argo get --)+abort'
+    'ctrl-l:execute(workflows {} | xargs argo logs --)+abort'
+    'ctrl-r:execute(workflows {+} | xargs argo retry --)+abort'
+    'ctrl-w:execute(workflows {} | xargs argo watch --)+abort'
+    'enter:execute(workflows {+})+abort'
+  )
+  fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"
+}
+
+# Stop listing after first blank line followed by informative messages. 
+argo list "${@}" \
+  | awk '/^\s*$/{exit}{print $0}' \
+  | pick --header-lines=1 --cycle --multi --exit-0

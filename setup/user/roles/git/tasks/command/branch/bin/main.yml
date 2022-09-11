@@ -6,14 +6,14 @@
 # Main tasks
 # ----------
 - name: Make target directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop:
     - "{{ bin_dir }}"
 
 - name: Copy Git Branch Commands
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ bin_dir }}/{{ item | basename }}"
     mode: preserve
@@ -21,7 +21,7 @@
     - command/branch/bin/git-b*
 
 - name: Create shortcuts to Git Branch Commands
-  file:
+  ansible.builtin.file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
            {{ item \
@@ -33,13 +33,13 @@
 
 - block:
     - name: Create extra shortcuts to Git Branch Commands
-      file:
+      ansible.builtin.file:
         src: "{{ item.value }}"
         dest: "{{ bin_dir }}/{{ item.key }}"
         state: link
       loop: "{{ extra_shortcuts | dict2items }}"
     - name: Create extra shortcuts to Git Branch Commands
-      file:
+      ansible.builtin.file:
         src: "{{ item.key }}"
         dest: "{{ bin_dir }}/\
                {{ item.key \

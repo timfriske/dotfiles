@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Misses command
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Lists files without matching content. Use `hits` for the opposite.
+#
+# Deps:: env, rg, sh
+
+set -o errexit -o nounset
+
+rg --files-without-match --smart-case "${@}"

@@ -6,4 +6,4 @@
 # Main tasks
 # ----------
 - name: Set up OpenSSH keys derived from OpenPGP keys
-  import_tasks: openpgp/main.yml
+  ansible.builtin.import_tasks: openpgp/main.yml

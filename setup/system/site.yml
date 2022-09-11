@@ -25,3 +25,17 @@
         - openssh-server
         - ssh
         - sshd
+
+    # Sysctl
+    # ----
+    - role: sysctl
+      tags:
+        - sysctl
+        - kernel
+        - parameter
+
+    # User
+    # ----
+    - role: user
+      tags:
+        - user

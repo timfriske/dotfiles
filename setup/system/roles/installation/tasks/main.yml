@@ -7,23 +7,29 @@
 # ----------
 
 - name: Running as user
-  debug:
+  ansible.builtin.debug:
     var: ansible_user
 
 - name: Search for OS specific variables in files
-  debug:
+  ansible.builtin.debug:
     var: os_variable_files
 
 - name: Include OS specific variables of first found file
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files: "{{ os_variable_files }}"
 
 - name: Search for OS specific tasks in files
-  debug:
+  ansible.builtin.debug:
     var: os_task_files
 
 - name: Include OS specific tasks of first found file
-  include_tasks: "{{ item }}"
+  ansible.builtin.include_tasks: "{{ item }}"
   with_first_found:
     - files: "{{ os_task_files }}"
+
+- name: Install AWS CLI version 2
+  ansible.builtin.import_tasks: aws-cli-v2.yml
+
+- name: Install Argo Workflows
+  ansible.builtin.import_tasks: argo-workflows.yml

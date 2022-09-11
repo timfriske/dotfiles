@@ -1,0 +1,70 @@
+---
+# System-wide user setup
+# ======================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+
+- name: Running as user
+  ansible.builtin.debug:
+    var: ansible_user
+
+- name: Search for OS specific variables in files
+  ansible.builtin.debug:
+    var: os_variable_files
+
+- name: Include OS specific variables of first found file
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - files: "{{ os_variable_files }}"
+
+- name: Determine working environment
+  block:
+    - name: Working environment
+      ansible.builtin.debug:
+        var: working_environment
+    - name: Determine administrators and normal users at home 
+      ansible.builtin.set_fact:
+        user_admins: "{{ user_admins_at_home }}"
+        user_normals: "{{ user_normals_at_home }}"
+      when: working_environment == 'home'
+    - name: Determine administrators and normal users at work (Indivumed)
+      ansible.builtin.set_fact:
+        user_admins: "{{ user_admins_at_indivumed }}"
+        user_normals: "{{ user_normals_at_indivumed }}"
+      when: working_environment == 'indivumed'
+
+- name: Determine user groups
+  ansible.builtin.getent:
+    database: group
+
+- name: Configure user
+  become: yes
+  loop: "{{ user_admins + user_normals }}"
+  loop_control:
+    loop_var: user
+    label: "{{ user.comment }} ({{ user.name }})"
+  ansible.builtin.user:
+    uid: "{{ user.uid }}"
+    name: "{{ user.name }}"
+    group: "{{ user.group }}"
+    comment: "{{ user.comment }}"
+    expires: "{{ user.expires }}"
+    password: "{{ ansible_date_time.date | password_hash('sha512') }}"
+    password_lock: "{{ user.password_lock }}"
+    update_password: "{{ user.update_password }}"
+    shell: "{{ user.shell }}"
+    state: "{{ user.state }}"
+
+- name: Configure user's secondary groups
+  become: yes
+  loop: "{{ user_admins + user_normals }}"
+  loop_control:
+    loop_var: user
+    label: "{{ user.comment }} ({{ user.name }})"
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    groups: "{{ user.groups_nested | flatten | intersect(ansible_facts.getent_group) }}"
+    append: no
+    state: "{{ user.state }}"
