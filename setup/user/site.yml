@@ -17,6 +17,13 @@
         - emulator
         - terminal
 
+    # Argo Workflow
+    # -------------
+    - role: argo
+      tags:
+        - argo
+        - workflow
+
     # AWS CLI
     # -------
     - role: aws

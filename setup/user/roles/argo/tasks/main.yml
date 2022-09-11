@@ -1,0 +1,9 @@
+---
+# User-specific Argo Workflow setup
+# =================================
+# Tim Friske <me@tifr.de>
+
+# Main tasks
+# ----------
+- name: Set up binary directory with programs and scripts
+  ansible.builtin.import_tasks: bin/main.yml
