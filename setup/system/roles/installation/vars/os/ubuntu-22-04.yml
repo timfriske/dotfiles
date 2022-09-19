@@ -31,6 +31,7 @@ packages:
   - docker-compose
   - docker-doc
   - docker.io
+  - dos2unix
   - dragonplayer
   - fail2ban
   - fd-find

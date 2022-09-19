@@ -19,6 +19,7 @@ packages:
   - dash
   - docker
   - docker-machine-driver-kvm2
+  - dos2unix
   - dragonplayer
   - fail2ban
   - fd
