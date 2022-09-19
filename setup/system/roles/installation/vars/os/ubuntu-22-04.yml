@@ -80,6 +80,7 @@ packages:
   - lsb-core
   - lsb-release
   - make
+  - moreutils
   - neovim
   - network-manager-openvpn
   - nmap
