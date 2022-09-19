@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Sets the default branch marker of the given remote by querying it.
+#
+# Deps:: env, git-remote, sh
+
+set -o errexit -o nounset
+
+git remote set-head --auto "${@}"
