@@ -46,6 +46,7 @@ packages:
   - gimp
   - git
   - git-doc
+  - gnome-keyring
   - gnupg
   - golang
   - htop
@@ -124,5 +125,12 @@ snaps:
   - intellij-idea-ultimate
   - kubectl
   - kustomize
+  - mysql-workbench-community
   - teams
   - teams-insiders
+
+snap_connections:
+  -
+    snap: mysql-workbench-community
+    plug: password-manager-service
+    slot: password-manager-service

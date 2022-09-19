@@ -45,6 +45,14 @@
     classic: yes
     state: present
 
+- name: Connect plugs to slots in snaps
+  become: yes
+  loop: "{{ snap_connections }}"
+  loop_control:
+    loop_var: conn
+    label: "{{ conn.snap }}:{{ conn.plug }} {{ conn.snap }}:{{ conn.slot }}"
+  shell: snap connect {{ conn.snap }}:{{ conn.plug }} :{{ conn.slot }}
+
 - name: Make fdfind available as fd
   become: yes
   ansible.builtin.file:
