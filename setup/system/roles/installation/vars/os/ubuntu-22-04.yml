@@ -104,6 +104,8 @@ packages:
   - rust-doc
   - rust-src
   - speedtest-cli
+  - sqlite3
+  - sqlitebrowser
   - ssh-audit
   - sysstat
   - tmux

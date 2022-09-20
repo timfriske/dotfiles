@@ -65,6 +65,8 @@ packages:
   - rsync
   - rust
   - speedtest-cli
+  - sqlite3
+  - sqlitebrowser
   - stress-ng
   - sysbench
   - sysstat
