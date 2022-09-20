@@ -58,6 +58,7 @@
   ansible.builtin.file:
     src: /usr/bin/fdfind
     dest: /usr/local/bin/fd
+    force: yes
     state: link
 
 - name: Install Minikube

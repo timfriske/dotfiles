@@ -21,6 +21,7 @@
   ansible.builtin.file:
     src: "{{ item.stat.lnk_target }}"
     dest: "{{ openpgp_alias_dir }}/{{ item.stat.path | basename }}"
+    force: yes
     state: link
   when: item.stat.islnk
   loop: "{{ openpgp_alias.results }}"

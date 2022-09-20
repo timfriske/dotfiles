@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-t(.*)', '/gt\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/tag/bin/git-t*

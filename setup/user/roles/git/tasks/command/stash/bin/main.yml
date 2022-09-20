@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-s(.*)', '/gs\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/stash/bin/git-s*

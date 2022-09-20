@@ -40,6 +40,7 @@
   ansible.builtin.file:
     src: "{{ item.src }}"
     dest: "{{ bin_dir }}/{{ item.dest }}"
+    force: yes
     state: link
   loop:
     - { src: df-common, dest: dfc }

@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-d(.*)', '/gd\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/diff/bin/git-d*

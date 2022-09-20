@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-z(.*)', '/gz\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/reset/bin/git-z*

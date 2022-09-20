@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-a(.*)', '/ga\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/add/bin/git-a*
