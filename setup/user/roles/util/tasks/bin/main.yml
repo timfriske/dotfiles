@@ -28,28 +28,31 @@
 
 - name: Link utility program os to os-systemd
   ansible.builtin.set_fact:
-    utility_program_os: { src: os-systemd, dest: os }
+    utility_program_os: { src: os-systemd, dest: "{{ bin_dir }}/os" }
   when: systemctl.matched != 0
 
 - name: Link utility program os to os-uname
   ansible.builtin.set_fact:
-    utility_program_os: { src: os-uname, dest: os }
+    utility_program_os: { src: os-uname, dest: "{{ bin_dir }}/os" }
   when: systemctl.matched == 0
 
 - name: Create shortcuts to utility programs
   ansible.builtin.file:
-    src: "{{ item.src }}"
-    dest: "{{ bin_dir }}/{{ item.dest }}"
+    src: "{{ link.src }}"
+    dest: "{{ link.dest }}"
     force: yes
     state: link
   loop:
-    - { src: df-common, dest: dfc }
-    - { src: du-dirs, dest: dud }
-    - { src: du-summary, dest: dus }
-    - { src: file-backup, dest: fb }
-    - { src: file-path, dest: fp }
-    - { src: file-type, dest: ft }
-    - { src: file-view, dest: fv }
-    - { src: lower-case, dest: lc }
-    - { src: upper-case, dest: uc }
+    - { src: df-common, dest: "{{ bin_dir }}/dfc" }
+    - { src: du-dirs, dest: "{{ bin_dir }}/dud" }
+    - { src: du-summary, dest: "{{ bin_dir }}/dus" }
+    - { src: file-backup, dest: "{{ bin_dir }}/fb" }
+    - { src: file-path, dest: "{{ bin_dir }}/fp" }
+    - { src: file-type, dest: "{{ bin_dir }}/ft" }
+    - { src: file-view, dest: "{{ bin_dir }}/fv" }
+    - { src: lower-case, dest: "{{ bin_dir }}/lc" }
+    - { src: upper-case, dest: "{{ bin_dir }}/uc" }
     - "{{ utility_program_os }}"
+  loop_control:
+    loop_var: link
+    label: "{{ link.dest }} => {{ link.src }}"

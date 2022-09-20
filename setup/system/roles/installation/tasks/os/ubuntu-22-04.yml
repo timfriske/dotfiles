@@ -53,13 +53,19 @@
     label: "{{ conn.snap }}:{{ conn.plug }} {{ conn.snap }}:{{ conn.slot }}"
   shell: snap connect {{ conn.snap }}:{{ conn.plug }} :{{ conn.slot }}
 
-- name: Make fdfind available as fd
+- name: Create shortcuts to utility programs
   become: yes
   ansible.builtin.file:
-    src: /usr/bin/fdfind
-    dest: /usr/local/bin/fd
+    src: "{{ link.src }}"
+    dest: "{{ link.dest }}"
     force: yes
     state: link
+  loop:
+    - { src: "{{ bin_dir }}/fdfind", dest: "{{ local_bin_dir }}/fd" }
+    - { src: "{{ bin_dir }}/sqlite3", dest: "{{ local_bin_dir }}/sqlite" }
+  loop_control:
+    loop_var: link
+    label: "{{ link.dest }} => {{ link.src }}"
 
 - name: Install Minikube
   ansible.builtin.import_tasks: ../minikube.yml
