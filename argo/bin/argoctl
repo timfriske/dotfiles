@@ -22,6 +22,7 @@ function pick {
     'ctrl-l:execute(workflows {} | xargs argo logs --)+abort'
     'ctrl-r:execute(workflows {+} | xargs argo retry --)+abort'
     'ctrl-w:execute(workflows {} | xargs argo watch --)+abort'
+    'ctrl-z:clear-selection'
     'enter:execute(workflows {+})+abort'
   )
   fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"
