@@ -49,8 +49,7 @@ function git_config_user {
 }
 
 function main {
-    # `column -t -s` equivalent to `column --table --separator`
-    git_config_user "${1:-}" | column -t -s $'\t'
+    git_config_user "${1:-}" | column --table --separator $'\t'
 }
 
 main "${@}"
