@@ -32,5 +32,6 @@
   ansible.builtin.file:
     src: "/usr/local/bin/argo-{{ argo_workflows_releases[0].version }}"
     dest: /usr/local/bin/argo
+    force: yes
     state: link
   when: argo_default_file.stat.exists == False

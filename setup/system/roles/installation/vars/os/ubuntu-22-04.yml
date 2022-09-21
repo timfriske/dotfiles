@@ -31,6 +31,7 @@ packages:
   - docker-compose
   - docker-doc
   - docker.io
+  - dos2unix
   - dragonplayer
   - fail2ban
   - fd-find
@@ -46,6 +47,7 @@ packages:
   - gimp
   - git
   - git-doc
+  - gnome-keyring
   - gnupg
   - golang
   - htop
@@ -78,6 +80,7 @@ packages:
   - lsb-core
   - lsb-release
   - make
+  - moreutils
   - neovim
   - network-manager-openvpn
   - nmap
@@ -101,6 +104,8 @@ packages:
   - rust-doc
   - rust-src
   - speedtest-cli
+  - sqlite3
+  - sqlitebrowser
   - ssh-audit
   - sysstat
   - tmux
@@ -124,5 +129,12 @@ snaps:
   - intellij-idea-ultimate
   - kubectl
   - kustomize
+  - mysql-workbench-community
   - teams
   - teams-insiders
+
+snap_connections:
+  -
+    snap: mysql-workbench-community
+    plug: password-manager-service
+    slot: password-manager-service

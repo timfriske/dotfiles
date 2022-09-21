@@ -3,7 +3,8 @@
 # Operating System Information command
 # ====================================
 #
-# Prints information about the operating system.
+# Prints information about the operating system via GNU Core Utils'
+# `uanme`.
 #
 # Tim Friske <me@tifr.de>
 #

@@ -43,6 +43,10 @@ elif command -v "apt-get" &> /dev/null; then
   sudo apt-get install --assume-yes ansible git
 fi
 
+# Install Ansible collections of roles and individual roles the roles
+# in this repository depend on.
+ansible-galaxy collection install -r "${repo_dir}"/setup/requirements.yml
+
 # Clone Tim Friske's configuration management Git repository.
 if [[ ! -d "${repo_dir}" ]]; then
   mkdir --parents --verbose -- "${repo_dir}";

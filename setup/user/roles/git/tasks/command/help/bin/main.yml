@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-h(.*)', '/gh\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/help/bin/git-h*

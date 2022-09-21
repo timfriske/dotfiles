@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # K8S Node Zones
 # ==============
@@ -9,14 +9,17 @@
 # zones becomes unavailable, e.g. due to some disastrous event like a
 # natural disaster or cyber attack.
 #
-# Deps:: env, kubectl, rank, sh, sort, uniq
+# Deps:: bash, env, kubectl, rank
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 node_zones() {
+  local columns=(
+    'TYPE:metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
+  )
   kubectl get nodes \
     --no-headers \
-    --output custom-columns='zone:.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
+    --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
 }
 
 node_zones | rank

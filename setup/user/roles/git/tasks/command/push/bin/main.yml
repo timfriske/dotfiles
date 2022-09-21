@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-p(.*)', '/gp\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/push/bin/git-p*

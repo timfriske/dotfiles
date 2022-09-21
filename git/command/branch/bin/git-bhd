@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Deletes the default branch marker of the given remote.
+#
+# Deps:: env, git-remote, sh
+
+set -o errexit -o nounset
+
+git remote set-head --delete "${@}"

@@ -28,6 +28,7 @@
   ansible.builtin.file:
     src: "{{ bin_dir }}/fzf-fd"
     dest: "{{ bin_dir }}/fzf-finder"
+    force: yes
     state: link
   when: fd_in_path.rc == 0
 
@@ -35,5 +36,6 @@
   ansible.builtin.file:
     src: "{{ bin_dir }}/fzf-find"
     dest: "{{ bin_dir }}/fzf-finder"
+    force: yes
     state: link
   when: fd_in_path.rc != 0

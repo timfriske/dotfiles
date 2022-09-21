@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-u(.*)', '/gu\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/revert/bin/git-u*

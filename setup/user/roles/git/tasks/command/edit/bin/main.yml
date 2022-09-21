@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-e(.*)', '/ge\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/edit/bin/git-e*

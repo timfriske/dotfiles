@@ -10,7 +10,6 @@
 # Deps:: bash, column, env, join, k8s-pod-node-status,
 # Deps:: k8s-node-type-zone, sort
 
-# Fail-fast
 shopt -os nounset pipefail errexit errtrace
 
 # 1. Sort `k8s-pod-node-status` output by node name.
@@ -19,6 +18,6 @@ shopt -os nounset pipefail errexit errtrace
 # 4. Output only specific columns of above scripts.
 # 5. Sort joined output and align output in columns.
 join -12 -21 -o 1.1,1.2,2.2,2.3,1.3 \
-  <(k8s-pod-node-status | sort --key=2) \
-  <(k8s-node-type-zone | sort --key=1) \
-| sort | column -t
+  <(k8s-pod-node-status | sort --key=2,2) \
+  <(k8s-node-type-zone | sort --key=1,1) \
+| sort --key=1,1 | column --table

@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-xc(.*)', '/gxc\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/cherry/bin/git-xc*

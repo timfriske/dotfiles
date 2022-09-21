@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-c(.*)', '/gc\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/commit/bin/git-c*

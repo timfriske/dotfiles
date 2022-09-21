@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Operating System Information command
+# ====================================
+#
+# Prints information about the operating system via Systemd's
+# `hostnamectl` program.
+#
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, sh, hostnamectl
+
+set -o errexit -o nounset
+
+hostnamectl status

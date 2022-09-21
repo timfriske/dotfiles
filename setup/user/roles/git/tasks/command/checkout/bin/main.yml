@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-g(.*)', '/gg\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/checkout/bin/git-g*

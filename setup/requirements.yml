@@ -1,4 +1,11 @@
 ---
-# Ansible Galaxy Collections
+# Ansible Galaxy
+# ==============
+
+# Ansible Collections
+# -------------------
+# Ansible collections of roles the roles in this repository depend on.
+
 collections:
+  - ansible.posix
   - community.general

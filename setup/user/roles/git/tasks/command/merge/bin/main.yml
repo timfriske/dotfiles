@@ -27,6 +27,7 @@
            {{ item \
            | basename \
            | regex_replace('^git-m(.*)', '/gm\\1') }}"
+    force: yes
     state: link
   with_fileglob:
     - command/merge/bin/git-m*
