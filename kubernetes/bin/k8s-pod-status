@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# K8S Pod Status
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Lists the Kubernetes pods in a certain status phase.
+#
+# Deps:: bash, env, kubectl
+
+shopt -os nounset pipefail errexit errtrace
+
+phases=(Pending Running Succeeded Failed Unknown)
+
+if [[ ! " ${phases[*]} " =~ " ${1+${1^}} " ]]; then
+  echo >&2 "Status phase of Kubernetes pod must be one of: ${phases[*]}"
+  exit 1
+fi
+
+args=("${@:2}")
+kubectl get pods --field-selector "status.phase=${1^}" "${args[@]}"
