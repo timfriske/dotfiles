@@ -9,14 +9,13 @@
 #
 # Deps:: bash, env, kubectl
 
-# Fail-fast
 shopt -os nounset pipefail errexit errtrace
 
-custom_columns=(
-  'NAME:.metadata.name'
-  'TYPE:.metadata.labels.beta\.kubernetes\.io/instance-type'
-  'ZONE:.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
+columns=(
+  'NAME:metadata.name'
+  'TYPE:metadata.labels.beta\.kubernetes\.io/instance-type'
+  'ZONE:metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
 )
 
 kubectl get nodes --no-headers \
-  --output "custom-columns=$(IFS=,; printf '%s' "${custom_columns[*]}")"
+  --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # K8S Node Types
 # ==============
@@ -8,14 +8,17 @@
 # load on the cluster is distributed by a load balancer across instance
 # types.
 #
-# Deps:: env, kubectl, rank, sh, sort, uniq
+# Deps:: bash, env, kubectl, rank
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 node_types() {
+  local columns=(
+    'TYPE:metadata.labels.beta\.kubernetes\.io/instance-type'
+  )
   kubectl get nodes \
     --no-headers \
-    --output custom-columns='instance_type:.metadata.labels.beta\.kubernetes\.io/instance-type'
+    --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
 }
 
 node_types | rank
