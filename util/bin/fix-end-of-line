@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Fix Last End-Of-Line command
+# ============================
+# Tim Friske <me@tifr.de>
+#
+# Deletes any carriage return characters (\r) in order to convert line
+# endings from Windows (\r\n) to UNIX (\n). Adds a newline character to
+# the end of a stream or file of characters such that every line has an
+# ending.
+#
+# Deps:: bash, env, sed
+
+shopt -os nounset pipefail errexit errtrace
+
+if [[ "${#}" -eq 0 ]]; then
+  sed --expression='s/^\r//;s/\r$//;s/\r/\n/g;$a\'
+else
+  sed --expression='s/^\r//;s/\r$//;s/\r/\n/g;$a\' --in-place "${@}"
+fi
