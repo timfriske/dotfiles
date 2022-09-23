@@ -1,0 +1,110 @@
+# Kubernetes Storage Classes
+# ==========================
+#
+# NOTE: Whether a persistent volume of a certain storage class can be
+# actually provisioned depends on the container storage interface (CSI)
+# driver deployed on a Kubernetes cluster. In other words, just because
+# a storage class can be applied without problems does not mean it can
+# be provisioned. So be careful before switching the default storage
+# class or claim volumes of new storage classes. Always test new
+# storage classes before relying on them.
+#
+# Names of storage classes should be lower-case. Words in multi-word
+# names should be separated by hyphen sign. Names of storage classes
+# should consist of their properties as follows:
+#
+# [source,text]
+# ----
+# SC_TYPE-FS_TYPE-(ENCRYPTED|PLAINTEXT)-(RECLAIM_POLICY)
+# ----
+
+# Amazon Web Services Elastic Block Storage
+# -----------------------------------------
+
+# AWS EBS General Purpose SSDs V3 (GP3)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp3-ext4-encrypted-delete
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+parameters:
+  type: gp3
+  fsType: ext4
+  encrypted: "true"
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp3-ext4-encrypted-retain
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+parameters:
+  type: gp3
+  fsType: ext4
+  encrypted: "true"
+---
+
+# AWS EBS General Purpose SSDs V2 (GP2)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp2-ext4-encrypted-delete
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+parameters:
+  type: gp2
+  fsType: ext4
+  encrypted: "true"
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp2-ext4-encrypted-retain
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+parameters:
+  type: gp2
+  fsType: ext4
+  encrypted: "true"
+---
+
+# AWS EBS Throughput Optimized HDDs V1 (ST1)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: st1-ext4-encrypted-delete
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+parameters:
+  type: st1
+  fsType: ext4
+  encrypted: "true"
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: st1-ext4-encrypted-delete
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+parameters:
+  type: st1
+  fsType: ext4
+  encrypted: "true"
+---
