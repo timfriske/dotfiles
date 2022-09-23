@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# K8S Unclaim Persistent Volume
+# =============================
+# Tim Friske <me@tifr.de>
+#
+# Reclaims the given persistent volume by changing its reclaim policy
+# to the given value.
+#
+# Deps:: bash, env, kubectl
+
+shopt -os nounset pipefail errexit errtrace
+
+: "${1:?Persistent volume required}"
+
+kubectl patch persistentvolume "${1}" --patch '{"spec":{"claimRef": null}}'
