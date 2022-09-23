@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# K8S Replace Persistent Volume Claim
+# ===================================
+# Tim Friske <me@tifr.de>
+#
+# Replaces the given old persistent volume claim (PVC) with the given
+# new one.
+#
+# Deps:: bash, env, jq, kubectl
+
+shopt -os nounset pipefail errexit errtrace
+
+policies=(Delete Retain Recycle)
+
+: "${1:?Old persistent volume claim required}"
+: "${2:?New persistent volume claim required}"
+
+read -r -d '' JQ_REPLACE_PVC <<'JQ_REPLACE_PVC' || true
+.metadata.name = $new_pvc
+| with_entries(
+    select([.key] |
+      inside(["metadata", "spec", "apiVersion", "kind"]))
+  )
+| del(
+    .metadata.annotations, .metadata.creationTimestamp,
+    .metadata.finalizers, .metadata.resourceVersion,
+    .metadata.selfLink, .metadata.uid
+  )
+JQ_REPLACE_PVC
+
+kubectl get persistentvolumeclaim "${1}" --output json \
+  | jq --arg new_pvc "${2}" "${JQ_REPLACE_PVC}"
