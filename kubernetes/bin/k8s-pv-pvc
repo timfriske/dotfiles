@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# K8S Persistent Volumes And Claims
+# =================================
+# Tim Friske <me@tifr.de>
+#
+# Prints the persistent volumes related to claims in JSON format
+# optionally filtering the entries by the given claims.
+#
+# Deps:: bash, env, kubectl
+
+shopt -os nounset pipefail errexit errtrace
+
+function pv_pvc {
+  kubectl get persistentvolume --output json \
+    | jq '.items[]|{pv:.metadata.name,pvc:.spec.claimRef.name,ns:.spec.claimRef.namespace}'
+}
+
+function filter {
+  jq '($ARGS.positional|map({(.):true})|add) as $wd|.|select($wd[.pvc])' --args "${@}"
+}
+
+if [[ "${#}" -eq 0 ]]; then
+  pv_pvc
+else
+  pv_pvc | filter "${@}"
+fi
