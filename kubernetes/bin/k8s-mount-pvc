@@ -20,12 +20,9 @@
 
 set -o errexit -o nounset
 
-if [ -z "${pvc:+x}" ]; then
-  echo "Name of Kubernetes Persistent Volume Claim must be given!"
-  echo "For example as follows: pvc=foobar-x4y2z-data k8s-mount-pvc.sh"
-  echo "Exiting ..."
-  exit 1
-fi
+: "${1:?Persistent volume claim required}"
+
+pvc="${1}"
 
 echo "Creating Kubernetes Pod 'k8s-mount-pvc-${pvc}' ..."
 echo "Creating Kubernetes Container 'mount' inside 'k8s-mount-pvc-${pvc}' ..."

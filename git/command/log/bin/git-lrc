@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, git-rev-list, sh
+
+set -o errexit -o nounset
+
+git rev-list --max-parents=0 HEAD

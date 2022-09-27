@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Argo Watch Get command
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Watch details of the given Argo workflows.
+#
+# The script cycles through the details of each workflow. The screen is
+# refreshed every 2 seconds by default but the refresh interval may be
+# overridden by passing the interval as a variable.
+
+shopt -os nounset pipefail errexit errtrace
+
+: "${interval:=2}"
+
+clear
+while true; do
+  for workflow in "${@}"; do
+    argo get "${workflow}"
+    sleep -- "${interval}"
+    clear
+  done
+done

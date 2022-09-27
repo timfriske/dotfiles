@@ -4,18 +4,32 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Prints the name, type and zone of Kubernetes nodes.
-# Output columns: NODE NAME, -TYPE, -ZONE
+# Prints the name, type and zone of Kubernetes nodes ordered by zone,
+# type and node.
 #
-# Deps:: bash, env, kubectl
+# If standard output is a terminal (TTY) print the headers and let the
+# user filter the list by fuzzy-searching it. Otherwise it is assumed
+# that the standard output stream is redirected into a pipe or file for
+# further non-interactive processing in which case the header line is
+# not printed and the columns separated by tabulators.
+#
+# Deps:: awk, bash, env, fzf, kubectl, sort
 
 shopt -os nounset pipefail errexit errtrace
 
-columns=(
-  'NAME:metadata.name'
-  'TYPE:metadata.labels.beta\.kubernetes\.io/instance-type'
-  'ZONE:metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
-)
+function node_type_zone {
+  local columns=(
+    'NAME:metadata.name'
+    'TYPE:metadata.labels.beta\.kubernetes\.io/instance-type'
+    'ZONE:metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
+  )
+  kubectl get nodes \
+    --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")" "${@}" \
+    | awk 'NR=1{print}NR>1{print|"sort --key=3,3 --key=2,2 --key=1,1"}'
+}
 
-kubectl get nodes --no-headers \
-  --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
+if [[ -t 1 ]]; then
+  node_type_zone "${@}" | fzf --header-lines=1 --cycle --multi --exit-0
+else
+  node_type_zone "${@}" | awk 'BEGIN{OFS="\t"}NR>1{print $1,$2,$3}'
+fi

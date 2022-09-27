@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Kontext command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Manage Kubernetes contexts.
+#
+# Deps:: awk, bash, env, fzf, kubectl, xargs
+
+shopt -os nounset pipefail errexit errtrace
+
+function contexts { printf '%s\n' "${@}" | awk '{print $1}'; }
+
+function xargs { command xargs --no-run-if-empty --max-args=1 -- "${@}"; }
+
+export -f contexts xargs
+
+function pick {
+  local bindings=(
+    "ctrl-a:toggle-all"
+    "ctrl-d:execute(contexts {+} | xargs kubectl config delete-context)+abort"
+    "ctrl-l:execute(contexts {+})+abort"
+    "ctrl-u:execute(contexts {} | xargs kubectl config use-context)+abort"
+    "ctrl-w:execute(kubectl config current-context)+abort"
+    "ctrl-z:clear-selection"
+    "enter:execute(contexts {} | xargs kubectl config use-context)+abort"
+  )
+  fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"
+}
+
+kubectl config get-contexts \
+  | awk 'BEGIN{OFS="\t"}NR==1||/^*/{print $2,$5,$3}NR>1&&!/^*/{print $1,$4,$2}' \
+  | column --table --separator $'\t' \
+  | pick --header="current: $(kubectl config current-context)" --header-lines=1 \
+    --cycle --multi --exit-0

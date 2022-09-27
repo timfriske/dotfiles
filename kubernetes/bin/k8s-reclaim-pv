@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# K8S Reclaim Persistent Volume
+# =============================
+# Tim Friske <me@tifr.de>
+#
+# Reclaims the given persistent volume by changing its reclaim policy
+# to the given value.
+#
+# Deps:: bash, env, kubectl
+
+shopt -os nounset pipefail errexit errtrace
+
+policies=(Delete Retain Recycle)
+
+: "${1:?Persistent volume required}"
+: "${2:?Reclaim policy required}"
+
+if [[ ! " ${policies[*]} " =~ " ${2:+"${2^}"} " ]]; then
+  echo >&2 "Reclaim policy is invalid: ${2:-}"
+  echo >&2 "Reclaim policy must be one of: ${policies[*]}"
+  exit 1
+fi
+
+kubectl patch persistentvolume "${1}" \
+  --patch "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"${2^}\"}}"

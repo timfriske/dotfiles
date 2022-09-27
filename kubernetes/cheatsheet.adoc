@@ -1,8 +1,8 @@
-= Kubernetes cheatsheet
+= Kubernetes Cheatsheet
 
 = Cluster management
 
-== How to configure cluster connection
+== How To Configure Cluster Connection
 
 === Amazon Elastic Kubernetes Service
 
@@ -18,9 +18,9 @@ kubectl config rename-context arn:aws:eks:eu-central-1:123456789012:cluster/my-a
 kubectl config set-context my-aws-eks-cluster --namespace my-namespace
 ----
 
-== Kubernetes cronjobs
+== Kubernetes Cronjobs
 
-=== How to list names of un/suspended cronjobs
+=== How To List Names Of Un/-Suspended Cronjobs
 
 [source,bash]
 ----
@@ -29,7 +29,7 @@ kubectl get cronjob \
   --output=jsonpath='{range .items[?(.spec.suspend==true)]}{.metadata.name}{"\n"}{end}'
 ----
 
-=== How to unsuspend suspended cronjobs
+=== How To Unsuspend Suspended Cronjobs
 
 [source,bash]
 ----
@@ -37,4 +37,30 @@ kubectl get cronjob \
 kubectl get cronjob \
   --output=jsonpath='{range .items[?(.spec.suspend==true)]}{.metadata.name}{"\n"}{end}' \
   | parallel --keep-order kubectl patch cronjob {} --patch '{\"spec\":{\"suspend\":false}}'
+----
+
+== Kubernetes Persistent Volumes And -Claims
+
+== How To Access Files On Persistent Volume By Claiming It
+
+[source,bash]
+----
+# Get overview about persistent volumes and identify my volume.
+kubectl get pv
+# Get overview about persistent volume claims and identify my claim.
+kubectl get pvc
+# Prevent deletion of my volume by changing its reclaim policy to retain.
+k8s-reclaim-pv my-volume retain
+# Store new version of my claim as file in JSON format for applying it later.
+k8s-replace-pvc my-claim my-claim-v1 > my-claim-v1.json
+# Delete my claim.
+kubectl delete pvc my-claim
+# Make my claim available again.
+k8s-unclaim-pv my-volume
+# Restore new version of my claim from file in JSON format.
+kubectl apply --file my-claim-v1.json
+# Bind new version of my claim to new Kubernetes pod.
+k8s-mount-pvc my-claim-v1
+# From your local computer copy the files from the new Kubernetes pod.
+kubectl cp k8s-mount-pvc-my-claim-v1:/mnt my-directory
 ----
