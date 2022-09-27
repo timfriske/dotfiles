@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+# Git Log command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: env, git-log, git-lrc, sh
+
+set -o errexit -o nounset
+
+git log "$(git-lrc)"
