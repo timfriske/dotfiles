@@ -15,7 +15,7 @@
       fingerprint: BC528686B50D79E339D3721CEB3E94ADBE1229CF
       state: present
 
-  - community.general.zypper_repository:
+  - zypper_repository:
       name: microsoft-visual-studio-code
       description:
         Zypper repository to install Microsoft Visual Studio Code and
@@ -25,6 +25,6 @@
 
 - name: Install packages with zypper
   become: yes
-  community.general.zypper:
+  zypper:
     name: "{{ packages }}"
     state: present

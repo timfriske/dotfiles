@@ -13,7 +13,7 @@
       key: https://packages.microsoft.com/keys/microsoft.asc
       fingerprint: BC528686B50D79E339D3721CEB3E94ADBE1229CF
       state: present
-  - community.general.zypper_repository:
+  - zypper_repository:
       name: microsoft-visual-studio-code
       description:
         Zypper repository to install Microsoft Visual Studio Code and
@@ -28,7 +28,7 @@
       key: https://download.opensuse.org/repositories/M17N:/fonts/openSUSE_Tumbleweed/repodata/repomd.xml.key
       fingerprint: 7DB53DFC040826C7678F7F27F4CCE1F4D15EE595
       state: present
-  - community.general.zypper_repository:
+  - zypper_repository:
       name: m17n-fonts
       description:
         Zypper repository to install many more fonts that are otherwise
@@ -38,6 +38,6 @@
 
 - name: Install packages with zypper
   become: yes
-  community.general.zypper:
+  zypper:
     name: "{{ packages }}"
     state: present
