@@ -58,7 +58,7 @@ kubectl delete pvc my-claim
 # Make my claim available again.
 k8s-unclaim-pv my-volume
 # Restore new version of my claim from file in JSON format.
-kubectl apply --file my-claim-v1.json
+kubectl apply --filename my-claim-v1.json
 # Bind new version of my claim to new Kubernetes pod.
 k8s-mount-pvc my-claim-v1
 # From your local computer copy the files from the new Kubernetes pod.
