@@ -291,7 +291,6 @@ alias ln='ln ${LN_X_OPTIONS:-}'
 # ~~~~~~~~~~~~~~~~~~~~~~
 
 alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
-
 alias md='mkdir'
 
 # Make and change to given, random (mdr) or temporary (mdt) directory.
@@ -300,10 +299,9 @@ alias md='mkdir'
 # current user or _tmp_ by default, followed by a dot and ending in 10
 # random alphanumeric characters. The default prefix may be overridden
 # by the first argument.
-
-mdd() { md "${1:-.}" && cd "${_}"; }
-mdr() { cd "$(mktemp --directory "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
-mdt() { cd "$(mktemp --tmpdir --directory "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
+function mdd { md -- "${1:-.}" && cd -- "${_}"; }
+function mdr { cd -- "$(mktemp --directory -- "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
+function mdt { cd -- "$(mktemp --tmpdir --directory -- "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
 
 # Mv - Move/rename files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
