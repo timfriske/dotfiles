@@ -240,37 +240,14 @@ alias info='info ${INFO_X_OPTIONS:-}'
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if type -p fzf fzf-jobs &> /dev/null; then
-  function jb {
-    eval "$(jobs | cmd='bg' fzf-jobs "${@}")"
-  }
-
-  function jd {
-    eval "$(jobs | cmd='disown' fzf-jobs "${@}")"
-  }
-
-  function jdh {
-    eval "$(jobs | cmd='disown -h' fzf-jobs "${@}")"
-  }
-
-  function jf {
-    eval "$(jobs | cmd='fg' fzf-jobs "${@}")"
-  }
-
-  function jj {
-    eval "$(jobs | cmd='jobs' fzf-jobs "${@}")"
-  }
-
-  function jkc {
-    eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "${@}")"
-  }
-
-  function jkk {
-    eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "${@}")"
-  }
-
-  function jkt {
-    eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "${@}")"
-  }
+  function jb { eval "$(jobs | cmd='bg' fzf-jobs "${@}")"; }
+  function jd { eval "$(jobs | cmd='disown' fzf-jobs "${@}")"; }
+  function jdh { eval "$(jobs | cmd='disown -h' fzf-jobs "${@}")"; }
+  function jf { eval "$(jobs | cmd='fg' fzf-jobs "${@}")"; }
+  function jj { eval "$(jobs | cmd='jobs' fzf-jobs "${@}")"; }
+  function jkc { eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "${@}")"; }
+  function jkk { eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "${@}")"; }
+  function jkt { eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "${@}")"; }
 else
   alias jb='bg'
   alias jd='disown'
