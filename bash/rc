@@ -148,14 +148,9 @@ alias chgrp='chgrp ${CHGRP_X_OPTIONS:-}'
 alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
 alias chown='chown ${CHOWN_X_OPTIONS:-}'
 
-# Df - Disk free
+# Df/Du - Disk free/usage
 # ~~~~~~~~~~~~~~
-
 alias df='df ${DF_X_OPTIONS:-}'
-
-# Df - Disk usage
-# ~~~~~~~~~~~~~~~
-
 alias du='du ${DU_X_OPTIONS:-}'
 
 # Diff - Differences between files & directories
