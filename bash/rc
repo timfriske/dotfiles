@@ -30,7 +30,6 @@
 # Disable `CTRL-S` and `CTRL-Q` to stop and start terminal output
 # because this function is not very useful and just confuses most users.
 # The previously bound hot keys can be assigned new functions hereafter.
-
 if [[ "${-}" == *i* ]]; then
   stty -ixon
 fi
@@ -174,10 +173,8 @@ alias free='free ${FREE_X_OPTIONS:-}'
 
 # Test if fuzzy finder program _Fzf_ is installed.
 if type -p fzf &> /dev/null; then
-
   # Test if _Fzf_ specific _Readline_ file is readable.
   if [[ -f ~/.inputrc.fzf && -r ~/.inputrc.fzf ]]; then
-
     # Make _Fzf_ available through _Readline_ key bindings.
     bind -f ~/.inputrc.fzf
   fi
@@ -359,17 +356,13 @@ if type -p xdg-open &> /dev/null; then
 fi
 
 # Test if interactive shell has startup file with local overrides.
-#
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
-
   # Read and execute commands from that startup file.
   source ~/.bashrc.local
 fi
 
 # Test if _GnuPG_ for encrypting and signing data is installed.
-#
 if type -p gpg &> /dev/null; then
-
   # Let _GnuPG_ know on which terminal to interact with the user; for
   # example the _Gpg-agent_ daemon prompting for the passphrase.
   export GPG_TTY="$(tty)"
@@ -380,7 +373,6 @@ fi
 # `localhost` is running.
 if ! [[ -n "${TMUX}" || "${TERM}" =~ screen
     || "${SSH_CONNECTION}" =~ ^::1|^127\.0\.0\.1 ]]; then
-
   # Test if _Tmux_ is on the `$PATH`.
   if type -p tmux &> /dev/null; then
     # Try to attach to latest unattached session or start a new one.
@@ -398,5 +390,4 @@ function _on_exit {
     history -n && history -w && history -c && history -r
   fi
 }
-
 trap _on_exit EXIT
