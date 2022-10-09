@@ -27,11 +27,13 @@
 # Terminal settings
 # -----------------
 
-# Disable `CTRL-S` and `CTRL-Q` to stop and start terminal output
-# because this function is not very useful and just confuses most users.
-# The previously bound hot keys can be assigned new functions hereafter.
+# Disable echoing control characters because they mangle the other
+# output. Disable`CTRL-S` and `CTRL-Q` to stop and start terminal
+# output because this function is not very useful and just confuses
+# most users. The previously bound hot keys can be assigned new
+# functions hereafter.
 if [[ "${-}" == *i* ]]; then
-  stty -ixon
+  stty -echoctl -ixon
 fi
 
 # Shell options
