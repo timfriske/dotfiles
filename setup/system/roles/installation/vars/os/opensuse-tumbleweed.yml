@@ -47,7 +47,9 @@ packages:
   - java-18-openjdk-devel
   - jetbrains-mono-fonts
   - jq
+  - kdiff3
   - keepassxc
+  - kompare
   - krita
   - kubernetes-client
   - kustomize

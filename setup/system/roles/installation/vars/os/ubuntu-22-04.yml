@@ -57,7 +57,9 @@ packages:
   - iperf
   - iperf3
   - jq
+  - kdiff3
   - keepassxc
+  - kompare
   - krita
   - libboost-dev
   - libboost-date-time-dev
