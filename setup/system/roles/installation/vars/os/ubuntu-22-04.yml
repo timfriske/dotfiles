@@ -54,8 +54,10 @@ packages:
   - inkscape
   - inotify-tools
   - iotop
+  - ipcalc
   - iperf
   - iperf3
+  - ipv6calc
   - jq
   - kdiff3
   - keepassxc
