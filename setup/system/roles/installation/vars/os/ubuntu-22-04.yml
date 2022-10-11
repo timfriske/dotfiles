@@ -85,6 +85,7 @@ packages:
   - lsb-release
   - make
   - moreutils
+  - mysql-client
   - neovim
   - network-manager-openvpn
   - nmap
