@@ -21,6 +21,8 @@
     dest: "{{ minikube_temp_dir.path }}/minikube"
     checksum: sha256:9acd25706661b932ee98063147e58080cb949b92fd0d97b3b96dc5f898dcad21
     mode: a+x
+  register: minikube_download
+  ignore_errors: yes
 
 - name: Install Minikube
   become: yes
@@ -28,3 +30,4 @@
     src: "{{ minikube_temp_dir.path }}/minikube"
     dest: "/usr/local/bin/minikube"
     mode: a+x
+  when: not minikube_download.failed
