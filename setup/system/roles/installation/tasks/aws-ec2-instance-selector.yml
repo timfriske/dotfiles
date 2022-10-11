@@ -30,4 +30,5 @@
     src: "{{ aws_ec2_instance_selector_temp_dir.path }}/aws-ec2-instance-selector"
     dest: "/usr/local/bin/aws-ec2-instance-selector"
     mode: a+x
+    backup: yes
   when: not aws_ec2_instance_selector_download.failed
