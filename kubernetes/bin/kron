@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Kron command
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Lets the user interactively filter and select from a list of
+# Kubernetes cronjobs the ones to manage, e.g. un/suspending, editing
+# them etc.
+#
+# Deps:: awk, bash, env, fzf, kubectl, xargs
+
+shopt -os nounset pipefail errexit errtrace
+
+function cronjobs { printf '%s\n' "${@}" | awk '{print $1}'; }
+function xargs { command xargs --no-run-if-empty -- "${@}"; }
+function xarg1 { command xargs --no-run-if-empty --max-args=1 --open-tty -- "${@}"; }
+export -f cronjobs xargs xarg1
+
+function pick {
+  local bindings=(
+    'ctrl-a:toggle-all'
+    'ctrl-d:execute(cronjobs {+}  | xargs kubectl describe cronjob --)+abort'
+    'ctrl-e:execute(cronjobs {+}  | xarg1 kubectl edit cronjob --)+abort'
+    'ctrl-g:execute(cronjobs {+}  | xargs kubectl get cronjob --)+abort'
+    'ctrl-l:execute(cronjobs {+})+abort'
+    'ctrl-r:execute(cronjobs {+}  | xargs kubectl delete cronjob --)+abort'
+    'ctrl-s:execute(cronjobs {+}  | xarg1 kubectl patch cronjob --patch {\"spec\":{\"suspend\":true}} --)+abort'
+    'ctrl-u:execute(cronjobs {+}  | xarg1 kubectl patch cronjob --patch {\"spec\":{\"suspend\":false}} --)+abort'
+    'ctrl-z:clear-selection'
+  )
+  fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"
+}
+
+kubectl get cronjobs | pick --header-lines=1 --cycle --multi --exit-0
