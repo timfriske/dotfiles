@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# AWS SSO command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Logs the user out and in again via AWS SSO.
+#
+# Deps:: aws, bash, env
+
+shopt -os nounset pipefail errexit errtrace
+
+# Login might not work if AWS_PROFILE is set.
+unset AWS_PROFILE
+aws sso logout
+aws sso login

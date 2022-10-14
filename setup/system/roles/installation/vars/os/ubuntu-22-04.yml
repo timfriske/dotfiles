@@ -54,10 +54,14 @@ packages:
   - inkscape
   - inotify-tools
   - iotop
+  - ipcalc
   - iperf
   - iperf3
+  - ipv6calc
   - jq
+  - kdiff3
   - keepassxc
+  - kompare
   - krita
   - libboost-dev
   - libboost-date-time-dev
@@ -81,6 +85,7 @@ packages:
   - lsb-release
   - make
   - moreutils
+  - mysql-client
   - neovim
   - network-manager-openvpn
   - nmap

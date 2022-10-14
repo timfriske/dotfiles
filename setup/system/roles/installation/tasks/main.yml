@@ -33,3 +33,6 @@
 
 - name: Install Argo Workflows
   ansible.builtin.import_tasks: argo-workflows.yml
+
+- name: Install AWS EC2 Instance Selector
+  ansible.builtin.import_tasks: aws-ec2-instance-selector.yml

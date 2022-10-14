@@ -42,12 +42,16 @@ packages:
   - inotify-tools
   - iotop
   - iozone
+  - ipcalc
   - iperf
+  - ipv6calc
   - java-17-openjdk-devel
   - java-18-openjdk-devel
   - jetbrains-mono-fonts
   - jq
+  - kdiff3
   - keepassxc
+  - kompare
   - krita
   - kubernetes-client
   - kustomize

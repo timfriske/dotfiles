@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Remove command
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Remove files, ignore nonexistent files and arguments, never prompt.
+# Remove directories and their contents recursively. Do not remove the
+# root directory and everything below it. Explain what is being done.
+#
+# Deps:: env, rm, sh
+
+set -o errexit -o nounset
+
+rm --preserve-root --recursive --force --verbose "${@}"

@@ -19,14 +19,18 @@
   ansible.builtin.get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: "{{ aws_cli_v2_temp_dir.path }}/aws-cli-v2.zip"
-    checksum: sha256:37dc344830eba9d0376f52fce82fbcbcd32bd554e1ec6b5d2c36554e328eaf17
+    checksum: sha256:ca0e766fe70b14c1f7e2817836acf03e4a3e6391b7ed6a464282c5b174580b9a
+  register: aws_cli_v2_download
+  ignore_errors: yes
 
 - name: Unpack AWS CLI version 2 zip file
   ansible.builtin.unarchive:
    src: "{{ aws_cli_v2_temp_dir.path }}/aws-cli-v2.zip"
    dest: "{{ aws_cli_v2_temp_dir.path }}"
+  when: not aws_cli_v2_download.failed
 
 - name: Install AWS CLI version 2
   become: yes
   ansible.builtin.shell: |
     {{ aws_cli_v2_temp_dir.path }}/aws/install --update
+  when: not aws_cli_v2_download.failed

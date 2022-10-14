@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Kubectl command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Force deletion of Kubernetes persistent volume claim in terminating
+# state.
+#
+# Deps:: bash, env, kubectl
+
+shopt -os nounset pipefail errexit errtrace
+
+kubectl patch pvc "${1:?PVC required}" \
+  --patch '{"metadata":{"finalizers":null}}'

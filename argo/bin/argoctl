@@ -6,22 +6,24 @@
 #
 # Control objects managed by the `argo` program.
 #
-# Deps:: argo, awk, bash, env, fzf, xargs
+# Deps:: argo, awk, bash, env, fzf, kubectl, xargs
 
 shopt -os nounset pipefail errexit errtrace
 
 function workflows { printf '%s\n' "${@}" | awk '{print $1}'; }
 function xargs { command xargs --no-run-if-empty -- "${@}"; }
-export -f workflows xargs
+function xarg1 { command xargs --no-run-if-empty --max-args=1 --open-tty -- "${@}"; }
+export -f workflows xargs xarg1
 
 function pick {
   local bindings=(
     'ctrl-a:toggle-all'
     'ctrl-d:execute(workflows {+} | xargs argo delete --)+abort'
+    'ctrl-e:execute(workflows {+} | xarg1 kubectl edit workflow --)+abort'
     'ctrl-g:execute(workflows {+} | xargs argo get --)+abort'
-    'ctrl-l:execute(workflows {} | xargs argo logs --)+abort'
+    'ctrl-l:execute(workflows {}  | xargs argo logs --)+abort'
     'ctrl-r:execute(workflows {+} | xargs argo retry --)+abort'
-    'ctrl-w:execute(workflows {} | xargs argo watch --)+abort'
+    'ctrl-w:execute(workflows {}  | xargs argo watch --)+abort'
     'ctrl-z:clear-selection'
     'enter:execute(workflows {+})+abort'
   )
