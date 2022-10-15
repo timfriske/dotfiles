@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Argo Watch List command
+# =======================
+# Tim Friske <me@tifr.de>
+#
+# Watches Argo workflows in status Rnning, Failed and Error by default or in the
+# status given as comma-separated list (no spaces). This command refreshes the
+# list of Argo workflows on the terminal every five seconds by default or given
+# number of seconds. If invoked with positional arguments the interval comes as
+# the first argument, optionally followed by the status. 
+#
+# Deps:: argo-watch-list-cmd, bash, env
+
+shopt -os nounset pipefail errexit errtrace
+
+interval="${interval:-${1:-5}}"
+status="${status:-${2:-Running,Failed,Error}}"
+watch --interval "${interval}" --differences argo-watch-list-cmd 3 "${status}"
