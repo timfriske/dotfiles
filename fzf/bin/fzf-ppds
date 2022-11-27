@@ -10,6 +10,7 @@
 #
 # Deps:: bash, cut, env, fzf, nl, ppds
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 main() {
@@ -21,4 +22,3 @@ main() {
 }
 
 main "${@}"
-

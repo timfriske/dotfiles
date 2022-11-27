@@ -11,6 +11,7 @@
 #
 # Deps:: bash, env, sed
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 if [[ "${#}" -eq 0 ]]; then

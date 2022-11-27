@@ -6,6 +6,7 @@
 #
 # Deps:: bash, cat, env, fd
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 print_help() {

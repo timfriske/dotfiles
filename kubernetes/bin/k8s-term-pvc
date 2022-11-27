@@ -9,6 +9,7 @@
 #
 # Deps:: bash, env, kubectl
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 kubectl patch pvc "${1:?PVC required}" \

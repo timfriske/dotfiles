@@ -10,6 +10,7 @@
 # Deps:: bash, column, env, join, k8s-pod-node-status,
 # Deps:: k8s-node-type-zone, sort
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 # 1. Sort `k8s-pod-node-status` output by node name.

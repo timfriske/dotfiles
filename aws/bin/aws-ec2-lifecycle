@@ -17,6 +17,7 @@
 #
 # Deps:: aws, bash, env, rank, sed
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 aws ec2 describe-instances "${@}" \

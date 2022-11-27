@@ -10,6 +10,7 @@
 #
 # Deps:: bash, env, kubectl, rank
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 node_types() {

@@ -11,6 +11,7 @@
 # Deps:: alacritty, basename, bash, cut, env, find, fzf, ln, nl
 # Deps:: realpath, sort, xargs
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 export config_prefix="${XDG_CONFIG_HOME:-${HOME}/.config}/alacritty"

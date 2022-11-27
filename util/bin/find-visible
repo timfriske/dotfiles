@@ -18,6 +18,7 @@
 #
 # Deps:: bash, env, find
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 if [ -d "${1:-}" ]; then

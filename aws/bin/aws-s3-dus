@@ -8,6 +8,7 @@
 #
 # Deps:: aws, bash, cat, env, jq, numfmt
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function summarize_objects {

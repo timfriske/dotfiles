@@ -11,6 +11,7 @@
 #
 # Deps:: awk, bash, env, getent, id
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function user_groups {

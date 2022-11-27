@@ -21,7 +21,7 @@
 # previously generated primary key the three secondary keys are
 # generated for the key with that fingerprint on the second run.
 
-# Terminate execution on first error and abort this program.
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function gpg_gen_key_for_user {

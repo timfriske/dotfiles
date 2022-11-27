@@ -6,6 +6,7 @@
 #
 # Deps:: bash, env, kubectl, watch
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 if [[ -t 1 ]]; then

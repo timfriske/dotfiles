@@ -8,6 +8,7 @@
 #
 # Deps:: aws, bash, env
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function main {

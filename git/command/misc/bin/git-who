@@ -9,6 +9,7 @@
 #
 # Deps:: awk, bash, column, env, git-config, git-semver
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function awk_tab {

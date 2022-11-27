@@ -9,6 +9,7 @@
 #
 # Deps:: bash, env, grep
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function find_binary_files {

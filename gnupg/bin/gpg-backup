@@ -10,7 +10,7 @@
 # file given as the first argument.  Any further arguments are treated
 # as the names of the keys to back up.
 
-# Terminate execution on first error and abort this program.
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function backup_file {
