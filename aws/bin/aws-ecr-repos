@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # AWS ECR Repos command
 # =====================
@@ -6,16 +6,16 @@
 #
 # Prints name or given key of AWS ECR repositories in current registry.
 #
-# Deps:: aws, env, sh
+# Deps:: aws, bash, env
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local key="${1:-repositoryName}"
   aws ecr describe-repositories \
     --output "${AWS_DEFAULT_OUTPUT:-text}" \
-    --query "repositories[].{${key}:${key}}"
-    "${@}"
+    --query "repositories[].{${key}:${key}}" \
+    "${@:2}"
 }
 
 main "${@}"

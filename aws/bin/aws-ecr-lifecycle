@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # AWS ECR Lifecycle command
 # =========================
@@ -7,14 +7,14 @@
 # Applies AWS ECR lifecycle policies from the given json file to the
 # given repositories of current registry.
 #
-# Deps:: aws, env, jq, sh
+# Deps:: aws, bash, env, jq
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   : "${1:?usage: aws-ecr-lifecycle <lifecycle-json-file> <repository name>...}"
-  local repository_name lifecycle_json_file="file://${1#file://}"; shift 1
-  for repository_name in "${@}"; do
+  local repository_name lifecycle_json_file="file://${1#file://}"
+  for repository_name in "${@:2}"; do
     aws ecr put-lifecycle-policy \
       --output json \
       --repository-name "${repository_name}" \

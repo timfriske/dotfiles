@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # AWS EC2 Lifecycle command
 # =========================
@@ -15,9 +15,9 @@
 # aws-ec2-lifecycle --filters Name=tag:foo,Values=bar`
 # ----
 #
-# Deps:: aws, env, rank, sed, sh
+# Deps:: aws, bash, env, rank, sed
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
 aws ec2 describe-instances "${@}" \
   --query 'Reservations[*].Instances[?State.Name==`running`].[InstanceType,InstanceLifecycle]' \

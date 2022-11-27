@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # AWS S3 Dus command
 # ==================
@@ -6,11 +6,11 @@
 #
 # Prints disk usage summary of AWS S3 objects in bucket below prefix.
 #
-# Deps:: aws, cat, env, jq, numfmt, sh
+# Deps:: aws, bash, cat, env, jq, numfmt
 
-set -o errexit -o nounset
+shopt -os nounset pipefail errexit errtrace
 
-summarize_objects() {
+function summarize_objects {
   local path="${1#s3://}"
   local bucket="${path%%/*}"
   local prefix="${2:-${path#${bucket}}}"
@@ -29,7 +29,7 @@ summarize_objects() {
 '[.total_number,.total_size,.average_size]|join("\n")'
 }
 
-format_object_summary() {
+function format_object_summary {
   local total_number="$(LC_ALL=en_US.UTF-8 numfmt --grouping "${1}") (${1})"
   local total_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${2}") (${2})"
   local average_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${3}") (${3})"
@@ -41,7 +41,7 @@ Average size: ${average_size}
 OBJECT_SUMMARY
 }
 
-main() {
+function main {
   : "${1:?usage: aws-dus <S3 URI> | <bucket> [prefix]}"
   format_object_summary $(summarize_objects "${@}")
 }
