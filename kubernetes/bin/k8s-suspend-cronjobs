@@ -9,6 +9,7 @@
 #
 # Deps:: awk, bash, env, fzf, kubectl, parallel, sed
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 suspension_toggle='{\"spec\":{\"suspend\":{2}}}'

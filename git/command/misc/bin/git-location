@@ -9,6 +9,7 @@
 #
 # Deps:: bash, env, git
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 get_branch() {

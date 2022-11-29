@@ -18,6 +18,7 @@
 #
 # Deps:: bash, chmod, env, find, sh, xargs
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 path="${1:-"${path:?required}"}"

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # AWS Who command
 # ===============
@@ -8,8 +8,9 @@
 # details about the IAM user or role whose credentials are used to call
 # the operation.
 #
-# Deps:: aws, env, sh
+# Deps:: aws, bash, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 aws sts get-caller-identity "${@}"

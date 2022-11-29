@@ -13,6 +13,7 @@
 #
 # Deps:: bash, date, env
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 [ -t 1 ] && printf 'date-ldt-iso-8601-%s: ' "${1:-seconds}"

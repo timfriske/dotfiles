@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# AWS S3 Create Empty command
+# ===========================
+# Tim Friske <me@tifr.de>
+#
+# Creates an empty AWS S3 object.
+#
+# Deps:: aws, bash, env
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+: | aws s3 cp - "${1:?URI required}"

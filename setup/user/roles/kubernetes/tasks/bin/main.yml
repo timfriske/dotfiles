@@ -19,3 +19,15 @@
     mode: preserve
   with_fileglob:
     - bin/*
+
+- name: Create shortcuts to Kubernetes programs
+  ansible.builtin.file:
+    src: "{{ link.src }}"
+    dest: "{{ link.dest }}"
+    force: yes
+    state: link
+  loop:
+    - { src: kontext, dest: "{{ bin_dir }}/ktxt" }
+  loop_control:
+    loop_var: link
+    label: "{{ link.dest }} => {{ link.src }}"

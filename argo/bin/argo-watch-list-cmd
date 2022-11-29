@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Argo Watch List Cmd command
+# ===========================
+# Tim Friske <me@tifr.de>
+#
+# Lists as many Argo workflows as there are terminal lines, optionally minus a
+# number of header lines. This command is supposed to be invoked by the
+# `argo-watch-list` command in order to watch (regularly refresh) the list of
+# Argo workflows. The list may additionally be restricted to only those Argo
+# workflows in certain status. Multiple status may be given as comma-separated
+# list (no spaces).
+#
+# Deps:: argo, bash, env, tput
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+header_lines="${header_lines:-${1:-0}}"
+status="${status:-${2:-}}"
+argo list --chunk-size "$(($(tput lines) - header_lines))" ${status:+--status ${status}}

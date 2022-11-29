@@ -10,6 +10,7 @@
 # refreshed every 2 seconds by default but the refresh interval may be
 # overridden by passing the interval as a variable.
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 : "${interval:=2}"

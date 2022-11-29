@@ -15,6 +15,7 @@
 #
 # Deps:: awk, bash, env, fzf, kubectl, sort
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function node_type_zone {

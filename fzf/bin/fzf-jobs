@@ -11,6 +11,7 @@
 #   * man:fzf[1]
 #   * man:cat[1]
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 

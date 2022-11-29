@@ -9,6 +9,7 @@
 #
 # Deps:: bash, env, kubectl
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 function pv_pvc {

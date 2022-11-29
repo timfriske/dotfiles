@@ -6,6 +6,7 @@
 #
 # Deps:: bash, env, git-checkout
 
+# Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
 # Does upstream branch differ from current branch? Without this check
