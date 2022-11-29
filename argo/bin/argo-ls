@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Argo Ls command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# List Argo workflows optionally by name optionally filtered by status.
+#
+# Deps:: argo, bash, env
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+argo list --output name ${1:+--status "${1^}"} "${@:2}"
