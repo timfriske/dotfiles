@@ -4,7 +4,7 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# List Argo workflows optionally by name optionally filtered by status.
+# List Argo workflows by name, optionally filtered by status.
 #
 # Deps:: argo, bash, env
 
