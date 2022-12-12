@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Kubectl command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, kubectl, sh
+# Deps:: bash, env, kubectl
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 kubectl describe "${@}"
