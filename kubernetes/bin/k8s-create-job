@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# K8S Create Job
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Creates a Kubernetes job from a cronjob of the given name, using the cronjob's
+# name as the prefix, a randomly generated suffix and combining both as the
+# job's name in order to avoid name collisions with previous job creations from
+# the same cronjob. Follows the log of the job's pod when it is ready to run, as
+# soon as it is running.
+#
+# Deps:: bash, env, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+function create_job {
+  local cronjob="${1?-required}"
+  local job="${cronjob}-$(printf '%05d' "${RANDOM}")"
+  kubectl create job --from "cronjob/${cronjob}" "${job}"
+  kubectl wait --for condition=Ready --timeout 60s pod --selector "job-name==${job}"
+  kubectl logs --follow --selector "job-name==${job}"
+}
+
+create_job "${@}"
