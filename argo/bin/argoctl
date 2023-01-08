@@ -21,6 +21,7 @@ function pick {
     'ctrl-a:toggle-all'
     'ctrl-d:execute(workflows {+} | xargs argo delete --)+abort'
     'ctrl-e:execute(workflows {+} | xarg1 kubectl edit workflow --)+abort'
+    'ctrl-f:execute(workflows {}  | xargs argo logs --follow --)+abort'
     'ctrl-g:execute(workflows {+} | xargs argo get --)+abort'
     'ctrl-l:execute(workflows {}  | xargs argo logs --)+abort'
     'ctrl-r:execute(workflows {+} | xargs argo retry --)+abort'

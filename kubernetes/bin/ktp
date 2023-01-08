@@ -10,7 +10,7 @@
 shopt -os nounset pipefail errexit errtrace
 
 if [[ -t 1 ]]; then
-  watch --differences --errexit kubectl top pod "${@}"
+  watch --differences kubectl top pod "${@}"
 else
   kubectl top pod "${@}"
 fi

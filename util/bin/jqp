@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Jqp command
+# ===========
+# Tim Friske <me@tifr.de>
+#
+# Prints nested JSON object graphs as flattened paths.
+#
+# Deps:: bash, env, fzf, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+function paths {
+  jq --raw-output "$(printf '%s|paths|join(".")' "${1:-.}")" "${@:2}"
+}
+
+function pick {
+  local bindings=(
+    'ctrl-a:toggle-all'
+    'ctrl-z:clear-selection'
+  )
+  fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"    
+}
+
+if [[ -t 1 ]]; then
+  paths "${@}" | pick --cycle --multi --exit-0
+else
+  paths "${@}"
+fi

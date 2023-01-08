@@ -10,7 +10,7 @@
 shopt -os nounset pipefail errexit errtrace
 
 if [[ -t 1 ]]; then
-  watch --differences --errexit kubectl top pod --sort-by=cpu "${@}"
+  watch --differences kubectl top pod --sort-by=cpu "${@}"
 else
   kubectl top pod --sort-by=cpu "${@}"
 fi

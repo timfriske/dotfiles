@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Mkbash command
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Creates an *empty* Bash shell script underneath the given file path. Creates
+# any non-existing parent directories leading up to the file which contains the
+# shell script. Makes the file executable such that it can be executed by
+# specifying it in command-position (first word) on command line.
+# 
+# Adds a shebang line that instructs the operating system to let the Bash shell
+# execute the shell script when it is run. Adds another line which specifies
+# Bash options to ensure fail-fast script execution.
+#
+# Deps:: bash, cat, chmod, dirname, env, wc
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+# Do not overwrite existing file by accident.
+shopt -os noclobber
+
+# Create non-existent parent directories of shell sctipt file.
+mkdir --parents --verbose -- "$(dirname -- "${1}")"
+
+# Write shell script template to file.
+cat > "${1}" \
+<<SHELL_SCRIPT
+#!/usr/bin/env bash
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+
+SHELL_SCRIPT
+
+# Make shell script file executable.
+chmod --verbose -- a+x "${1}"
+
+# Open shell script file in favorite text editor or vim by default. Put cursor
+# on last line in insert mode if possible to ease editing.
+case "${VISUAL:-"${EDITOR:-vim}"}" in
+  nano) nano "+$(wc --lines < "{1}")" -- "${1}";;
+  nvim) nvim '+normal G' +startinsert -- "${1}";;
+  pico) pico "+$(wc --lines < "{1}")" -- "${1}";;
+  vim) vim '+normal G' +startinsert -- "${1}";;
+  *) "${VISUAL:-"${EDITOR}"}" "${1}";;
+esac

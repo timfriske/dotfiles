@@ -10,7 +10,7 @@
 shopt -os nounset pipefail errexit errtrace
 
 if [[ -t 1 ]]; then
-  watch --differences --errexit kubectl top node --sort-by=memory "${@}"
+  watch --differences kubectl top node --sort-by=memory "${@}"
 else
   kubectl top node --sort-by=memory "${@}"
 fi
