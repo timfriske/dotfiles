@@ -352,6 +352,11 @@ if type -p xdg-open &> /dev/null; then
   alias open='xdg-open'
 fi
 
+# Utilities - Required to operate in current shell
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias term-size='LINES="${LINES}" COLUMNS="${COLUMNS}" command term-size'
+
 # Test if interactive shell has startup file with local overrides.
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
   # Read and execute commands from that startup file.
