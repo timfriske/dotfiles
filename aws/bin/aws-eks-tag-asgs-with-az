@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# AWS EKS Tag ASGs With AZ command
+# ================================
+# Tim Friske <me@tifr.de>
+#
+# Tags the AWS EC2 auto scaling groups (ASGs) with a tag recognized by the
+# Kubernetes cluster autoscaler to determine in which availibility zone (AZ) an
+# ASG manages EC2 instances. This information is used by the autoscaler to
+# balance instances between AZs.
+#
+# Deps:: aws, bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+aws_eks_cluster="${1:?'AWS EKS cluster required'}"
+
+function list_asg_az {
+  aws autoscaling describe-auto-scaling-groups \
+    --filters "Name=tag-key,Values=k8s.io/cluster-autoscaler/${1}" \
+  | jq --raw-output '.AutoScalingGroups[]|{asg:.AutoScalingGroupName,azs:.AvailabilityZones}|select((.azs|length)==1)|[.asg,.azs[0]]|@tsv'
+}
+
+# Associate each auto scaling group with its availability zone.
+declare -A azs_by_asg
+while IFS=$'\t' read -r asg az; do
+  azs_by_asg["${asg}"]="${az}"
+done < <(list_asg_az "${aws_eks_cluster}")
+
+for asg in "${!azs_by_asg[@]}"; do
+  az="${azs_by_asg[${asg}]}"
+  printf 'tag auto-scaling group "%s" with availability zone "%s"\n' "${asg}" "${az}"
+  asg_tags=(
+    "ResourceId=${asg}"
+    "ResourceType=auto-scaling-group"
+    "Key=k8s.io/cluster-autoscaler/node-template/label/topology.ebs.csi.aws.com/zone"
+    "Value=${az}"
+    "PropagateAtLaunch=false"
+  )
+  aws autoscaling create-or-update-tags --tags "$(IFS=,; printf '%s' "${asg_tags[*]}")"
+done

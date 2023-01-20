@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# Copy Link command
+# =================
+# Tim Friske <me@tifr.de>
+#
+# Tests if the first argument is a symbolic link and points to a file, and if
+# so, copies the target file onto it, effectively overwriting the symbolic link
+# with the target file. Any intermediate symbolic links are resolved until an
+# existing target that is not a symbolic link is found. That target must be file
+# eventually.
+#
+# Deps:: bash, env, realpath
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+function log {
+  printf '%s: %s\n' "${0##*/}" "${*}"
+}
+
+function err {
+    log >&2 "${*}"
+}
+
+function copy_link {
+  local src="${1:?'source required'}"
+  src="$(realpath --canonicalize-missing --no-symlinks -- "${src}")"
+  if [[ ! -L "${src}" ]]; then
+    err "Source '${src}' must be a symbolic link!"
+    exit 1
+  fi
+  local tgt="$(realpath --canonicalize-missing -- "${src}")"
+  if [[ ! -f "${tgt}" ]]; then
+    err "Source '${src}' must target a file!"
+    exit 1
+  fi
+  # Overwrite link with its target.
+  cp \
+    --dereference \
+    --remove-destination \
+    --no-target-directory \
+    --verbose \
+    -- "${tgt}" "${src}"
+}
+
+copy_link "${@}"
