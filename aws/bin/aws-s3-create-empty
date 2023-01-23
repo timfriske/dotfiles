@@ -11,4 +11,10 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-: | aws s3 cp - "${1:?URI required}"
+function create_emtpy_object {
+  local object_uri="${1:?AWS S3 object URI required}"
+  printf 'Creating empty AWS S3 object "%s"...\n' "${object_uri}"
+  : | aws s3 cp - "${object_uri}"
+}
+
+create_emtpy_object "${@}"
