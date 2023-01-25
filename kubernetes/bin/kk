@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Kubectl command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: bash, env, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+kubectl config current-context "${@}"
