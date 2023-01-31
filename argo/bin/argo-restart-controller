@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Argo Restart Controller command
+# ===============================
+# Tim Friske <me@tifr.de>
+#
+# Deletes a currently running Argo (workflow) controller Kubernetes pod, waits
+# for its deletion and new instantiation.
+#
+# Deps:: bash, env, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+kubectl get pod --selector app==workflow-controller
+kubectl delete pod --selector app==workflow-controller --wait
+kubectl wait --for condition=Ready --timeout 60s pod --selector app==workflow-controller
+kubectl get pod --selector app==workflow-controller
