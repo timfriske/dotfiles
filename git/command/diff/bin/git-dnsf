@@ -1,18 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Diff command
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-diff, sh
+# Deps:: bash, env, git-diff
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
-  local filter="${1:-ACDMRTUXB}"
-  shift $(($#-($#${1+-1})))
-  cd "${GIT_PREFIX:-.}"
-  git diff --name-status --diff-filter="${filter}" "${@}"
-}
-
-main "${@}"
+cd "${GIT_PREFIX:-.}"
+git diff --name-status --diff-filter="${1:-ACDMRTUXB}" "${@:2}"

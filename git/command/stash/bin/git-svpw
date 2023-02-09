@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Stash command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-stash, sh
+# Deps:: bash, env, git-stash
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git stash show --patch --word-diff=color "${@}"

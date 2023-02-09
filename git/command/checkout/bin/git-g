@@ -1,12 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Checkout command
 # ====================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-checkout, sh
+# Deps:: bash, env, git-checkout
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 # Toggle branches by default, i.e. switch from the current to the
 # previous branch unless another Git checkout operation is chosen by

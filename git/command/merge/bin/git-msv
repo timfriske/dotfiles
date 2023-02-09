@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Merge command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-merge, sh
+# Deps:: bash, env, git-merge
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git merge --squash --verify-signatures ${GIT_X_SIGNOFF:-} "${@}"

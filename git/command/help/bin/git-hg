@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Help command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-help, sh
+# Deps:: bash, env, git-help
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git help --guide "${@}"

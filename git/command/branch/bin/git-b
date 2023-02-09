@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Branch command
 # ==================
@@ -7,8 +7,9 @@
 # Show the current branch name by default unless another Git branch
 # operation is chosen by passing arguments.
 #
-# Deps:: env, git-branch, sh
+# Deps:: bash, env, git-branch
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git branch "${@:---show-current}"

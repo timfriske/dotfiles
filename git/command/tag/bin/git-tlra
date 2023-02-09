@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Ls-remote command
 # =====================
@@ -7,9 +7,10 @@
 # Lists annotated tags of given remote repository or `origin` by
 # default.
 #
-# Deps:: awk, env, git-ls-remote, sh
+# Deps:: awk, bash, env, git-ls-remote
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 # List remote tags. Drop commit IDs in first column. Keep tags in
 # second column. Keep annotated tags, i.e. their dereferenced form

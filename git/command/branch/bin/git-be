@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Branch command
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-branch, sh
+# Deps:: bash, env, git-branch
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git branch --edit-description "${@}"

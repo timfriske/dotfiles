@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Branch command
 # ==================
@@ -7,9 +7,10 @@
 # Lists each local branch whose remote tracking branch is gone on a new
 # line.
 #
-# Deps:: env, git-for-each-ref, sed, sh, xargs
+# Deps:: bash, env, git-for-each-ref, sed, xargs
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git for-each-ref \
     --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' \

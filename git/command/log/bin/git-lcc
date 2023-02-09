@@ -1,22 +1,22 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Log command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-config, git-log, sh
-
-set -o errexit -o nounset
-
-# Log commits of committer (self), no merge commits.
+# Logs commits of committer (self), no merge commits.
 #
+# Deps:: bash, env, git-config, git-log
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
 main() {
-  local author="${1:-$(git config user.email)}"
-  local commit="${2:-HEAD}"
-  shift $(($#-($#${1+-1}${2+-1})))
-  cd "${GIT_PREFIX:-.}"
-  git log --commiter="${author}" --no-merges --oneline --decorate=auto \
-    "${commit}" -- "${@:-.}"
+  local author="${1:-$(git config user.email)}" commit="${2:-HEAD}" args="${@:3}"
+  (
+    cd "${GIT_PREFIX:-.}"
+    git log --commiter="${author}" --no-merges --oneline --decorate=auto "${commit}" -- "${args:-.}"
+  )
 }
 
 main "${@}"

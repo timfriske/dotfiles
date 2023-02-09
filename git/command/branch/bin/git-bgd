@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Branch command
 # ==================
@@ -6,8 +6,9 @@
 #
 # Deletes each local branch whose remote tracking branch is gone.
 #
-# Deps:: env, git-bd, git-bg, sh, xargs
+# Deps:: bash, env, git-bd, git-bg, xargs
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git-bg | xargs --no-run-if-empty git-bd

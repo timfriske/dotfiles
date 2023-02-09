@@ -1,16 +1,17 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Edit command
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-config, sh
+# Deps:: bash, env, git-config
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local editor="$(git config core.editor)"
-  ${editor:-${VISUAL:-${EDITOR:-true}}} "${@}"
+  "${editor:-${VISUAL:-${EDITOR:-true}}}" "${@}"
 }
 
 main "${@}"

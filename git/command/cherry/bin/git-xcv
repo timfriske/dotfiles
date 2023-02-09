@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Cherry command
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-cherry, sh
+# Deps:: bash, env, git-cherry
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git cherry -v "${@}"

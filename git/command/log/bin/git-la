@@ -1,22 +1,22 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Log command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-log, sh
-
-set -o errexit -o nounset
-
-# Log commits after date, no merge commits.
+# Logs commits after date, no merge commits.
 #
+# Deps:: bash, env, git-log
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
 main() {
-  local date="${1:-today}"
-  local commit="${2:-HEAD}"
-  shift $(($#-($#${1+-1}${2+-1})))
-  cd "${GIT_PREFIX:-.}"
-  git log --after="${date}" --no-merges --oneline --decorate=auto \
-    "${commit}" -- "${@:-.}"
+  local date="${1:-today}" commit="${2:-HEAD}" args="${@:3}"
+  (
+    cd "${GIT_PREFIX:-.}"
+    git log --after="${date}" --no-merges --oneline --decorate=auto "${commit}" -- "${args:-.}"
+  )
 }
 
 main "${@}"

@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Cherry-pick command
 # =======================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-cherry-pick, sh
+# Deps:: bash, env, git-cherry-pick
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git cherry-pick "${@}"

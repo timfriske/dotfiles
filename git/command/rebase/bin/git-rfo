@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Rebase command
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-rebase, sh
+# Deps:: bash, env, git-rebase
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git rebase --force-rebase ${GIT_X_SIGNOFF:-} --onto "${@}"

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Branch command
 # ==================
@@ -7,9 +7,10 @@
 # Delete each merged local branch except the current one because it
 # cannot be deleted.
 #
-# Deps:: env, git-bd, git-for-each-ref, sh, xargs
+# Deps:: bash, env, git-bd, git-for-each-ref, xargs
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git for-each-ref \
   --format='%(if:notequals=*)%(HEAD)%(then)%(refname:lstrip=2)%(end)' \

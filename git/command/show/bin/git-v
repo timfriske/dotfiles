@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Show command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-show, sh
+# Deps:: bash, env, git-show
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git show "${@}"
