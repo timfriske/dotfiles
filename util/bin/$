@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Dollar command
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Executes command lines with a dollar sign accidently prepended. Such command
+# lines usually stem from copied and pasted tutorial code.
+#
+# Deps:: bash, env
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+"${@}"
