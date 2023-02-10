@@ -1,12 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Root command
 # ================
 # Tim Friske <me@tifr.de>
 #
 #
-# Deps:: env, git-rev-parse, sh
+# Deps:: bash, env, git-rev-parse
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git rev-parse --show-toplevel "${@}"

@@ -36,8 +36,8 @@ function git_config_show_scope {
 
 function git_config_user {
   local subsection="${1:-}" option
-  if [ "$(git semver major)" -le 2 ]; then
-    if [ "$(git semver minor)" -lt 26 ]; then
+  if (( "$(git semver major)" < 2 )); then
+    if (( "$(git semver minor)" < 26 )); then
       for option in Name Email SigningKey; do
         git_config_show User "${subsection}" "${option}"
       done

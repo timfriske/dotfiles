@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Bisect command
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-bisect, sh
+# Deps:: bash, env, git-bisect
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git bisect bad "${@}"

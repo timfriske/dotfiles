@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Reset command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-reset, sh
+# Deps:: bash, env, git-reset
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git reset --mixed -N "${@}"

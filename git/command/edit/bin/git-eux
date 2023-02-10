@@ -1,12 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Edit command
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-diff, git-edit, sh, xargs
+# Deps:: bash, env, git-diff, git-edit, xargs
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git diff --name-only --diff-filter=U -z \
   | xargs -o -n 10 -0 git edit

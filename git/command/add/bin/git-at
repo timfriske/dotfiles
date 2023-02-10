@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Add command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-add, sh
+# Deps:: bash, env, git-add
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git add --intent-to-add --verbose "${@}"

@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Edit command
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-edit, sh
+# Deps:: bash, env, git-edit
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git-edit "${@}"

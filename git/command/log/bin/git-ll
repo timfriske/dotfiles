@@ -1,13 +1,14 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Log command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-log, sh
-
-set -o errexit -o nounset
-
-# Log commits with their relations visualized as graph on left margin.
+# Logs commits with their relations visualized as graph on left margin.
 #
+# Deps:: bash, env, git-log
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
 git log --graph --oneline "${@}"

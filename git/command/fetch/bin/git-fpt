@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Fetch command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-fetch, sh
+# Deps:: bash, env, git-fetch
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git fetch --prune --prune-tags "${@}"

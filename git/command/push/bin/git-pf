@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Push command
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-push, sh
+# Deps:: bash, env, git-push
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git push --force-with-lease "${@}"

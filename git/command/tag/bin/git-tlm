@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Tag command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-tag, sh
+# Deps:: bash, env, git-tag
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git tag --list --merged "${@}"

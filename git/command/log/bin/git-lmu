@@ -1,22 +1,23 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Log command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-log, sh
-
-set -o errexit -o nounset
-
-# Log commits of main branch (first parent) ahead of upstream branch,
-# not those of side branches.
+# Logs commits of main branch (first parent) ahead of upstream branch, not those
+# of side branches.
 #
+# Deps:: bash, env, git-log
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
 main() {
-  local commit="${1:-HEAD}"
-  shift $(($#-($#${1+-1})))
-  cd "${GIT_PREFIX:-.}"
-  git log --first-parent --oneline --decorate=auto \
-    "${commit}@{upstream}..${commit}" -- "${@:-.}"
+  local commit="${1:-HEAD}" args="${@:2}"
+  (
+    cd "${GIT_PREFIX:-.}"
+    git log --first-parent --oneline --decorate=auto "${commit}@{upstream}..${commit}" -- "${args:-.}"
+  )
 }
 
 main "${@}"

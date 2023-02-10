@@ -12,26 +12,26 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-get_branch() {
+function get_branch {
   git symbolic-ref --quiet --short "${ref:-HEAD}"
 }
 
-get_tag() {
+function get_tag {
   git describe --tags --exact-match "${ref:-HEAD}" 2> /dev/null
 }
 
-get_commit() {
+function get_commit {
   git rev-parse --short "${ref:-HEAD}"
 }
 
-main() {
+function main {
   local fmt="${fmt:-|type|:|object|}"
   local tbr="${tbr:-branch}"
   local tta="${tta:-tag}"
   local tco="${tco:-commit}"
 
   local branch="$(get_branch)"
-  if [ -n "${branch:+x}" ]; then
+  if [[ -n "${branch:+x}" ]]; then
     fmt="${fmt/|type|/${tbr}}"
     fmt="${fmt/|object|/${branch}}"
     printf '%s\n' "${fmt}"
@@ -39,7 +39,7 @@ main() {
   fi
 
   local tag="$(get_tag)"
-  if [ -n "${tag:+x}" ]; then
+  if [[ -n "${tag:+x}" ]]; then
     fmt="${fmt/|type|/${tta}}"
     fmt="${fmt/|object|/${tag}}"
     printf '%s\n' "${fmt}"
@@ -47,7 +47,7 @@ main() {
   fi
 
   local commit="$(get_commit)"
-  if [ -n "${commit:+x}" ]; then
+  if [[ -n "${commit:+x}" ]]; then
     fmt="${fmt/|type|/${tco}}"
     fmt="${fmt/|object|/${commit}}"
     printf '%s\n' "${fmt}"

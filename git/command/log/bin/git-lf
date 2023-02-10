@@ -1,21 +1,22 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Log command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-log, sh
-
-set -o errexit -o nounset
-
-# Log commits touching file.
+# Logs commits touching file.
 #
+# Deps:: bash, env, git-log
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
 main() {
-  local commit="${1:-HEAD}"
-  local file="${2:-}"
-  shift $(($#-($#${1+-1}${2+-1})))
-  cd "${GIT_PREFIX:-.}"
-  git log --follow --oneline --decorate=auto "${commit}" -- "${file}"
+  local commit="${1:-HEAD}" file="${2:-}"
+  (
+    cd "${GIT_PREFIX:-.}"
+    git log --follow --oneline --decorate=auto "${commit}" -- "${file}"
+  )
 }
 
 main "${@}"

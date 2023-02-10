@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Branch command
 # ==================
@@ -8,8 +8,9 @@
 # remote, i.e. the branch the HEAD symbolic reference below each remote
 # point to.
 #
-# Deps:: env, git-branch, sh
+# Deps:: bash, env, git-branch
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git branch --list --remotes "${1:-*}/HEAD"

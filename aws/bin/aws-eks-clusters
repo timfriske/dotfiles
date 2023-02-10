@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# AWS EKS Clusters command
+# ========================
+# Tim Friske <me@tifr.de>
+#
+# Lists the names of the AWS EKS clusters in a certain region, one cluster name
+# per line.
+#
+# Deps:: aws, bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+aws eks list-clusters --output json "${@}" | jq --raw-output '.clusters[]'

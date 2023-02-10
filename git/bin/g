@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git command
 # ===========
@@ -6,10 +6,7 @@
 #
 # Deps:: env, git, sh
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
-  git "${@}"
-}
-
-main "${@}"
+git "${@}"

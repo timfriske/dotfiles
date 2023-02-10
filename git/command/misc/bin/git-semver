@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Semver command
 # ==================
@@ -7,11 +7,12 @@
 # Prints Git semantic version in JSON format mainly for programmatic
 # access.
 #
-# Deps:: env, git-version, jq, sh
+# Deps:: bash, env, git-version, jq
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   git version \
   | jq --raw-input '
     split(" ") 

@@ -1,17 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Revert command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-revert, sh
+# Deps:: bash, env, git-revert
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
-  local commit="${1:-HEAD}"
-  shift $(($#-($#${1+-1})))
-  git revert --mainline "${commit}" ${GIT_X_SIGNOFF:-} "${@}"
-}
-
-main "${@}"
+git revert --mainline "${1:-HEAD}" ${GIT_X_SIGNOFF:-} "${@:2}"

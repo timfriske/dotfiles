@@ -1,11 +1,14 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Log command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-log, git-lrc, sh
+# Logs message of root commit.
+#
+# Deps:: bash, env, git-log, git-lrc
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git log "$(git-lrc)"

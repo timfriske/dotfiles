@@ -27,7 +27,7 @@
     force: yes
     state: link
   loop:
-    - { src: kontext, dest: "{{ bin_dir }}/ktxt" }
+    - { src: kontext, dest: "{{ bin_dir }}/kkk" }
   loop_control:
     loop_var: link
     label: "{{ link.dest }} => {{ link.src }}"

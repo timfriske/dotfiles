@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Branch command
 # ==================
@@ -7,8 +7,9 @@
 # Sets the default branch marker of the given remote to the given
 # branch.
 #
-# Deps:: env, git-remote, sh
+# Deps:: bash, env, git-remote
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git remote set-head "${@}"

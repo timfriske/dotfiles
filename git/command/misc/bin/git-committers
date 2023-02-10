@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Committers command
 # ======================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-shortlog, sh
+# Deps:: bash, env, git-shortlog
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 git shortlog --summary --numbered --committer --email "${@}"

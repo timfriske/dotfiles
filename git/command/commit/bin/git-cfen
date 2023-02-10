@@ -1,17 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Commit command
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-commit, sh
+# Deps:: bash, env, git-commit
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
-  local commit="${1:-HEAD~}"
-  shift $(($#-($#${1+-1})))
-  git commit --fixup="${commit}" --no-edit ${GIT_X_SIGNOFF:-} "${@}"
-}
-
-main "${@}"
+git commit --fixup="${1:-HEAD~}" --no-edit ${GIT_X_SIGNOFF:-} "${@:2}"

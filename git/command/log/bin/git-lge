@@ -1,23 +1,22 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Log command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-log, sh
-
-set -o errexit -o nounset
-
-# Log commits whose messages match extended regular expression, ignoring
-# case.
+# Logs commits whose messages match extended regular expression, ignoring case.
 #
+# Deps:: bash, env, git-log
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
 main() {
-  local pattern="${1:-}"
-  local commit="${2:-HEAD}"
-  shift $(($#-($#${1+-1}${2+-1})))
-  cd "${GIT_PREFIX:-.}"
-  git log --grep="${pattern}" --extended-regexp --regexp-ignore-case \
-    --oneline --decorate=auto "${commit}" -- "${@:-.}"
+  local pattern="${1:-}" commit="${2:-HEAD}" args="${@:3}"
+  (
+    cd "${GIT_PREFIX:-.}"
+    git log --grep="${pattern}" --extended-regexp --regexp-ignore-case --oneline --decorate=auto "${commit}" -- "${args:-.}"
+  )
 }
 
 main "${@}"

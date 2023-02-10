@@ -1,14 +1,15 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Git Edit command
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, git-diff, git-edit, sh
+# Deps:: bash, env, git-diff, git-edit
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local unmerged="$(git diff --name-only --diff-filter=U)"
   ${unmerged:+git edit ${unmerged}}
 }
