@@ -68,6 +68,7 @@ packages:
   - ripgrep
   - rsync
   - rust
+  - shellcheck
   - speedtest-cli
   - sqlite3
   - sqlitebrowser
