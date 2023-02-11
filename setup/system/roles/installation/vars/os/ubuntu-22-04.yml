@@ -137,7 +137,6 @@ snaps:
   - kustomize
   - mysql-workbench-community
   - teams
-  - teams-insiders
 
 snap_connections:
   -
