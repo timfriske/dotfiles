@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Remove command
 # ==============
@@ -8,8 +8,9 @@
 # Remove directories and their contents recursively. Do not remove the
 # root directory and everything below it. Explain what is being done.
 #
-# Deps:: env, rm, sh
+# Deps:: bash, env, rm
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 rm --preserve-root --recursive --force --verbose "${@}"

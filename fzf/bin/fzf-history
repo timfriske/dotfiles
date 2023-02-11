@@ -11,9 +11,11 @@
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
+
+# Enable shell options for extra capabilities.
 shopt -s extglob globstar
 
-print_help() {
+function print_help {
   1>&2 cat \
 <<'HELP'
 usage:
@@ -22,7 +24,7 @@ usage:
 HELP
 }
 
-fzf_history() {
+function fzf_history {
   if [[ -t 0 ]]; then
     print_help
     exit
@@ -32,15 +34,15 @@ fzf_history() {
   read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
   read -r -a fzf_history_fzf_opts <<< "${FZF_HISTORY_FZF_OPTS:-}"
   fzf_options+=("${fzf_default_opts[@]}")
-  fzf_options+=('--tac' '-n2..,..' '--tiebreak=index')
+  fzf_options+=(--tac '-n2..,..' --tiebreak=index)
   fzf_options+=("${fzf_history_fzf_opts[@]}")
-  fzf_options+=('--print0')
+  fzf_options+=(--print0)
 
   local cmd='' cmds=()
   while read -r -d '' cmd; do
     cmds+=("${cmd/#+([[:digit:]])+([[:space:]])/}")
   done < <(fzf "${fzf_options[@]}")
-  if [[ "${#cmds[*]}" -gt 0 ]]; then
+  if (( "${#cmds[@]}" > 0 )); then
     (IFS=';'; printf '%s\n' "${cmds[*]}")
   fi
 }

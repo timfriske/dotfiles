@@ -9,24 +9,16 @@
 #
 # Deps:: bash, date, env
 
-timestamp() {
-  date +%s
-}
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-timestamp_to_date() {
-  date --date="@${1}"
-}
+function timestamp { date +%s; }
+function timestamp_to_date { date --date="@${1}"; }
+function timestamp_to_duration { date --utc --date="@${1}" +%H:%M:%S; }
+function press_key { read -rsn1 -p "timer: Press any key to stop."; echo; }
 
-timestamp_to_duration() {
-  date --utc --date="@${1}" +%H:%M:%S
-}
-
-press_key() {
-  read -rsn1 -p "timer: Press any key to stop."; echo
-}
-
-main() {
-  if [ "${#}" -ne 0 ]; then
+function main {
+  if (( "${#}" != 0 )); then
     echo "usage: timer"
     exit 1
   fi

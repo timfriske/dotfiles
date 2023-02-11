@@ -9,5 +9,4 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-cd "${GIT_PREFIX:-.}"
-git diff --cached --name-only --diff-filter="${1:-ACDMRTUXB}" "${@:2}"
+(cd "${GIT_PREFIX:-.}" && git diff --cached --name-only --diff-filter="${1:-ACDMRTUXB}" "${@:2}")

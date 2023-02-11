@@ -9,7 +9,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-print_help() {
+function print_help {
   1>&2 cat \
 <<'HELP'
 Help
@@ -60,7 +60,7 @@ or `true`.
 HELP
 }
 
-fzf_quote() {
+function fzf_quote {
   if [[ "${1:-}" == '--help' ]]; then
     print_help
     exit

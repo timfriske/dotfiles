@@ -21,7 +21,7 @@ shopt -os nounset pipefail errexit errtrace
 
 prog="${0##*/}"
 
-main() {
+function main {
   if (( "${#}" != 1 )); then
     echo >&2 "${prog}: usage: ${prog} <file (on path)>"
     exit 1
@@ -32,7 +32,7 @@ main() {
     exit
   fi
   local on_path
-  on_path="$(command -v "${file}")"
+  on_path="$(command -v -- "${file}")"
   if [[ -n "${on_path:+x}" ]]; then
     file -- "${on_path}"
     exit

@@ -13,9 +13,11 @@
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
+
+# Enable shell options for extra capabilities.
 shopt -s extglob globstar
 
-print_help() {
+function print_help {
   1>&2 cat \
 <<'HELP'
 usage:
@@ -54,18 +56,18 @@ usage:
 HELP
 }
 
-print_job_cmd_line() {
-  [[ "$#" -eq 0 ]] && return
+function print_job_cmd_line {
+  (( "${#}" == 0 )) && return
   local cmd="${cmd:?required}"
   printf '%s ' "${cmd}" "${@}"
   printf '\n'
 }
 
-fzf_jobs() {
+function fzf_jobs {
   if [[ -t 0 ]]; then
     print_help
     exit
-  elif [[ "$#" -gt 0 ]]; then
+  elif (( "${#}" > 0 )); then
     print_job_cmd_line "${@}"
     exit
   fi
@@ -75,7 +77,7 @@ fzf_jobs() {
   read -r -a fzf_jobs_fzf_opts <<< "${FZF_JOBS_FZF_OPTS:-}"
   fzf_options+=("${fzf_default_opts[@]}")
   fzf_options+=("${fzf_jobs_fzf_opts[@]}")
-  fzf_options+=('--print0')
+  fzf_options+=(--print0)
 
   local job='' jobspecs=()
   while read -r -d '' job; do

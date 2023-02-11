@@ -9,5 +9,4 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-cd "${GIT_PREFIX:-.}"
-git diff --word-diff=color "${1:-HEAD}@{upstream}" "${@:2}"
+(cd "${GIT_PREFIX:-.}" && git diff --word-diff=color "${1:-HEAD}@{upstream}" "${@:2}")

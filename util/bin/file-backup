@@ -19,7 +19,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   if [[ ! -f "${1:-}" ]]; then
     echo 'usage: file-backup <file> [<file>|<folder>]'
     exit 1

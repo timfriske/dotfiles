@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Map command
 # ===========
@@ -8,8 +8,9 @@
 # alias `map` resembles the well-known mathematical term `mapping' also
 # known as `map'.
 #
-# Deps:: env, sh, xargs
+# Deps:: bash, env, xargs
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 xargs --max-args=1 --no-run-if-empty "${@}"

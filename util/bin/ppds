@@ -12,14 +12,14 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local folder="${PWD}"
   until [[ -z "${folder}" ]]; do
     printf '%q\n' "${folder}"
     folder="${folder%/*}"
   done
-  if [ "${PWD}" != '/' ]; then
-    echo '/'
+  if [[ "${PWD}" != / ]]; then
+    echo /
   fi
 }
 

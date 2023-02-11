@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # GPG List Keys In File command
 # =============================
@@ -8,8 +8,9 @@
 # keyring. This command supports all the file formats the GnuPG program
 # does support.
 #
-# Deps:: env, gpg, sh
+# Deps:: env, gpg
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 gpg --show-keys --with-fingerprint --with-keygrip "${@}"

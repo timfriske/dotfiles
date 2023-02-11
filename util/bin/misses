@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Misses command
 # ==============
@@ -6,8 +6,9 @@
 #
 # Lists files without matching content. Use `hits` for the opposite.
 #
-# Deps:: env, rg, sh
+# Deps:: bash, env, rg
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 rg --files-without-match --smart-case "${@}"

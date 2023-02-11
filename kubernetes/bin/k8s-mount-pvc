@@ -16,7 +16,7 @@
 # Container. Once the Pod is ready an interactive login shell is started. For
 # this the `ash` shell that comes with Busybox is used.
 #
-# Deps:: env, kubectl, sh
+# Deps:: bash, env, kubectl
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
@@ -30,7 +30,8 @@ echo "Creating Kubernetes Container 'mount' inside 'k8s-mount-pvc-${pvc}' ..."
 echo "Running Kubernetes Container 'mount' with latest 'busybox' image ..."
 echo "Attaching Kubernetes Persistent Volume Claim to 'mount' ..."
 echo "Mounting Kubernetes Persistent Volume under '/mnt' point ..."
-kubectl apply --filename=- <<EOF
+kubectl apply --filename=- \
+<<EOF
 ---
 kind: Pod
 apiVersion: v1

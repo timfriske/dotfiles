@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Date command
 # ============
@@ -7,11 +7,12 @@
 # Shows calendar week of year. Prints `week: WEEK` if standard output
 # file descriptor is connected to terminal, else just `WEEK`.
 #
-# Deps:: date, env, sh
+# Deps:: bash, date, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-if [ -t 1 ]; then
+if [[ -t 1 ]]; then
   date '+week: %V'
 else
   date '+%V'

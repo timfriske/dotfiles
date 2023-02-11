@@ -22,13 +22,13 @@
 #
 # Deps:: bash
 
-space() {
+function space {
   if [[ -n "${1}" && ! "${1}" =~ ^[[:space:]]$ ]]; then
     printf ' '
   fi
 }
 
-fzf_insert() {
+function fzf_insert {
   local cmd="${cmd?:required}" evaluated
   evaluated="$(eval "${cmd}")"
 
@@ -41,5 +41,5 @@ fzf_insert() {
   insertion+="$(space "${right:0:1}")"
 
   READLINE_LINE="${left}${insertion}${right}"
-  READLINE_POINT=$(( rp + ${#insertion} + 1 ))
+  READLINE_POINT="$(( rp + ${#insertion} + 1 ))"
 }

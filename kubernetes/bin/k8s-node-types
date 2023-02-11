@@ -13,13 +13,11 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-node_types() {
+function node_types {
   local columns=(
     'TYPE:metadata.labels.beta\.kubernetes\.io/instance-type'
   )
-  kubectl get nodes \
-    --no-headers \
-    --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
+  kubectl get nodes --no-headers --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
 }
 
 node_types | rank

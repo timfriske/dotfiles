@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Upper Case Conversion command
 # =============================
@@ -7,25 +7,17 @@
 # Convert characters read from standard input stream or command line
 # arguments to uppercase and print them to standard output stream.
 #
-# Deps:: awk, env, sh
+# Deps:: awk, bash, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-uppercase() {
-  # `tr '[:lower:]' '[:upper:]'` only works for ASCII [a-z].
-  awk '{print toupper($0)}'
-}
+# `tr '[:lower:]' '[:upper:]'` only works for ASCII [a-z].
+function uppercase { awk '{print toupper($0)}'; }
+function newlines { printf '%s\n' "${@}"; }
 
-newlines() {
-  printf '%s\n' "${@}"
-}
-
-main() {
-  if [ "${#}" -eq 0 ]; then
-    uppercase
-  else
-    newlines "${@}" | uppercase
-  fi
-}
-
-main "${@}"
+if (( "${#}" == 0 )); then
+  uppercase
+else
+  newlines "${@}" | uppercase
+fi

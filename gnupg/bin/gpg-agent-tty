@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # GPG Agent TTY command
 # =====================
@@ -7,9 +7,10 @@
 # Updates the GPG agent's TTY in order to tell it on which TTY to prompt
 # the user for passphrases.
 #
-# Deps:: env, gpg-connect-agent, sh
+# Deps:: bash, env, gpg-connect-agent
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 echo Updating GPG TTY...
 echo UPDATESTARTUPTTY | gpg-connect-agent

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Date command
 # ============
@@ -10,9 +10,10 @@
 # Prints `date-ltz-off: OFFSET` if standard output file descriptor is
 # connected to terminal, else just `OFFSET`.
 #
-# Deps:: date, env, sh
+# Deps:: bash, date, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-[ -t 1 ] && printf 'date-ltz-off: '
+[[ -t 1 ]] && printf 'date-ltz-off: '
 date '+%z'

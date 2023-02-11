@@ -11,12 +11,9 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local commit="${1:-HEAD}" file="${2:-}"
-  (
-    cd "${GIT_PREFIX:-.}" \
-      && git log --follow --oneline --decorate=auto "${commit}" -- "${file}"
-  )
+  (cd "${GIT_PREFIX:-.}" && git log --follow --oneline --decorate=auto "${commit}" -- "${file}")
 }
 
 main "${@}"

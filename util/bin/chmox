@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Chmox command
 # =============
@@ -10,8 +10,9 @@
 # usually requires super user privileges which can be obtained with
 # `sudo` and/or `su`.
 #
-# Deps:: chmod, env, sh
+# Deps:: bash, chmod, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 chmod --preserve-root --changes -- a+x "${@}"

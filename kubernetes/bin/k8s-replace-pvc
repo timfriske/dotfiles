@@ -12,8 +12,8 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-: "${1:?Old persistent volume claim required}"
-: "${2:?New persistent volume claim required}"
+: "${1:?old persistent volume claim required}"
+: "${2:?new persistent volume claim required}"
 
 read -r -d '' JQ_REPLACE_PVC <<'JQ_REPLACE_PVC' || true
 .metadata.name = $new_pvc

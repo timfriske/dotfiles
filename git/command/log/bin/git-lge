@@ -11,12 +11,9 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local pattern="${1:-}" commit="${2:-HEAD}" args=("${@:3}")
-  (
-    cd "${GIT_PREFIX:-.}" \
-    && git log --grep="${pattern}" --extended-regexp --regexp-ignore-case --oneline --decorate=auto "${commit}" -- "${args:-.}"
-  )
+  (cd "${GIT_PREFIX:-.}" && git log --grep="${pattern}" --extended-regexp --regexp-ignore-case --oneline --decorate=auto "${commit}" -- "${args:-.}")
 }
 
 main "${@}"

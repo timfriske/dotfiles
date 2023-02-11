@@ -37,7 +37,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-fzf_git_branch() {
+function fzf_git_branch {
   local branch_options=() branch_opts_cust
   read -r -a branch_opts_cust <<< "${branch_opts:-}"
   branch_options+=('--list')

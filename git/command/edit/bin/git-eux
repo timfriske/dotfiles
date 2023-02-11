@@ -9,5 +9,4 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-git diff --name-only --diff-filter=U -z \
-  | xargs -o -n 10 -0 git edit
+git diff --name-only --diff-filter=U -z | xargs -o -n 10 -0 git edit

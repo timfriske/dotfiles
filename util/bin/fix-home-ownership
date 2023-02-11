@@ -23,11 +23,11 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-get_user_id() { id --user -- "${1}" 2> /dev/null; }
+function get_user_id { id --user -- "${1}" 2> /dev/null; }
 
-get_group_id() { id --group -- "${1}" 2> /dev/null; }
+function get_group_id { id --group -- "${1}" 2> /dev/null; }
 
-try_set_owner_of_path() {
+function try_set_owner_of_path {
   local path="${1}"
   local user="${path##*/}"
   local user_id group_id

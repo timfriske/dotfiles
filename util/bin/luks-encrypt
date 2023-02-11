@@ -64,7 +64,7 @@ function compat_crypt {
     "${device}"
 }
 
-main() {
+function main {
   local style="${1:-${style:?required}}"
   local device="${2:-${device:?required}}"
   local label="${3:-${label:-}}"

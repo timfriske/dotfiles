@@ -6,15 +6,15 @@
 #
 # Deps:: bash, env
 
-path_raw() {
+function path_raw {
   printf '%s\n' "${PATH}"
 }
 
-path_pretty() {
+function path_pretty {
   echo -e "${PATH//:/\\n}"
 }
 
-path_appended() {
+function path_appended {
   if path_contains "${1}"; then
     printf '%s\n' "${PATH}"
   else
@@ -22,7 +22,7 @@ path_appended() {
   fi
 }
 
-path_prepended() {
+function path_prepended {
   if path_contains "${1}"; then
     printf '%s\n' "${PATH}"
   else
@@ -30,8 +30,8 @@ path_prepended() {
   fi
 }
 
-path_removed() {
-  if [ -z "${1:+x}" ]; then
+function path_removed {
+  if [[ -z "${1:+x}" ]]; then
     printf '%s\n' "${PATH}"
     return
   fi
@@ -39,9 +39,9 @@ path_removed() {
   while [[ "${path_reduced}" =~ (^|(.*):)"${1}"($|:(.*)) ]]; do
     local path_prefix="${BASH_REMATCH[2]}"
     local path_suffix="${BASH_REMATCH[4]}"
-    if [ -z "${path_prefix:+x}" ]; then
+    if [[ -z "${path_prefix:+x}" ]]; then
       path_reduced="${path_suffix}"
-    elif [ -z "${path_suffix:+x}" ]; then
+    elif [[ -z "${path_suffix:+x}" ]]; then
       path_reduced="${path_prefix}"
     else
       path_reduced="${path_prefix}:${path_suffix}"
@@ -50,16 +50,16 @@ path_removed() {
   echo "${path_reduced}"
 }
 
-path_usage() {
+function path_usage {
   echo "usage: path (raw|pretty)"
   echo "usage: path (appended|prepended|removed) <path>"
 }
 
-path_contains() {
-  [ -z "${1:+x}" ] || [[ "${PATH}" =~ (^|.*:)"${1}"($|:.*) ]]
+function path_contains {
+  [[ -z "${1:+x}" ]] || [[ "${PATH}" =~ (^|.*:)"${1}"($|:.*) ]]
 }
 
-main() {
+function main {
   case "${1}" in
     raw) path_raw "${@:2}" ;;
     pretty) path_pretty "${@:2}" ;;

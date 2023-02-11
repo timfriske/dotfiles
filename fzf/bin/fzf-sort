@@ -9,7 +9,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-print_help() {
+function print_help {
   1>&2 cat \
 <<'HELP'
 Help
@@ -71,29 +71,29 @@ _Fzf-sort's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
-sort_records() {
-  local opt_sort=()
+function sort_records {
+  local opt_sort=(--sort)
   case "${order:-}" in
-    month) opt_sort=('--sort' 'month');;
-    numeric) opt_sort=('--sort' 'numeric');;
-    numeric-general) opt_sort=('--sort' 'general-numeric');;
-    numeric-human) opt_sort=('--sort' 'human-numeric');;
-    random) opt_sort=('--sort' 'random');;
-    version) opt_sort=('--sort' 'version');;
-    *);;
+    month) opt_sort=(month);;
+    numeric) opt_sort=(numeric);;
+    numeric-general) opt_sort=(general-numeric);;
+    numeric-human) opt_sort=(human-numeric);;
+    random) opt_sort=(random);;
+    version) opt_sort=(version);;
+    *) opt_sort=();;
   esac
 
   local opt_reverse=()
   if [[ "${reversed:-}" =~ 1|true ]]; then
-    opt_reverse=('--reverse')
+    opt_reverse=(--reverse)
   fi
 
-  local cmd_read='cat'
+  local cmd_read=cat
   if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
     cmd_read='tr "\n" "\0"'
   fi
 
-  local cmd_write='cat'
+  local cmd_write=cat
   if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
       cmd_write='tr "\0" "\n"'
   fi
@@ -103,8 +103,8 @@ sort_records() {
     | eval "${cmd_write}"
 }
 
-fzf_sort() {
-  if [[ "${1:-}" == '--help' ]]; then
+function fzf_sort {
+  if [[ "${1:-}" == --help ]]; then
     print_help
     exit
   fi

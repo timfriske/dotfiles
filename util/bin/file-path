@@ -11,7 +11,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   : "${1:?usage: file-path <path>...}"
   local path
   for path in "${@}"; do

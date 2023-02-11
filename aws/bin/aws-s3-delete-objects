@@ -17,7 +17,7 @@ shopt -os nounset pipefail errexit errtrace
 
 # Standard input stream of script must be connected to terminal in order
 # to prompt the user.
-if [ ! -t 0 ]; then
+if [[ ! -t 0 ]]; then
   echo >&2 stdin must be connected to terminal
   exit 1
 fi

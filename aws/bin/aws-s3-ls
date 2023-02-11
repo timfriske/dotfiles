@@ -11,18 +11,19 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   : "${1:?usage: aws-ls <S3 URI> | <bucket> [prefix]}"
   local path="${1#s3://}"
   local bucket="${path%%/*}"
   local prefix="${2:-${path#"${bucket}"}}"
+  local args=("${@:3}")
   prefix="${prefix#/}"
   aws s3api list-objects-v2 \
     --output "${AWS_DEFAULT_OUTPUT:-text}" \
     --query 'Contents[][Key]' \
     --bucket "${bucket}" \
     ${prefix:+--prefix "${prefix}"} \
-    "${@:3}"
+    "${args[@]}"
 }
 
 main "${@}"

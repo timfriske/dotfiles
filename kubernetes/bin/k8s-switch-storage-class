@@ -11,8 +11,8 @@
 
 set -o errexit -o nounset
 
-old="${1:-${old:?'required'}}"
-new="${2:-${new:?'required'}}"
+old="${1:-${old:?required}}"
+new="${2:-${new:?required}}"
 
 annotation='storageclass.kubernetes.io/is-default-class'
 

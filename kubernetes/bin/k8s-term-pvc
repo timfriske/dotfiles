@@ -12,5 +12,4 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-kubectl patch pvc "${1:?PVC required}" \
-  --patch '{"metadata":{"finalizers":null}}'
+kubectl patch pvc "${1:?persistent volume claim required}" --patch '{"metadata":{"finalizers":null}}'

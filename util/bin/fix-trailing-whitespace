@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Fix Trailing Whitespace command
 # ===============================
@@ -7,8 +7,9 @@
 # Delete any whitespace after the last printable character and before
 # the end of a line of each given text file.
 #
-# Deps:: env, sed, sh
+# Deps:: bash, env, sed
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 sed --regexp-extended --expression='s/[[:space:]]*$//' --in-place "${@}"

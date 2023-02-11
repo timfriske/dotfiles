@@ -37,12 +37,7 @@ function copy_link {
     exit 1
   fi
   # Overwrite link with its target.
-  cp \
-    --dereference \
-    --remove-destination \
-    --no-target-directory \
-    --verbose \
-    -- "${tgt}" "${src}"
+  cp --dereference --remove-destination --no-target-directory --verbose -- "${tgt}" "${src}"
 }
 
 copy_link "${@}"

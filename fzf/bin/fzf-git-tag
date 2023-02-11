@@ -34,7 +34,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-fzf_git_tag() {
+function fzf_git_tag {
   local tag_options=() tag_options_custom
   read -r -a tag_options_custom <<< "${tag_opts:-}"
   tag_options+=('--list')

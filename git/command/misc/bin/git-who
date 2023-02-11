@@ -20,20 +20,20 @@ function git_config_show {
   # shellcheck disable=SC2016
   (git config --show-origin "${1}.${2:+${2}.}${3}" || true) \
   | awk_tab -v "title=${1}${2:+${2}} ${3}" \
-      '{
-        idx=split($1,origin,"/")
-        print title":",$2,"("origin[idx]")"
-      }'
+    '{
+      idx=split($1,origin,"/")
+      print title":",$2,"("origin[idx]")"
+    }'
 }
 
 function git_config_show_scope {
   # shellcheck disable=SC2016
   (git config --show-origin --show-scope "${1}.${2:+${2}.}${3}" || true) \
   | awk_tab -v "title=${1}${2:+${2}} ${3}" \
-      '{
-        idx=split($2,origin,"/")
-        print title":",$3,"("$1" "origin[idx]")"
-      }'
+    '{
+      idx=split($2,origin,"/")
+      print title":",$3,"("$1" "origin[idx]")"
+    }'
 }
 
 function git_config_user {

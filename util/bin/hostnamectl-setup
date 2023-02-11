@@ -12,9 +12,9 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-machine_info_var_val() {
+function machine_info_var_val {
   local var="${1:-${var:?'required'}}"
-  if [ -f /etc/machine-info ]; then
+  if [[ -f /etc/machine-info ]]; then
     awk -F '=' -v "VAR=${var}" '$1==VAR{gsub(/"/,"",$2);print $2}' /etc/machine-info
   fi
 }

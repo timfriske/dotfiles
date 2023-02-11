@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # GPG Agent Reload command
 # ========================
@@ -6,9 +6,10 @@
 #
 # Reloads the GPG agent, e.g. to tell it to forget cached passphrases.
 #
-# Deps:: env, gpg-connect-agent, sh
+# Deps:: bash, env, gpg-connect-agent
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 echo Reloading GPG agent...
 echo RELOADAGENT | gpg-connect-agent
