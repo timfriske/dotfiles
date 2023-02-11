@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Cbp command
 # ===========
@@ -10,23 +10,21 @@
 #
 # Deps:: env, pbpaste, sh, xclip, xsel
 
-set -o errexit -o nounset
+# Ensure fail-fast execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
-  if [ "${#}" -gt 0 ]; then
-    echo >&2 "usage: cbp [> FILE | > >(PROCESS)]"
-    echo >&2 "usage: cbp | PROCESS"
-    exit 1
-  fi
-  if command -v xclip >/dev/null 2>&1; then
-    xclip -selection clipboard -out
-  elif command -v xsel >/dev/null 2>&1; then
-    xsel --clipboard --output
-  elif command -v pbpaste >/dev/null 2>&1; then
-    pbpaste
-  else
-    echo Please install xclip, xsel or pbpaste.
-  fi
-}
+if (( "${#}" > 0 )); then
+  echo >&2 "usage: cbp [> FILE | > >(PROCESS)]"
+  echo >&2 "usage: cbp | PROCESS"
+  exit 1
+fi
 
-main "${@}"
+if command -v xclip &> /dev/null; then
+  xclip -selection clipboard -out
+elif command -v xsel &> /dev/null; then
+  xsel --clipboard --output
+elif command -v pbpaste &> /dev/null; then
+  pbpaste
+else
+  echo Please install xclip, xsel or pbpaste.
+fi

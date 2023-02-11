@@ -9,7 +9,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-print_help() {
+function print_help {
   1>&2 cat \
 <<'HELP'
 Help
@@ -69,26 +69,26 @@ _Fzf-find's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
-find_fs_objects() {
-  local opt_path=('-false')
+function find_fs_objects {
+  local opt_path=(-false)
   if [[ ! "${hidden:-}" =~ 1|true ]]; then
-    opt_path=('-path' '*/.*')
+    opt_path=(-path '*/.*')
   fi
 
   local opt_type=()
   case "${kind:-}" in
-    file) opt_type=('-type' 'f');;
-    folder) opt_type=('-type' 'd');;
-    link) opt_type=('-xtype' 'l');;
+    file) opt_type=(-type f);;
+    folder) opt_type=(-type d);;
+    link) opt_type=(-xtype l);;
     *);;
   esac
 
-  local opt_print=('-print0')
+  local opt_print=(-print0)
   if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
-    opt_print=('-print')
+    opt_print=(-print)
   fi
 
-  find -L -mindepth 1 \
+  find "${PWD}" -L -mindepth 1 \
     \( \
       "${opt_path[@]}" \
       -o -fstype sysfs \
@@ -101,12 +101,11 @@ find_fs_objects() {
     "${opt_print[@]}"
 }
 
-fzf_find() {
-  if [[ "${1:-}" == '--help' ]]; then
+function fzf_find {
+  if [[ "${1:-}" == --help ]]; then
     print_help
     exit
   fi
-
   find_fs_objects
 }
 

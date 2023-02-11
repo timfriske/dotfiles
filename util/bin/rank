@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Rank command
 # ============
@@ -7,8 +7,9 @@
 # Count the number of occurrences and list them in ascending order of
 # their counts.
 #
-# Deps:: env, sh, sort, uniq
+# Deps:: bash, env, sort, uniq
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 sort "${@}" | uniq --count | sort --sort=numeric --reverse

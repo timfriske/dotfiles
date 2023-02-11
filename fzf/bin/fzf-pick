@@ -9,7 +9,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-print_help() {
+function print_help {
   1>&2 cat \
 <<'HELP'
 Help
@@ -66,32 +66,31 @@ _Fzf-pick's_ `write` variable set to either `1` or `true`.
 HELP
 }
 
-pick_records() {
-  local env_opts=()
-  env_opts+=(${FZF_DEFAULT_OPTS:-})
-  env_opts+=(${FZF_PICK_FZF_OPTS:-})
+function pick_records {
+  local env_opts=() fzf_default_opts fzf_pick_fzf_opts
+  read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
+  read -r -a fzf_pick_fzf_opts <<< "${FZF_PICK_FZF_OPTS:-}"
+  env_opts+=("${fzf_default_opts[@]}")
+  env_opts+=("${fzf_pick_fzf_opts[@]}")
 
-  local prg_opts=(${opts:-})
+  local prg_opts
+  read -r -a prg_opts <<< "${opts:-}"
 
   local opt_read=()
   if [[ ! -t 0  && ! "${read:-}" =~ 1|true ]]; then
-    opt_read=('--read0')
+    opt_read=(--read0)
   fi
 
   local opt_print=()
   if [[ ! -t 1  && ! "${write:-}" =~ 1|true ]]; then
-    opt_print=('--print0')
+    opt_print=(--print0)
   fi
 
-  fzf \
-    "${env_opts[@]}" \
-    "${prg_opts[@]}" \
-    "${opt_read[@]}" \
-    "${opt_print[@]}"
+  fzf "${env_opts[@]}" "${prg_opts[@]}" "${opt_read[@]}" "${opt_print[@]}"
 }
 
 fzf_pick() {
-  if [[ "${1:-}" == '--help' ]]; then
+  if [[ "${1:-}" == --help ]]; then
     print_help
     exit
   fi
@@ -103,7 +102,7 @@ fzf_pick() {
     fi
     write='' pick_records \
       | xargs --null --replace={} --no-run-if-empty -- \
-        bash -c "printf \"$fmt\" \"${cmd:-}\" {}"
+        bash -c "printf \"${fmt}\" \"${cmd:-}\" {}"
     exit
   fi
 

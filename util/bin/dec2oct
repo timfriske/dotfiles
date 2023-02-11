@@ -12,7 +12,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   : "${1:?usage: dec2oct DECIMAL... }"
   paste -- <(printf '%d\n' "${@}") <(printf '%o\n' "${@}")
 }

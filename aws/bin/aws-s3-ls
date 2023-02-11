@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # AWS S3 Ls command
 # =================
@@ -6,23 +6,24 @@
 #
 # Prints paths of AWS S3 objects in bucket below prefix.
 #
-# Deps:: aws, env, sh
+# Deps:: aws, bash, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   : "${1:?usage: aws-ls <S3 URI> | <bucket> [prefix]}"
   local path="${1#s3://}"
   local bucket="${path%%/*}"
-  local prefix="${2:-${path#${bucket}}}"
+  local prefix="${2:-${path#"${bucket}"}}"
+  local args=("${@:3}")
   prefix="${prefix#/}"
-  shift $(($#-($#${1+-1}${2+-1})))
   aws s3api list-objects-v2 \
     --output "${AWS_DEFAULT_OUTPUT:-text}" \
     --query 'Contents[][Key]' \
     --bucket "${bucket}" \
     ${prefix:+--prefix "${prefix}"} \
-    "${@}"
+    "${args[@]}"
 }
 
 main "${@}"

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Disk Free command
 # =================
@@ -7,8 +7,11 @@
 # Report the free disk space only for common file system types, i.e.
 # exclude negligible types of file systems.
 #
-# Deps:: df, env, sh
+# Deps:: bash, df, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-df ${DF_X_OPTIONS:-} ${DF_COMMON_X_OPTIONS:-} "${@}"
+read -r -a df_x_options <<< "${DF_X_OPTIONS:-}"
+read -r -a df_common_x_options <<< "${DF_COMMON_X_OPTIONS:-}"
+df "${df_x_options[@]}" "${df_common_x_options[@]}" "${@}"

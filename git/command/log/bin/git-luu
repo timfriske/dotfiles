@@ -12,12 +12,9 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
-  local commit="${1:-HEAD}" args="${@:2}"
-  (
-    cd "${GIT_PREFIX:-.}"
-    git log --no-merges --oneline --decorate=auto "${commit}..${commit}@{upstream}" -- "${args:-.}"
-  )
+function main {
+  local commit="${1:-HEAD}" args=("${@:2}")
+  (cd "${GIT_PREFIX:-.}" && git log --no-merges --oneline --decorate=auto "${commit}..${commit}@{upstream}" -- "${args:-.}")
 }
 
 main "${@}"

@@ -12,8 +12,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-function main {
-  git version \
+git version \
   | jq --raw-input '
     split(" ") 
     | .[2] 
@@ -24,6 +23,3 @@ function main {
         "patch": .[2]
       }' \
   | jq ${1:+--raw-output ".${1}"}
-}
-
-main "${@}"

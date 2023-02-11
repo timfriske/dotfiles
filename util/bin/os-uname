@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Operating System Information command
 # ====================================
@@ -8,19 +8,24 @@
 #
 # Tim Friske <me@tifr.de>
 #
-# Deps:: cat, env, sh, uname
+# Deps:: bash, cat, env, uname
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 main() {
-  local network_host="$(uname --nodename)"
-  local kernel_name="$(uname --kernel-name)"
-  local kernel_release="$(uname --kernel-release)"
-  local kernel_version="$(uname --kernel-version)"
-  local operating_system="$(uname --operating-system)"
-  local hardware_machine="$(uname --machine)"
-  local hardware_processor="$(uname --processor)"
-  local hardware_platform="$(uname --hardware-platform)"
+  local network_host
+  local kernel_name kernel_release kernel_version
+  local operating_system
+  local hardware_machine hardware_processor hardware_platform
+  network_host="$(uname --nodename)"
+  kernel_name="$(uname --kernel-name)"
+  kernel_release="$(uname --kernel-release)"
+  kernel_version="$(uname --kernel-version)"
+  operating_system="$(uname --operating-system)"
+  hardware_machine="$(uname --machine)"
+  hardware_processor="$(uname --processor)"
+  hardware_platform="$(uname --hardware-platform)"
 
   cat \
 <<OS_INFO

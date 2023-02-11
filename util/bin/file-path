@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # File Path command
 # =================
@@ -6,18 +6,19 @@
 #
 # Prints the absolute paths of the given paths.
 #
-# Deps:: env, sh
+# Deps:: bash, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   : "${1:?usage: file-path <path>...}"
   local path
   for path in "${@}"; do
-    if [ "${path%/*}" = "${path}" ]; then
+    if [[ "${path%/*}" == "${path}" ]]; then
       printf '%s/%s\n' "${PWD}" "${path}"
     else
-      printf '%s/%s\n' "$(cd "${path%/*}" && pwd)" "${path##*/}"
+      printf '%s/%s\n' "$(cd -- "${path%/*}" && pwd)" "${path##*/}"
     fi
   done
 }

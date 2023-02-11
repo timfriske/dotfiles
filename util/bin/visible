@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Visible command
 # ===============
@@ -6,8 +6,9 @@
 #
 # Makes non-printing, tabulator and line ending characters visible.
 #
-# Deps:: cat, env, sh
+# Deps:: bash, cat, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 cat --show-nonprinting --show-tabs --show-ends "${@}"

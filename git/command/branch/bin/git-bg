@@ -15,5 +15,5 @@ shopt -os nounset pipefail errexit errtrace
 git for-each-ref \
     --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' \
     refs/heads \
-  | sed 's|^heads/||' \
+  | sed --expression='s:^heads/::' \
   | xargs --no-run-if-empty printf '%s\n'

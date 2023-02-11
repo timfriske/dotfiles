@@ -25,7 +25,7 @@
 #
 # Deps:: bash, fzf-finder, fzf-insert, fzf-pick, fzf-quote, fzf-sort
 
-fzf_files() {
+function fzf_files {
   cmd="kind=file fzf-finder \
     | fzf-quote \
     | order=version fzf-sort \

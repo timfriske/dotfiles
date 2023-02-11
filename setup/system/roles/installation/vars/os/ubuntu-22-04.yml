@@ -108,6 +108,7 @@ packages:
   - rustc
   - rust-doc
   - rust-src
+  - shellcheck
   - speedtest-cli
   - sqlite3
   - sqlitebrowser
@@ -136,7 +137,6 @@ snaps:
   - kustomize
   - mysql-workbench-community
   - teams
-  - teams-insiders
 
 snap_connections:
   -

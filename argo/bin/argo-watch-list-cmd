@@ -18,4 +18,4 @@ shopt -os nounset pipefail errexit errtrace
 
 header_lines="${header_lines:-${1:-0}}"
 status="${status:-${2:-}}"
-argo list --chunk-size "$(($(tput lines) - header_lines))" ${status:+--status ${status}}
+argo list --chunk-size "$(($(tput lines) - header_lines))" ${status:+--status "${status}"}

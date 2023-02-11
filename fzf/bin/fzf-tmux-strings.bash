@@ -24,7 +24,7 @@
 #
 # Deps:: bash, fzf-insert, fzf-pick
 
-tmux_strings() {
+function tmux_strings {
   cmd="tmux-strings \
     | cmd='' read=1 write=1 fzf-pick" \
     fzf_insert

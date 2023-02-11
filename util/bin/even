@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Even command
 # ============
@@ -6,8 +6,9 @@
 #
 # Prints lines on even line numbers.
 #
-# Deps:: awk, env, sh
+# Deps:: bash, awk, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 awk 'FNR%2==0' "${@}"

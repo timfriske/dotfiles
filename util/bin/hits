@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Hits command
 # ============
@@ -6,8 +6,9 @@
 #
 # Lists files with matching content. Use `misses` for the opposite.
 #
-# Deps:: env, rg, sh
+# Deps:: bash, env, rg
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 rg --files-with-matches --smart-case "${@}"

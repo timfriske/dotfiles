@@ -22,5 +22,4 @@ shopt -os nounset pipefail errexit errtrace
 path="${1:-"${path:?required}"}"
 
 find "${path}" \( -type f -o -type d \) -perm -o+w -print0 \
-  | xargs --no-run-if-empty --null \
-    chmod --preserve-root --changes -- o-w
+  | xargs --no-run-if-empty --null -- chmod --preserve-root --changes -- o-w

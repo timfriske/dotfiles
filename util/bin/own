@@ -26,5 +26,4 @@ path="${1:-"${path:?required}"}"
 # user identities. This information is lost otherwise.
 user_name="$(id --user --name)"
 group_name="$(id --group --name)"
-sudo chown --preserve-root --recursive --changes \
-  -- "${user_name}:${group_name}" "${path}"
+sudo chown --preserve-root --recursive --changes -- "${user_name}:${group_name}" "${path}"

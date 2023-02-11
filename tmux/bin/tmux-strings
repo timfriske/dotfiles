@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Tmux Strings
 # ============
@@ -14,19 +14,16 @@
 # Blank lines and lines consisting of only punctation are removed from
 # the output because they are most likely of no interest to the user.
 #
-# Deps:: env, sed, sh, sort, tmux
+# Deps:: bash, env, sed, sort, tmux
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
-  # 1. Capture entire pane and print it.
-  # 2. Split strings around whitespace and print one string per line.
-  # 3. Delete duplicate lines.
-  # 4. Delete lines only consisting of whitespace or punctation.
-  tmux capture-pane -S- -E- -p \
+# 1. Capture entire pane and print it.
+# 2. Split strings around whitespace and print one string per line.
+# 3. Delete duplicate lines.
+# 4. Delete lines only consisting of whitespace or punctation.
+tmux capture-pane -S- -E- -p \
   | sed --regexp-extended --expression='s/[[:space:]]+/\n/g' \
   | sort --unique \
   | sed --regexp-extended --expression='/^[[:space:][:punct:]]*$/d'
-}
-
-main "${@}"

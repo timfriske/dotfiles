@@ -14,8 +14,5 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-if [[ "${#}" -eq 0 ]]; then
-  sed --expression='s/^\r//;s/\r$//;s/\r/\n/g;$a\'
-else
-  sed --expression='s/^\r//;s/\r$//;s/\r/\n/g;$a\' --in-place "${@}"
-fi
+#shellcheck disable=SC1003
+sed --expression='s/^\r//;s/\r$//;s/\r/\n/g;$a\' "${@:+--in-place "${@}"}"

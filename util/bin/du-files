@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Disk Usage File command
 # =======================
@@ -7,11 +7,13 @@
 # Summarize the disk usage of the files up to the current directory,
 # sorted in descending order of disk usage.
 #
-# Deps:: du, env, find, sh, sort, tr
+# Deps:: bash, du, env, find, sort, tr
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
+read -r -a du_x_options <<< "${DU_X_OPTIONS:-}"
 find "${@}" -maxdepth 1 -xtype f -print0 \
-  | du ${DU_X_OPTIONS:-} --max-depth=1 --files0-from=- --null \
+  | du "${du_x_options[@]}" --max-depth=1 --files0-from=- --null \
   | sort --human-numeric-sort --reverse --zero-terminated \
   | tr '\000' '\n'

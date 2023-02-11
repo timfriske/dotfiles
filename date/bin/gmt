@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Date command
 # ============
@@ -9,9 +9,10 @@
 # Prints `date-gmt: DATE-GMT` if standard output file descriptor is
 # connected to terminal, else just `DATE-GMT`.
 #
-# Deps:: date, env, sh
+# Deps:: bash, date, env
 
-set -o errexit -o nounset
+# Ensure fail-fast execution.
+shopt -os nounset pipefail errexit errtrace
 
-[ -t 1 ] && printf 'date-gmt: '
+[[ -t 1 ]] && printf 'date-gmt: '
 TZ=GMT date "${@}"

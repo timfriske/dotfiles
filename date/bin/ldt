@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Date command
 # ============
@@ -9,9 +9,10 @@
 # Prints `date-ldt: DATE-LDT` if standard output file descriptor is
 # connected to terminal, else just `DATE-LDT`.
 #
-# Deps:: date, env, sh
+# Deps:: bash, date, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-[ -t 1 ] && printf 'date-ldt: '
+[[ -t 1 ]] && printf 'date-ldt: '
 date "${@}"

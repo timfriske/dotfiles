@@ -16,7 +16,8 @@
 shopt -os nounset pipefail errexit errtrace
 
 function git_config_reset {
-  local opt_val="$(git config "${1}.${2:+${2}.}${3}")"
+  local opt_val
+  opt_val="$(git config "${1}.${2:+${2}.}${3}")"
   read -er -p "${1}${2:+${2}} ${3}: " -i "${opt_val}" opt_val
   if [[ -z "${opt_val:+x}" ]]; then
     git config --local --unset "${1}.${3}" || true

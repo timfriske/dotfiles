@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # GPG List Keys command
 # =====================
@@ -6,8 +6,9 @@
 #
 # Lists the OpenPGP keys in the local keyring.
 #
-# Deps:: env, gpg, sh
+# Deps:: bash, env, gpg
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 gpg --list-keys --with-fingerprint --with-keygrip "${@}"

@@ -13,10 +13,10 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local path
   for path in "${@}"; do
-    printf '%s\n' "${path}"
+    printf '%q\n' "${path}"
     mkdir --parents -- "$(dirname "${path}")"
     touch -- "${path}"
   done

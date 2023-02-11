@@ -27,6 +27,6 @@
 #
 # Deps:: bash, fzf-git-branch, fzf-insert
 
-fzf_git_branch_insert() {
-  cmd="fzf-git-branch" fzf_insert
+function fzf_git_branch_insert {
+  cmd=fzf-git-branch fzf_insert
 }

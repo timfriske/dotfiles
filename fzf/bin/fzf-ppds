@@ -14,11 +14,12 @@
 shopt -os nounset pipefail errexit errtrace
 
 main() {
-  local env_opts=()
-  env_opts+=(${FZF_DEFAULT_OPTS:-})
-  env_opts+=(${FZF_PPDS_FZF_OPTS:-})
-  ppds | nl | fzf "${env_opts[@]}" "${@}" \
-    | cut --delimiter=$'\t' --complement --fields=1
+  local env_opts=() fzf_default_opts fzf_ppds_fzf_opts
+  read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
+  read -r -a fzf_ppds_fzf_opts <<< "${FZF_PPDS_FZF_OPTS:-}"
+  env_opts+=("${fzf_default_opts[@]}")
+  env_opts+=("${fzf_ppds_fzf_opts[@]}")
+  ppds | nl | fzf "${env_opts[@]}" "${@}" | cut --delimiter=$'\t' --complement --fields=1
 }
 
 main "${@}"

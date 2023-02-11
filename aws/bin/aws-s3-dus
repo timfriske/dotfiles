@@ -14,7 +14,7 @@ shopt -os nounset pipefail errexit errtrace
 function summarize_objects {
   local path="${1#s3://}"
   local bucket="${path%%/*}"
-  local prefix="${2:-${path#${bucket}}}"
+  local prefix="${2:-${path#"${bucket}"}}"
   prefix="${prefix#/}"
   aws s3api list-objects-v2 \
     --output json \
@@ -31,9 +31,10 @@ function summarize_objects {
 }
 
 function format_object_summary {
-  local total_number="$(LC_ALL=en_US.UTF-8 numfmt --grouping "${1}") (${1})"
-  local total_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${2}") (${2})"
-  local average_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${3}") (${3})"
+  local total_number total_size average_size
+  total_number="$(LC_ALL=en_US.UTF-8 numfmt --grouping "${1}") (${1})"
+  total_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${2}") (${2})"
+  average_size="$(LC_ALL=C numfmt --to=iec-i --format=%.2f "${3}") (${3})"
   cat \
 <<OBJECT_SUMMARY
 Total number: ${total_number}
@@ -44,6 +45,7 @@ OBJECT_SUMMARY
 
 function main {
   : "${1:?usage: aws-dus <S3 URI> | <bucket> [prefix]}"
+  # shellcheck disable=SC2046
   format_object_summary $(summarize_objects "${@}")
 }
 

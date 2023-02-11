@@ -12,9 +12,7 @@
 shopt -os nounset pipefail errexit errtrace
 
 function contexts { printf '%s\n' "${@}" | awk '{print $1}'; }
-
 function xargs { command xargs --no-run-if-empty --max-args=1 -- "${@}"; }
-
 export -f contexts xargs
 
 function pick {

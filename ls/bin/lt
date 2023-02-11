@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Ls command
 # ==========
@@ -7,8 +7,10 @@
 # Lists information about given files or files in current working
 # directory by default. Sorts files by time in ascending order.
 #
-# Deps:: env, ls, sh
+# Deps:: bash, env, ls
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-ls ${LS_X_OPTIONS:-} --sort=time --reverse "${@}"
+read -r -a ls_x_options <<< "${LS_X_OPTIONS:-}"
+ls "${ls_x_options[@]}" --sort=time --reverse "${@}"

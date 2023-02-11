@@ -14,13 +14,11 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-node_zones() {
+function node_zones {
   local columns=(
     'TYPE:metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
   )
-  kubectl get nodes \
-    --no-headers \
-    --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
+  kubectl get nodes --no-headers --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
 }
 
 node_zones | rank

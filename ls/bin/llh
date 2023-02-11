@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Ls command
 # ==========
@@ -9,8 +9,10 @@
 # information. List hidden files, i.e. those starting with a dot
 # character.
 #
-# Deps:: env, ls, sh
+# Deps:: bash, env, ls
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-ls ${LS_X_OPTIONS:-} --format=long --almost-all --ignore="*" "${@}"
+read -r -a ls_x_options <<< "${LS_X_OPTIONS:-}"
+ls "${ls_x_options[@]}" --format=long --almost-all --ignore="*" "${@}"

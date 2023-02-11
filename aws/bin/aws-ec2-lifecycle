@@ -20,6 +20,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
+#shellcheck disable=SC2016
 aws ec2 describe-instances "${@}" \
   --query 'Reservations[*].Instances[?State.Name==`running`].[InstanceType,InstanceLifecycle]' \
   --output=text \

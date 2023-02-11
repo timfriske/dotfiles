@@ -18,5 +18,4 @@ columns=(
   'STATUS:status.phase'
 )
 
-kubectl get pods --no-headers \
-  --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
+kubectl get pods --no-headers --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"

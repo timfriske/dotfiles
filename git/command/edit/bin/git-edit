@@ -10,7 +10,8 @@
 shopt -os nounset pipefail errexit errtrace
 
 function main {
-  local editor="$(git config core.editor)"
+  local editor
+  editor="$(git config core.editor)"
   "${editor:-${VISUAL:-${EDITOR:-true}}}" "${@}"
 }
 

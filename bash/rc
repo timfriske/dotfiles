@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Startup file for Bash interactive shells
 # ========================================
 # Tim Friske <me@tifr.de>
@@ -78,8 +80,8 @@ shopt -s no_empty_cmd_completion
 # matching.
 shopt -s nocaseglob nocasematch
 
-# Shell aliases
-# -------------
+# Shell aliases and functions
+# ---------------------------
 
 # Remove all externally defined aliases.  Aliases are meant to help the
 # user to shorten frequently used commands, introduce easy to remember
@@ -108,7 +110,11 @@ alias version='echo "bash version ${BASH_VERSION}"'
 # File/directory name utilities
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias basename='basename ${BASENAME_X_OPTIONS:-}'
+function basename {
+  local options
+  read -r -a options <<< "${BASENAME_X_OPTIONS:-}"
+  command basename "${options[@]}" "${@}"
+}
 
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
@@ -118,6 +124,7 @@ alias basename='basename ${BASENAME_X_OPTIONS:-}'
 alias cdd='cd -'
 
 # Change to the directory containing the given file.
+# shellcheck disable=SC2164
 function cdf { cd -- "${1%/*}"; }
 
 # Change to the top-level (root) directory of a Git repository.
@@ -140,30 +147,71 @@ alias ...='cd ../..'
 # Cp - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias cp='cp ${CP_X_OPTIONS:-}'
+function cp {
+  local options
+  read -r -a options <<< "${CP_X_OPTIONS:-}"
+  command cp "${options[@]}" "${@}"
+}
 
 # Ch(attr|grp|mod|own) - Change file metadata
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias chattr='chattr ${CHATTR_X_OPTIONS:-}'
-alias chgrp='chgrp ${CHGRP_X_OPTIONS:-}'
-alias chmod='chmod ${CHMOD_X_OPTIONS:-}'
-alias chown='chown ${CHOWN_X_OPTIONS:-}'
+function chattr {
+  local options
+  read -r -a options <<< "${CHATTR_X_OPTIONS:-}"
+  command chattr "${options[@]}" "${@}"
+}
+
+function chgrp {
+  local options
+  read -r -a options <<< "${CHGRP_X_OPTIONS:-}"
+  command chgrp "${options[@]}" "${@}"
+}
+
+function chmod {
+  local options
+  read -r -a options <<< "${CHMOD_X_OPTIONS:-}"
+  command chmod "${options[@]}" "${@}"
+}
+
+function chown {
+  local options
+  read -r -a options <<< "${CHOWN_X_OPTIONS:-}"
+  command chown "${options[@]}" "${@}"
+}
 
 # Df/Du - Disk free/usage
 # ~~~~~~~~~~~~~~
-alias df='df ${DF_X_OPTIONS:-}'
-alias du='du ${DU_X_OPTIONS:-}'
+
+function df {
+  local options
+  read -r -a options <<< "${DF_X_OPTIONS:-}"
+  command df "${options[@]}" "${@}"
+}
+
+function du {
+  local options
+  read -r -a options <<< "${DU_X_OPTIONS:-}"
+  command du "${options[@]}" "${@}"
+}
 
 # Diff - Differences between files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias diff='diff ${DIFF_X_OPTIONS:-}'
+function diff {
+  local options
+  read -r -a options <<< "${DIFF_X_OPTIONS:-}"
+  command diff "${options[@]}" "${@}"
+}
 
 # Free - Show free main memory and swap space
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias free='free ${FREE_X_OPTIONS:-}'
+function free {
+  local options
+  read -r -a options <<< "${FREE_X_OPTIONS:-}"
+  command free "${options[@]}" "${@}"
+}
 
 # Fzf - Fuzzy-search and select all kinds of items
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -215,7 +263,11 @@ fi
 # Grep - Search files for content
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias grep='grep ${GREP_X_OPTIONS:-}'
+function grep {
+  local options
+  read -r -a options <<< "${GREP_X_OPTIONS:-}"
+  command grep "${options[@]}" "${@}"
+}
 
 # Horizontal Ruler - Print horizontal ruler
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -228,7 +280,11 @@ fi
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias info='info ${INFO_X_OPTIONS:-}'
+function info {
+  local options
+  read -r -a options <<< "${INFO_X_OPTIONS:-}"
+  command info "${options[@]}" "${@}"
+}
 
 # Jobs - Management of processes in foreground and background
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -256,12 +312,20 @@ fi
 # Ln - Create hard and soft links to files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias ln='ln ${LN_X_OPTIONS:-}'
+function ln {
+  local options
+  read -r -a options <<< "${LN_X_OPTIONS:-}"
+  command ln "${options[@]}" "${@}"
+}
 
 # Mkdir - Create folders
 # ~~~~~~~~~~~~~~~~~~~~~~
 
-alias mkdir='mkdir ${MKDIR_X_OPTIONS:-}'
+function mkdir {
+  local options
+  read -r -a options <<< "${MKDIR_X_OPTIONS:-}"
+  command mkdir "${options[@]}" "${@}"
+}
 alias md='mkdir'
 
 # Make and change to given, random (mdr) or temporary (mdt) directory.
@@ -270,19 +334,30 @@ alias md='mkdir'
 # current user or _tmp_ by default, followed by a dot and ending in 10
 # random alphanumeric characters. The default prefix may be overridden
 # by the first argument.
-function mdd { md -- "${1:-.}" && cd -- "${_}"; }
-function mdr { cd -- "$(mktemp --directory -- "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
-function mdt { cd -- "$(mktemp --tmpdir --directory -- "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
+# shellcheck disable=SC2164
+{
+  function mdd { md -- "${1:-.}" && cd -- "${_}"; }
+  function mdr { cd -- "$(mktemp --directory -- "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
+  function mdt { cd -- "$(mktemp --tmpdir --directory -- "${1:-"${USER:-tmp}"}.XXXXXXXXXX")"; }
+}
 
 # Mv - Move/rename files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias mv='mv ${MV_X_OPTIONS:-}'
+function mv {
+  local options
+  read -r -a options <<< "${MV_X_OPTIONS:-}"
+  command mv "${options[@]}" "${@}"
+}
 
 # Parallel - run commands in parallel
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias parallel='parallel ${PARALLEL_X_OPTIONS:-}'
+function parallel {
+  local options
+  read -r -a options <<< "${PARALLEL_X_OPTIONS:-}"
+  command parallel "${options[@]}" "${@}"
+}
 
 # Python - Programming language
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -316,28 +391,48 @@ function pynv {
 # Ripgrep - Search file contents
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias rg='rg ${RIPGREP_X_OPTIONS:-}'
+function rg {
+  local options
+  read -r -a options <<< "${RIPGREP_X_OPTIONS:-}"
+  command rg "${options[@]}" "${@}"
+}
 
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias rm='rm ${RM_X_OPTIONS:-}'
+function rm {
+  local options
+  read -r -a options <<< "${RM_X_OPTIONS:-}"
+  command rm "${options[@]}" "${@}"
+}
 
 # Rmdir - Delete empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias rmdir='rmdir ${RMDIR_X_OPTIONS:-}'
+function rmdir {
+  local options
+  read -r -a options <<< "${RMDIR_X_OPTIONS:-}"
+  command rmdir "${options[@]}" "${@}"
+}
 alias rd='rmdir'
 
 # Rsync - Synchronize file system trees
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias rsync='rsync ${RSYNC_X_OPTIONS:-}'
+function rsync {
+  local options
+  read -r -a options <<< "${RSYNC_X_OPTIONS:-}"
+  command rsync "${options[@]}" "${@}"
+}
 
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias sed='sed ${SED_X_OPTIONS:-}'
+function sed {
+  local options
+  read -r -a options <<< "${SED_X_OPTIONS:-}"
+  command sed "${options[@]}" "${@}"
+}
 
 # Sudo - Execute programs as another user
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -360,6 +455,7 @@ alias term-size='LINES="${LINES}" COLUMNS="${COLUMNS}" command term-size'
 # Test if interactive shell has startup file with local overrides.
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
   # Read and execute commands from that startup file.
+  # shellcheck disable=SC1090
   source ~/.bashrc.local
 fi
 
@@ -367,14 +463,14 @@ fi
 if type -p gpg &> /dev/null; then
   # Let _GnuPG_ know on which terminal to interact with the user; for
   # example the _Gpg-agent_ daemon prompting for the passphrase.
-  export GPG_TTY="$(tty)"
+  GPG_TTY="$(tty)"
+  export GPG_TTY
   echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null
 fi
 
 # Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from
 # `localhost` is running.
-if ! [[ -n "${TMUX}" || "${TERM}" =~ screen
-    || "${SSH_CONNECTION}" =~ ^::1|^127\.0\.0\.1 ]]; then
+if ! [[ -n "${TMUX}" || "${TERM}" =~ screen || "${SSH_CONNECTION}" =~ ^::1|^127\.0\.0\.1 ]]; then
   # Test if _Tmux_ is on the `$PATH`.
   if type -p tmux &> /dev/null; then
     # Try to attach to latest unattached session or start a new one.

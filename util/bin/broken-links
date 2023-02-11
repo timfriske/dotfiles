@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Broken Links command
 # ====================
@@ -9,8 +9,9 @@
 # symbolic links or their targets move and their references are not
 # updated.
 #
-# Deps:: env, find, sh
+# Deps:: bash, env, find
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 find "${@}" -xtype l

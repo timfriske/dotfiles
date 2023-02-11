@@ -14,22 +14,30 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-export config_prefix="${XDG_CONFIG_HOME:-${HOME}/.config}/alacritty"
-export config_dir="${config_prefix}"
-export config_file="$(realpath -- "${config_prefix}.yml")"
+config_prefix="${XDG_CONFIG_HOME:-${HOME}/.config}/alacritty"
+config_dir="${config_prefix}"
+config_file="$(realpath -- "${config_prefix}.yml")"
+export config_prefix config_dir config_file
 
-function current() {
-  basename --suffix='.yml' -- "${config_file}"
+function current {
+  basename --suffix=.yml -- "${config_file}"
 }
 
+function link_file {
+  ln --relative --symbolic --force --no-target-directory -- "${1}" "${2}"
+}
+export -f link_file
+
 function configure {
-  local fields=($1) config="${fields[-1]}"
-  ln --relative --symbolic --force -- "${config_dir}/${config}.yml" "${config_prefix}.yml"
+  local fields config
+  read -r -a fields <<< "${1}"
+  config="${fields[-1]}"
+  link_file "${config_dir}/${config}.yml" "${config_prefix}.yml"
 }
 export -f configure
 
 function undo {
-  ln --relative --symbolic --force -- "${config_file}" "${config_prefix}.yml"
+  link_file "${config_file}" "${config_prefix}.yml"
 }
 export -f undo
 
@@ -43,6 +51,7 @@ bindings=(
   'ctrl-c:execute-silent(undo)+abort'
 )
 
-find "${config_dir}" -type f -name '*.yml' | xargs --no-run-if-empty basename --suffix='.yml' | sort | nl \
+find "${config_dir}" -type f -name '*.yml' -print0 \
+  | xargs --null --no-run-if-empty basename --suffix=.yml | sort | nl \
   | fzf --header="$(current)" --bind="$(IFS=,; printf '%s' "${bindings[*]}")" --cycle --no-multi --select-1 --exit-0 \
   | cut --fields=2

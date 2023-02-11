@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # File Type command
 # =================
@@ -14,24 +14,26 @@
 # Think about aliasing this helper program as e.g. `ft` (`file-type`)
 # should you be using it frequently.
 #
-# Deps:: env, file, sh
+# Deps:: bash, env, file
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 prog="${0##*/}"
 
-main() {
-  if [ "${#}" -ne 1 ]; then
+function main {
+  if (( "${#}" != 1 )); then
     echo >&2 "${prog}: usage: ${prog} <file (on path)>"
     exit 1
   fi
   local file="${1}"
-  if [ -e "${file}" ]; then
+  if [[ -e "${file}" ]]; then
     file -- "${file}"
     exit
   fi
-  local on_path="$(command -v "${file}")"
-  if [ -n "${on_path:+x}" ]; then
+  local on_path
+  on_path="$(command -v -- "${file}")"
+  if [[ -n "${on_path:+x}" ]]; then
     file -- "${on_path}"
     exit
   fi

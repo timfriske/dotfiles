@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Date command
 # ============
@@ -10,8 +10,13 @@
 # Prints `epoch: SECONDSs` if standard output file descriptor is
 # connected to terminal, else just `SECONDS`.
 #
-# Deps:: date, env, sh
+# Deps:: bash, date, env
 
-set -o errexit -o nounset
+# Ensure fail-fast execution.
+shopt -os nounset pipefail errexit errtrace
 
-[ -t 1 ] && date '+epoch: %ss' || date '+%s'
+if [[ -t 1 ]]; then
+  date '+epoch: %ss'
+else
+  date '+%s'
+fi

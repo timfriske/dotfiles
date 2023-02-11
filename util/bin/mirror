@@ -1,15 +1,16 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Mirror command
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# The verb `mirror' should be more memorable than the alternative of
-# having to type `rsync` together with all these options.
+# The verb `mirror` should be more memorable than the alternative of having to
+# type `rsync` together with all these options.
 #
-# Deps:: env, rsync, sh
+# Deps:: bash, env, rsync
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-rsync ${RSYNC_X_OPTIONS:-} --archive --hard-links --acls --xattrs \
-  --delete "${@}"
+read -r -a rsync_x_options <<< "${RSYNC_X_OPTIONS:-}"
+rsync "${rsync_x_options[@]}" --archive --hard-links --acls --xattrs --delete "${@}"

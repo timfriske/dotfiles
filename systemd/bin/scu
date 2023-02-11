@@ -1,11 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Systemctl command
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, sh, systemctl
+# Deps:: bash, env, systemctl
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 systemctl --user "${@}"

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Lower Case Conversion command
 # =============================
@@ -7,25 +7,17 @@
 # Convert characters read from standard input stream or command line
 # arguments to lowercase and print them to standard output stream.
 #
-# Deps:: awk, env, sh
+# Deps:: awk, bash, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-lowercase() {
-  # `tr '[:upper:]' '[:lower:]'` only works for ASCII [A-Z].
-  awk '{print tolower($0)}'
-}
+# `tr '[:upper:]' '[:lower:]'` only works for ASCII [A-Z].
+function lowercase { awk '{print tolower($0)}'; }
+function newlines { printf '%s\n' "${@}"; }
 
-newlines() {
-  printf '%s\n' "${@}"
-}
-
-main() {
-  if [ "${#}" -eq 0 ]; then
-    lowercase
-  else
-    newlines "${@}" | lowercase
-  fi
-}
-
-main "${@}"
+if (( "${#}" == 0 )); then
+  lowercase
+else
+  newlines "${@}" | lowercase
+fi

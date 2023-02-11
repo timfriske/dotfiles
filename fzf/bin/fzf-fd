@@ -9,7 +9,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-print_help() {
+function print_help {
   1>&2 cat \
 <<'HELP'
 Help
@@ -64,37 +64,33 @@ character.  The latter decision may be overridden by passing _Fzf-fd's_
 HELP
 }
 
-find_fs_objects() {
+function find_fs_objects {
   local opt_hidden=()
   if [[ "${hidden:-}" =~ 1|true ]]; then
-    opt_hidden=('--hidden')
+    opt_hidden=(--hidden)
   fi
 
   local opt_type=()
   case "${kind:-}" in
-    file) opt_type=('--type' 'file');;
-    folder) opt_type=('--type' 'directory');;
-    link) opt_type=('--type' 'symlink');;
+    file) opt_type=(--type file);;
+    folder) opt_type=(--type directory);;
+    link) opt_type=(--type symlink);;
     *);;
   esac
 
-  local opt_print=('--print0')
+  local opt_print=(--print0)
   if [[ -t 1 || "${write:-}" =~ 1|true ]]; then
     opt_print=()
   fi
 
-  fd --follow --min-depth 1 \
-    "${opt_hidden[@]}" \
-    "${opt_type[@]}" \
-    "${opt_print[@]}"
+  fd --follow --min-depth 1 "${opt_hidden[@]}" "${opt_type[@]}" "${opt_print[@]}"
 }
 
-fzf_fd() {
-  if [[ "${1:-}" == '--help' ]]; then
+function fzf_fd {
+  if [[ "${1:-}" == --help ]]; then
     print_help
     exit
   fi
-
   find_fs_objects
 }
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Horizontal Ruler command
 # ========================
@@ -9,19 +9,20 @@
 # horizontal ruler is the equals sign by default. Optionally a
 # different sign, width and height may be specified.
 #
-# Deps:: env, sed, sh, tput
+# Deps:: bash, env, sed, tput
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 main() {
   local sign="${1:-${sign:-=}}"
   local width="${2:-${width:-$(tput cols)}}"
   local height="${3:-${height:-1}}"
   local i=0
-  while [ "${i}" -lt "${height}" ]; do
+  while (( i < height )); do
     printf "%${width}s\n"
-    i="$((i+1))"
-  done | sed "s/ /${sign}/g"
+    ((i+=1))
+  done | sed "s/\s/${sign}/g"
 }
 
 main "${@}"

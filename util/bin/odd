@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Odd command
 # ===========
@@ -6,8 +6,9 @@
 #
 # Prints lines on odd line numbers.
 #
-# Deps:: awk, env, sh
+# Deps:: awk, bash, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 awk 'FNR%2==1' "${@}"

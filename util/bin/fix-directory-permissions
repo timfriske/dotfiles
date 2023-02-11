@@ -23,32 +23,28 @@ shopt -os nounset pipefail errexit errtrace
 
 path="${1:-"${path:?required}"}"
 
-dir_list() {
+function dir_list {
   find "${1}" -type d -print0
 }
 
-dir_stats() {
+function dir_stats {
   xargs --no-run-if-empty --null stat --printf="%U %G %a %n\0" --
 }
 
-dir_perms() {
+function dir_perms {
   awk 'BEGIN{RS="\0";ORS=RS}'"${1}"'{print substr($0, length($1 FS $2 FS $3 FS) + 1)}'
 }
 
-change_perms() {
+function change_perms {
   xargs --no-run-if-empty --null chmod --preserve-root --changes -- "${1}"
 }
 
 # Make folders readable and writable by user and group if user and
 # group have same name.
-dir_list "${path}" \
-  | dir_stats \
-  | dir_perms '$1==$2&&$3!~/775$/' \
-  | change_perms 'ug=rwx,o=rx'
+# shellcheck disable=SC2016
+dir_list "${path}" | dir_stats | dir_perms '$1==$2&&$3!~/775$/' | change_perms 'ug=rwx,o=rx'
 
 # Make folders readable and writable by user but not by group and
 # others if user and group have different name.
-dir_list "${path}" \
-  | dir_stats \
-  | dir_perms '$1!=$2&&$3!~/755$/' \
-  | change_perms 'u=rwx,go=rx'
+# shellcheck disable=SC2016
+dir_list "${path}" | dir_stats | dir_perms '$1!=$2&&$3!~/755$/' | change_perms 'u=rwx,go=rx'

@@ -1,15 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Tmux command
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, sh, tmux
+# Deps:: bash, env, tmux
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-main() {
-  { tmux attach-session || tmux new-session; } >/dev/null 2>&1
-}
-
-main "${@}"
+{ tmux attach-session || tmux new-session; } &> /dev/null
