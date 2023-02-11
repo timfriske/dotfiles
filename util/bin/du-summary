@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Disk Usage Summary command
 # ==========================
@@ -6,8 +6,10 @@
 #
 # Summarize the disk usage of the current directory.
 #
-# Deps:: du, env, sh
+# Deps:: bash, du, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-du ${DU_X_OPTIONS:-} --summarize "${@}"
+read -r -a du_x_options <<< "${DU_X_OPTIONS:-}"
+du "${du_x_options[@]}" --summarize "${@}"

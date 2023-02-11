@@ -30,7 +30,8 @@ function copy_link {
     err "Source '${src}' must be a symbolic link!"
     exit 1
   fi
-  local tgt="$(realpath --canonicalize-missing -- "${src}")"
+  local tgt
+  tgt="$(realpath --canonicalize-missing -- "${src}")"
   if [[ ! -f "${tgt}" ]]; then
     err "Source '${src}' must target a file!"
     exit 1

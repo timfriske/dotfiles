@@ -28,10 +28,12 @@ fzf_history() {
     exit
   fi
 
-  local fzf_options=()
-  fzf_options+=(${FZF_DEFAULT_OPTS:-})
+  local fzf_options=() fzf_default_opts fzf_history_fzf_opts
+  read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
+  read -r -a fzf_history_fzf_opts <<< "${FZF_HISTORY_FZF_OPTS:-}"
+  fzf_options+=("${fzf_default_opts[@]}")
   fzf_options+=('--tac' '-n2..,..' '--tiebreak=index')
-  fzf_options+=(${FZF_HISTORY_FZF_OPTS:-})
+  fzf_options+=("${fzf_history_fzf_opts[@]}")
   fzf_options+=('--print0')
 
   local cmd='' cmds=()

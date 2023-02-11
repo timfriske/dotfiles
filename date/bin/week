@@ -11,4 +11,8 @@
 
 set -o errexit -o nounset
 
-[ -t 1 ] && date '+week: %V' || date '+%V'
+if [ -t 1 ]; then
+  date '+week: %V'
+else
+  date '+%V'
+fi

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # File Backup command
 # ===================
@@ -14,17 +14,18 @@
 # Think about aliasing this helper program as `fb` (`file-backup`)
 # should you be using it frequently.
 #
-# Deps:: cp, env, sh
+# Deps:: bash, cp, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 main() {
-  if [ ! -f "${1:-}" ]; then
+  if [[ ! -f "${1:-}" ]]; then
     echo 'usage: file-backup <file> [<file>|<folder>]'
     exit 1
   fi
   # Same file? Prevent _cp: './foo' and 'foo' are the same file_.
-  if [ "${1}" -ef "${2:-${1}}" ]; then
+  if [[ "${1}" -ef "${2:-${1}}" ]]; then
     cp --force --backup=numbered --verbose -- "${1}" "${1}"
   else
     cp --force --backup=numbered --verbose -- "${1}" "${2:-${1}}"

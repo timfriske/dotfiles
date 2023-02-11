@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Diff Directories command
 # ========================
@@ -9,8 +9,10 @@
 # differences in content between the actual files because that would
 # result in cognitive overload.
 #
-# Deps:: diff, env, sh
+# Deps:: bash, diff, env
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-diff ${DIFF_X_OPTIONS:-} --recursive --brief "${@}"
+read -r -a diff_x_options <<< "${DIFF_X_OPTIONS:-}"
+diff "${diff_x_options[@]}" --recursive --brief "${@}"

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Peek command
 # ============
@@ -7,8 +7,9 @@
 # Print the output of one command that is piped as input to another
 # command to the standard error stream in order to have a peek at it.
 #
-# Deps:: cat, env, sh, tee
+# Deps:: bash, cat, env, tee
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 tee >(cat >&2)

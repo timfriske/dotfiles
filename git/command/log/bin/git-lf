@@ -14,8 +14,8 @@ shopt -os nounset pipefail errexit errtrace
 main() {
   local commit="${1:-HEAD}" file="${2:-}"
   (
-    cd "${GIT_PREFIX:-.}"
-    git log --follow --oneline --decorate=auto "${commit}" -- "${file}"
+    cd "${GIT_PREFIX:-.}" \
+      && git log --follow --oneline --decorate=auto "${commit}" -- "${file}"
   )
 }
 

@@ -29,7 +29,8 @@ space() {
 }
 
 fzf_insert() {
-  local evaluated="$(eval "${cmd}")"
+  local cmd="${cmd?:required}" evaluated
+  evaluated="$(eval "${cmd}")"
 
   local rl="${READLINE_LINE}" rp="${READLINE_POINT}"
   local left="${rl:0:$rp}" right="${rl:$rp}"

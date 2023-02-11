@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # File View command
 # =================
@@ -22,7 +22,8 @@
 #
 # Deps:: env, less, more, sh
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 prog="${0##*/}"
 
@@ -30,17 +31,18 @@ PAGER="${PAGER:-$(command -v less)}"
 PAGER="${PAGER:-$(command -v more)}"
 
 main() {
-  if [ "${#}" -ne 1 ]; then
+  if (( "${#}" != 1 )); then
     echo >&2 "${prog}: usage: ${prog} <file (on path)>"
     exit 1
   fi
   local file="${1}"
-  if [ -f "${file}" ]; then
+  if [[ -f "${file}" ]]; then
     "${PAGER}" -- "${file}"
     exit
   fi
-  local on_path="$(command -v "${file}")"
-  if [ -n "${on_path:+x}" ]; then
+  local on_path
+  on_path="$(command -v -- "${file}")"
+  if [[ -n "${on_path:+x}" ]]; then
     "${PAGER}" -- "${on_path}"
     exit
   fi

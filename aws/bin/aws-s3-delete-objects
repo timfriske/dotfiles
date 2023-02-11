@@ -55,8 +55,7 @@ awk 'NF&&!a[$0]++' "${s3_keys_text_file}" > "${temp_dir}/unique_s3_keys.txt"
 # files as needed in order to not exceed the maximum number of objects
 # which the `aws s3api delete-objects` command can handle at once, i.e.
 # per HTTP request.
-cat "${temp_dir}/unique_s3_keys.txt" \
-  | parallel --max-lines 1000 --max-args 1 --keep-order --pipe -- \
+parallel --max-lines 1000 --max-args 1 --keep-order --pipe -- < "${temp_dir}/unique_s3_keys.txt" \
     sh -c "cat | jq --raw-input '{Key:.}' | jq --slurp '{Objects:.,Quiet:true}' > '${temp_dir}/{#}.json'"
 
 echo ==========================================================================

@@ -14,7 +14,7 @@ shopt -os nounset pipefail errexit errtrace
 
 main() {
   local folder="${PWD}"
-  until [ -z "${folder}" ]; do
+  until [[ -z "${folder}" ]]; do
     printf '%q\n' "${folder}"
     folder="${folder%/*}"
   done

@@ -41,6 +41,7 @@ change_perms() {
 
 # Make folders readable and writable by user and group if user and
 # group have same name.
+# shellcheck disable=SC2016
 dir_list "${path}" \
   | dir_stats \
   | dir_perms '$1==$2&&$3!~/775$/' \
@@ -48,6 +49,7 @@ dir_list "${path}" \
 
 # Make folders readable and writable by user but not by group and
 # others if user and group have different name.
+# shellcheck disable=SC2016
 dir_list "${path}" \
   | dir_stats \
   | dir_perms '$1!=$2&&$3!~/755$/' \

@@ -56,6 +56,7 @@ HELP
 
 print_job_cmd_line() {
   [[ "$#" -eq 0 ]] && return
+  local cmd="${cmd:?required}"
   printf '%s ' "${cmd}" "${@}"
   printf '\n'
 }
@@ -69,9 +70,11 @@ fzf_jobs() {
     exit
   fi
 
-  local fzf_options=()
-  fzf_options+=(${FZF_DEFAULT_OPTS:-})
-  fzf_options+=(${FZF_JOBS_FZF_OPTS:-})
+  local fzf_options=() fzf_default_opts fzf_jobs_fzf_opts
+  read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
+  read -r -a fzf_jobs_fzf_opts <<< "${FZF_JOBS_FZF_OPTS:-}"
+  fzf_options+=("${fzf_default_opts[@]}")
+  fzf_options+=("${fzf_jobs_fzf_opts[@]}")
   fzf_options+=('--print0')
 
   local job='' jobspecs=()

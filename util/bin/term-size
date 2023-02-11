@@ -16,14 +16,17 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-rows=0 cols=0
+function main {
+  local rows=0 cols=0
+  if [[ -v LINES && -v COLUMNS ]]; then
+    rows="${LINES}" cols="${COLUMNS}"
+  elif command stty &> /dev/null; then
+    read -r rows cols < <(stty size)
+  elif command tput &> /dev/null; then
+    mapfile -n 2 -t size2d < <(tput lines cols)
+    read -r rows cols <<< "${size2d[@]}"
+  fi
+  printf '{"rows": %s, "cols": %s}\n' "${rows}" "${cols}"
+}
 
-if [[ -v LINES && -v COLUMNS ]]; then
-  rows="${LINES}" cols="${COLUMNS}"
-elif command stty &> /dev/null; then
-  read rows cols < <(stty size)
-elif command tput &> /dev/null; then
-  read rows cols <<< $(echo $(tput lines cols))
-fi
-
-printf '{"rows": %s, "cols": %s}\n' "${rows}" "${cols}"
+main "${@}"

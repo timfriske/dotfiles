@@ -74,10 +74,12 @@ fzf_quote() {
   local record=''
   if [[ -t 0 || "${read:-}" =~ 1|true ]]; then
     while IFS='' read -r record; do
+      # shellcheck disable=SC2059
       printf "${quoted_fmt}" "${record}"
     done
   else
     while IFS='' read -r -d '' record; do
+      # shellcheck disable=SC2059
       printf "${quoted_fmt}" "${record}"
     done
   fi

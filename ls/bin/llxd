@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Ls command
 # ==========
@@ -8,8 +8,10 @@
 # directory by default. Lists files in long format, i.e. with additional
 # information. Sorts files by extension in descending order.
 #
-# Deps:: env, ls, sh
+# Deps:: bash, env, ls
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
-ls ${LS_X_OPTIONS:-} --format=long --sort=extension --reverse "${@}"
+read -r -a ls_x_options <<< "${LS_X_OPTIONS:-}"
+ls "${ls_x_options[@]}" --format=long --sort=extension --reverse "${@}"

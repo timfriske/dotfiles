@@ -9,4 +9,4 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-git reset --hard @{upstream} "${@}"
+git reset --hard '@{upstream}' "${@}"

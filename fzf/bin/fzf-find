@@ -88,7 +88,7 @@ find_fs_objects() {
     opt_print=('-print')
   fi
 
-  find -L -mindepth 1 \
+  find "${PWD}" -L -mindepth 1 \
     \( \
       "${opt_path[@]}" \
       -o -fstype sysfs \

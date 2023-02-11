@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Nth command
 # ===========
@@ -6,13 +6,14 @@
 #
 # Print the nth line read from standard input or given file.
 #
-# Deps:: env, sed, sh
+# Deps:: bash, env, sed
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
 main() {
   : "${1:?usage: nth NUM [FILE]}"
-  local num="$((${1}))"
+  local num="$(("${1}"))"
   local file="${2:--}"
   # Exit when line reached to save CPU cycles.
   # Faster than:

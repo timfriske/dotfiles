@@ -23,7 +23,7 @@ shopt -os nounset pipefail errexit errtrace
 
 echo Choose folder common to all SSH key pairs for the user.
 key_folder=~/.ssh
-read -p 'Key folder: ' -e -i "${key_folder}" key_folder
+read -er -p 'Key folder: ' -i "${key_folder}" key_folder
 key_folder=${key_folder:-.}
 mkdir --verbose --parents -- "${key_folder}"
 
@@ -70,28 +70,18 @@ mkdir --verbose --parents -- "${key_folder}"
 #
 echo Choose options of SSH Ed25519 public/private key pair.
 key_file="id_ed25519"
-read -p 'Key file: ' -e -i "${key_file}" key_file
+read -er -p 'Key file: ' -i "${key_file}" key_file
 key_comment="SSH Ed25519 key of user ${USER} created on \
 $(date --iso-8601)."
-read -p 'Key comment: ' -e -i "${key_comment}" key_comment
+read -er -p 'Key comment: ' -i "${key_comment}" key_comment
 key_path="${key_folder}/${key_file}"
-ssh-keygen \
-  -f "${key_path}" \
-  -t ed25519 \
-  -C "${key_comment}" \
-  -a 100
+ssh-keygen -f "${key_path}" -t ed25519 -C "${key_comment}" -a 100
 
 echo Choose options of SSH RSA-4096 public/private key pair.
 key_file="id_rsa"
-read -p 'Key file: ' -e -i "${key_file}" key_file
+read -er -p 'Key file: ' -i "${key_file}" key_file
 key_comment="SSH RSA-4096 key of user ${USER} created on \
 $(date --iso-8601)."
-read -p 'Key comment: ' -e -i "${key_comment}" key_comment
+read -er -p 'Key comment: ' -i "${key_comment}" key_comment
 key_path="${key_folder}/${key_file}"
-ssh-keygen \
-  -f "${key_path}" \
-  -t rsa \
-  -b 4096 \
-  -C "${key_comment}" \
-  -o \
-  -a 100
+ssh-keygen -f "${key_path}" -t rsa -b 4096 -C "${key_comment}" -o -a 100

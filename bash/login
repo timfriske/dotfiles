@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Startup file for Bash login shells
 # ==================================
 # Tim Friske <me@tifr.de>
@@ -44,7 +46,7 @@ for _path in "${HOME}"/{.local/,}bin {/usr/{local/,},/}{,s}bin /snap/bin; do
     _path_real="$(cd "${_path}" && pwd -P)"
 
     # Add path only if not already added.
-    if [[ ! -n "${_paths_real[${_path_real}]+x}" ]]; then
+    if [[ -z "${_paths_real[${_path_real}]+x}" ]]; then
       _paths_real["${_path_real}"]+=''
       _paths+=("${_path}")
     fi
@@ -52,7 +54,8 @@ for _path in "${HOME}"/{.local/,}bin {/usr/{local/,},/}{,s}bin /snap/bin; do
 done
 
 # Print array of paths as colon-separated list.
-export PATH="$(IFS=':'; printf '%s' "${_paths[*]}")"
+PATH="$(IFS=':'; printf '%s' "${_paths[*]}")"
+export PATH
 unset _path _paths _path_real _paths_real
 
 # Execute command everytime a new prompt is displayed.
@@ -503,6 +506,7 @@ SED_X_OPTIONS+='--regexp-extended '
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # Read and execute commands from that startup file.
+  # shellcheck disable=SC1090
   source ~/.bash_login.local
 fi
 
@@ -512,5 +516,6 @@ fi
 # Test if interactive shell and its startup file is readable.
 if [[ "${-}" == *i* && -f ~/.bashrc && -r ~/.bashrc ]]; then
   # Read and execute commands from its startup file.
+  # shellcheck disable=SC1090
   source ~/.bashrc
 fi

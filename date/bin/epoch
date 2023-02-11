@@ -14,4 +14,8 @@
 
 set -o errexit -o nounset
 
-[ -t 1 ] && date '+epoch: %ss' || date '+%s'
+if [ -t 1 ]; then
+  date '+epoch: %ss'
+else
+  date '+%s'
+fi

@@ -52,7 +52,7 @@ function gpg_backup {
   gpg --export \
     --export-options backup \
     --output "$backup_name.pub.gpg" \
-    ${@:2}
+    "${@:2}"
   chmod u=r,go= -- "$backup_name.pub.gpg"
 
   # Secret keys
@@ -60,7 +60,7 @@ function gpg_backup {
   gpg --export-secret-keys \
     --export-options backup \
     --output "$backup_name.sec.gpg" \
-    ${@:2}
+    "${@:2}"
   chmod u=r,go= -- "$backup_name.sec.gpg"
 
   # Secret sub-keys
@@ -68,7 +68,7 @@ function gpg_backup {
   gpg --export-secret-subkeys \
     --export-options backup \
     --output "$backup_name.ssb.gpg" \
-    ${@:2}
+    "${@:2}"
   chmod u=r,go= -- "$backup_name.ssb.gpg"
 
   # Backup the owner trusts in order to be able to restore the Web of

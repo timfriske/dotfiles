@@ -30,12 +30,13 @@ main() {
     echo "usage: timer"
     exit 1
   fi
-  local ts_started="$(timestamp)"
+  local ts_started ts_stopped ts_elapsed
+  ts_started="$(timestamp)"
   echo "timer: started: $(timestamp_to_date "${ts_started}")"
   press_key
-  local ts_stopped="$(timestamp)"
+  ts_stopped="$(timestamp)"
   echo "timer: stopped: $(timestamp_to_date "${ts_stopped}")"
-  local ts_elapsed="$((ts_stopped - ts_started))"
+  ts_elapsed="$((ts_stopped - ts_started))"
   echo "timer: elapsed: $(timestamp_to_duration "${ts_elapsed}")"
 }
 

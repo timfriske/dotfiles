@@ -12,8 +12,6 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-policies=(Delete Retain Recycle)
-
 : "${1:?Old persistent volume claim required}"
 : "${2:?New persistent volume claim required}"
 

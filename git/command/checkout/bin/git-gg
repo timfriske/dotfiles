@@ -10,8 +10,8 @@
 shopt -os nounset pipefail errexit errtrace
 
 function main {
-  local remote="${1:-origin}"
-  local default_branch="$(git rev-parse --abbrev-ref "${remote}/HEAD")"
+  local remote="${1:-origin}" default_branch
+  default_branch="$(git rev-parse --abbrev-ref "${remote}/HEAD")"
   git checkout "${default_branch#"${remote}/"}"
 }
 
