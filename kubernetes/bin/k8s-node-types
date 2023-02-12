@@ -4,9 +4,8 @@
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Rank Kubernetes nodes by type of instance as an indicator how the work
-# load on the cluster is distributed by a load balancer across instance
-# types.
+# Rank Kubernetes nodes by type of instance as an indicator how the work load on
+# the cluster is distributed by a load balancer across instance types.
 #
 # Deps:: bash, env, kubectl, rank
 

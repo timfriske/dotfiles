@@ -4,16 +4,15 @@
 # ================
 # Tim Friske <me@tifr.de>
 #
-# Prints the parent directories starting from the current working
-# directory upwards and lets the user select the ones s/he is interested
-# in.
+# Prints the parent directories starting from the current working directory
+# upwards and lets the user select the ones s/he is interested in.
 #
 # Deps:: bash, cut, env, fzf, nl, ppds
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local env_opts=() fzf_default_opts fzf_ppds_fzf_opts
   read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
   read -r -a fzf_ppds_fzf_opts <<< "${FZF_PPDS_FZF_OPTS:-}"

@@ -52,21 +52,21 @@ write=1|true::
 
 The _Fzf-sort_ program reads records from the standard input stream,
 sorts them either alphabetically or ascendingly in the given order and
-writes them to the standard output stream in that sort order.  With
+writes them to the standard output stream in that sort order. With
 _Fzf-sort's_ `reversed` variable set to either `1` or `true` the records
 are sorted in reverse order.
 
 When _Fzf-sort's_ standard input stream is connected to a terminal it
-expects each record to appear on a new line.  Otherwise, e.g. when
+expects each record to appear on a new line. Otherwise, e.g. when
 _Fzf-sort_ reads from a file or another program, it assumes each record
-to be terminated with a `\0` null character.  The latter assumption may
+to be terminated with a `\0` null character. The latter assumption may
 be overridden by passing _Fzf-sort's_ `read` variable set to either `1`
 or `true`.
 
 When _Fzf-sort's_ standard output stream is connected to a terminal it
-writes each record on a new line.  Otherwise, e.g. when _Fzf-sort_
+writes each record on a new line. Otherwise, e.g. when _Fzf-sort_
 writes to a file or another program, it terminates each record with a
-`\0` null character.  The latter decision may be overridden by passing
+`\0` null character. The latter decision may be overridden by passing
 _Fzf-sort's_ `write` variable set to either `1` or `true`.
 HELP
 }
@@ -74,12 +74,12 @@ HELP
 function sort_records {
   local opt_sort=(--sort)
   case "${order:-}" in
-    month) opt_sort=(month);;
-    numeric) opt_sort=(numeric);;
-    numeric-general) opt_sort=(general-numeric);;
-    numeric-human) opt_sort=(human-numeric);;
-    random) opt_sort=(random);;
-    version) opt_sort=(version);;
+    month) opt_sort+=(month);;
+    numeric) opt_sort+=(numeric);;
+    numeric-general) opt_sort+=(general-numeric);;
+    numeric-human) opt_sort+=(human-numeric);;
+    random) opt_sort+=(random);;
+    version) opt_sort+=(version);;
     *) opt_sort=();;
   esac
 

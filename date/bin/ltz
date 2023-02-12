@@ -6,8 +6,8 @@
 #
 # Shows the local timezone.
 #
-# Prints `date-ltz: TIMEZONE` if standard output file descriptor is
-# connected to terminal, else just `TIMEZONE`.
+# Prints `date-ltz: TIMEZONE` if standard output file descriptor is connected to
+# terminal, else just `TIMEZONE`.
 #
 # Deps:: bash, date, env
 

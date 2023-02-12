@@ -4,8 +4,8 @@
 # =============================
 # Tim Friske <me@tifr.de>
 #
-# Reclaims the given persistent volume by changing its reclaim policy
-# to the given value.
+# Reclaims the given persistent volume by changing its reclaim policy to the
+# given value.
 #
 # Deps:: bash, env, kubectl
 

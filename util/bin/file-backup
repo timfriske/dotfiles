@@ -4,15 +4,14 @@
 # ===================
 # Tim Friske <me@tifr.de>
 #
-# Simple backup utility to backup a single file by creating numbered
-# backups of that file. Upon every invocation with the same file
-# argument this utility creates another file with an increasing number
-# embedded in its file name. For example given the file `foobar.txt`
-# over time the files `foobar.txt~1~`, `foobar.txt~2~` etc. come into
-# existence.
+# Simple backup utility to backup a single file by creating numbered backups of
+# that file. Upon every invocation with the same file argument this utility
+# creates another file with an increasing number embedded in its file name. For
+# example given the file `foobar.txt` over time the files `foobar.txt~1~`,
+# `foobar.txt~2~` etc. come into existence.
 #
-# Think about aliasing this helper program as `fb` (`file-backup`)
-# should you be using it frequently.
+# Think about aliasing this helper program as `fb` (`file-backup`) should you be
+# using it frequently.
 #
 # Deps:: bash, cp, env
 

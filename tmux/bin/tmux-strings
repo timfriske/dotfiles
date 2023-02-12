@@ -4,15 +4,14 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Print all strings of the current Tmux pane, e.g. for searching and
-# selecting individual strings. The output can be written into a file
-# or piped into programs such as _awk_, _sed_, _grep_, _fzf_ etc. for
-# further processing.
+# Print all strings of the current Tmux pane, e.g. for searching and selecting
+# individual strings. The output can be written into a file or piped into
+# programs such as _awk_, _sed_, _grep_, _fzf_ etc. for further processing.
 #
-# For the user to easier select embedded strings the lines are split
-# into strings around whitespace and each string printed on a new line.
-# Blank lines and lines consisting of only punctation are removed from
-# the output because they are most likely of no interest to the user.
+# For the user to easier select embedded strings the lines are split into
+# strings around whitespace and each string printed on a new line. Blank lines
+# and lines consisting of only punctation are removed from the output because
+# they are most likely of no interest to the user.
 #
 # Deps:: bash, env, sed, sort, tmux
 

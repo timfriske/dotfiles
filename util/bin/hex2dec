@@ -4,8 +4,8 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Print the given hexadecimal (base 16) numbers and their decimal
-# (base 10) equivalents side-by-side, separated by a tabulator sign.
+# Print the given hexadecimal (base 16) numbers and their decimal (base 10)
+# equivalents side-by-side, separated by a tabulator sign.
 #
 # Deps:: bash, bc, env, paste
 

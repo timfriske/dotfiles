@@ -4,9 +4,8 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Lets the user interactively filter and select from a list of
-# Kubernetes cronjobs the ones to manage, e.g. un/suspending, editing
-# them etc.
+# Lets the user interactively filter and select from a list of Kubernetes
+# cronjobs the ones to manage, e.g. un/suspending, editing them etc.
 #
 # Deps:: awk, bash, env, fzf, kubectl, xargs
 

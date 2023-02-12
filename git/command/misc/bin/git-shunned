@@ -4,10 +4,10 @@
 # ===================
 # Tim Friske <me@tifr.de>
 #
-# List tracked files which were assumed unchanged previously with
-# the command `git update-index --assume-unchanged` or its shortcut
-# `git shun` and not yet assumed changed again with
-# `git update-index --no-assume-unchanged` or `git heed`.
+# List tracked files which were assumed unchanged previously with the command
+# `git update-index --assume-unchanged` or its shortcut `git shun` and not yet
+# assumed changed again with `git update-index --no-assume-unchanged` or `git
+# heed`.
 #
 # Deps:: bash, env, git-ls-files, grep
 

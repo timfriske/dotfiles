@@ -4,8 +4,8 @@
 # =======================
 # Tim Friske <me@tifr.de>
 #
-# Summarize the disk usage of the files up to the current directory,
-# sorted in descending order of disk usage.
+# Summarize the disk usage of the files up to the current directory, sorted in
+# descending order of disk usage.
 #
 # Deps:: bash, du, env, find, sort, tr
 

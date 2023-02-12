@@ -4,11 +4,11 @@
 # =========================
 # Tim Friske <me@tifr.de>
 #
-# Lists the running AWS EC2 instances and their lifecycles, i.e. whether
-# they are (more expensive) on-demand or (cheaper) spot instances.
+# Lists the running AWS EC2 instances and their lifecycles, i.e. whether they
+# are (more expensive) on-demand or (cheaper) spot instances.
 #
-# By passing additional arguments to this utility one can for example
-# select AWS EC2 instances by tags like so:
+# By passing additional arguments to this utility one can for example select AWS
+# EC2 instances by tags like so:
 #
 # [source,bash]
 # ----

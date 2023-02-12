@@ -4,8 +4,7 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Force deletion of Kubernetes persistent volume claim in terminating
-# state.
+# Force deletion of Kubernetes persistent volume claim in terminating state.
 #
 # Deps:: bash, env, kubectl
 

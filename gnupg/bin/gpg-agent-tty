@@ -4,8 +4,8 @@
 # =====================
 # Tim Friske <me@tifr.de>
 #
-# Updates the GPG agent's TTY in order to tell it on which TTY to prompt
-# the user for passphrases.
+# Updates the GPG agent's TTY in order to tell it on which TTY to prompt the
+# user for passphrases.
 #
 # Deps:: bash, env, gpg-connect-agent
 

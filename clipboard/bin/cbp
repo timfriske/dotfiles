@@ -4,9 +4,8 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Paste data from clipboard to standard output with one of `xclip`,
-# `xsel` or `pbcopy`.  Output may go to a file or process via shell
-# redirection.
+# Paste data from clipboard to standard output with one of `xclip`, `xsel` or
+# `pbcopy`. Output may go to a file or process via shell redirection.
 #
 # Deps:: env, pbpaste, sh, xclip, xsel
 

@@ -22,35 +22,35 @@ function print_help {
 <<'HELP'
 usage:
 
-  jb() {
+  function jb {
     eval "$(jobs | cmd='bg' fzf-jobs "${@}")"
   }
 
-  jd() {
+  function jd {
     eval "$(jobs | cmd='disown' fzf-jobs "${@}")"
   }
 
-  jdh() {
+  function jdh {
     eval "$(jobs | cmd='disown -h' fzf-jobs "${@}")"
   }
 
-  jf() {
+  function jf {
     eval "$(jobs | cmd='fg' fzf-jobs "${@}")"
   }
 
-  jj() {
+  function jj {
     eval "$(jobs | cmd='jobs' fzf-jobs "${@}")"
   }
 
-  jkc() {
+  function jkc {
     eval "$(jobs | cmd='kill -SIGCONT' fzf-jobs "${@}")"
   }
 
-  jkk() {
+  function jkk {
     eval "$(jobs | cmd='kill -SIGKILL' fzf-jobs "${@}")"
   }
 
-  jkt() {
+  function jkt {
     eval "$(jobs | cmd='kill -SIGTERM' fzf-jobs "${@}")"
   }
 HELP

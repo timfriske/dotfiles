@@ -12,11 +12,9 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   : "${1:?usage: bin2dec BINARY... }"
-  paste -- \
-    <(printf '%s\n' "${@}") \
-    <(printf 'ibase=2;%s\n' "${@}" | bc)
+  paste -- <(printf '%s\n' "${@}") <(printf 'ibase=2;%s\n' "${@}" | bc)
 }
 
 main "${@}"

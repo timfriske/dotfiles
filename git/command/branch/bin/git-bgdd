@@ -4,8 +4,8 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Deletes each local branch whose remote tracking branch is gone but
-# which was not yet merged.
+# Deletes each local branch whose remote tracking branch is gone but which was
+# not yet merged.
 #
 # Deps:: bash, env, git-bdd, git-bg, xargs
 

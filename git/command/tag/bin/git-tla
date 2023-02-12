@@ -11,8 +11,8 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-# List tags. Drop commit IDs in first column. Keep tags in second
-# column. Keep annotated tags, i.e. their dereferenced form ending in
-# `^{}`. Strip prefix `refs/tags/` and suffix from tags.
+# List tags. Drop commit IDs in first column. Keep tags in second column. Keep
+# annotated tags, i.e. their dereferenced form ending in `^{}`. Strip prefix
+# `refs/tags/` and suffix from tags.
 git show-ref --tags --dereference "${@}" \
   | awk '/\^\{\}$/{sub("refs/tags/","",$2);sub(/\^\{\}$/,"",$2);print $2}'

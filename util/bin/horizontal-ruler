@@ -4,17 +4,17 @@
 # ========================
 # Tim Friske <me@tifr.de>
 #
-# Prints a horizontal ruler that is as wide as the terminal and one
-# line high by default. The character symbol used to draw the
-# horizontal ruler is the equals sign by default. Optionally a
-# different sign, width and height may be specified.
+# Prints a horizontal ruler that is as wide as the terminal and one line high by
+# default. The character symbol used to draw the horizontal ruler is the equals
+# sign by default. Optionally a different sign, width and height may be
+# specified.
 #
 # Deps:: bash, env, sed, tput
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-main() {
+function main {
   local sign="${1:-${sign:-=}}"
   local width="${2:-${width:-$(tput cols)}}"
   local height="${3:-${height:-1}}"

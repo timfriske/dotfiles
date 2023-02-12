@@ -4,8 +4,8 @@
 # ===================
 # Tim Friske <me@tifr.de>
 #
-# Prints the name, node and status of Kubernetes pods.
-# Output columns: POD NAME, NODE NAME, POD STATUS
+# Prints the name, node and status of Kubernetes pods. Output columns: POD NAME,
+# NODE NAME, POD STATUS
 #
 # Deps:: bash, env, kubectl
 

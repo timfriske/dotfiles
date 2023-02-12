@@ -4,8 +4,8 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Delete each merged local branch except the current one because it
-# cannot be deleted.
+# Delete each merged local branch except the current one because it cannot be
+# deleted.
 #
 # Deps:: bash, env, git-bd, git-for-each-ref, xargs
 

@@ -4,14 +4,14 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Prints the name, type and zone of Kubernetes nodes ordered by zone,
-# type and node.
+# Prints the name, type and zone of Kubernetes nodes ordered by zone, type and
+# node.
 #
-# If standard output is a terminal (TTY) print the headers and let the
-# user filter the list by fuzzy-searching it. Otherwise it is assumed
-# that the standard output stream is redirected into a pipe or file for
-# further non-interactive processing in which case the header line is
-# not printed and the columns separated by tabulators.
+# If standard output is a terminal (TTY) print the headers and let the user
+# filter the list by fuzzy-searching it. Otherwise it is assumed that the
+# standard output stream is redirected into a pipe or file for further
+# non-interactive processing in which case the header line is not printed and
+# the columns separated by tabulators.
 #
 # Deps:: awk, bash, env, fzf, kubectl, sort
 

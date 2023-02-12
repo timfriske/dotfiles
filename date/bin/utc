@@ -6,8 +6,8 @@
 #
 # Shows _UTC_ _Universal Time Coordinated_.
 #
-# Prints `date-utc: DATE-UTC` if standard output file descriptor is
-# connected to terminal, else just `DATE-UTC`.
+# Prints `date-utc: DATE-UTC` if standard output file descriptor is connected to
+# terminal, else just `DATE-UTC`.
 #
 # Deps:: bash, date, env
 

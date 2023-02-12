@@ -11,7 +11,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-# List remote tags. Drop commit IDs in first column. Keep tags in
-# second column. Strip prefix `refs/tags/` from tags.
+# List remote tags. Drop commit IDs in first column. Keep tags in second column.
+# Strip prefix `refs/tags/` from tags.
 git ls-remote --tags --refs "${@:-origin}" \
   | awk '{sub("refs/tags/","",$2);print $2}'

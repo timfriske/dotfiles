@@ -4,16 +4,15 @@
 # =====================
 # Tim Friske <me@tifr.de>
 #
-# Lists annotated tags of given remote repository or `origin` by
-# default.
+# Lists annotated tags of given remote repository or `origin` by default.
 #
 # Deps:: awk, bash, env, git-ls-remote
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-# List remote tags. Drop commit IDs in first column. Keep tags in
-# second column. Keep annotated tags, i.e. their dereferenced form
-# ending in `^{}`. Strip prefix `refs/tags/` and suffix from tags.
+# List remote tags. Drop commit IDs in first column. Keep tags in second column.
+# Keep annotated tags, i.e. their dereferenced form ending in `^{}`. Strip
+# prefix `refs/tags/` and suffix from tags.
 git ls-remote --tags "${@:-origin}" \
   | awk '/\^\{\}$/{sub("refs/tags/","",$2);sub(/\^\{\}$/,"",$2);print $2}'

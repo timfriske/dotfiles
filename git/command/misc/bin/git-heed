@@ -5,8 +5,8 @@
 # Tim Friske <me@tifr.de>
 #
 # Assume tracked files as changed again which were assumed as unchanged
-# previously with the command `git update-index --assume-unchanged` or
-# its shortcut `git shun`.
+# previously with the command `git update-index --assume-unchanged` or its
+# shortcut `git shun`.
 #
 # Deps:: bash, env, git-update-index
 

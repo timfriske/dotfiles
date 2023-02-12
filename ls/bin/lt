@@ -4,8 +4,8 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
-# Lists information about given files or files in current working
-# directory by default. Sorts files by time in ascending order.
+# Lists information about given files or files in current working directory by
+# default. Sorts files by time in ascending order.
 #
 # Deps:: bash, env, ls
 

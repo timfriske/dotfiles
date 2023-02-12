@@ -5,20 +5,18 @@
 # Tim Friske <me@tifr.de>
 #
 # The _Bash_ _Bourne Again Shell_ reads and executes commands from its
-# configuration files but only if these exist and are readable.  When
-# started as a login shell it first reads its system-wide startup file
-# `/etc/profile`.  It then continues to read the first of its user-
-# specific startup files `~/.bash_profile`, `~/bash_login` and
-# `~/.profile` it encounters in that order.  When a login shell is
-# exited _Bash_ reads and executes commands from its user-specific
-# shutdown file `~/.bash_logout`.
+# configuration files but only if these exist and are readable. When started as
+# a login shell it first reads its system-wide startup file `/etc/profile`. It
+# then continues to read the first of its user- specific startup files
+# `~/.bash_profile`, `~/bash_login` and `~/.profile` it encounters in that
+# order. When a login shell is exited _Bash_ reads and executes commands from
+# its user-specific shutdown file `~/.bash_logout`.
 #
-# This configuration file shall contain only non-default settings
-# specific to login shells in order to keep it lean and thus easy to
-# understand and maintain.  In case an interactive login shell is
-# started this startup file shall read and execute the commands from
-# _Bash's_ user-specific startup file for interactive shells, namely
-# `~/.bashrc`.
+# This configuration file shall contain only non-default settings specific to
+# login shells in order to keep it lean and thus easy to understand and
+# maintain. In case an interactive login shell is started this startup file
+# shall read and execute the commands from _Bash's_ user-specific startup file
+# for interactive shells, namely `~/.bashrc`.
 #
 # See also:
 #   * man:bash[1]
@@ -132,8 +130,8 @@ DU_X_OPTIONS+='--si '
 #
 #  unified::
 #    output NUMBER (3) lines above and below a diff hunk in the
-#    `unified' diff format.  This format is more readable than _Diff's_
-#    default `normal' format.  The `unified' format is also the default
+#    `unified' diff format. This format is more readable than _Diff's_
+#    default `normal' format. The `unified' format is also the default
 #    format used by _Git_.
 #
 #  ignore-tab-expansion::
@@ -161,7 +159,7 @@ DIFF_X_OPTIONS+='--color=auto '
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Tell programs to open files in favorite text editor _Vim_ _Vi
-# Improved_.  Don't care about line-oriented vs. visual editors just
+# Improved_. Don't care about line-oriented vs. visual editors just
 # assign both `$EDITOR` and `$VISUAL` the same editor.
 
 export EDITOR='vim'
@@ -213,7 +211,7 @@ export FZF_JOBS_FZF_OPTS='--multi --exit-0'
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Let _Git_ skip reading settings from its system-wide configuration
-# file `{system-home}/gitconfig`.  Assume that the user is a power user
+# file `{system-home}/gitconfig`. Assume that the user is a power user
 # of _Git_ and configured every aspect of it down to the smallest detail
 # in her/his personal _Git_ configuration files.
 
@@ -227,9 +225,9 @@ export GIT_X_SIGNOFF='--signoff'
 #
 #   directories=recurse::
 #     If given no files search all files in the current directory and
-#     below in a recursive manner.  Otherwise _Grep_ would read from
+#     below in a recursive manner. Otherwise _Grep_ would read from
 #     standard input or if given a directory tell the user that it is
-#     one.  _Grep's_ default behavior is simply not what users most
+#     one. _Grep's_ default behavior is simply not what users most
 #     likely expect it to be.
 #
 #   binary-file=without-match::
@@ -250,7 +248,7 @@ GREP_X_OPTIONS+='--color=auto '
 # History - Manage previously entered commands
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# Remember up to 100,000 commands in memory and on disk.  Store the
+# Remember up to 100,000 commands in memory and on disk. Store the
 # history in the `history` file under the specified location. Record
 # the time when each command entered history as an ISO-8601 timestamp.
 # Exclude commands starting with whitespace from history. Erase all
@@ -305,12 +303,12 @@ INFO_X_OPTIONS='--vi-keys '
 #
 #   ignore-case::
 #     Let _Less_ search smarter by ignoring the case if the pattern
-#     consists of lower-case characters only.  Let it perform a case-
+#     consists of lower-case characters only. Let it perform a case-
 #     sensitive search if the pattern contains upper-case characters.
 #
 #   jump-target=.5::
 #     Let _Less_ position the next or previous line that matches a
-#     search pattern in the center of the terminal screen.  This should
+#     search pattern in the center of the terminal screen. This should
 #     give the user enough context, i.e. lines surrounding that line.
 #
 #   hilite-unread::
@@ -323,13 +321,13 @@ INFO_X_OPTIONS='--vi-keys '
 #
 #   chop-long-lines::
 #     Let _Less_ truncate overlong lines to the left and right but make
-#     them horizontally scrollable instead.  Line wrapping works well
+#     them horizontally scrollable instead. Line wrapping works well
 #     with continuous text such as text in paragraphs of text documents
 #     but breaks structured text such as text arranged in table columns.
 #
 #   quit-if-one-screen::
 #     Let _Less_ display automatically quit itself if there is less than
-#     a screen full of output to display.  Don't let the user have to do
+#     a screen full of output to display. Don't let the user have to do
 #     that every time.
 
 export LESS=''
@@ -365,7 +363,7 @@ LN_X_OPTIONS+='--verbose '
 #     Let _Ls_ display file sizes as human-readable numbers in powers of
 #     1,000 with their units in the _SI_-system, the _International
 #     System of Units_ (Système International (d'unités)), e.g. KB, MB,
-#     TB etc.  The _SI_-system is also the system in which most storage
+#     TB etc. The _SI_-system is also the system in which most storage
 #     device capacities are advertised.
 #
 #   classify::
@@ -377,9 +375,9 @@ LN_X_OPTIONS+='--verbose '
 #     Let _Ls_ colorize its output if it goes to a terminal.
 #
 #   time-style::
-#     Let _Ls_ display the date-time in ISO-8601 `long' format.  Due to
+#     Let _Ls_ display the date-time in ISO-8601 `long' format. Due to
 #     the format's fixed-width pattern `+%Y-%m-%d %H:%M` it should be
-#     more readable and independent from the current locale.  With up to
+#     more readable and independent from the current locale. With up to
 #     the minute precision it should be good enough for everyday use.
 #
 #   group-directories-first::
@@ -439,7 +437,7 @@ PARALLEL_X_OPTIONS+='--keep-order '
 #
 # Save space for the actual command line by showing only the trailing
 # number of path components of the working directory in the command
-# prompt.  The rest of the path is represented by an ellipsis.
+# prompt. The rest of the path is represented by an ellipsis.
 
 export PROMPT_DIRTRIM=3
 
@@ -475,12 +473,12 @@ RMDIR_X_OPTIONS+='--verbose '
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # human-readable::
-#   Let _Rsync_ output numbers, in a human-friendly format.  For example
+#   Let _Rsync_ output numbers, in a human-friendly format. For example
 #   thousands separators, units to the power of 1000, symbols for units
 #   larger than 1000, etc.
 #
 # progress::
-#   Let _Rsync_ report what it is doing on a per-file basis.  See also
+#   Let _Rsync_ report what it is doing on a per-file basis. See also
 #   `info=progress2` option if you want to see statistics about the
 #   transfer as a whole.
 

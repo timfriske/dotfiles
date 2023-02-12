@@ -9,9 +9,9 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-# Does upstream branch differ from current branch? Without this check
-# the current branch would be checked out in detached HEAD state if it
-# had no upstream configured.
+# Does upstream branch differ from current branch? Without this check the
+# current branch would be checked out in detached HEAD state if it had no
+# upstream configured.
 if [[ "$(git rev-parse --abbrev-ref "${1:-HEAD}@{upstream}")" != */"$(git branch --show-current)" ]]; then
   git checkout "${1:-HEAD}@{upstream}"
 fi

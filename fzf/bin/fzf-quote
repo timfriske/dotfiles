@@ -45,16 +45,16 @@ stream, quotes all special characters it finds in these records and
 writes them in quoted form back to the standard output stream.
 
 When _Fzf-quote's_ standard input stream is connected to a terminal it
-expects each unquoted record to appear on a new line.  Otherwise, e.g.
+expects each unquoted record to appear on a new line. Otherwise, e.g.
 when _Fzf-quote_ reads from a file or another program, it assumes each
-unquoted record to be terminated with a `\0` null character.  The latter
+unquoted record to be terminated with a `\0` null character. The latter
 assumption may be overridden by passing _Fzf-quote's_ `read` variable
 set to either `1` or `true`.
 
 When _Fzf-quote's_ standard output stream is connected to a terminal it
-writes each quoted record on a new line.  Otherwise, for example when
+writes each quoted record on a new line. Otherwise, for example when
 _Fzf-quote_ writes to a file or another program, it terminates each
-quoted record with a `\0` null character.  The latter decision may be
+quoted record with a `\0` null character. The latter decision may be
 overridden by passing _Fzf-quote's_ `write` variable set to either `1`
 or `true`.
 HELP

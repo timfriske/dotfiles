@@ -12,7 +12,7 @@
 # imported into LibreOffice Calc, the number of net work days calculated with
 # the `NETWORKDAYS` function and the total net work days with the `SUMIF`
 # function depending on the state (ACCEPTED etc).
-
+#
 # The CSV format looks like:
 # [source,text]
 # ----

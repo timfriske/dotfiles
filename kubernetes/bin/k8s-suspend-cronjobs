@@ -4,8 +4,8 @@
 # ====================
 # Tim Friske <me@tifr.de>
 #
-# Lets users interactively filter and select from a list of Kubernetes
-# cronjobs the ones whose suspension state to toggle either on or off.
+# Lets users interactively filter and select from a list of Kubernetes cronjobs
+# the ones whose suspension state to toggle either on or off.
 #
 # Deps:: awk, bash, env, fzf, kubectl, parallel, sed
 

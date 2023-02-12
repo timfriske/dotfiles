@@ -4,13 +4,12 @@
 # ====================
 # Tim Friske <me@tifr.de>
 #
+# Toggles branches by default, i.e. switch from the current to the previous
+# branch unless another Git checkout operation is chosen by passing arguments.
+#
 # Deps:: bash, env, git-checkout
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-# Toggle branches by default, i.e. switch from the current to the
-# previous branch unless another Git checkout operation is chosen by
-# passing arguments.
-#
 git checkout "${@:--}"

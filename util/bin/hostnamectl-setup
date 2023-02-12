@@ -4,8 +4,8 @@
 # ==============================
 # Tim Friske <me@tifr.de>
 #
-# Provides information about the given host or localhost by default,
-# currently its static and pretty hostname as well as its location.
+# Provides information about the given host or localhost by default, currently
+# its static and pretty hostname as well as its location.
 #
 # Deps:: awk, bash, env, hostnamectl
 

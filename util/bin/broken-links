@@ -4,10 +4,9 @@
 # ====================
 # Tim Friske <me@tifr.de>
 #
-# Search for broken links, i.e. soft a.k.a symbolic links which lost
-# their target files or folders. This usually occurs when either the
-# symbolic links or their targets move and their references are not
-# updated.
+# Search for broken links, i.e. soft a.k.a symbolic links which lost their
+# target files or folders. This usually occurs when either the symbolic links or
+# their targets move and their references are not updated.
 #
 # Deps:: bash, env, find
 

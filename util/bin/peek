@@ -4,8 +4,8 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Print the output of one command that is piped as input to another
-# command to the standard error stream in order to have a peek at it.
+# Print the output of one command that is piped as input to another command to
+# the standard error stream in order to have a peek at it.
 #
 # Deps:: bash, cat, env, tee
 

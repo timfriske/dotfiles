@@ -4,8 +4,8 @@
 # =================================
 # Tim Friske <me@tifr.de>
 #
-# Prints the persistent volumes related to claims in JSON format
-# optionally filtering the entries by the given claims.
+# Prints the persistent volumes related to claims in JSON format optionally
+# filtering the entries by the given claims.
 #
 # Deps:: bash, env, kubectl
 

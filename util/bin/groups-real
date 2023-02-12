@@ -4,10 +4,10 @@
 # ===================
 # Tim Friske <me@tifr.de>
 #
-# Prints group memberships for the given usernames or current user by
-# default. This command behaves similar to `groups` but retrieves its
-# information from the _group_ database and not from the current
-# process. This is why this command is named `groups-real`.
+# Prints group memberships for the given usernames or current user by default.
+# This command behaves similar to `groups` but retrieves its information from
+# the _group_ database and not from the current process. This is why this
+# command is named `groups-real`.
 #
 # Deps:: awk, bash, env, getent, id
 

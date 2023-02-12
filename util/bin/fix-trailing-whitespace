@@ -4,8 +4,8 @@
 # ===============================
 # Tim Friske <me@tifr.de>
 #
-# Delete any whitespace after the last printable character and before
-# the end of a line of each given text file.
+# Delete any whitespace after the last printable character and before the end of
+# a line of each given text file.
 #
 # Deps:: bash, env, sed
 
