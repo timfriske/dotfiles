@@ -74,12 +74,12 @@ HELP
 function sort_records {
   local opt_sort=(--sort)
   case "${order:-}" in
-    month) opt_sort=(month);;
-    numeric) opt_sort=(numeric);;
-    numeric-general) opt_sort=(general-numeric);;
-    numeric-human) opt_sort=(human-numeric);;
-    random) opt_sort=(random);;
-    version) opt_sort=(version);;
+    month) opt_sort+=(month);;
+    numeric) opt_sort+=(numeric);;
+    numeric-general) opt_sort+=(general-numeric);;
+    numeric-human) opt_sort+=(human-numeric);;
+    random) opt_sort+=(random);;
+    version) opt_sort+=(version);;
     *) opt_sort=();;
   esac
 
