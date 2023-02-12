@@ -1,17 +1,15 @@
 = Personal Software Configuration Management
 Tim Friske <me@tifr.de>
 
-Welcome to _My Home My Castle_!
+Welcome to _Dotfiles_!
 
-The project _My Home My Castle_ is a personal project of mine.  It
-serves me to manage the configuration files of my favorite software I
-use on a regular basis.
+The project _Dotfiles_ is a personal project of mine. It serves me to manage
+the configuration files of my favorite software I use on a regular basis.
 
-When you are an IT enthusiast like me then you know how much time and
-effort one is willing to spent in polishing his very own working
-environment to perfection.  Therefore the _Git_ repository of this
-project helps me to track the history of changes so that nothing is
-lost.
+When you are an IT enthusiast like me then you know how much time and effort one
+is willing to spent in polishing his very own working environment to perfection.
+Therefore the _Git_ repository of this project helps me to track the history of
+changes so that nothing is lost.
 
 .RFC Request for Comments 2119
 ....
@@ -48,51 +46,48 @@ For details please read the full <<gpl-3.0, GPLv3>> license.
 
 === Files & Folders
 
-The top-level folder, i.e. the one this file resides in, MUST only
-contain the most important files, i.e. only those which give an
-introduction to or an overview about this project.  But also files with
-long standing traditions and thus well-known meanings — files people
-simply expect to find — MAY be located here.  Examples of these are text
-files such as `README`, `INSTALL`, `CHANGELOG` or `NEWS`, `LICENSE` or
-`COPYING`, `CONTRIBUTING` etc. with OPTIONAL file extensions such as
-`adoc`, `md`, `txt` etc.
+The top-level folder, i.e. the one this file resides in, MUST only contain the
+most important files, i.e. only those which give an introduction to or an
+overview about this project. But also files with long standing traditions and
+thus well-known meanings — files people simply expect to find — MAY be located
+here. Examples of these are text files such as `README`, `INSTALL`, `CHANGELOG`
+or `NEWS`, `LICENSE` or `COPYING`, `CONTRIBUTING` etc. with OPTIONAL file
+extensions such as `adoc`, `md`, `txt` etc.
 
-The main content of this project — that is the configuration of each
-software — MUST be each contained in a separate folder named after the
-software.  The folder name SHALL be written in lower case letters with
-words separated by single `-` hypen signs.
+The main content of this project — that is the configuration of each software —
+MUST be each contained in a separate folder named after the software. The folder
+name SHALL be written in lower case letters with words separated by single `-`
+hypen signs.
 
 Further documentation pertaining to the project itself SHALL go into the
-top-level folder `Documentation`.  Information specific to one software
-MUST be located underneath its own `Documentation` folder but SHOULD
-otherwise follow the same structure as the project documentation for
-consistency reasons.
+top-level folder `Documentation`. Information specific to one software MUST be
+located underneath its own `Documentation` folder but SHOULD otherwise follow
+the same structure as the project documentation for consistency reasons.
 
-The structure below each software configuration folder SHOULD be
-organized in a way that best fits the requirements of the individual
-software being configured.  Nevertheless when commonalities, especially
-structural similarities, between certain software configurations evolve
-then these SHOULD be captured and endorsed for consistency where
-reasonable.  This MAY mean to externalize common files and folders below
-the top-level folder `Shared` with OPTIONAL references, e.g. soft links,
-from the affected software configuration folders.
+The structure below each software configuration folder SHOULD be organized in a
+way that best fits the requirements of the individual software being configured.
+Nevertheless when commonalities, especially structural similarities, between
+certain software configurations evolve then these SHOULD be captured and
+endorsed for consistency where reasonable. This MAY mean to externalize common
+files and folders below the top-level folder `Shared` with OPTIONAL references,
+e.g. soft links, from the affected software configuration folders.
 
-Text files and soft links MAY be versioned.  Generated files, e.g.
-binary build artifacts, MUST NOT be put under version control.  All
-other kinds of files not explicitly mentioned for OPTIONAL inclusion are
-REQUIRED to be excluded from version control.
+Text files and soft links MAY be versioned. Generated files, e.g. binary build
+artifacts, MUST NOT be put under version control. All other kinds of files not
+explicitly mentioned for OPTIONAL inclusion are REQUIRED to be excluded from
+version control.
 
 === Git Workflow
 
-This project follows a simple _Git_ workflow because it is mainly
-intended for personal use.  Therefore the administrative overhead SHOULD
-be kept at a minimum.  As such I picked the _Integration-Manager_
-workflow described in the book <<pro-git, Pro Git>> rather than a more
-<<git-workflows, sophisticated>> Git workflow.
+This project follows a simple _Git_ workflow because it is mainly intended for
+personal use. Therefore the administrative overhead SHOULD be kept at a minimum.
+As such I picked the _Integration-Manager_ workflow described in the book
+<<pro-git, Pro Git>> rather than a more <<git-workflows, sophisticated>> Git
+workflow.
 
-Here is an incomplete but quick overview about how the
-_Integration-Manager_ workflow is practiced in this project —
-suggestions for improvements always welcome:
+Here is an incomplete but quick overview about how the _Integration-Manager_
+workflow is practiced in this project — suggestions for improvements always
+welcome:
 
   * This _Git_ repository
 
@@ -119,9 +114,8 @@ suggestions for improvements always welcome:
 
       *** is the authoritative history that can be easily followed with
           `git-log --first-parent` to get a summary of completed topics.
-          Therefore updates MUST be fetched and *rebased* from upstream but
-          MUST NOT be fetched and *merged*, e.g. with `git-pull
-          --rebase=false`.
+          Therefore updates MUST be fetched and *rebased* from upstream but MUST
+          NOT be fetched and *merged*, e.g. with `git-pull --rebase=false`.
 
   * A topic branch
 
