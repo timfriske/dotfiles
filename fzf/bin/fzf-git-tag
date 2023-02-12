@@ -48,8 +48,8 @@ function fzf_git_tag {
   fzf_keys+=('alt-f:execute(git tag --delete --force {+})+abort')
   # shellcheck disable=SC2016
   {
-    fzf_keys+=('alt-m:execute(</dev/tty >/dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
-    fzf_keys+=('alt-n:execute(</dev/tty >/dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
+    fzf_keys+=('alt-m:execute(< /dev/tty > /dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
+    fzf_keys+=('alt-n:execute(< /dev/tty > /dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
   }
   fzf_keys+=('alt-v:execute(git tag --verify {+})+abort')
   local fzf_keys_csv
