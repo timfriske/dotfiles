@@ -4,9 +4,8 @@
 # ===================
 # Tim Friske <me@tifr.de>
 #
-# Touches not only the given files and creates empty files if non-
-# existent but also any non-existent parent directory leading to those
-# files.
+# Touches not only the given files and creates empty files if non- existent but
+# also any non-existent parent directory leading to those files.
 #
 # Deps:: bash, env, mkdir, touch
 

@@ -5,18 +5,17 @@
 # Tim Friske <me@tifr.de>
 #
 # The _Bash_ _Bourne Again Shell_ reads and executes commands from its
-# configuration files but only if these exist and are readable.  When
-# started as an interactive shell it first reads its system-wide startup
-# file `/etc/bash.bashrc`.  It then continues to read its user-specific
-# startup file `~/.bashrc`.
+# configuration files but only if these exist and are readable. When started as
+# an interactive shell it first reads its system-wide startup file
+# `/etc/bash.bashrc`. It then continues to read its user-specific startup file
+# `~/.bashrc`.
 #
-# This configuration file shall contain only non-default settings
-# specific to interactive shells in order to keep it lean and thus easy
-# to understand and maintain.  In case an interactive login shell is
-# started this startup file shall be read and its commands executed by
-# the first of _Bash's_ user-specific startup files for login shells
-# that _Bash_ encounters, that is `~/.bash_profile`, `~/.bash_login` or
-# `~/.profile`.
+# This configuration file shall contain only non-default settings specific to
+# interactive shells in order to keep it lean and thus easy to understand and
+# maintain. In case an interactive login shell is started this startup file
+# shall be read and its commands executed by the first of _Bash's_ user-specific
+# startup files for login shells that _Bash_ encounters, that is
+# `~/.bash_profile`, `~/.bash_login` or `~/.profile`.
 #
 # See also:
 #   * man:bash[1]
@@ -29,11 +28,10 @@
 # Terminal settings
 # -----------------
 
-# Disable echoing control characters because they mangle the other
-# output. Disable`CTRL-S` and `CTRL-Q` to stop and start terminal
-# output because this function is not very useful and just confuses
-# most users. The previously bound hot keys can be assigned new
-# functions hereafter.
+# Disable echoing control characters because they mangle the other output.
+# Disable`CTRL-S` and `CTRL-Q` to stop and start terminal output because this
+# function is not very useful and just confuses most users. The previously bound
+# hot keys can be assigned new functions hereafter.
 if [[ "${-}" == *i* ]]; then
   stty -echoctl -ixon
 fi
@@ -47,46 +45,45 @@ shopt -os vi
 # Make it easy to name and navigate directories.
 shopt -s autocd cdable_vars cdspell dirspell
 
-# List any stopped and running jobs before exiting an interactive shell
-# in order to not kill important jobs unintentionally but exit them
-# manually, e.g. by saving their data first.  To list the remaining jobs
-# is what most users would usually do if the shell they are about to
-# exit reports that there are a number of stopped jobs.
+# List any stopped and running jobs before exiting an interactive shell in order
+# to not kill important jobs unintentionally but exit them manually, e.g. by
+# saving their data first. To list the remaining jobs is what most users would
+# usually do if the shell they are about to exit reports that there are a number
+# of stopped jobs.
 shopt -s checkjobs
 
 # Update window size after each command.
 shopt -s checkwinsize
 
-# Also store multi-line commands in history in case the user wants to
-# adapt them later on, e.g. in case of syntax errors.
+# Also store multi-line commands in history in case the user wants to adapt them
+# later on, e.g. in case of syntax errors.
 shopt -s cmdhist lithist
 
-# Recognize extended set of patterns during pattern matching and path
-# name expansion.
+# Recognize extended set of patterns during pattern matching and path name
+# expansion.
 shopt -s extglob globstar
 
 # Make command history more accessible.
 shopt -s histappend histreedit histverify
 
-# Don't overwrite files with `>` file redirection operator.  This
-# setting may be overruled adhoc by using the `>|` operator.
+# Don't overwrite files with `>` file redirection operator. This setting may be
+# overruled adhoc by using the `>|` operator.
 shopt -os noclobber
 
-# Attempt to complete commands once a non-empty prefix is given in order
-# to not list the entire arsenal of commands but an already reduced list.
+# Attempt to complete commands once a non-empty prefix is given in order to not
+# list the entire arsenal of commands but an already reduced list.
 shopt -s no_empty_cmd_completion
 
-# Ignore upper- and lower case during path name expansion and pattern
-# matching.
+# Ignore upper- and lower case during path name expansion and pattern matching.
 shopt -s nocaseglob nocasematch
 
 # Shell aliases and functions
 # ---------------------------
 
-# Remove all externally defined aliases.  Aliases are meant to help the
-# user to shorten frequently used commands, introduce easy to remember
-# alternative names, etc.  The user should be fully aware of which
-# aliases are defined in order to also benefit from using them.
+# Remove all externally defined aliases. Aliases are meant to help the user to
+# shorten frequently used commands, introduce easy to remember alternative
+# names, etc. The user should be fully aware of which aliases are defined in
+# order to also benefit from using them.
 unalias -a
 
 # Bash built-ins
@@ -119,29 +116,29 @@ function basename {
 # Cd - Change Directory
 # ~~~~~~~~~~~~~~~~~~~~~
 
-# Toggle between current and previous directory.  Hitting `cdd` should
-# be much faster than typing `cd`, space, and then reaching out for `-`.
+# Toggle between current and previous directory. Hitting `cdd` should be much
+# faster than typing `cd`, space, and then reaching out for `-`.
 alias cdd='cd -'
 
 # Change to the directory containing the given file.
+
 # shellcheck disable=SC2164
 function cdf { cd -- "${1%/*}"; }
 
 # Change to the top-level (root) directory of a Git repository.
 alias cdg='cd -- "$(git rev-parse --show-toplevel)"'
 
-# Change to the root directory.  Faster to type because characters are
-# closer.
+# Change to the root directory. Faster to type because characters are closer.
 alias cdr='cd /'
 
-# With the shell option `autocd` switched on executing `..` already
-# changes to the parent directory.  This alias acts as a fallback in
-# case that shell option is switched off.
+# With the shell option `autocd` switched on executing `..` already changes to
+# the parent directory. This alias acts as a fallback in case that shell option
+# is switched off.
 alias ..='cd ..'
 
-# The alias `...` expands on the idea of `..` by making it possible to
-# go up two directories at once.  More than two levels in one go would
-# mean too much mental work.
+# The alias `...` expands on the idea of `..` by making it possible to go up two
+# directories at once. More than two levels in one go would mean too much mental
+# work.
 alias ...='cd ../..'
 
 # Cp - Copy files & directories
@@ -330,10 +327,11 @@ alias md='mkdir'
 
 # Make and change to given, random (mdr) or temporary (mdt) directory.
 #
-# In the two latter cases the directory is prefixed with the name of the
-# current user or _tmp_ by default, followed by a dot and ending in 10
-# random alphanumeric characters. The default prefix may be overridden
-# by the first argument.
+# In the two latter cases the directory is prefixed with the name of the current
+# user or _tmp_ by default, followed by a dot and ending in 10 random
+# alphanumeric characters. The default prefix may be overridden by the first
+# argument.
+
 # shellcheck disable=SC2164
 {
   function mdd { md -- "${1:-.}" && cd -- "${_}"; }
@@ -363,7 +361,8 @@ function parallel {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-#  Creates and/or de-/activates Python virtual environment in given directory or "venv" by default.
+# Creates and/or de-/activates Python virtual environment in given directory or
+# "venv" by default.
 function pynv {
   local venv="${1:-venv}"
   if declare -F deactivate &> /dev/null; then
@@ -455,21 +454,22 @@ alias term-size='LINES="${LINES}" COLUMNS="${COLUMNS}" command term-size'
 # Test if interactive shell has startup file with local overrides.
 if [[ -f ~/.bashrc.local && -r ~/.bashrc.local ]]; then
   # Read and execute commands from that startup file.
+
   # shellcheck disable=SC1090
   source ~/.bashrc.local
 fi
 
 # Test if _GnuPG_ for encrypting and signing data is installed.
 if type -p gpg &> /dev/null; then
-  # Let _GnuPG_ know on which terminal to interact with the user; for
-  # example the _Gpg-agent_ daemon prompting for the passphrase.
+  # Let _GnuPG_ know on which terminal to interact with the user; for example
+  # the _Gpg-agent_ daemon prompting for the passphrase.
   GPG_TTY="$(tty)"
   export GPG_TTY
   echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null
 fi
 
-# Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from
-# `localhost` is running.
+# Test if neither a _Tmux_ nor _Screen_ nor _SSH_ session from `localhost` is
+# running.
 if ! [[ -n "${TMUX}" || "${TERM}" =~ screen || "${SSH_CONNECTION}" =~ ^::1|^127\.0\.0\.1 ]]; then
   # Test if _Tmux_ is on the `$PATH`.
   if type -p tmux &> /dev/null; then

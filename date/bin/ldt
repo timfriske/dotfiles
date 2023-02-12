@@ -6,8 +6,8 @@
 #
 # Shows local date.
 #
-# Prints `date-ldt: DATE-LDT` if standard output file descriptor is
-# connected to terminal, else just `DATE-LDT`.
+# Prints `date-ldt: DATE-LDT` if standard output file descriptor is connected to
+# terminal, else just `DATE-LDT`.
 #
 # Deps:: bash, date, env
 

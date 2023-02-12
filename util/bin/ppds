@@ -4,8 +4,8 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Prints the parent directories starting from the current working
-# directory upwards.
+# Prints the parent directories starting from the current working directory
+# upwards.
 #
 # Deps:: bash, env
 

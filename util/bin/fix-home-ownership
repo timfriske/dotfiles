@@ -4,16 +4,16 @@
 # ==========================
 # Tim Friske <me@tifr.de>
 #
-# WARNING: Potentially dangerous command because it may change metadata
-# of filesystem objects inadvertently and irreversible!
+# WARNING: Potentially dangerous command because it may change metadata of
+# filesystem objects inadvertently and irreversible!
 #
-# Utility program that reverts the user ID and group ID of all files
-# below each user home directory whose name matches the name of an
-# existing user to the user ID and primary group ID of that user.
+# Utility program that reverts the user ID and group ID of all files below each
+# user home directory whose name matches the name of an existing user to the
+# user ID and primary group ID of that user.
 #
-# When invoked without arguments the program operates on all directories
-# below the `/home` directory. Otherwise on the given directory itself
-# or on all subdirectories thereof.
+# When invoked without arguments the program operates on all directories below
+# the `/home` directory. Otherwise on the given directory itself or on all
+# subdirectories thereof.
 #
 # Note: Changing filesystem object metadata usually requires super user
 # privileges which can be obtained with `sudo` and/or `su`.

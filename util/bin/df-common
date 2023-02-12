@@ -4,8 +4,8 @@
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Report the free disk space only for common file system types, i.e.
-# exclude negligible types of file systems.
+# Report the free disk space only for common file system types, i.e. exclude
+# negligible types of file systems.
 #
 # Deps:: bash, df, env
 

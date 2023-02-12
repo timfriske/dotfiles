@@ -4,17 +4,16 @@
 # ====================
 # Tim Friske <me@tifr.de>
 #
-# Utility program that finds only visible files and folders below the
-# given folder or current one by default.
+# Utility program that finds only visible files and folders below the given
+# folder or current one by default.
 #
-# Additional arguments may be specified in which case the first one is
-# treated as the search folder and the remaining ones as search
-# criteria.
+# Additional arguments may be specified in which case the first one is treated
+# as the search folder and the remaining ones as search criteria.
 #
 # Hidden files and folders are those starting with a dot sign. Hidden
-# directories are entirely skipped to speed up the search process.
-# Consider the `fd` program as a modern alternative to `find` because it
-# excludes hidden entries by default.
+# directories are entirely skipped to speed up the search process. Consider the
+# `fd` program as a modern alternative to `find` because it excludes hidden
+# entries by default.
 #
 # Deps:: bash, env, find
 

@@ -4,9 +4,8 @@
 # =============================
 # Tim Friske <me@tifr.de>
 #
-# Exports the given GnuPG public key in armored format to standard
-# output and clipboard for redirecting to a file or copying & pasting
-# respectively.
+# Exports the given GnuPG public key in armored format to standard output and
+# clipboard for redirecting to a file or copying & pasting respectively.
 #
 # Deps:: bash, cbc, env, gpg, tee
 

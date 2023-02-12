@@ -4,16 +4,16 @@
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Gets the Kubernetes labels of the given class of objects, e.g.
-# cronjobs, pods etc.
+# Gets the Kubernetes labels of the given class of objects, e.g. cronjobs, pods
+# etc.
 #
-# This script groups the labels by key and collects the values of each
-# key into its own array. During this first iteration values are likely
-# non-unique and unsorted. Therefore during a second pass the array of
-# values of each key is deduplicated and hereby also sorted.
+# This script groups the labels by key and collects the values of each key into
+# its own array. During this first iteration values are likely non-unique and
+# unsorted. Therefore during a second pass the array of values of each key is
+# deduplicated and hereby also sorted.
 #
-# Eventually the accumulated Kubernetes labels are printed as JSON
-# document with its object keys in sorted order for human-readability.
+# Eventually the accumulated Kubernetes labels are printed as JSON document with
+# its object keys in sorted order for human-readability.
 #
 # Deps:: bash, env, jq, kubectl
 

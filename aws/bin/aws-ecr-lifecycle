@@ -4,8 +4,8 @@
 # =========================
 # Tim Friske <me@tifr.de>
 #
-# Applies AWS ECR lifecycle policies from the given json file to the
-# given repositories of current registry.
+# Applies AWS ECR lifecycle policies from the given json file to the given
+# repositories of current registry.
 #
 # Deps:: aws, bash, env, jq
 

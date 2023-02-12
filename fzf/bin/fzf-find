@@ -47,9 +47,9 @@ write=1|true::
   Write new-line-terminated objects.
 
 The program _Fzf-find_ finds file system objects below the current
-folder with _Find_ for further consumption by _Fzf_.  By default it will
+folder with _Find_ for further consumption by _Fzf_. By default it will
 only find visible objects, i.e. those whose names don't start with the
-`.` dot sign.  This also excludes visible objects in hidden folders.
+`.` dot sign. This also excludes visible objects in hidden folders.
 With _Fzf-find's_ `hidden` variable set to either `1` or `true` hidden
 objects can be found too.
 
@@ -62,9 +62,9 @@ are excluded from search and therefore their contents not printed.
 These are currently `sysfs`, `devfs`, `devtmpfs` and `proc`.
 
 When _Fzf-find's_ standard output stream is connected to a terminal it
-writes each object on a new line.  Otherwise, e.g. when _Fzf-find_
+writes each object on a new line. Otherwise, e.g. when _Fzf-find_
 writes to a file or another program, it terminates each object with a
-`\0` null character.  The latter decision may be overridden by passing
+`\0` null character. The latter decision may be overridden by passing
 _Fzf-find's_ `write` variable set to either `1` or `true`.
 HELP
 }

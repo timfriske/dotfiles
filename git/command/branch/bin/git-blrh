@@ -4,9 +4,8 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Lists the default branches of all remotes or the one of the given
-# remote, i.e. the branch the HEAD symbolic reference below each remote
-# point to.
+# Lists the default branches of all remotes or the one of the given remote, i.e.
+# the branch the HEAD symbolic reference below each remote point to.
 #
 # Deps:: bash, env, git-branch
 

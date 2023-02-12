@@ -4,8 +4,7 @@
 # ===================================
 # Tim Friske <me@tifr.de>
 #
-# Replaces the given old persistent volume claim (PVC) with the given
-# new one.
+# Replaces the given old persistent volume claim (PVC) with the given new one.
 #
 # Deps:: bash, env, jq, kubectl
 

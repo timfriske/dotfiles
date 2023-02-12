@@ -4,11 +4,11 @@
 # ===================
 # Tim Friske <me@tifr.de>
 #
-# Prints the distribution of Kubernetes pods across nodes and zones.
-# Output columns: POD NAME, NODE NAME, -TYPE, -ZONE, POD STATUS
+# Prints the distribution of Kubernetes pods across nodes and zones. Output
+# columns: POD NAME, NODE NAME, -TYPE, -ZONE, POD STATUS
 #
-# Deps:: bash, column, env, join, k8s-pod-node-status,
-# Deps:: k8s-node-type-zone, sort
+# Deps:: bash, column, env, join, k8s-pod-node-status, Deps::
+# k8s-node-type-zone, sort
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace

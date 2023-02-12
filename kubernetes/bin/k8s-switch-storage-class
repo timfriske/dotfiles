@@ -4,8 +4,7 @@
 # ========================
 # Tim Friske <me@tifr.de>
 #
-# Switches the Kubernetes storage class from the given old to new
-# default class.
+# Switches the Kubernetes storage class from the given old to new default class.
 #
 # Deps:: env, kubectl, sh
 

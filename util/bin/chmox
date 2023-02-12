@@ -6,9 +6,8 @@
 #
 # Make the given file(s) executable and the given folder(s) traversable.
 #
-# Note: Changing the permissions of filesystem objects with `chmod`
-# usually requires super user privileges which can be obtained with
-# `sudo` and/or `su`.
+# Note: Changing the permissions of filesystem objects with `chmod` usually
+# requires super user privileges which can be obtained with `sudo` and/or `su`.
 #
 # Deps:: bash, chmod, env
 

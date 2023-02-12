@@ -4,11 +4,10 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Resets the user's name, email and signing key in a Git repository's
-# local configuration. The user is prompted for each setting with the
-# previous value preset. If none of the settings exist locally the
-# configuration file is not touched. The same goes if all settings
-# stayed the same.
+# Resets the user's name, email and signing key in a Git repository's local
+# configuration. The user is prompted for each setting with the previous value
+# preset. If none of the settings exist locally the configuration file is not
+# touched. The same goes if all settings stayed the same.
 #
 # Deps:: bash, env, git-config
 

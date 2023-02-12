@@ -4,9 +4,8 @@
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Remove files, ignore nonexistent files and arguments, never prompt.
-# Do not remove the root directory and everything below it. Explain
-# what is being done.
+# Remove files, ignore nonexistent files and arguments, never prompt. Do not
+# remove the root directory and everything below it. Explain what is being done.
 #
 # Deps:: bash, env, rm
 

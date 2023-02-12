@@ -47,9 +47,9 @@ write=1|true::
   Write new-line-terminated objects.
 
 The program _Fzf-fd_ finds file system objects below the current folder
-with _Fd_ for further consumption by _Fzf_.  By default it will only
+with _Fd_ for further consumption by _Fzf_. By default it will only
 find visible objects, i.e. those whose names don't start with the `.`
-dot sign.  This also excludes visible objects in hidden folders.  With
+dot sign. This also excludes visible objects in hidden folders. With
 _Fzf-find's_ `hidden` variable set to either `1` or `true` hidden
 objects can be found too.
 
@@ -57,9 +57,9 @@ With the `kind` variable set to either `file`, `folder` or `link`
 _Fzf-fd_ may be restricted to find objects of a certain type only.
 
 When _Fzf-fd's_ standard output stream is connected to a terminal it
-writes each object on a new line.  Otherwise, e.g. when _Fzf-fd_ writes
+writes each object on a new line. Otherwise, e.g. when _Fzf-fd_ writes
 to a file or another program, it terminates each object with a `\0` null
-character.  The latter decision may be overridden by passing _Fzf-fd's_
+character. The latter decision may be overridden by passing _Fzf-fd's_
 `write` variable set to either `1` or `true`.
 HELP
 }

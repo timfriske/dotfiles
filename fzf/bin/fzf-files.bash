@@ -2,16 +2,16 @@
 # ==========================================
 # Tim Friske <me@tifr.de>
 #
-# This utility program searches below the current folder for files and
-# if found, quotes any special characters in their names, sorts them by
-# version and let the user fuzzy-find and pick one or more of them
-# interactively.
+# This utility program searches below the current folder for files and if found,
+# quotes any special characters in their names, sorts them by version and let
+# the user fuzzy-find and pick one or more of them interactively.
 #
-# Note that this _Bash_ file is intended for interactive use.  It should
-# be sourced by a parent shell and bound to a hot key such as `Ctrl-af`
-# (mnemonic `all files') as follows:
+# Note that this _Bash_ file is intended for interactive use. It should be
+# sourced by a parent shell and bound to a hot key such as `Ctrl-af` (mnemonic
+# `all files') as follows:
 #
 # .Intended usage
+# [source,bash]
 # ----
 # # Test if fuzzy finder program _Fzf_ is installed.
 # if type -p fzf &> /dev/null; then

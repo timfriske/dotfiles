@@ -6,8 +6,8 @@
 #
 # Shows _GMT_ _Greenwich Mean Time_.
 #
-# Prints `date-gmt: DATE-GMT` if standard output file descriptor is
-# connected to terminal, else just `DATE-GMT`.
+# Prints `date-gmt: DATE-GMT` if standard output file descriptor is connected to
+# terminal, else just `DATE-GMT`.
 #
 # Deps:: bash, date, env
 

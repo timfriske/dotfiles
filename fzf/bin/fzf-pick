@@ -47,21 +47,21 @@ opts="<fzf-opt-1> <fzf-opt-2> ..."::
 
 The program _Fzf-pick_ reads records from the standard input stream,
 presents them in an interactive search screen to the user and waits for
-her/him to fuzzy-find and pick the records s/he is interested in.  Once
+her/him to fuzzy-find and pick the records s/he is interested in. Once
 the user made her/his selection _Fzf-pick_ writes the selected records
 to the standard output stream.
 
 When _Fzf-pick's_ standard input stream is connected to a terminal it
-expects each record to appear on a new line.  Otherwise, e.g. when
+expects each record to appear on a new line. Otherwise, e.g. when
 _Fzf-pick_ reads from a file or another program, it assumes each record
-to be terminated with a `\0` null character.  The latter assumption may
+to be terminated with a `\0` null character. The latter assumption may
 be overridden by passing _Fzf-pick's_ `read` variable set to either `1`
 or `true`.
 
 When _Fzf-pick's_ standard output stream is connected to a terminal it
-writes each record on a new line.  Otherwise, e.g. when _Fzf-pick_
+writes each record on a new line. Otherwise, e.g. when _Fzf-pick_
 writes to a file or another program, it terminates each record with a
-`\0` null character.  The latter decision may be overridden by passing
+`\0` null character. The latter decision may be overridden by passing
 _Fzf-pick's_ `write` variable set to either `1` or `true`.
 HELP
 }
@@ -89,7 +89,7 @@ function pick_records {
   fzf "${env_opts[@]}" "${prg_opts[@]}" "${opt_read[@]}" "${opt_print[@]}"
 }
 
-fzf_pick() {
+function fzf_pick {
   if [[ "${1:-}" == --help ]]; then
     print_help
     exit

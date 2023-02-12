@@ -4,21 +4,19 @@
 # =================
 # Tim Friske <me@tifr.de>
 #
-# Simple utility program to view a file. If the given file does not
-# exist it is searched in the directories listed in the `PATH`
-# environment variable and the first match is viewed if any. In case
-# the wrong number of arguments were given or the file could not be
-# found an error message is printed and this program aborts with a non-
-# zero exit status.
+# Simple utility program to view a file. If the given file does not exist it is
+# searched in the directories listed in the `PATH` environment variable and the
+# first match is viewed if any. In case the wrong number of arguments were given
+# or the file could not be found an error message is printed and this program
+# aborts with a non- zero exit status.
 #
-# The file is viewed with a pager program. The pagers `less` and `more`
-# are used unless another one is chosen via the `PAGER` environment
-# variable. The pager program must recognize a double dash as the end-
-# of-options marker and accept the given file as its first positional
-# argument.
+# The file is viewed with a pager program. The pagers `less` and `more` are used
+# unless another one is chosen via the `PAGER` environment variable. The pager
+# program must recognize a double dash as the end- of-options marker and accept
+# the given file as its first positional argument.
 #
-# Think about aliasing this helper program as e.g. `fv` (`file-view`)
-# should you be using it frequently.
+# Think about aliasing this helper program as e.g. `fv` (`file-view`) should you
+# be using it frequently.
 #
 # Deps:: env, less, more, sh
 

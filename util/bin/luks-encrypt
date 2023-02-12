@@ -4,19 +4,17 @@
 # ==============================
 # Tim Friske <me@tifr.de>
 #
-# Encrypts a device according to the LUKS Linux Unified Key Setup
-# standard. That device is usually a portable USB drive but could also
-# be a virtual block device accessed through a previously created loop
-# file.
+# Encrypts a device according to the LUKS Linux Unified Key Setup standard. That
+# device is usually a portable USB drive but could also be a virtual block
+# device accessed through a previously created loop file.
 #
-# Important note: By executing this program all files on the specified
-# device are irrevocably erased. Make sure to have a working backup of
-# the files.
+# Important note: By executing this program all files on the specified device
+# are irrevocably erased. Make sure to have a working backup of the files.
 #
 # Important note: Executing this command usually requires administrator
-# privileges. If you do not have permission to do so try to rerun this
-# program with `sudo`, `su` etc. this time authenticating as a user
-# with appropriate permissions.
+# privileges. If you do not have permission to do so try to rerun this program
+# with `sudo`, `su` etc. this time authenticating as a user with appropriate
+# permissions.
 #
 # Deps:: bash, cryptsetup, env
 

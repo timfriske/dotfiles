@@ -4,9 +4,8 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Copy data from standard input to clipboard with one of `xclip`, `xsel`
-# or `pbcopy`.  Input may come from a file or process via shell
-# redirection.
+# Copy data from standard input to clipboard with one of `xclip`, `xsel` or
+# `pbcopy`. Input may come from a file or process via shell redirection.
 #
 # Deps:: env, pbpaste, sh, xclip, xsel
 

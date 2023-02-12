@@ -4,9 +4,9 @@
 # ===========
 # Tim Friske <me@tifr.de>
 #
-# Run the given command on every argument usually read from a pipe. The
-# alias `map` resembles the well-known mathematical term `mapping' also
-# known as `map'.
+# Run the given command on every argument usually read from a pipe. The alias
+# `map` resembles the well-known mathematical term `mapping' also known as
+# `map'.
 #
 # Deps:: bash, env, xargs
 

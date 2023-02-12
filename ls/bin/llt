@@ -4,9 +4,9 @@
 # ==========
 # Tim Friske <me@tifr.de>
 #
-# Lists information about given files or files in current working
-# directory by default. Lists files in long format, i.e. with additional
-# information. Sorts files by time in ascending order.
+# Lists information about given files or files in current working directory by
+# default. Lists files in long format, i.e. with additional information. Sorts
+# files by time in ascending order.
 #
 # Deps:: bash, env, ls
 

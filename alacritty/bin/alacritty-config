@@ -5,11 +5,11 @@
 # Tim Friske <me@tifr.de>
 #
 # Configures the Alacritty terminal emulator with one of the preset
-# configuration files underneath its configuration directory, namely
-# either `${XDG_CONFIG_HOME}/alacritty` or `${HOME}/.config/alacritty`.
+# configuration files underneath its configuration directory, namely either
+# `${XDG_CONFIG_HOME}/alacritty` or `${HOME}/.config/alacritty`.
 #
-# Deps:: alacritty, basename, bash, cut, env, find, fzf, ln, nl
-# Deps:: realpath, sort, xargs
+# Deps:: alacritty, basename, bash, cut, env, find, fzf, ln, nl realpath, sort,
+# Deps:: xargs
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace

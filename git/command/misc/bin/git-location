@@ -4,8 +4,8 @@
 # ============
 # Tim Friske <tifr@me.de>
 #
-# Display the location, i.e. the _Git_ branch, tag or commit at which
-# the symbolic ref `HEAD` points.
+# Display the location, i.e. the _Git_ branch, tag or commit at which the
+# symbolic ref `HEAD` points.
 #
 # Deps:: bash, env, git
 

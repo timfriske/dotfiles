@@ -4,8 +4,8 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Show the current branch name by default unless another Git branch
-# operation is chosen by passing arguments.
+# Show the current branch name by default unless another Git branch operation is
+# chosen by passing arguments.
 #
 # Deps:: bash, env, git-branch
 

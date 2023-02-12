@@ -4,11 +4,11 @@
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Backs up _OpenPGP_ keys with _GPG_ by either exporting all keys from
-# all key rings or, if at least one name is given, those of the given
-# names.  The backup is written in _GnuPG's_ binary format to the backup
-# file given as the first argument.  Any further arguments are treated
-# as the names of the keys to back up.
+# Backs up _OpenPGP_ keys with _GPG_ by either exporting all keys from all key
+# rings or, if at least one name is given, those of the given names. The backup
+# is written in _GnuPG's_ binary format to the backup file given as the first
+# argument. Any further arguments are treated as the names of the keys to back
+# up.
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
@@ -24,8 +24,8 @@ function backup_file {
       echo "File '$file_to_backup' must be readable."
       exit 2
     fi
-    # Back up the latest backup file which will be replaced by a new
-    # one under the same name.
+    # Back up the latest backup file which will be replaced by a new one under
+    # the same name.
     chmod u=r,go= -- "$file_to_backup"
     cp --force --backup=numbered --archive \
       -- "$file_to_backup" "$file_to_backup"
@@ -34,7 +34,6 @@ function backup_file {
 }
 
 # Backs up either all keys or those of the given names.
-#
 function gpg_backup {
   # Output _GPG_ version with which _OpenPGP_ keys are generated.
   gpg --version
@@ -71,8 +70,8 @@ function gpg_backup {
     "${@:2}"
   chmod u=r,go= -- "$backup_name.ssb.gpg"
 
-  # Backup the owner trusts in order to be able to restore the Web of
-  # Trust database later:
+  # Backup the owner trusts in order to be able to restore the Web of Trust
+  # database later:
   backup_file "$backup_name.ownertrust.txt"
   gpg --export-ownertrust > "$backup_name.ownertrust.txt"
   chmod u=r,go= -- "$backup_name.ownertrust.txt"

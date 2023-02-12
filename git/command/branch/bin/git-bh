@@ -4,8 +4,7 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Sets the default branch marker of the given remote to the given
-# branch.
+# Sets the default branch marker of the given remote to the given branch.
 #
 # Deps:: bash, env, git-remote
 

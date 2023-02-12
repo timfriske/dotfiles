@@ -4,12 +4,11 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Shows local date in ISO-8601 format up to the given precision or
-# seconds by default.
+# Shows local date in ISO-8601 format up to the given precision or seconds by
+# default.
 #
-# Prints `date-ldt-iso-8601-FMT: DATE-LDT-ISO-8601-FMT` if standard
-# output file descriptor is connected to terminal, else just
-# `DATE-LDT-ISO-8601-FMT`.
+# Prints `date-ldt-iso-8601-FMT: DATE-LDT-ISO-8601-FMT` if standard output file
+# descriptor is connected to terminal, else just `DATE-LDT-ISO-8601-FMT`.
 #
 # Deps:: bash, date, env
 

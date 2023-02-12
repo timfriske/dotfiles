@@ -4,19 +4,18 @@
 # =====================
 # Tim Friske <me@tifr.de>
 #
-# Lists light-weight tags of given remote repository or `origin` by
-# default. In other words remote unannotated, unsigned tags.
+# Lists light-weight tags of given remote repository or `origin` by default. In
+# other words remote unannotated, unsigned tags.
 #
 # Deps:: awk, bash, env, git-ls-remote, uniq
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-# List remote tags. Drop commit IDs in first column. Keep tags in
-# second column. Strip prefix `refs/tags/` and suffix `^{}` from
-# tags. Keep light-weight tags, i.e. those that appear once because
-# they are already references which cannot be dereferenced and thus
-# are not printed a second time ending in `^{}`.
+# List remote tags. Drop commit IDs in first column. Keep tags in second column.
+# Strip prefix `refs/tags/` and suffix `^{}` from tags. Keep light-weight tags,
+# i.e. those that appear once because they are already references which cannot
+# be dereferenced and thus are not printed a second time ending in `^{}`.
 git ls-remote --tags "${@:-origin}" \
   | awk '{sub("refs/tags/","",$2);sub(/\^\{\}$/,"",$2);print $2}' \
   | uniq --unique

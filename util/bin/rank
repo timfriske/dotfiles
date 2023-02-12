@@ -4,8 +4,8 @@
 # ============
 # Tim Friske <me@tifr.de>
 #
-# Count the number of occurrences and list them in ascending order of
-# their counts.
+# Count the number of occurrences and list them in ascending order of their
+# counts.
 #
 # Deps:: bash, env, sort, uniq
 

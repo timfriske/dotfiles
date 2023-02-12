@@ -4,10 +4,10 @@
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Rank Kubernetes nodes by (availability-) zone (data center) they are
-# located at as an indicator to fault tolerance in the event one of the
-# zones becomes unavailable, e.g. due to some disastrous event like a
-# natural disaster or cyber attack.
+# Rank Kubernetes nodes by (availability-) zone (data center) they are located
+# at as an indicator to fault tolerance in the event one of the zones becomes
+# unavailable, e.g. due to some disastrous event like a natural disaster or
+# cyber attack.
 #
 # Deps:: bash, env, kubectl, rank
 

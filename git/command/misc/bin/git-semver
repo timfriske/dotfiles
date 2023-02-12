@@ -4,8 +4,7 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Prints Git semantic version in JSON format mainly for programmatic
-# access.
+# Prints Git semantic version in JSON format mainly for programmatic access.
 #
 # Deps:: bash, env, git-version, jq
 

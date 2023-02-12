@@ -4,8 +4,8 @@
 # ===================
 # Tim Friske <me@tifr.de>
 #
-# Utility program that finds only binary files below the given folder
-# or current one, excluding hidden directories by default.
+# Utility program that finds only binary files below the given folder or current
+# one, excluding hidden directories by default.
 #
 # Deps:: bash, env, grep
 
@@ -19,7 +19,7 @@ function find_binary_files {
 if (( "${#}" > 0 )); then
   find_binary_files "${@}"
 else
-  # Start searching from current working directory, excluding hidden
-  # directories by default if no arguments were given.
+  # Start searching from current working directory, excluding hidden directories
+  # by default if no arguments were given.
   find_binary_files --exclude-dir='.*' -- "${PWD}"
 fi

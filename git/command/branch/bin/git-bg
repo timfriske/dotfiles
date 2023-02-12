@@ -4,8 +4,7 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Lists each local branch whose remote tracking branch is gone on a new
-# line.
+# Lists each local branch whose remote tracking branch is gone on a new line.
 #
 # Deps:: bash, env, git-for-each-ref, sed, xargs
 
