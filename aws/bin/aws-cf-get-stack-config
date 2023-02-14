@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# AWS CloudFormation Get Stack Configuration command
+# ==================================================
+# Tim Friske <me@tifr.de>
+#
+# Describes the given AWS CloudFormation stack and derives its configuration
+# which can be stored in a JSON file. This file can be put under version control
+# and used to track the stack's configuration as it might have changed over time.
+#
+# Deps:: aws, bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+cf_stack_name="${1:-"${cf_stack_name:?required}"}"
+aws cloudformation describe-stacks --stack-name "${cf_stack_name}" \
+    | jq '.Stacks[0]|del(.StackId,.ChangeSetId,.CreationTime,.LastUpdatedTime,.StackStatus,.DriftInformation)'
