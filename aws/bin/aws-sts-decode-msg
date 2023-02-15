@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# AWS STS Decode Message
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Decodes the given Base64-encoded message.
+#
+# Deps:: aws, bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+encoded_message="${1:-"${encoded_message:?required}"}"
+aws sts decode-authorization-message --encoded-message "${encoded_message}" \
+  | jq '. + {DecodedMessage:.DecodedMessage|fromjson}'
