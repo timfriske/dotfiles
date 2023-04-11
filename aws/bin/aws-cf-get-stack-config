@@ -13,6 +13,20 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-cf_stack_name="${1:-"${cf_stack_name:?required}"}"
-aws cloudformation describe-stacks --stack-name "${cf_stack_name}" \
-  | jq '.Stacks[0]|del(.StackId,.ChangeSetId,.CreationTime,.DeletionTime,.LastUpdatedTime,.StackStatus,.DriftInformation)'
+cf_stack_name="${1:?cf_stack_name}"
+
+read -d '' -r cf_stack_query <<'CF_STACK_QUERY' || true
+  .Stacks[0]
+  | del(
+    .StackId,
+    .ChangeSetId,
+    .CreationTime,
+    .DeletionTime,
+    .LastUpdatedTime,
+    .DriftInformation,
+    .StackStatus,
+    .StackStatusReason
+  )
+CF_STACK_QUERY
+
+aws cloudformation describe-stacks --stack-name "${cf_stack_name}" | jq "${cf_stack_query}"

@@ -32,7 +32,7 @@ for aws_ec2_it in "${@:?AWS EC2 instance types required}"; do
   aws_ec2_instance_types+=("${aws_ec2_its[@]}")
 done
 
-read -d '' -r aws_ec2_spot_price_stats_query <<'EOF' || true
+read -d '' -r aws_ec2_spot_price_stats_query <<'AWS_EC2_SPOT_PRICE_STATS_QUERY' || true
   def avg:add/length;
   def mdn:sort|[.[length/2|ceil|-.,.-1]/2?]|add;
   def rnd($dp):.*pow(10;$dp)|round/pow(10;$dp);
@@ -52,7 +52,7 @@ read -d '' -r aws_ec2_spot_price_stats_query <<'EOF' || true
     min:min,max:max,avg:avg|rnd(4),mdn:mdn|rnd(4),cnt:length}))
   | map_values({per:.,all:to_entries|[.[].value]|stat})
   | {per:.,all:to_entries|[.[].value.all]|stat}
-EOF
+AWS_EC2_SPOT_PRICE_STATS_QUERY
 
 aws ec2 describe-spot-price-history \
   --region "${aws_region}" \
