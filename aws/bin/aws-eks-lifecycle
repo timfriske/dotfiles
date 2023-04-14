@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# AWS EKS Lifecycle command
+# =========================
+# Tim Friske <me@tifr.de>
+#
+# Lists the running AWS EC2 instances and their lifecycles of the given Amazon
+# EKS cluster, i.e. whether they are (more expensive) on-demand or (cheaper)
+# spot instances.
+#
+# Deps:: aws-ec2-lifecycle, bash, env
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+cluster="${1:-"${cluster:?required}"}"
+args=("${@:2}")
+
+aws-ec2-lifecycle --filters "Name=tag:aws:eks:cluster-name,Values=${cluster}" "${args[@]}"
