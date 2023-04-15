@@ -12,16 +12,18 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-policies=(Delete Retain Recycle)
+# Input parameters and validation:
+pv="${1:-"${pv:?required}"}"
+policy="${2:-"${policy:?required}"}"
+case "${policy}" in
+  [Dd]elete|[Rr]ecycle|[Rr]etain);;
+  *)
+    echo >&2 "Reclaim policy is invalid: ${policy}"
+    echo >&2 "Reclaim policy must be either one of (case-insenitive): Delete Recycle Retain"
+    echo >&2 "Aborting with non-zero exit code 1..."
+    exit 1
+    ;;
+esac
 
-: "${1:?Persistent volume required}"
-: "${2:?Reclaim policy required}"
-
-if [[ ! " ${policies[*]} " =~ " ${2:+"${2^}"} " ]]; then
-  echo >&2 "Reclaim policy is invalid: ${2:-}"
-  echo >&2 "Reclaim policy must be one of: ${policies[*]}"
-  exit 1
-fi
-
-kubectl patch persistentvolume "${1}" \
-  --patch "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"${2^}\"}}"
+kubectl patch persistentvolume "${pv}" \
+  --patch "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"${policy^}\"}}"
