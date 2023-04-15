@@ -11,12 +11,24 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-phases=(Pending Running Succeeded Failed Unknown)
+# Enable advanced pattern matching.
+shopt -s extglob
 
-if [[ ! " ${phases[*]} " =~ " ${1+${1^}} " ]]; then
-  echo >&2 "Status phase of Kubernetes pod must be one of: ${phases[*]}"
-  exit 1
-fi
-
+# Input parameters and validation:
+phase="${1:-"${phase:?required}"}"
+case "${phase}" in
+  [Ff]?(ailed)) phase=Failed;;
+  [Pp]?(ending)) phase=Pending;;
+  [Rr]?(unning)) phase=Running;;
+  [Ss]?(ucceeded)) phase=Succeeded;;
+  [Uu]?(nknown)) phase=Unknown;;
+  *)
+    echo >&2 "Phase is invalid: ${phase}"
+    echo >&2 "Phase must be either one of (case-insenitive): F(ailed) P(ending) R(unning) S(ucceeded) U(nknown)"
+    echo >&2 "Aborting with non-zero exit code 1..."
+    exit 1
+    ;;
+esac
 args=("${@:2}")
-kubectl get pods --field-selector "status.phase=${1^}" "${args[@]}"
+
+kubectl get pods --field-selector="status.phase==${phase}" "${args[@]}"
