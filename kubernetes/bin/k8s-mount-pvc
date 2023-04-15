@@ -21,9 +21,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-: "${1:?Persistent volume claim required}"
-
-pvc="${1}"
+pvc="${1:-"${pvc:?required}"}"
 
 echo "Creating Kubernetes Pod 'k8s-mount-pvc-${pvc}' ..."
 echo "Creating Kubernetes Container 'mount' inside 'k8s-mount-pvc-${pvc}' ..."

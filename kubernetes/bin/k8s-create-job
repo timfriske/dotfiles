@@ -16,7 +16,7 @@
 shopt -os nounset pipefail errexit errtrace
 
 function create_job {
-  local cronjob="${1?-required}" job
+  local cronjob="${1:?cronjob}" job
   job="${cronjob}-$(printf '%05d' "${RANDOM}")"
   kubectl create job --from "cronjob/${cronjob}" "${job}"
   kubectl wait --for condition=Ready --timeout 60s pod --selector "job-name==${job}"

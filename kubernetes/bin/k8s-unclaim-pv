@@ -12,6 +12,6 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-: "${1:?persistent volume required}"
+pv="${1:-"${pv:?required}"}"
 
-kubectl patch persistentvolume "${1}" --patch '{"spec":{"claimRef": null}}'
+kubectl patch persistentvolume "${pv}" --patch '{"spec":{"claimRef": null}}'
