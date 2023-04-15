@@ -12,18 +12,22 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
+# Enable advanced pattern matching.
+shopt -s extglob
+
 # Input parameters and validation:
 pv="${1:-"${pv:?required}"}"
 policy="${2:-"${policy:?required}"}"
 case "${policy}" in
-  [Dd]elete|[Rr]ecycle|[Rr]etain);;
+  [Dd]?(elete))policy=Delete;;
+  [Rr]ec?(ycle))policy=Recycle;;
+  [Rr]et?(ain))policy=Retain;;
   *)
     echo >&2 "Reclaim policy is invalid: ${policy}"
-    echo >&2 "Reclaim policy must be either one of (case-insenitive): Delete Recycle Retain"
+    echo >&2 "Reclaim policy must be either one of (case-insenitive): D(elete) Rec(ycle) Ret(ain)"
     echo >&2 "Aborting with non-zero exit code 1..."
     exit 1
     ;;
 esac
-
-kubectl patch persistentvolume "${pv}" \
-  --patch "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"${policy^}\"}}"
+policy_patch="$(printf '{"spec":{"persistentVolumeReclaimPolicy":"%s"}}' "${policy}")"
+kubectl patch persistentvolume "${pv}" --patch "${policy_patch}"
