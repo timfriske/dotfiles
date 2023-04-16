@@ -4,12 +4,29 @@
 # ========================
 # Tim Friske <me@tifr.de>
 #
-# Lists the names of the AWS EKS clusters in a certain region, one cluster name
-# per line.
+# Prints the names of AWS EKS clusters sorted by name optionally selecting the
+# clusters by the given regular expressions (regex). When giving multiple
+# regexes at least one of them must match (any; logical OR).
 #
 # Deps:: aws, bash, env, jq
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-aws eks list-clusters --output json "${@}" | jq --raw-output '.clusters[]'
+# Input parameters and validation:
+names=("${@}") # optional
+
+function cluster_names {
+  aws eks list-clusters --output json | jq '.clusters|sort'
+}
+
+function select_by_name {
+  local names=("${@}");: "${names:?required}"
+  jq 'map(select(. as $name|$ARGS.positional|any(. as $arg|$name|test($arg;"i"))))' --args -- "${names[@]}"
+}
+
+if (( "${#names[@]}" == 0 )); then
+  cluster_names
+else
+  cluster_names | select_by_name "${names[@]}"
+fi
