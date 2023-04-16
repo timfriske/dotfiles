@@ -14,7 +14,8 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-aws_eks_cluster="${1:?'AWS EKS cluster required'}"
+# Input parameters and validation:
+cluster="${1:-"${cluster:?required}"}"
 
 function list_asg_az {
   aws autoscaling describe-auto-scaling-groups \
@@ -26,7 +27,7 @@ function list_asg_az {
 declare -A azs_by_asg
 while IFS=$'\t' read -r asg az; do
   azs_by_asg["${asg}"]="${az}"
-done < <(list_asg_az "${aws_eks_cluster}")
+done < <(list_asg_az "${cluster}")
 
 for asg in "${!azs_by_asg[@]}"; do
   az="${azs_by_asg[${asg}]}"
