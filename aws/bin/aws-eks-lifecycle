@@ -13,7 +13,8 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
+# Input parameters and validation:
 cluster="${1:-"${cluster:?required}"}"
-args=("${@:2}")
+args=("${@:2}") # optional
 
 aws-ec2-lifecycle --filters "Name=tag:aws:eks:cluster-name,Values=${cluster}" "${args[@]}"
