@@ -16,7 +16,7 @@ shopt -os nounset pipefail errexit errtrace
 
 function node_zones {
   local columns=(
-    'TYPE:metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
+    'ZONE:metadata.labels.failure-domain\.beta\.kubernetes\.io/zone'
   )
   kubectl get nodes --no-headers --output custom-columns="$(IFS=,; printf '%s' "${columns[*]}")"
 }
