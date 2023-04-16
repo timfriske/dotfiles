@@ -4,19 +4,30 @@
 # =====================
 # Tim Friske <me@tifr.de>
 #
-# Prints name or given key of AWS ECR repositories in current registry.
+# Prints the names of AWS ECR repositories (repo) sorted by name in the registry
+# of the account optionally selecting the repos by the given regular expressions
+# (regex). When giving multiple regexes at least one of them must match (any;
+# logical OR).
 #
-# Deps:: aws, bash, env
+# Deps:: aws, bash, env, jq
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-function main {
-  local key="${1:-repositoryName}"
-  aws ecr describe-repositories \
-    --output "${AWS_DEFAULT_OUTPUT:-text}" \
-    --query "repositories[].{${key}:${key}}" \
-    "${@:2}"
+# Input parameters and validation:
+names=("${@}") # optional
+
+function repo_names {
+  aws ecr describe-repositories --output json | jq '.repositories|map(.repositoryName)|sort'
 }
 
-main "${@}"
+function select_by_name {
+  local names=("${@}");: "${names:?required}"
+  jq 'map(select(. as $name|$ARGS.positional|any(. as $arg|$name|test($arg;"i"))))' --args -- "${names[@]}"
+}
+
+if (( "${#names[@]}" == 0 )); then
+  repo_names
+else
+  repo_names | select_by_name "${names[@]}"
+fi
