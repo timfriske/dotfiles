@@ -15,12 +15,33 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
+# Enable advanced pattern matching.
+shopt -s extglob
+
+# Input parameters and validation:
+cronjob="${1:-"${cronjob:?required}"}"
+follow_up_action="${2:-logs}" # optional
+case "${follow_up_action}" in
+  @(logs|wait)?(=@(false|true)));;
+  *)
+    printf >&2 'Invalid follow-up action: %s\n' "${follow_up_action}"
+    printf >&2 'Follow-up action must be either one of: logs wait\n'
+    printf >&2 'Follow-up action can be assigned either one of: false true\n'
+    printf >&2 'Aborting with non-zero exit code 1...\n'
+    exit 1
+    ;;
+esac
+
 function create_job {
-  local cronjob="${1:?cronjob}" job
-  job="${cronjob}-$(printf '%05d' "${RANDOM}")"
-  kubectl create job --from "cronjob/${cronjob}" "${job}"
-  kubectl wait --for condition=Ready --timeout 60s pod --selector "job-name==${job}"
-  kubectl logs --follow --selector "job-name==${job}"
+  local cronjob="${1:?cronjob}" follow_up_action="${2:?follow_up_action}"
+  local job; job="${cronjob}-$(printf '%05d' "${RANDOM}")"
+  kubectl create job --from="cronjob/${cronjob}" "${job}"
+  if [[ "${follow_up_action}" =~ ^(logs|wait)(=true)?$ ]]; then
+    kubectl wait pod --for=condition=Ready --timeout=60s --selector="job-name==${job}"
+  fi
+  if [[ "${follow_up_action}" =~ ^logs(=true)?$ ]]; then
+    kubectl logs --follow --selector="job-name==${job}"
+  fi
 }
 
-create_job "${@}"
+create_job "${cronjob}" "${follow_up_action}"
