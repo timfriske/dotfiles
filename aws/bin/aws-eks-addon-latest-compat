@@ -9,13 +9,15 @@
 #
 # For example: aws-eks-addon-latest-compat aws-ebs-csi-driver 1.25
 #
-# Deps:: aws, bash, env
+# Deps:: aws, bash, env, jq
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-aws_eks_addon="${1:-"${aws_eks_addon:?required}"}"
-aws_eks_kubernetes_version="${2:-"${aws_eks_kubernetes_version:?required}"}"
-aws eks describe-addon-versions --addon-name "${aws_eks_addon}" \
-  | jq --raw-output --arg cv "${aws_eks_kubernetes_version}" \
+# Input parameters and validation:
+addon="${1:-"${addon:?required}"}"
+kubernetes_version="${2:-"${kubernetes_version:?required}"}"
+
+aws eks describe-addon-versions --addon-name "${addon}" \
+  | jq --raw-output --arg cv "${kubernetes_version}" \
     '.addons[0].addonVersions[]|select(.compatibilities[]|.clusterVersion==$cv and .defaultVersion==true).addonVersion'
