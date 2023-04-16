@@ -11,11 +11,13 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-: "${1:?old persistent volume claim required}"
-: "${2:?new persistent volume claim required}"
+# Input parameters and validation:
+old="${1:-"${old:?required}"}"
+new="${1:-"${new:?required}"}"
 
+# Read multi-line jq script into variable for legibility.
 read -r -d '' JQ_REPLACE_PVC <<'JQ_REPLACE_PVC' || true
-.metadata.name = $new_pvc
+.metadata.name = $new
 | with_entries(
     select([.key] |
       inside(["metadata", "spec", "apiVersion", "kind"]))
@@ -27,5 +29,5 @@ read -r -d '' JQ_REPLACE_PVC <<'JQ_REPLACE_PVC' || true
   )
 JQ_REPLACE_PVC
 
-kubectl get persistentvolumeclaim "${1}" --output json \
-  | jq --arg new_pvc "${2}" "${JQ_REPLACE_PVC}"
+kubectl get persistentvolumeclaim "${old}" --output json \
+  | jq --arg new "${new}" "${JQ_REPLACE_PVC}"
