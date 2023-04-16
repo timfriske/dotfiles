@@ -13,9 +13,11 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-cf_stack_name="${1:?cf_stack_name}"
+# Input parameters and validation:
+stack_name="${1:-"${stack_name:?required}"}"
 
-read -d '' -r cf_stack_query <<'CF_STACK_QUERY' || true
+# Read multi-line jq script into variable for legibility.
+read -d '' -r jq_stack_query <<'JQ_STACK_QUERY' || true
   .Stacks[0]
   | del(
     .StackId,
@@ -27,6 +29,6 @@ read -d '' -r cf_stack_query <<'CF_STACK_QUERY' || true
     .StackStatus,
     .StackStatusReason
   )
-CF_STACK_QUERY
+JQ_STACK_QUERY
 
-aws cloudformation describe-stacks --stack-name "${cf_stack_name}" | jq "${cf_stack_query}"
+aws cloudformation describe-stacks --stack-name "${stack_name}" | jq "${jq_stack_query}"

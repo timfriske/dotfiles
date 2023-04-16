@@ -13,7 +13,7 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-# Input parameters:
+# Input parameters and validation:
 template_file="${1:-"${template_file:?required}"}"
 config_file="${2:-"${config_file:?required}"}"
 stack_name="${3:-"${stack_name:-}"}" # optional override
