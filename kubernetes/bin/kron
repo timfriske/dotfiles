@@ -7,26 +7,33 @@
 # Lets the user interactively filter and select from a list of Kubernetes
 # cronjobs the ones to manage, e.g. un/suspending, editing them etc.
 #
-# Deps:: awk, bash, env, fzf, kubectl, xargs
+# Deps:: awk, bash, env, fzf, kubectl, parallel, xargs
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-function cronjobs { printf '%s\n' "${@}" | awk '{print $1}'; }
-function xargs { command xargs --no-run-if-empty -- "${@}"; }
-function xarg1 { command xargs --no-run-if-empty --max-args=1 --open-tty -- "${@}"; }
-export -f cronjobs xargs xarg1
+function cjs { printf '%s\n' "${@}" | awk '{print $1}'; } 
+function par { parallel --no-run-if-empty --keep-order -- "${@}"; }
+function pam { parallel --no-run-if-empty --keep-order --max-args=1 -- "${@}"; }
+function map { xargs --no-run-if-empty --max-args=1 --open-tty -- "${@}"; }
+export -f cjs par pam map
+
+function patch_susp {
+  local suspended="${1:?suspended}" cronjob="${2:?cronjob}" suspension
+  suspension="$(printf '{"spec":{"suspend": %s}}' "${suspended}")"
+  kubectl patch cronjob --patch "${suspension}" -- "${cronjob}"
+}; export -f patch_susp
 
 function pick {
   local bindings=(
     'ctrl-a:toggle-all'
-    'ctrl-d:execute(cronjobs {+}  | xargs kubectl describe cronjob --)+abort'
-    'ctrl-e:execute(cronjobs {+}  | xarg1 kubectl edit cronjob --)+abort'
-    'ctrl-g:execute(cronjobs {+}  | xargs kubectl get cronjob --)+abort'
-    'ctrl-l:execute(cronjobs {+})+abort'
-    'ctrl-r:execute(cronjobs {+}  | xargs kubectl delete cronjob --)+abort'
-    'ctrl-s:execute(cronjobs {+}  | xarg1 kubectl patch cronjob --patch {\"spec\":{\"suspend\":true}} --)+abort'
-    'ctrl-u:execute(cronjobs {+}  | xarg1 kubectl patch cronjob --patch {\"spec\":{\"suspend\":false}} --)+abort'
+    'ctrl-d:execute(cjs {+} | par kubectl describe cronjob --)+abort'
+    'ctrl-e:execute(cjs {+} | map kubectl edit cronjob --)+abort'
+    'ctrl-g:execute(cjs {+} | par kubectl get cronjob --)+abort'
+    'ctrl-l:execute(cjs {+})+abort'
+    'ctrl-r:execute(cjs {+} | par kubectl delete cronjob --)+abort'
+    'ctrl-s:execute(cjs {+} | pam patch_susp true)+abort'
+    'ctrl-u:execute(cjs {+} | pam patch_susp false)+abort'
     'ctrl-z:clear-selection'
   )
   fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"
