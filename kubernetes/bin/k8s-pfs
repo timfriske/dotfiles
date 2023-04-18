@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Kubectl command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Deps:: bash, env, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+selector="${1:-"${selector:?required}"}"
+ports=("${@:2}");: "${ports:?required}"
+
+mapfile -n 2 -t pods < \
+  <(kubectl get pods --selector="${selector}" \
+      --no-headers --output=custom-columns=:metadata.name)
+
+case "${#pods[@]}" in
+  0|2) printf >&2 'Selector "%s" must return 1 pod but returned %d.\n' "${selector}" "${#pods[@]}";&
+  2)   printf >&2 'Selector returned following pods instead (2+): %s %s\n' "${pods[0]}" "${pods[1]}";&
+  0|2) printf >&2 'Aborting with non-zero exit code 1...\n'; exit 1;;
+esac
+
+kubectl port-forward "${pods[0]}" "${ports[@]}"
