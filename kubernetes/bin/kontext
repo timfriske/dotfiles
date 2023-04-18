@@ -29,7 +29,7 @@ function pick {
 }
 
 kubectl config get-contexts \
-  | awk 'BEGIN{OFS="\t"}NR==1||/^*/{print $2,$5,$3}NR>1&&!/^*/{print $1,$4,$2}' \
+  | awk -v OFS=$'\t' 'NR==1||/^*/{print $2,$5,$3}NR>1&&!/^*/{print $1,$4,$2}' \
   | column --table --separator $'\t' \
   | pick --header="current: $(kubectl config current-context)" --header-lines=1 \
-    --cycle --multi --exit-0
+    --cycle --multi --nth=1,2 --exit-0
