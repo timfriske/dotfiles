@@ -39,4 +39,5 @@ function pick {
   fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"
 }
 
-kubectl get cronjobs | pick --header-lines=1 --cycle --multi --exit-0
+# NAME (1st column), SCHEDULE (2nd-6th pseudo column), SUSPEND (7th column)
+kubectl get cronjobs | pick --header-lines=1 --cycle --multi --nth=1,7 --exit-0
