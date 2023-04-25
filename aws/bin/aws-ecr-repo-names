@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# AWS ECR Repos command
-# =====================
+# AWS ECR Repo Names command
+# ==========================
 # Tim Friske <me@tifr.de>
 #
 # Prints the names of AWS ECR repositories (repo) sorted by name in the registry
