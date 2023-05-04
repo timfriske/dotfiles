@@ -9,7 +9,7 @@
 # (regex). When giving multiple regexes at least one of them must match (any;
 # logical OR).
 #
-# Deps:: aws, bash, env, jq
+# Deps:: aws, bash, cat, env, jq
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
@@ -22,12 +22,12 @@ function repo_names {
 }
 
 function select_by_name {
-  local names=("${@}");: "${names:?required}"
-  jq 'map(select(. as $name|$ARGS.positional|any(. as $arg|$name|test($arg;"i"))))' --args -- "${names[@]}"
+  local names=("${@}") # optional
+  if [[ "${#names[@]}" -gt 0 ]]; then
+    jq 'map(select(. as $name|$ARGS.positional|any(. as $arg|$name|test($arg;"i"))))' --args -- "${names[@]}"
+  else
+    cat
+  fi
 }
 
-if (( "${#names[@]}" == 0 )); then
-  repo_names
-else
-  repo_names | select_by_name "${names[@]}"
-fi
+repo_names | select_by_name "${names[@]}"
