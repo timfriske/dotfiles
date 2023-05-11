@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Git Rebase command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Deps:: bash, env, git-rebase
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+function default_branch {
+  local remote="${1:-origin}" default_branch
+  default_branch="$(git rev-parse --abbrev-ref "${remote}/HEAD")"
+  printf '%s\n' "${default_branch#"${remote}/"}"
+}
+
+# Rebase current branch against default branch.
+git rebase "$(default_branch "${@}")"
