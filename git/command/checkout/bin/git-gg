@@ -9,10 +9,10 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-function main {
+function default_branch {
   local remote="${1:-origin}" default_branch
   default_branch="$(git rev-parse --abbrev-ref "${remote}/HEAD")"
-  git checkout "${default_branch#"${remote}/"}"
+  printf '%s\n' "${default_branch#"${remote}/"}"
 }
 
-main "${@}"
+git checkout "$(default_branch "${@}")"
