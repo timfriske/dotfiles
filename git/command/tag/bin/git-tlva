@@ -4,6 +4,8 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
+# List tags sorted by semantic version in ascending order.
+#
 # Deps:: bash, env, git-tag
 
 # Ensure fail-fast script execution.
