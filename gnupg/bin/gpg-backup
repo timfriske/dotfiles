@@ -11,7 +11,7 @@
 # up.
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -os nounset noclobber pipefail errexit errtrace
 
 function backup_file {
   local file_to_backup="$1"
