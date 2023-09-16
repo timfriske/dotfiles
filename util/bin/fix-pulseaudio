@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Fix PulseAudio command
+# ======================
+# Tim Friske <me@tifr.de>
+#
+# Stops the PulseAudio systemd service for the current user, deletes the
+# PulseAudio configuration directory and starts the service again.
+#
+# Deps:: bash, env, rm, systemctl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+systemctl --user stop pulseaudio.service
+rm --force --recursive ~/.config/pulse
+systemctl --user start pulseaudio.service

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # K8S Switch Storage Class
 # ========================
@@ -6,16 +6,18 @@
 #
 # Switches the Kubernetes storage class from the given old to new default class.
 #
-# Deps:: env, kubectl, sh
+# Deps:: bash, env, kubectl
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
 
+# Input parameters and validation:
 old="${1:-${old:?required}}"
 new="${2:-${new:?required}}"
 
-annotation='storageclass.kubernetes.io/is-default-class'
+annot_is_default_class='storageclass.kubernetes.io/is-default-class'
 
 # Delete annotation from old default storage class.
-kubectl annotate storageclass "${old}" "${annotation}-"
+kubectl annotate storageclass "${old}" "${annot_is_default_class}-"
 # Attach annotation to new default storage class.
-kubectl annotate storageclass --overwrite "${new}" "${annotation}=true"
+kubectl annotate storageclass --overwrite "${new}" "${annot_is_default_class}=true"

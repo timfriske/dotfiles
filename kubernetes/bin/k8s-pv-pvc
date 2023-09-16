@@ -5,24 +5,29 @@
 # Tim Friske <me@tifr.de>
 #
 # Prints the persistent volumes related to claims in JSON format optionally
-# filtering the entries by the given claims.
+# selecting the claims by the given regular expressions (regex). When giving
+# multiple regexes at least one of them must match (any; logical OR).
 #
 # Deps:: bash, env, kubectl
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
+# Input parameters and validation:
+pvcs=("${@}") # optional
+
 function pv_pvc {
   kubectl get persistentvolume --output json \
-    | jq '.items[]|{pv:.metadata.name,pvc:.spec.claimRef.name,ns:.spec.claimRef.namespace}'
+    | jq '.items|map({pv:.metadata.name,pvc:.spec.claimRef.name,ns:.spec.claimRef.namespace})'
 }
 
-function filter {
-  jq '($ARGS.positional|map({(.):true})|add) as $wd|.|select($wd[.pvc])' --args "${@}"
+function select_by_pvc {
+  local pvcs=("${@}");: "${pvcs:?required}"
+  jq 'map(select(.pvc as $pvc|$ARGS.positional|any(. as $arg|$pvc|test($arg;"i"))))' --args -- "${pvcs[@]}"
 }
 
-if [[ "${#}" -eq 0 ]]; then
+if (( "${#pvcs[@]}" == 0 )); then
   pv_pvc
 else
-  pv_pvc | filter "${@}"
+  pv_pvc | select_by_pvc "${pvcs[@]}"
 fi

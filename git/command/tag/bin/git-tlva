@@ -4,9 +4,11 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
+# List tags sorted by semantic version in ascending order.
+#
 # Deps:: bash, env, git-tag
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-git tag --list -n "${@}"
+git tag --list --sort=version:refname "${@}"

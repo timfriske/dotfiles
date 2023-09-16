@@ -52,8 +52,8 @@ function fzf_git_branch {
   fzf_keys+=('alt-f:execute(git branch --delete --force {+})+abort')
   # shellcheck disable=SC2016
   {
-    fzf_keys+=('alt-m:execute(</dev/tty >/dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
-    fzf_keys+=('alt-n:execute(</dev/tty >/dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
+    fzf_keys+=('alt-m:execute(< /dev/tty > /dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
+    fzf_keys+=('alt-n:execute(< /dev/tty > /dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
   }
   fzf_keys+=('alt-r:execute(git branch --delete --remotes {+})+abort')
   fzf_keys+=('alt-t:execute(git checkout --track {})+abort')

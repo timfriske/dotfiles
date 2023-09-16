@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# AWS EKS Node Image command
+# ==========================
+# Tim Friske <me@tifr.de>
+#
+# Gets the AWS EKS optimized Linux machine image ID for the given EKS Kubernetes
+# version, e.g. 1.25.
+#
+# Deps:: aws, bash, env
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+# Input parameters and validation:
+kubernetes_version="${1:-"${kubernetes_version:?required}"}"
+
+aws ssm get-parameter \
+  --name "/aws/service/eks/optimized-ami/${kubernetes_version}/amazon-linux-2/recommended/image_id" \
+  --query Parameter.Value \
+  --output text

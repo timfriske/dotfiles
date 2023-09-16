@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Argo Lf command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Follows (tails) the logs of the given Argo workflow.
+#
+# Deps:: argo, bash, env
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+argo logs --follow "${@}"

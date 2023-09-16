@@ -21,29 +21,32 @@ shopt -os nounset pipefail errexit errtrace
 # Do not overwrite existing file by accident.
 shopt -os noclobber
 
+# Input parameters and argument validation.
+script="${1:?script}"
+
 # Create non-existent parent directories of shell sctipt file.
-mkdir --parents --verbose -- "$(dirname -- "${1}")"
+mkdir --parents --verbose -- "$(dirname -- "${script}")"
 
 # Write shell script template to file.
-cat > "${1}" \
-<<SHELL_SCRIPT
+cat > "${script}" \
+<<SCRIPT
 #!/usr/bin/env dash
 
 # Ensure fail-fast script execution.
 set -o errexit -o nounset
 
 
-SHELL_SCRIPT
+SCRIPT
 
 # Make shell script file executable.
-chmod --verbose -- a+x "${1}"
+chmod --verbose -- a+x "${script}"
 
 # Open shell script file in favorite text editor or vim by default. Put cursor
 # on last line in insert mode if possible to ease editing.
 case "${VISUAL:-"${EDITOR:-vim}"}" in
-  nano) nano "+$(wc --lines < "{1}")" -- "${1}";;
-  nvim) nvim '+normal G' +startinsert -- "${1}";;
-  pico) pico "+$(wc --lines < "{1}")" -- "${1}";;
-  vim) vim '+normal G' +startinsert -- "${1}";;
-  *) "${VISUAL:-"${EDITOR}"}" "${1}";;
+  nano) nano "+$(wc --lines < "{1}")" -- "${script}";;
+  nvim) nvim '+normal G' +startinsert -- "${script}";;
+  pico) pico "+$(wc --lines < "{1}")" -- "${script}";;
+  vim) vim '+normal G' +startinsert -- "${script}";;
+  *) "${VISUAL:-"${EDITOR}"}" "${script}";;
 esac

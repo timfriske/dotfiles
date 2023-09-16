@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-# Kubectl command
+# Argo Rw command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: bash, env, kubectl
+# Retries the given Argo workflow and watches it.
+#
+# Deps:: argo, bash, env
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-kubectl config current-context "${@}"
+argo retry --watch "${@}"

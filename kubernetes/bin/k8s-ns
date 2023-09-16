@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Kubectl command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Gets or sets the namespace of the current Kubernetes context. If standard
+# output is a terminal the context is printed followed by its namespace to make
+# it human-readable. Otherwise, just the namespace is printed to make the output
+# machine-readable when used in other scripts.
+#
+# Deps:: bash, env, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+namespace="${1:-$(kubectl config view --minify --output 'jsonpath={..namespace}')}"
+namespace="${namespace:-default}"
+if (( "${#}" == 1 )); then
+  kubectl config set-context --current --namespace "${namespace}"
+elif [[ -t 1 ]]; then
+    printf '%s: %s\n' "$(kubectl config current-context)" "${namespace}"
+else
+  printf '%s\n' "${namespace}"
+fi

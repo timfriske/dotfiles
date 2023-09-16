@@ -5,7 +5,7 @@
 # Tim Friske <me@tifr.de>
 #
 # Tags the AWS EC2 auto scaling groups (ASGs) with a tag recognized by the
-# Kubernetes cluster autoscaler to determine in which availibility zone (AZ) an
+# Kubernetes cluster autoscaler to determine in which availability zone (AZ) an
 # ASG manages EC2 instances. This information is used by the autoscaler to
 # balance instances between AZs.
 #
@@ -14,24 +14,27 @@
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-aws_eks_cluster="${1:?'AWS EKS cluster required'}"
+# Input parameters and validation:
+cluster="${1:-"${cluster:?required}"}"
 
-function list_asg_az {
+# Lists AZs and their ASGs sorted by AZ and ASG as tabulator-separated values.
+function list_az_asg {
+  local cluster="${1:?cluster}"
+  local jq_query=(
+    '.AutoScalingGroups'
+    '|map(select(.AvailabilityZones|length==1)'
+    '|{az:.AvailabilityZones[0],asg:.AutoScalingGroupName})'
+    '|group_by(.az)|map(sort_by(.asg)|map([.az,.asg]))|add[]|@tsv'
+  )
   aws autoscaling describe-auto-scaling-groups \
-    --filters "Name=tag-key,Values=k8s.io/cluster-autoscaler/${1}" \
-  | jq --raw-output '.AutoScalingGroups[]|{asg:.AutoScalingGroupName,azs:.AvailabilityZones}|select((.azs|length)==1)|[.asg,.azs[0]]|@tsv'
+    --filters "Name=tag-key,Values=k8s.io/cluster-autoscaler/${cluster}" \
+  | jq --raw-output "$(IFS=;printf '%s' "${jq_query[*]}")"
 }
 
-# Associate each auto scaling group with its availability zone.
-declare -A azs_by_asg
-while IFS=$'\t' read -r asg az; do
-  azs_by_asg["${asg}"]="${az}"
-done < <(list_asg_az "${aws_eks_cluster}")
-
-for asg in "${!azs_by_asg[@]}"; do
-  az="${azs_by_asg[${asg}]}"
-  printf 'tag auto-scaling group "%s" with availability zone "%s"\n' "${asg}" "${az}"
-  asg_tags=(
+function tag_asg_with_az {
+  local asg="${1:?asg}" az="${2:?az}"
+  printf 'In AZ "%s" tag ASG "%s" with it.\n' "${az}" "${asg}"
+  local asg_tags=(
     "ResourceId=${asg}"
     "ResourceType=auto-scaling-group"
     "Key=k8s.io/cluster-autoscaler/node-template/label/topology.ebs.csi.aws.com/zone"
@@ -39,4 +42,7 @@ for asg in "${!azs_by_asg[@]}"; do
     "PropagateAtLaunch=false"
   )
   aws autoscaling create-or-update-tags --tags "$(IFS=,; printf '%s' "${asg_tags[*]}")"
-done
+}; export -f tag_asg_with_az
+
+list_az_asg "${cluster}" \
+  | parallel --no-run-if-empty --keep-order --colsep '\s+' -- tag_asg_with_az '{2}' '{1}'

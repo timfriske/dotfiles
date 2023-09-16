@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Git Tag command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# List tags sorted by refname in descending order.
+#
+# Deps:: bash, env, git-tag
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+git tag --list --sort=-refname "${@}"

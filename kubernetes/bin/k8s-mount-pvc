@@ -11,53 +11,58 @@
 # files or wrong file permissions.
 #
 # In order to accomplish that a Kubernetes Pod with a Container running the
-# latest Busybox image is launched. The Persistent Volume that corresponds to
-# the given Persistent Volume Claim is attached to the Pod and mounted into the
-# Container. Once the Pod is ready an interactive login shell is started. For
-# this the `ash` shell that comes with Busybox is used.
+# given image is launched. The Persistent Volume that corresponds to the given
+# Persistent Volume Claim is attached to the Pod and mounted into the Container.
+# Once the Pod is ready the given shell is started as an interactive shell.
 #
 # Deps:: bash, env, kubectl
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-: "${1:?Persistent volume claim required}"
+# Input parameters and validation:
+pvc="${1:-"${pvc:?required}"}"
+image="${2:-ubuntu:22.04}"
+shell="${3:-bash}"
 
-pvc="${1}"
+# Derived parameters:
+pod="k8s-mount-pvc-${pvc}"
+# Kubernetes names are limited to 63 characters.
+pod="${pod:0:63}"
 
-echo "Creating Kubernetes Pod 'k8s-mount-pvc-${pvc}' ..."
-echo "Creating Kubernetes Container 'mount' inside 'k8s-mount-pvc-${pvc}' ..."
-echo "Running Kubernetes Container 'mount' with latest 'busybox' image ..."
-echo "Attaching Kubernetes Persistent Volume Claim to 'mount' ..."
-echo "Mounting Kubernetes Persistent Volume under '/mnt' point ..."
+echo "Creating pod '${pod}'..."
+echo "Creating container 'mount' inside '${pod}'..."
+echo "Running container 'mount' with image '${image}'..."
+echo "Attaching persistent volume claim to 'mount'..."
+echo "Mounting persistent volume under '/mnt' point..."
 kubectl apply --filename=- \
-<<EOF
----
+<<POD_K8S_MOUNT_PVC
 kind: Pod
 apiVersion: v1
 metadata:
-  name: "k8s-mount-pvc-${pvc}"
+  name: "${pod}"
 spec:
   containers:
     - name: mount
-      image: busybox
+      image: "${image}"
       command: [/bin/sh, -ceux, --]
       args: [tail -f /dev/null]
       volumeMounts:
-        - name: "k8s-mount-pvc-${pvc}"
+        - name: "${pod}"
           mountPath: /mnt
   volumes:
-    - name: k8s-mount-pvc-${pvc}
+    - name: "${pod}"
       persistentVolumeClaim:
        claimName: "${pvc}"
-EOF
+POD_K8S_MOUNT_PVC
 
-echo "Waiting until Kubernetes Pod 'k8s-mount-pvc-${pvc}' is ready ..."
-kubectl wait --for=condition=Ready --timeout=30s "pod/k8s-mount-pvc-${pvc}"
+echo "Waiting until pod '${pod}' is ready..."
+kubectl wait pod --for=condition=Ready --timeout=30s -- "${pod}"
 
-echo "Logging into Kubernetes Pod 'k8s-mount-pvc-${pvc}', Container 'mount' ..."
-echo "Using 'ash' as an interactive shell for the login session ..."
-(kubectl exec "k8s-mount-pvc-${pvc}" --container=mount --stdin=true --tty=true -- ash) || true
+echo "Logging into pod '${pod}', container 'mount'..."
+echo "Using '${shell}' as an interactive shell..."
+kubectl exec "${pod}" --container=mount --stdin --tty -- "${shell}" || true
 
-echo "Deleting Kubernetes Pod 'k8s-mount-pvc-${pvc}' in background ..."
-kubectl delete "pod/k8s-mount-pvc-${pvc}" &>/dev/null &
+echo "Deleting pod '${pod}' in background..."
+kubectl delete pod --wait=false -- "${pod}"
+printf '%s\n' "Hint: Wait for pod deletion with:" "kubectl wait pod --for=delete --timeout=30s -- ${pod}"

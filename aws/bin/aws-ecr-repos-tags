@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# AWS ECR List Resource Tags command
+# ==================================
+# Tim Friske <me@tifr.de>
+#
+# Prints the names of AWS ECR repositories (repo) sorted by name together with
+# their resource tags in the registry of the account optionally selecting the
+# repos by the given regular expressions (regex). When giving multiple regexes
+# at least one of them must match (any; logical OR).
+#
+# Deps:: aws, bash, cat, env, jq, parallel
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+# Input parameters and validation:
+names=("${@}") # optional
+
+function repos {
+  aws ecr describe-repositories --output json | jq '.repositories'
+}
+
+function select_by_name {
+  local names=("${@}") # optional
+  if [[ "${#names[@]}" -gt 0 ]]; then
+    jq 'map(select(.repositoryName as $name|$ARGS.positional|any(. as $arg|$name|test($arg;"i"))))' --args -- "${names[@]}"
+  else
+    cat
+  fi
+}
+
+function tsv_by_name_arn {
+  jq --raw-output '.[]|[.repositoryName,.repositoryArn]|join("\t")'
+}
+
+function resource_tags_by_name_arn {
+  local name="${1:?name}" arn="${2:?arn}"
+  aws ecr list-tags-for-resource --output json --resource-arn "${arn}" | jq --arg rn "${name}" '{repo:$rn,tags}'
+}; export -f resource_tags_by_name_arn
+
+function sort_by_repo {
+  jq --slurp 'sort_by(.repo)'
+}
+
+repos | select_by_name "${names[@]}" | tsv_by_name_arn \
+  | parallel --no-run-if-empty --colsep '\t' -- resource_tags_by_name_arn '{1}' '{2}' | sort_by_repo

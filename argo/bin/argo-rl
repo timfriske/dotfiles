@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-# Git Tag command
+# Argo Rl command
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: bash, env, git-tag
+# Retries the given Argo workflow and follows (tails) its logs.
+#
+# Deps:: argo, bash, env
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-git tag --list --sort=version:refname "${@}"
+argo retry --log "${@}"

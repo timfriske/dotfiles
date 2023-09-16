@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+# Kubectl command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Resizes the given Amazon Elastic Block Storage (EBS) volume and the filesystem
+# on top of it accordingly to the given size specification. Only size increases
+# are supported at the moment.
+#
+# Deps:: bash, env, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+# Input parameters and validation:
+pvc="${1:-"${pvc:?required}"}"
+size="${2:-"${size:?required}"}"
+if [[ "${size}" =~ ^([*+])?([0-9]|[1-9][0-9]+)([KMGT]i)?$ ]]; then
+  size_operator="${BASH_REMATCH[1]}"
+  size_quantity="${BASH_REMATCH[2]}"
+  size_unit_iec="${BASH_REMATCH[3]}"
+else
+  printf >&2 'Invalid size: %s\n' "${size}"
+  printf >&2 'Size must be either one of:\n'
+  printf >&2 '* Absolute size (IEC-I), e.g. 100Gi\n'
+  printf >&2 '* Relative size (IEC-I), e.g. +50Mi\n'
+  printf >&2 '* Factor by which to multiply old size, e.g *2\n'
+  printf >&2 'Aborting with non-zero exit code 1...\n'
+  exit 1
+fi
+if [[ "${size_operator}" == '*' && -n "${size_unit_iec}" ]]; then
+  printf >&2 'Invalid factor: %s\n' "${size}"
+  printf >&2 'Factor must be a whole number without any suffix.\n'
+  printf >&2 'Aborting with non-zero exit code 1...\n'
+  exit 1
+fi
+
+function get_pvc_storage_size {
+  local pvc="${1:?pvc}"
+  kubectl get pvc --output json -- "${pvc}" | jq --raw-output '.status.capacity.storage'
+}
+
+function numfmt {
+    LC_NUMERIC=C command numfmt "${@}"
+}
+
+function convert_size_to_bytes {
+  local size="${1:?size}"
+  numfmt --from=auto -- "${size}"
+}
+
+function convert_size_to_iec {
+    local size="${1:?size}"
+    numfmt --from=auto --to=iec-i -- "${size}"
+}
+
+function resize_pvc {
+    local pvc="${1:?pvc}" size="${2:?size}" storage
+    storage="$(printf '{"spec":{"resources":{"requests":{"storage":"%s"}}}}' "${size}")"
+    kubectl patch pvc --patch "${storage}" -- "${pvc}"
+}
+
+printf 'Fetching old size of pvc "%s"...' "${pvc}"
+size_old="$(get_pvc_storage_size "${pvc}")"
+printf '"%s" fetched\n' "${size_old}"
+size_new="${size_quantity}${size_unit_iec}"
+if [[ -n "${size_operator}" ]]; then
+  printf 'Computing new size of pvc "%s"...' "${pvc}"
+  size_old_bytes="$(convert_size_to_bytes "${size_old}")"
+  size_new_bytes="$(convert_size_to_bytes "${size_new}")"
+  case "${size_operator}" in
+    '*') size_new="$(convert_size_to_iec "$((size_old_bytes * size_new_bytes))")";;
+    '+') size_new="$(convert_size_to_iec "$((size_old_bytes + size_new_bytes))")";;
+  esac
+  printf '"%s" computed\n' "${size_new}"
+else
+  size_old_bytes="$(convert_size_to_bytes "${size_old}")"
+  size_new_bytes="$(convert_size_to_bytes "${size_new}")"
+  if (( size_old_bytes > size_new_bytes )); then
+    printf >&2 'Old size in bytes (IEC-I): %s (%s)\n' "${size_old_bytes}" "${size_old}"
+    printf >&2 'New size in bytes (IEC-I): %s (%s)\n' "${size_new_bytes}" "${size_new}"
+    printf >&2 'New size must be greater than old size.\n'
+    printf >&2 'Aborting with non-zero exit code 1...\n'
+    exit 1
+  fi
+fi
+
+printf 'Increasing size of pvc "%s" from "%s" to "%s"...\n' "${pvc}" "${size_old}" "${size_new}"
+resize_pvc "${pvc}" "${size_new}"

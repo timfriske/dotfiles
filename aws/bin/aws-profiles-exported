@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# AWS Profiles command
+# ====================
+# Tim Friske <me@tifr.de>
+#
+# Lists potential environment variable declarations of the configured AWS
+# profiles ready to be exported by shells, alphanumerically sorted by profile
+# name. Optionally filters the profile names by one or more given extended
+# regular expressions. In order for an environment variable declaration to take
+# effect for the current and child processes it must be actually executed by a
+# shell.
+#
+# Deps:: aws, bash, env, grep, sort
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+aws-profiles "${@}" | xargs --no-run-if-empty -- printf 'export AWS_PROFILE="%s"\n'

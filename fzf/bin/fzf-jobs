@@ -18,7 +18,7 @@ shopt -os nounset pipefail errexit errtrace
 shopt -s extglob globstar
 
 function print_help {
-  1>&2 cat \
+  >&2 cat \
 <<'HELP'
 usage:
 

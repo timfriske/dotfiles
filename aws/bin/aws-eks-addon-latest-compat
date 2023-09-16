@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# AWS EKS Addon Latest Compat command
+# ===================================
+# Tim Friske <me@tifr.de>
+#
+# Prints the latest version of the given AWS EKS addon that is compatible with
+# the given AWS EKS Kubernetes version.
+#
+# For example: aws-eks-addon-latest-compat aws-ebs-csi-driver 1.25
+#
+# Deps:: aws, bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset pipefail errexit errtrace
+
+# Input parameters and validation:
+addon="${1:-"${addon:?required}"}"
+kubernetes_version="${2:-"${kubernetes_version:?required}"}"
+
+aws eks describe-addon-versions --addon-name "${addon}" \
+  | jq --raw-output --arg cv "${kubernetes_version}" \
+    '.addons[0].addonVersions[]|select(.compatibilities[]|.clusterVersion==$cv and .defaultVersion==true).addonVersion'

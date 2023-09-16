@@ -7,21 +7,23 @@
 # Applies AWS ECR lifecycle policies from the given json file to the given
 # repositories of current registry.
 #
-# Deps:: aws, bash, env, jq
+# Deps:: aws, bash, env, jq, parallel
 
 # Ensure fail-fast script execution.
 shopt -os nounset pipefail errexit errtrace
 
-function main {
-  : "${1:?usage: aws-ecr-lifecycle <lifecycle-json-file> <repository name>...}"
-  local repository_name lifecycle_json_file="file://${1#file://}"
-  for repository_name in "${@:2}"; do
-    aws ecr put-lifecycle-policy \
-      --output json \
-      --repository-name "${repository_name}" \
-      --lifecycle-policy-text "${lifecycle_json_file}" \
-    | jq '. + {lifecyclePolicyText: .lifecyclePolicyText|fromjson}'
-  done
-}
+# Input parameters and validation:
+policy_file="${1:-"${policy_file:?required}"}"
+policy_file="file://${policy_file#file://}"
+repositories=("${@:2}");: "${repositories?required}"
 
-main "${@}"
+function apply_policy {
+  local repository="${1:?repository}" policy_file="${2:?policy_file}" 
+  aws ecr put-lifecycle-policy \
+    --repository-name "${repository}" \
+    --lifecycle-policy-text "${policy_file}" \
+  | jq '.+{lifecyclePolicyText:.lifecyclePolicyText|fromjson}'
+}; export -f apply_policy
+
+parallel --no-run-if-empty --keep-order -- \
+  apply_policy {} "${policy_file}" ::: "${repositories[@]}"
