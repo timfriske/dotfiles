@@ -16,10 +16,7 @@
 # Deps:: bash, cat, chmod, dirname, env, wc
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
-
-# Do not overwrite existing file by accident.
-shopt -os noclobber
+shopt -os nounset noclobber pipefail errexit errtrace
 
 # Input parameters and argument validation.
 script="${1:?script}"
@@ -33,7 +30,7 @@ cat > "${script}" \
 #!/usr/bin/env bash
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -os nounset noclobber pipefail errexit errtrace
 
 
 SCRIPT

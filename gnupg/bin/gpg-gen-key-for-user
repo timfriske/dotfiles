@@ -22,7 +22,7 @@
 # that fingerprint on the second run.
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -os nounset noclobber pipefail errexit errtrace
 
 function gpg_gen_key_for_user {
   # Output _GPG_ version with which _OpenPGP_ keys are generated.
