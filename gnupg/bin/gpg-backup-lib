@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#
+# GPG Backup Library
+# ==================
+# Tim Friske <me@tifr.de>
+# 
+# Defines functions to back up _OpenPGP_ keys with _GPG_.
+#
+# Important note: This file is not executable on purpose but meant to be sourced
+# by other Bash scripts. It must be located in one of the PATH directories in
+# order to be found and sourced by name.
+#
+# Deps:: bash chmod cp env rm
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+function protect_file {
+  local backup_file="${1:-${backup_file:?required}}"
+  chmod "u=r,go=" -- "${backup_file}"
+}
+
+function replace_file {
+  local file_to_replace="${1:-${file_to_replace:?required}}"
+  # Back up latest file which will be replaced by new one.
+  cp --force --backup=numbered --archive -- "${file_to_replace}"{,}
+  rm --force -- "${file_to_replace}"
+}
+
+function copy_file {
+  local file_to_copy="${1:-${file_to_copy:?required}}"
+  if [[ -e "${file_to_copy}" ]]; then
+    if [[ ! -f "${file_to_copy}" ]]; then
+      echo "File '${file_to_copy}' must be a regular file."
+      exit 2
+    fi
+    if [[ ! -r "${file_to_copy}" ]]; then
+      echo "File '${file_to_copy}' must be readable."
+      exit 2
+    fi
+    protect_file "${file_to_copy}"
+    replace_file "${file_to_copy}"
+  fi
+}
