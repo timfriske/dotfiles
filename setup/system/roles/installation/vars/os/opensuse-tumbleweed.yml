@@ -10,6 +10,9 @@ packages:
   - adobe-sourcecodepro-fonts
   - alacritty
   - ansible
+  - aspell
+  - aspell-de
+  - aspell-en
   - aws-cli
   - borgbackup
   - btop
@@ -44,16 +47,16 @@ packages:
   - iozone
   - ipcalc
   - iperf
-  - ipv6calc
+  - java-11-openjdk-devel
   - java-17-openjdk-devel
-  - java-18-openjdk-devel
+  - java-20-openjdk-devel
+  - java-21-openjdk-devel
   - jetbrains-mono-fonts
   - jq
   - kdiff3
   - keepassxc
   - kompare
   - krita
-  - kubernetes-client
   - kustomize
   - lsb-release
   - minikube
@@ -62,13 +65,13 @@ packages:
   - nmap
   - openssh
   - pam_kwallet
+  - partitionmanager
   - pattern:kvm_tools
   - permissions-zypp-plugin
   - rclone
   - ripgrep
   - rsync
-  - rust
-  - shellcheck
+  - ShellCheck
   - speedtest-cli
   - sqlite3
   - sqlitebrowser
@@ -82,4 +85,8 @@ packages:
   - vlc-codec-gstreamer
   - wget
   - wget2
+  - yq
   - zstd
+  # - ipv6calc
+  # - kubernetes-client
+  # - rust
