@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# AWS ECR Repos command
+# =====================
+# Tim Friske <me@tifr.de>
+#
+# Lists the URIs of AWS ECR repositories whose names match one of the given
+# regular expressions or all if none were specified.
+#
+# Deps:: aws, bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+# Input parameters and validation:
+AWS_ECR_REPO_NAME_REGEXES=("${@}") # optional
+
+if [[ "${#AWS_ECR_REPO_NAME_REGEXES[@]}" -eq 0 ]]; then
+  aws ecr describe-repositories | jq --raw-output '.repositories[].repositoryUri'
+  exit
+fi
+
+if [[ "${#AWS_ECR_REPO_NAME_REGEXES[@]}" -eq 1 ]]; then
+  aws ecr describe-repositories \
+    | jq --arg regex "${AWS_ECR_REPO_NAME_REGEXES[0]}" --raw-output \
+      '.repositories[]|select(.repositoryName|test($regex)).repositoryUri'
+  exit
+fi
+
+aws ecr describe-repositories \
+  | jq '.repositories[]|select(.repositoryName as $name|$ARGS.positional|any(. as $regex|$name|test($regex))).repositoryUri' \
+      --raw-output --args -- "${AWS_ECR_REPO_NAME_REGEXES[@]}"
