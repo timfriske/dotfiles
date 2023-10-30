@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# AWS ECR Repos command
+# =====================
+# Tim Friske <me@tifr.de>
+#
+# Lists all of the container image URIs of the AWS ECR repository given by URI
+# or name.
+#
+# Deps:: aws, bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+# Input parameters and validation:
+AWS_ECR_REPO="${1:-${AWS_ECR_REPO:?required}}"
+AWS_ECR_REPO_NAME="${AWS_ECR_REPO#*/}"
+
+function get_repo_uri {
+  local repo_name="${1:?repo_name}"
+  aws ecr describe-repositories --repository-names "${repo_name}" \
+    | jq --raw-output '.repositories[].repositoryUri'
+}
+
+AWS_ECR_REPO_URI="$(get_repo_uri "${AWS_ECR_REPO_NAME}")"
+
+aws ecr list-images --repository-name "${AWS_ECR_REPO_NAME}" \
+  | jq --arg repo "${AWS_ECR_REPO_URI}" --raw-output \
+      '.imageIds[]|if .imageTag then ":"+.imageTag else "@"+.imageDigest end|$repo+.'
