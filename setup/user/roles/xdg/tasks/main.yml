@@ -19,3 +19,5 @@
     mode: preserve
   with_fileglob:
     - autostart/*
+  loop_control:
+    label: "{{ item | relpath }}"

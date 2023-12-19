@@ -23,3 +23,5 @@
     mode: preserve
   with_fileglob:
     - config/*
+  loop_control:
+    label: "{{ item | relpath }}"

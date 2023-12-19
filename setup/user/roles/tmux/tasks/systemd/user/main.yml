@@ -19,6 +19,8 @@
     mode: preserve
   with_fileglob:
     - systemd/user/*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Enable Systemd user unit files
   ansible.builtin.systemd:

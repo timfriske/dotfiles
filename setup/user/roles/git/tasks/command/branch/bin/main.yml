@@ -19,18 +19,22 @@
     mode: preserve
   with_fileglob:
     - command/branch/bin/git-b*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Create shortcuts to Git Branch Commands
   ansible.builtin.file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
-           {{ item \
-           | basename \
-           | regex_replace('^git-b(.*)', '/gb\\1') }}"
+      {{ item \
+      | basename \
+      | regex_replace('^git-b(.*)', '/gb\\1') }}"
     force: yes
     state: link
   with_fileglob:
     - command/branch/bin/git-b*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - block:
     - name: Create extra shortcuts to Git Branch Commands
@@ -44,8 +48,8 @@
       ansible.builtin.file:
         src: "{{ item.key }}"
         dest: "{{ bin_dir }}/\
-               {{ item.key \
-               | regex_replace('^git-b(.*)', '/gb\\1') }}"
+          {{ item.key \
+          | regex_replace('^git-b(.*)', '/gb\\1') }}"
         force: yes
         state: link
       loop: "{{ extra_shortcuts | dict2items }}"

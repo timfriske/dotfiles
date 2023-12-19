@@ -19,6 +19,8 @@
     mode: preserve
   with_fileglob:
     - bin/*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Create shortcuts to Kubernetes programs
   ansible.builtin.file:

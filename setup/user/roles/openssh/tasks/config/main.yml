@@ -17,6 +17,8 @@
     mode: preserve
   with_fileglob:
     - config/*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Set up OpenSSH configuration drop-in directory
   ansible.builtin.import_tasks: config.d/main.yml

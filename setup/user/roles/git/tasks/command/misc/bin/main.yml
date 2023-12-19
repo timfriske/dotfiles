@@ -19,3 +19,5 @@
     mode: preserve
   with_fileglob:
     - command/misc/bin/*
+  loop_control:
+    label: "{{ item | relpath }}"

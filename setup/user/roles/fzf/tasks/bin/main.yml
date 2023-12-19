@@ -17,6 +17,8 @@
     mode: preserve
   with_fileglob:
     - bin/*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Check if Fd program is in PATH
   ansible.builtin.shell: "which fd"

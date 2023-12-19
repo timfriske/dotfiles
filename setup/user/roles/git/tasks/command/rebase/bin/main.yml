@@ -19,15 +19,19 @@
     mode: preserve
   with_fileglob:
     - command/rebase/bin/git-r*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Create shortcuts to Git Rebase commands
   ansible.builtin.file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
-           {{ item \
-           | basename \
-           | regex_replace('^git-r(.*)', '/gr\\1') }}"
+      {{ item \
+      | basename \
+      | regex_replace('^git-r(.*)', '/gr\\1') }}"
     force: yes
     state: link
   with_fileglob:
     - command/rebase/bin/git-r*
+  loop_control:
+    label: "{{ item | relpath }}"

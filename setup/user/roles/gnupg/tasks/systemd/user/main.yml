@@ -17,6 +17,8 @@
     mode: preserve
   with_fileglob:
     - systemd/user/*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Enable GnuPG Systemd user unit files
   ansible.builtin.systemd:
