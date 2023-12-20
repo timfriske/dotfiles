@@ -19,15 +19,19 @@
     mode: preserve
   with_fileglob:
     - command/fetch/bin/git-f*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Create shortcuts to Git Fetch commands
   ansible.builtin.file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
-           {{ item \
-           | basename \
-           | regex_replace('^git-f(.*)', '/gf\\1') }}"
+      {{ item \
+      | basename \
+      | regex_replace('^git-f(.*)', '/gf\\1') }}"
     force: yes
     state: link
   with_fileglob:
     - command/fetch/bin/git-f*
+  loop_control:
+    label: "{{ item | relpath }}"

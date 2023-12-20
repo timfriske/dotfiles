@@ -5,69 +5,75 @@
 # run as by executing the Ansible playbooks provided by that repository.
 #
 # Download this program from Tim Friske's configuration management Git
-# repository via its https://github.com/timfriske/config[GitHub page]
+# repository via its https://github.com/timfriske/dotfiles[GitHub page]
 # either from the website or from the command line with one of these
 # commands curl, wget2, wget depending on availability and preference.
 #
 # .Download with cURL
 # [source,bash]
 # ----
-# curl --fail --location --output timfriske-config-bootstrap \
-#  https://raw.githubusercontent.com/timfriske/config/main/setup/bootstrap
-# chmod --changes -- a+x timfriske-config-bootstrap
+# curl --fail --location --output timfriske-dotfiles-bootstrap \
+#  https://raw.githubusercontent.com/timfriske/dotfiles/main/setup/bootstrap
+# chmod --changes -- a+x timfriske-dotfiles-bootstrap
 # ----
 #
 # .Download with Wget
 # [source,bash]
 # ----
-# wget --output-document=timfriske-config-bootstrap \
-#   https://raw.githubusercontent.com/timfriske/config/main/setup/bootstrap
-# chmod --changes -- a+x timfriske-config-bootstrap
+# wget --output-document=timfriske-dotfiles-bootstrap \
+#   https://raw.githubusercontent.com/timfriske/dotfiles/main/setup/bootstrap
+# chmod --changes -- a+x timfriske-dotfiles-bootstrap
 # ----
-#
 #
 # Deps:: ansible, apt-get, bash, env, git, zypper
 
 # Ensure fail-fast script execution.
 shopt -os nounset noclobber pipefail errexit errtrace
 
-program="${0##*/}"
-repo_dir="${HOME}/Projects/mine/timfriske/config"
+repo_name="dotfiles"
+repo_user_id="timfriske"
+repo_user_name="Tim Friske"
+repo_user_email="me@tifr.de"
+repo_host="github.com"
+repo_path="${repo_user_id}/${repo_name}"
+repo_url_http="https://${repo_host}/${repo_path}.git"
+repo_url_ssh="ssh://git@${repo_host}/${repo_path}.git"
+repo_dir="${HOME}/Projects/mine/${repo_user_id}/${repo_name}"
+repo_gpg_sig_key="7DC02297679182342252DFC4D0920BA3A28B1CF7!"
 
 # Install minimal set of packages required by this program.
-if command -v "zypper" &> /dev/null; then
+if command -v -- "zypper" &> /dev/null; then
   sudo zypper refresh
-  sudo zypper install --no-confirm ansible git
-elif command -v "apt-get" &> /dev/null; then
+  sudo zypper install --no-confirm -- ansible git
+elif command -v -- "apt-get" &> /dev/null; then
   sudo apt-get update
-  sudo apt-get install --assume-yes ansible git
+  sudo apt-get install --assume-yes -- ansible git
 fi
 
 # Install Ansible collections of roles and individual roles the roles
 # in this repository depend on.
-ansible-galaxy collection install -r "${repo_dir}"/setup/requirements.yml
+ansible-galaxy collection install --requirements-file "${repo_dir}/setup/requirements.yml"
 
 # Clone Tim Friske's configuration management Git repository.
 if [[ ! -d "${repo_dir}" ]]; then
   mkdir --parents --verbose -- "${repo_dir}";
-  git clone -- "https://github.com/timfriske/config.git" "${repo_dir}"
+  git clone -- "${repo_url_http}" "${repo_dir}"
   # Configure SSH fetch/push and user info, and checkout "next" branch.
   (
-    cd -- ${repo_dir}
-    git remote set-url "origin" \
-      "git@github.com:timfriske/config.git" \
-      "https://github.com/timfriske/config.git"
-    git config --local "user.name" "Tim Friske"
-    git config --local "user.email" "me@tifr.de"
-    git config --local "user.signingkey" \
-      "7DC02297679182342252DFC4D0920BA3A28B1CF7!"
+    # shellcheck disable=SC2164
+    cd -- "${repo_dir}"
+    git remote set-url -- "origin" "${repo_url_ssh}" "${repo_url_http}"
+    git config --local -- "user.name" "${repo_user_name}"
+    git config --local -- "user.email" "${repo_user_email}"
+    git config --local -- "user.signingkey" "${repo_gpg_sig_key}"
     git checkout --track "origin/next"
   )
 fi
 
 # Setup system and user via Ansible playbooks.
 (
-  cd -- ${repo_dir}
+  # shellcheck disable=SC2164
+  cd -- "${repo_dir}"
   setup/system/site --tags software
   setup/user/site
 )

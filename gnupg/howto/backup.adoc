@@ -1,0 +1,118 @@
+Backup
+======
+
+This file documents the standard operational procedure of how to back up various
+important kinds of _OpenPGP_ data that otherwise would become irrecoverable if
+lost. These are secret keys, key revocation certificates and owner trust values.
+
+Important note: It is highly recommended to backup the _OpenPGP_ data in regular
+intervals and store multiple copies of that data in encrypted form at various
+locations among which there should be at least one geographically distant in the
+event of disasters that could destroy all copies at once.
+
+In order to simplify the creation of correct backups the Bash shell scripts
+`gpg-backup-key` and `gpg-backup-trust` should be used. The former tool exports
+the public and secret keys associated with a given key id into files whereas the
+latter all owner trust values. Each tool retains a history of backup files, i.e.
+no files will be unintentionally overwritten.
+
+What follows are exemplary usage instructions. For further information please
+refer to the detailed documentation which you can find inside the respective
+script file.
+
+For reasons of brevity the following shell commands are assumed by later ones to
+have been executed.
+
+. Prerequisite Shell Commands For Later Ones
+[source,bash]
+----
+gpg_backup_dir="${HOME}/Backups/gpg-backup"
+mkdir --parents -- "${gpg_backup_dir}"
+----
+
+Backup Of Secret Keys
+---------------------
+
+In order to provide yourself with an overview of the available secret keys
+execute the following commands:
+
+.List Of Secret Keys And Sub Keys
+[source,bash]
+----
+gpg --list-secret-keys
+
+# Example of the long key id of a secret key:
+# sec ed25519 2018-04-08 [C]
+# uid Tim Friske <me@tifr.de>
+gpg_sec_key_id="95156C8A37B53001FC565E54CED967A4A6AD2126"
+
+gpg --list-secret-keys -- "${gpg_sec_key_id}"
+----
+
+Use the Bash shell script `gpg-backup-key` to create a separate set of backup
+files for each key id that is bound to a secret key.
+
+Each run will create three files in _GPG_ format, the first one with the public
+key and its sub keys, the second one with the secret key and its sub keys and
+the third one with the sub keys of that secret key only. The current run will
+rename the files from a previous run by appending file extensions like `.~1~`,
+`.~2~` etc. and store the current set of files where the previous ones were
+located, effectively replacing them.
+
+While running the script prompts you several times for the same passphrase to
+decrypt and later re-encrypt the secret keys. So make sure in advance that you
+know the passphrase because otherwise the process will fail and nothing will be
+backed up.
+
+.Export For Backup Of Secret Key And Sub Keys
+[source,bash]
+----
+gpg-backup-key ${gpg_sec_key_id} "${gpg_backup_dir}"
+----
+
+In the unfortunate event that you lose access to a secret key, e.g. because your
+mobile computer was stolen or you forgot the passphrase, you can restore it as
+follows:
+
+.Import For Restoration Of Secret Key And Sub Keys
+[source,bash]
+----
+gpg --import --import-options restore "${gpg_backup_dir}/${gpg_sec_key_id}.sec.gpg"
+----
+
+For security reasons the secret key used to certify ([C]) the authenticity of
+its sub keys should be kept secure on only one device, best on a hardware token
+or better on one computer. Exactly for this reason the tool `gpg-backup-key`
+creates a backup file which does not contain the secret key but all of its sub
+keys, used for encryption ([E]), signing ([S]) and authentication ([A]).
+
+.Import For Distribution Of Secret Sub Keys Only
+[source,bash]
+----
+gpg --import --import-options restore "${gpg_backup_dir}/${gpg_sec_key_id}.ssb.gpg"
+----
+
+Backup Of Owner Trust Values
+----------------------------
+
+Use the Bash shell script `gpg-backup-trust` to create a backup of all owner
+trust values that you, the signing party put into the keys it signed. Since
+owner trust is highly subjective, i.e. the degree to which a person trusting
+others, the tool chooses your user name as the base file name for your owner
+trust backups, i.e. `${USER}.ownertrust.txt`.
+
+.Export For Backup Of All Owner Trust Values
+[source,bash]
+----
+gpg-backup-trust "${gpg_backup_dir}"
+----
+
+When you lose access to your owner trust values, e.g. because your mobile
+computer was stolen or its hardware malfunctioned, you can restore them as
+follows:
+
+.Import For Restoration Of All Owner Trust Values
+[source,bash]
+----
+gpg --import-ownertrust "${gpg_backup_dir}/${USER}.ownertrust.txt"
+----

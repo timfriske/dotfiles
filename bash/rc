@@ -144,69 +144,69 @@ alias ...='cd ../..'
 # Cp - Copy files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function cp {
+function cpx {
   local options
-  read -r -a options <<< "${CP_X_OPTIONS:-}"
+  read -ra options <<< "${CP_X_OPTIONS:-}"
   command cp "${options[@]}" "${@}"
 }
 
 # Ch(attr|grp|mod|own) - Change file metadata
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function chattr {
+function chattrx {
   local options
-  read -r -a options <<< "${CHATTR_X_OPTIONS:-}"
+  read -ra options <<< "${CHATTR_X_OPTIONS:-}"
   command chattr "${options[@]}" "${@}"
 }
 
-function chgrp {
+function chgrpx {
   local options
-  read -r -a options <<< "${CHGRP_X_OPTIONS:-}"
+  read -ra options <<< "${CHGRP_X_OPTIONS:-}"
   command chgrp "${options[@]}" "${@}"
 }
 
-function chmod {
+function chmodx {
   local options
-  read -r -a options <<< "${CHMOD_X_OPTIONS:-}"
+  read -ra options <<< "${CHMOD_X_OPTIONS:-}"
   command chmod "${options[@]}" "${@}"
 }
 
-function chown {
+function chownx {
   local options
-  read -r -a options <<< "${CHOWN_X_OPTIONS:-}"
+  read -ra options <<< "${CHOWN_X_OPTIONS:-}"
   command chown "${options[@]}" "${@}"
 }
 
 # Df/Du - Disk free/usage
 # ~~~~~~~~~~~~~~
 
-function df {
+function dfx {
   local options
-  read -r -a options <<< "${DF_X_OPTIONS:-}"
+  read -ra options <<< "${DF_X_OPTIONS:-}"
   command df "${options[@]}" "${@}"
 }
 
-function du {
+function dux {
   local options
-  read -r -a options <<< "${DU_X_OPTIONS:-}"
+  read -ra options <<< "${DU_X_OPTIONS:-}"
   command du "${options[@]}" "${@}"
 }
 
 # Diff - Differences between files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function diff {
+function diffx {
   local options
-  read -r -a options <<< "${DIFF_X_OPTIONS:-}"
+  read -ra options <<< "${DIFF_X_OPTIONS:-}"
   command diff "${options[@]}" "${@}"
 }
 
 # Free - Show free main memory and swap space
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function free {
+function freex {
   local options
-  read -r -a options <<< "${FREE_X_OPTIONS:-}"
+  read -ra options <<< "${FREE_X_OPTIONS:-}"
   command free "${options[@]}" "${@}"
 }
 

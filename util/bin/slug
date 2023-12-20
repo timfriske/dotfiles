@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Slug command
+# ============
+# Tim Friske <me@tifr.de>
+#
+# Converts text read from the standard input stream or given as positional
+# arguments into strings which only contain lower-case characters, numbers and
+# dashes. Leading and trailing dashes are removed. Multiple adjacent dashes are
+# collapsed into one.
+#
+# Deps:: bash, env, iconv, sed
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+function convert {
+  iconv --to-code="ascii//TRANSLIT" \
+    | sed --regexp-extended --expression="s:[^[:alnum:]]+:-:g;s:^-+|-+$::g;s:.*:\L&:"
+}
+
+if [[ "${#}" -eq 0 ]]; then convert; else printf "%s\n" "${@}" | convert; fi

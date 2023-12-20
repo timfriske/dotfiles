@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# GPG Backup Trust
+# ================
+# Tim Friske <me@tifr.de>
+#
+# Backs up the owner trust values in all _OpenPGP_ keys with _GPG_ by exporting
+# these values into a text file ready to be imported via _GPG_ again.
+#
+# Any previously generated file is backed up to a file with the same name as a
+# prefix but a sequential, strictly monotonically increasing integer sequence in
+# the form of file extensions like `.~1~`, `.~2~` etc.
+#
+# The files this program produces are the following:
+# 1. ${USER}.ownertrust.txt: File containing owner trust values.
+# 1. ${USER}.ownertrust.txt.~1~: File of second to last run.
+# 1. ${USER}.ownertrust.txt.~2~: File of last run.
+#
+# Important note: It is highly recommended to also export all secret keys and
+# subkeys on a regular basis to create a backup history. This functionality is
+# not part of this program.
+#
+# Important note: It is highly recommended to also export the revocation
+# certificate of each secret key at least once. This functionality is not part
+# of this program.
+#
+# Deps:: bash env gpg gpg-backup-lib
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+source gpg-backup-lib
+
+function export_owner_trust {
+  local backup_dir="${1:-${backup_dir:-}}"
+  local backup_file="${backup_dir:+${backup_dir%/}/}${USER}.ownertrust.txt"
+  copy_file "${backup_file}"
+  gpg --export-ownertrust > "${backup_file}"
+  protect_file "${backup_file}"
+}
+
+export_owner_trust "${@}"

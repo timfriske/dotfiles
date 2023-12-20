@@ -32,29 +32,27 @@
 # Path - Setup folders where to search for programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-declare _path=''
-declare _path_real=''
-declare -a _paths=()
-declare -A _paths_real=()
-
-# Use _Bash's_ brace expansion for brevity.
-for _path in "${HOME}"/{.local/,}bin {/usr/{local/,},/}{,s}bin /snap/bin; do
-  if [[ -d "${_path}" ]]; then
-    # Resolve symlinks in path.
-    _path_real="$(cd "${_path}" && pwd -P)"
-
-    # Add path only if not already added.
-    if [[ -z "${_paths_real[${_path_real}]+x}" ]]; then
-      _paths_real["${_path_real}"]+=''
-      _paths+=("${_path}")
+function _build_path {
+  local _path _path_real
+  local -a _paths=()
+  local -A _paths_real=()
+  for _path in "${HOME}"/{.local/,}bin {/usr/{local/,},/}{,s}bin /snap/bin; do
+    if [[ -d "${_path}" ]]; then
+      # Resolve symlinks in path.
+      _path_real="$(cd -- "${_path}" && pwd -P)"
+      # Add path only if not already present.
+      if [[ -z "${_paths_real[${_path_real}]+x}" ]]; then
+        _paths_real["${_path_real}"]+=""
+        _paths+=("${_path}")
+      fi
     fi
-  fi
-done
-
-# Print array of paths as colon-separated list.
-PATH="$(IFS=':'; printf '%s' "${_paths[*]}")"
+  done
+  # Print array of paths as colon-separated list.
+  (IFS=":"; printf "%s" "${_paths[*]}")
+}
 export PATH
-unset _path _paths _path_real _paths_real
+PATH="$(_build_path)"
+unset -f _build_path
 
 # Execute command everytime a new prompt is displayed.
 export PROMPT_COMMAND="tmux-pwd;${PROMPT_COMMAND}"

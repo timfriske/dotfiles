@@ -20,3 +20,5 @@
     mode: preserve
   with_fileglob:
     - bin/*
+  loop_control:
+    label: "{{ item | relpath }}"

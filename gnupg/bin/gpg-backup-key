@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+#
+# GPG Backup Key
+# ==============
+# Tim Friske <me@tifr.de>
+# 
+# Backs up _OpenPGP_ keys with _GPG_ by exporting all keys which belong to the
+# given primary key id in long format.
+#
+# During each run this program produces a number of files in the _GPG_ binary
+# format which names all start with the given key id and end with the file
+# extension `.gpg`. Depending on the type of data each file contains, its name
+# bears a secondary extension prepended to the aforementioned primary one in
+# order to tell the files apart.
+#
+# Any previously generated file is backed up to a file with the same name as a
+# prefix but a sequential, strictly monotonically increasing integer sequence in
+# the form of file extensions like `.~1~`, `.~2~` etc.
+#
+# The files this program produces are the following:
+# 1. ${key_id}.pub.gpg: File containing public key and all subkeys.
+# 2. ${key_id}.sec.gpg: File containing secret key and all subkeys.
+# 3. ${key_id}.ssb.gpg: File containing secret subkeys only.
+# 4. ${key_id}.???.gpg.~1~: File of second to last run.
+# 5. ${key_id}.???.gpg.~2~: File of last run.
+#
+# Important note: In order to be able to export the secret key material _GPG_
+# must decrypt and re-encrypt it. Therefore, you are prompted twice for the same
+# passphrase protecting that material; once for the file that shall contain the
+# secret key and all subkeys and a second time for the file with the secret
+# subkeys only.
+#
+# Important note: It is highly recommended to also export the owner trust
+# values. This functionality is not part of this program.
+#
+# Important note: It is highly recommended to also export the revocation
+# certificate of each secret key at least once. This functionality is not part
+# of this program.
+#
+# Deps:: awk bash env gpg gpg-backup-lib
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+source gpg-backup-lib
+
+function get_primary_secret_key_id {
+  local key_id="${1:-${key_id:?required}}"
+  # Returns 16-digit (short) hexadecimal number. 40-digit number would have been ideal.
+  gpg --list-secret-keys --with-colons -- "${key_id}" | awk -F: '/^sec/{print $5;exit}'
+}
+
+function check_key_id {
+  local key_id="${1:-${key_id:?required}}"
+  if [[ ! "${key_id}" =~ ^[0-9A-F]{40}$ ]]; then
+    echo >&2 "Key id must be 41-digit hexadecimal number! Aborting..."
+    exit 2
+  elif [[ "${key_id:24}" != "$(get_primary_secret_key_id "${key_id}")" ]]; then
+    echo >&2 "Key id must be known primary secret key! Aborting..."
+    exit 2
+  fi
+}
+
+function export_public_keys {
+  local key_id="${1:-${key_id:?required}}"
+  local backup_dir="${2:-${backup_dir:-}}"
+  local backup_file="${backup_dir:+${backup_dir%/}/}${key_id}.pub.gpg"
+  copy_file "${backup_file}"
+  gpg --export --export-options backup --output "${backup_file}" -- "${key_id}"
+  protect_file "${backup_file}"
+}
+
+function export_secret_keys {
+  local key_id="${1:-${key_id:?required}}"
+  local backup_dir="${2:-${backup_dir:-}}"
+  local backup_file="${backup_dir:+${backup_dir%/}/}${key_id}.sec.gpg"
+  copy_file "${backup_file}"
+  gpg --export-secret-keys --export-options backup --output "${backup_file}" -- "${key_id}"
+  protect_file "${backup_file}"
+}
+
+function export_secret_subkeys_only {
+  local key_id="${1:-${key_id:?required}}"
+  local backup_dir="${2:-${backup_dir:-}}"
+  local backup_file="${backup_dir:+${backup_dir%/}/}${key_id}.ssb.gpg"
+  copy_file "${backup_file}"
+  gpg --export-secret-subkeys --export-options backup --output "${backup_file}" -- "${key_id}"
+  protect_file "${backup_file}"
+}
+
+check_key_id "${@}"
+export_public_keys "${@}"
+export_secret_keys "${@}"
+export_secret_subkeys_only "${@}"

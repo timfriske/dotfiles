@@ -19,6 +19,8 @@
     mode: preserve
   with_fileglob:
     - bin/*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Test if operating system is using Systemd
   ansible.builtin.find:

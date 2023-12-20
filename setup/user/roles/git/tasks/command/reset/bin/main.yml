@@ -19,15 +19,19 @@
     mode: preserve
   with_fileglob:
     - command/reset/bin/git-z*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Create shortcuts to Git Reset commands
   ansible.builtin.file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
-           {{ item \
-           | basename \
-           | regex_replace('^git-z(.*)', '/gz\\1') }}"
+      {{ item \
+      | basename \
+      | regex_replace('^git-z(.*)', '/gz\\1') }}"
     force: yes
     state: link
   with_fileglob:
     - command/reset/bin/git-z*
+  loop_control:
+    label: "{{ item | relpath }}"

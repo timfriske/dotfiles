@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Urienc command
+# ==============
+# Tim Friske <me@tifr.de>
+#
+# Converts text read from the standard input stream or given as positional
+# arguments into strings which can be embedded in URIs.
+#
+# Deps:: bash, env, jq
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+function convert { jq --raw-input --raw-output '@uri'; }
+if [[ "${#}" -eq 0 ]]; then convert; else printf "%s\n" "${@}" | convert; fi

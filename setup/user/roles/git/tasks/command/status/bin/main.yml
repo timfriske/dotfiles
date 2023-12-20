@@ -19,15 +19,19 @@
     mode: preserve
   with_fileglob:
     - command/status/bin/git-i*
+  loop_control:
+    label: "{{ item | relpath }}"
 
 - name: Create shortcuts to Git Status commands
   ansible.builtin.file:
     src: "{{ item | basename }}"
     dest: "{{ bin_dir }}/\
-           {{ item \
-           | basename \
-           | regex_replace('^git-i(.*)', '/gi\\1') }}"
+      {{ item \
+      | basename \
+      | regex_replace('^git-i(.*)', '/gi\\1') }}"
     force: yes
     state: link
   with_fileglob:
     - command/status/bin/git-i*
+  loop_control:
+    label: "{{ item | relpath }}"
