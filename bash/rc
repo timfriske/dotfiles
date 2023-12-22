@@ -149,6 +149,7 @@ function cpx {
   read -ra options <<< "${CP_X_OPTIONS:-}"
   command cp "${options[@]}" "${@}"
 }
+alias cp=cpx
 
 # Ch(attr|grp|mod|own) - Change file metadata
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,24 +159,28 @@ function chattrx {
   read -ra options <<< "${CHATTR_X_OPTIONS:-}"
   command chattr "${options[@]}" "${@}"
 }
+alias chattr=chattrx
 
 function chgrpx {
   local options
   read -ra options <<< "${CHGRP_X_OPTIONS:-}"
   command chgrp "${options[@]}" "${@}"
 }
+alias chgrp=chgrpx
 
 function chmodx {
   local options
   read -ra options <<< "${CHMOD_X_OPTIONS:-}"
   command chmod "${options[@]}" "${@}"
 }
+alias chmod=chmodx
 
 function chownx {
   local options
   read -ra options <<< "${CHOWN_X_OPTIONS:-}"
   command chown "${options[@]}" "${@}"
 }
+alias chown=chownx
 
 # Df/Du - Disk free/usage
 # ~~~~~~~~~~~~~~
@@ -185,12 +190,14 @@ function dfx {
   read -ra options <<< "${DF_X_OPTIONS:-}"
   command df "${options[@]}" "${@}"
 }
+alias df=dfx
 
 function dux {
   local options
   read -ra options <<< "${DU_X_OPTIONS:-}"
   command du "${options[@]}" "${@}"
 }
+alias du=dux
 
 # Diff - Differences between files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -200,6 +207,7 @@ function diffx {
   read -ra options <<< "${DIFF_X_OPTIONS:-}"
   command diff "${options[@]}" "${@}"
 }
+alias diff=diffx
 
 # Free - Show free main memory and swap space
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,6 +217,7 @@ function freex {
   read -ra options <<< "${FREE_X_OPTIONS:-}"
   command free "${options[@]}" "${@}"
 }
+alias free=freex
 
 # Fzf - Fuzzy-search and select all kinds of items
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -260,11 +269,12 @@ fi
 # Grep - Search files for content
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function grep {
+function grepx {
   local options
   read -r -a options <<< "${GREP_X_OPTIONS:-}"
   command grep "${options[@]}" "${@}"
 }
+alias grep=grepx
 
 # Horizontal Ruler - Print horizontal ruler
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -277,11 +287,12 @@ fi
 # Info - View documentation about operating system and programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function info {
+function infox {
   local options
   read -r -a options <<< "${INFO_X_OPTIONS:-}"
   command info "${options[@]}" "${@}"
 }
+alias info=infox
 
 # Jobs - Management of processes in foreground and background
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -309,21 +320,22 @@ fi
 # Ln - Create hard and soft links to files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function ln {
+function lnx {
   local options
   read -r -a options <<< "${LN_X_OPTIONS:-}"
   command ln "${options[@]}" "${@}"
 }
+alias ln=lnx
 
 # Mkdir - Create folders
 # ~~~~~~~~~~~~~~~~~~~~~~
 
-function mkdir {
+function mkdirx {
   local options
   read -r -a options <<< "${MKDIR_X_OPTIONS:-}"
   command mkdir "${options[@]}" "${@}"
 }
-alias md='mkdir'
+alias mkdir=mkdirx md=mkdirx
 
 # Make and change to given, random (mdr) or temporary (mdt) directory.
 #
@@ -342,20 +354,22 @@ alias md='mkdir'
 # Mv - Move/rename files and folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function mv {
+function mvx {
   local options
   read -r -a options <<< "${MV_X_OPTIONS:-}"
   command mv "${options[@]}" "${@}"
 }
+alias mv=mvx
 
 # Parallel - run commands in parallel
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function parallel {
+function parallelx {
   local options
   read -r -a options <<< "${PARALLEL_X_OPTIONS:-}"
   command parallel "${options[@]}" "${@}"
 }
+alias parallel=parallelx
 
 # Python - Programming language
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -390,39 +404,42 @@ function pynv {
 # Ripgrep - Search file contents
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function rg {
+function rgx {
   local options
   read -r -a options <<< "${RIPGREP_X_OPTIONS:-}"
   command rg "${options[@]}" "${@}"
 }
+alias rg=rgx
 
 # Rm - Delete files and non-empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function rm {
+function rmx {
   local options
   read -r -a options <<< "${RM_X_OPTIONS:-}"
   command rm "${options[@]}" "${@}"
 }
+alias rm=rmx
 
 # Rmdir - Delete empty folders
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function rmdir {
+function rmdirx {
   local options
   read -r -a options <<< "${RMDIR_X_OPTIONS:-}"
   command rmdir "${options[@]}" "${@}"
 }
-alias rd='rmdir'
+alias rmdir=rmdirx rd=rmdirx
 
 # Rsync - Synchronize file system trees
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function rsync {
+function rsyncx {
   local options
   read -r -a options <<< "${RSYNC_X_OPTIONS:-}"
   command rsync "${options[@]}" "${@}"
 }
+alias rsync=rsyncx
 
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -432,6 +449,7 @@ function sed {
   read -r -a options <<< "${SED_X_OPTIONS:-}"
   command sed "${options[@]}" "${@}"
 }
+alias sed=sedx
 
 # Sudo - Execute programs as another user
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
