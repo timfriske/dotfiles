@@ -4,7 +4,7 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Logs nth statistics.
+# Logs statistics of given commit.
 #
 # Deps:: bash, env, git-log
 

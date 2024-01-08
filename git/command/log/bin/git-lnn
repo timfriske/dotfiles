@@ -4,7 +4,7 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Log message of nth commit.
+# Log message of given commit.
 #
 # Deps:: bash, env, git-log
 

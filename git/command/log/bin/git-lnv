@@ -4,7 +4,7 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Logs nth commit's cryptograhpic signature.
+# Logs cryptograhpic signature of given commit.
 #
 # Deps:: bash, env, git-log
 
