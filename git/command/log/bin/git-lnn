@@ -4,11 +4,11 @@
 # ===============
 # Tim Friske <me@tifr.de>
 #
-# Logs subject (first line) of nth commit.
+# Log message of nth commit.
 #
 # Deps:: bash, env, git-log
 
 # Ensure fail-fast script execution.
 shopt -os nounset noclobber pipefail errexit errtrace
 
-git log --max-count=1 --oneline "${@}"
+git log --max-count=1 --format=fuller --use-mailmap "${@}"
