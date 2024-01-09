@@ -17,7 +17,7 @@
 # Instance types may be given as space- or comma-separated arguments or any
 # combination thereof.
 #
-# Deps:: aws, bash, env, jq
+# Deps:: aws, bash, env, jq, yq
 
 # Ensure fail-fast script execution.
 shopt -os nounset errexit errtrace pipefail
@@ -62,4 +62,5 @@ aws ec2 describe-spot-price-history \
   --region "${aws_region}" \
   --product-descriptions Linux/UNIX \
   --instance-types "${aws_ec2_instance_types[@]}" \
-  | jq "${jq_stats_query}"
+  | jq "${jq_stats_query}" \
+  | if [[ -t 1 ]]; then yq --prettyPrint; else jq; fi

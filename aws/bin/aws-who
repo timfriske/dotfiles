@@ -7,9 +7,9 @@
 # Prints the AWS Security Token Service (STS) caller identity, i.e. the details
 # about the IAM user or role whose credentials are used to call the operation.
 #
-# Deps:: aws, bash, env
+# Deps:: aws, bash, env, jq, yq
 
 # Ensure fail-fast script execution.
 shopt -os nounset noclobber pipefail errexit errtrace
 
-aws sts get-caller-identity "${@}"
+aws sts get-caller-identity "${@}" | if [[ -t 1 ]]; then yq --prettyPrint; else jq; fi
