@@ -4,21 +4,30 @@
 # ==================
 # Tim Friske <me@tifr.de>
 #
-# Prints Git semantic version in JSON format mainly for programmatic access.
+# Prints the Git version as semantic version to the standard ouptut stream in
+# YAML format if connected to a terminal or in JSON format if redirected to
+# another command or file.
 #
-# Deps:: bash, env, git-version, jq
+# Deps:: bash, env, git-version, jq, yq
 
 # Ensure fail-fast script execution.
 shopt -os nounset noclobber pipefail errexit errtrace
 
-git version \
-  | jq --raw-input '
-    split(" ") 
-    | .[2] 
-    | split(".")
-    | {
-        "major": .[0],
-        "minor": .[1],
-        "patch": .[2]
-      }' \
-  | jq ${1:+--raw-output ".${1}"}
+function parse_git_version {
+  jq --raw-input 'split(" ").[2]|split(".")|{major:.[0],minor:.[1],patch:.[2]}'
+}
+
+function select_version_item {
+  (( $# == 1 )) && jq --raw-output --arg item "${1}" '.[$item]' || jq
+}
+
+function git_version {
+  git version | parse_git_version | select_version_item "${@}"
+}
+
+if [[ -t 1 ]]; then
+  git_version "${@}" | yq --prettyPrint
+  exit
+fi
+
+git_version "${@}"
