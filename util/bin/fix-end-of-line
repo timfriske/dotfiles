@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Fix Last End-Of-Line command
-# ============================
+# Fix End-Of-Line command
+# =======================
 # Tim Friske <me@tifr.de>
 #
 # Deletes any carriage return characters (\r) in order to convert line endings

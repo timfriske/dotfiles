@@ -444,7 +444,7 @@ alias rsync=rsyncx
 # Sed - Edit streams of text
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-function sed {
+function sedx {
   local options
   read -r -a options <<< "${SED_X_OPTIONS:-}"
   command sed "${options[@]}" "${@}"
