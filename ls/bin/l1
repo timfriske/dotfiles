@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Ls command
+# ==========
+# Tim Friske <me@tifr.de>
+#
+# Lists information about given files or files in current working directory by
+# default. Lists files in single-column format, i.e. one file per line.
+#
+# Deps:: bash, env, ls
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+read -r -a ls_x_options <<< "${LS_X_OPTIONS:-}"
+ls "${ls_x_options[@]}" --format=single-column "${@}"
