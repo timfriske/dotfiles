@@ -5,9 +5,8 @@
 # Tim Friske <me@tifr.de>
 #
 # Converts text read from the standard input stream or given as positional
-# arguments into strings which only contain lower-case characters, numbers and
-# dashes. Leading and trailing dashes are removed. Multiple adjacent dashes are
-# collapsed into one.
+# arguments into text which only contains alphanumeric ASCII characters in lower
+# case. Non-matching characters are converted to hyphen (`-`) characters.
 #
 # Deps:: bash, env, iconv, sed
 
@@ -15,8 +14,14 @@
 shopt -os nounset noclobber pipefail errexit errtrace
 
 function convert {
+  # 1. Convert characters from default encoding (e.g. UTF-8) to ASCII (`ascii`).
+  # 2. Replace non-ASCII with similarly looking characters (`//TRANSLIT`).
+  # 3. Replace non-alphanumeric with hyphen characters (`s:[^[:alnum:]]+:-:g`).
+  # 4. Remove leading and trailing hyphen characters (`s:^-+|-+$::g`).
+  # 5. Convert characters to all lower case (`s:.*:\L&:`).
   iconv --to-code="ascii//TRANSLIT" \
     | sed --regexp-extended --expression="s:[^[:alnum:]]+:-:g;s:^-+|-+$::g;s:.*:\L&:"
 }
 
-if [[ "${#}" -eq 0 ]]; then convert; else printf "%s\n" "${@}" | convert; fi
+# Receive input from standard input stream or positional arguments.
+if [[ "${#}" -eq 0 ]]; then convert; else printf '%s\n' "${@}" | convert; fi
