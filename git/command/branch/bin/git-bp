@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Git Branch command
+# ==================
+# Tim Friske <me@tifr.de>
+#
+# Show the nth previously checked out branch name.
+#
+# Deps:: bash, env, git-describe, git-rev-parse, sed
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+function get_nth_prev_commit {
+  local nth_commit="${1:-1}"
+  local nth_prev_commit="@{-${nth_commit}}"
+  git rev-parse "${nth_prev_commit}"
+}
+
+git describe --all -- "$(get_nth_prev_commit "${@}")" | sed --expression='s:heads/::'
