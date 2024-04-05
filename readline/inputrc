@@ -7,8 +7,8 @@
 #
 # When a program which uses the _Readline_ library starts up, _Readline_
 # reads and executes commands from its config files but only if these
-# exist and are readable.  It first reads its system-wide config file
-# `/etc/inputrc`.  It then continues to read its user-specific config
+# exist and are readable. It first reads its system-wide config file
+# `/etc/inputrc`. It then continues to read its user-specific config
 # file `~/.inputrc`.
 #
 # This config file shall contain only non-default settings in order to
@@ -30,13 +30,12 @@
 set bell-style visible
 
 # Display the common prefix among possible word completions in different
-# colors.  The colors are taken from the `$LS_COLORS` variable.
+# colors.  The colors are taken from the `LS_COLORS` variable.
 #
 set colored-completion-prefix on
 
 # Display possible word completions in different colors to indicate
-# their file types.  The colors are taken from the `$LS_COLORS`
-# variable.
+# their file types. The colors are taken from the `LS_COLORS` variable.
 #
 set colored-stats on
 
@@ -52,12 +51,6 @@ set completion-map-case on
 # Echo control characters such as `CTRL-C` as `^C`.
 #
 set echo-control-characters off
-
-# Switch editing mode of the command line to _Vi_-mode for all programs.
-# Assume that the user is well versed in most key bindings of the _Vi_
-# text editor or one of its compatible clones such as _Vim_.
-#
-set editing-mode vi
 
 # Yank killed text into the editing buffer as single string and not
 # multiple characters hereby preventing individual characters from being
@@ -101,6 +94,14 @@ set show-mode-in-prompt on
 #
 set skip-completed-text on
 
+# Indicate the file types when listing possible completions, namely by
+# appending a type discriminator sign, during file name completion.
+#
+set visible-stats on
+
+# Mode specific settings
+# ----------------------
+
 # Indicate that the editing buffer is currently in _Vi's_ _Command_ mode
 # with the given string.
 #
@@ -111,13 +112,15 @@ set vi-cmd-mode-string [C]
 #
 set vi-ins-mode-string [I]
 
-# Indicate the file types when listing possible completions, namely by
-# appending a type discriminator sign, during file name completion.
+# Conditionally switch command line editing mode between Emacs and Vi.
+# Most programs assume Emacs because it is the default editing mode.
+# Some programs have difficulties with Vi editing mode. Keep key
+# bindings of Emacs as the default and enable Vi key bindings only on a
+# case-by-case basis.
 #
-set visible-stats on
-
-# Mode specific settings
-# ----------------------
+$if Bash
+  set editing-mode vi
+$endif
 
 $if mode=vi
 
