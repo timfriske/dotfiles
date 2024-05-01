@@ -7,93 +7,93 @@
 # ----------------
 
 packages:
-  - ansible
-  - ansible-lint
-  - asciidoc
-  - asciidoctor
-  - bash
-  - borgbackup
-  - btop
-  - curl
-  - dash
-  - docker-compose
-  - docker.io
-  - dos2unix
-  - fail2ban
-  - fd-find
-  - ffmpeg
-  - fonts-firacode
-  - fonts-hack
-  - fonts-jetbrains-mono
-  - fzf
-  - gimp
-  - git
-  - gnupg
-  - htop
-  - inkscape
-  - iotop
-  - ipcalc
-  - iperf3
-  - ipv6calc
-  - jq
-  - kdiff3
-  - keepassxc
-  - kompare
-  - krita
-  - libreoffice
-  - libreoffice-help-de
-  - libreoffice-help-en-us
-  - libreoffice-l10n-de
-  - lsb-release
-  - moreutils
-  - mysql-client
-  - neovim
-  - network-manager-openvpn
-  - openjdk-17-doc
-  - openjdk-17-jdk
-  - openjdk-17-source
-  - openjdk-21-doc
-  - openjdk-21-jdk
-  - openjdk-21-source
-  - openssh-client
-  - openssh-server
-  - parallel
-  - patch
-  - plasma-workspace-wayland
-  - python3
-  - python3-doc
-  - python3-venv
-  - rclone
-  - ripgrep
-  - rsync
-  - shellcheck
-  - speedtest-cli
-  - sqlite3
-  - sqlitebrowser
-  - ssh-audit
-  - sysstat
-  - tmux
-  - tree
-  - unzip
-  - vim
-  - visualvm
-  - wget
-  - wget2
-  - xclip
-  - xsel
-  - yamllint
-  - zsh
-  - zstd
+  ansible-lint:
+  ansible:
+  asciidoc:
+  asciidoctor:
+  bash:
+  borgbackup:
+  btop:
+  curl:
+  dash:
+  docker-compose:
+  docker.io:
+  dos2unix:
+  fail2ban:
+  fd-find:
+  ffmpeg:
+  fonts-firacode:
+  fonts-hack:
+  fonts-jetbrains-mono:
+  fzf:
+  gimp:
+  git:
+  gnupg:
+  htop:
+  inkscape:
+  iotop:
+  ipcalc:
+  iperf3:
+  ipv6calc:
+  jq:
+  kdiff3:
+  keepassxc:
+  kompare:
+  krita:
+  libreoffice-help-de:
+  libreoffice-help-en-us:
+  libreoffice-l10n-de:
+  libreoffice:
+  lsb-release:
+  moreutils:
+  mysql-client:
+  neovim:
+  network-manager-openvpn:
+  openjdk-17-doc:
+  openjdk-17-jdk:
+  openjdk-17-source:
+  openjdk-21-doc:
+  openjdk-21-jdk:
+  openjdk-21-source:
+  openssh-client:
+  openssh-server:
+  parallel:
+  patch:
+  plasma-workspace-wayland:
+  python3-doc:
+  python3-venv:
+  python3:
+  rclone:
+  ripgrep:
+  rsync:
+  shellcheck:
+  speedtest-cli:
+  sqlite3:
+  sqlitebrowser:
+  ssh-audit:
+  sysstat:
+  tmux:
+  tree:
+  unzip:
+  vim:
+  visualvm:
+  wget:
+  wget2:
+  xclip:
+  xsel:
+  yamllint:
+  zsh:
+  zstd:
 
 snaps:
-  - aws-cli
-  - code
-  - intellij-idea-community
-  - intellij-idea-ultimate
-  - kubectl
-  - kustomize
-  - mysql-workbench-community
-  - teams-for-linux
+  aws-cli:
+  code:
+  intellij-idea-community:
+  intellij-idea-ultimate:
+  kubectl:
+  kustomize:
+  mysql-workbench-community:
+  teams-for-linux:
 
 snap_connections:
   -

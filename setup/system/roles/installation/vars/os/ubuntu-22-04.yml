@@ -7,136 +7,136 @@
 # ----------------
 
 packages:
-  - alacritty
-  - ansible
-  - ansible-lint
-  - asciidoc
-  - asciidoctor
-  - asciidoctor-doc
-  - autoconf
-  - automake
-  - awscli
-  - bash
-  - borgbackup
-  - borgbackup-doc
-  - btop
-  - cargo
-  - cargo-doc
-  - cmake
-  - code
-  - curl
-  - cython3
-  - dash
-  - devscripts
-  - docker-compose
-  - docker-doc
-  - docker.io
-  - dos2unix
-  - dragonplayer
-  - fail2ban
-  - fd-find
-  - ffmpeg
-  - ffmpeg-doc
-  - flake8
-  - fonts-firacode
-  - fonts-hack
-  - fonts-jetbrains-mono
-  - fzf
-  - g++
-  - gcc
-  - gimp
-  - git
-  - git-doc
-  - gnome-keyring
-  - gnupg
-  - golang
-  - htop
-  - inkscape
-  - inotify-tools
-  - iotop
-  - ipcalc
-  - iperf
-  - iperf3
-  - ipv6calc
-  - jq
-  - kdiff3
-  - keepassxc
-  - kompare
-  - krita
-  - libboost-dev
-  - libboost-date-time-dev
-  - libboost-filesystem-dev
-  - libboost-iostreams-dev
-  - libboost-program-options-dev
-  - libhts-dev
-  - libncurses5-dev
-  - libbz2-dev
-  - libcurl4
-  - libcurl4-gnutls-dev
-  - libcurl4-nss-dev
-  - liblzma-dev
-  - libpam-kwallet5
-  - libssl-dev
-  - libreoffice
-  - libreoffice-help-de
-  - libreoffice-help-en-us
-  - libreoffice-l10n-de
-  - lsb-core
-  - lsb-release
-  - make
-  - moreutils
-  - mysql-client
-  - neovim
-  - network-manager-openvpn
-  - nmap
-  - openjdk-17-doc
-  - openjdk-17-jdk
-  - openjdk-17-source
-  - openjdk-18-doc
-  - openjdk-18-jdk
-  - openjdk-18-source
-  - openssh-client
-  - openssh-server
-  - parallel
-  - patch
-  - python3
-  - python3-doc
-  - python3-venv
-  - rclone
-  - ripgrep
-  - rsync
-  - rustc
-  - rust-doc
-  - rust-src
-  - shellcheck
-  - speedtest-cli
-  - sqlite3
-  - sqlitebrowser
-  - ssh-audit
-  - sysstat
-  - tmux
-  - transmission
-  - tree
-  - unzip
-  - vim
-  - vim-doc
-  - visualvm
-  - vlc
-  - wget
-  - wget2
-  - xclip
-  - xsel
-  - yamllint
-  - zlib1g-dev
-  - zstd
+  alacritty:
+  ansible-lint:
+  ansible:
+  asciidoc:
+  asciidoctor-doc:
+  asciidoctor:
+  autoconf:
+  automake:
+  awscli:
+  bash:
+  borgbackup-doc:
+  borgbackup:
+  btop:
+  cargo-doc:
+  cargo:
+  cmake:
+  code:
+  curl:
+  cython3:
+  dash:
+  devscripts:
+  docker-compose:
+  docker-doc:
+  docker.io:
+  dos2unix:
+  dragonplayer:
+  fail2ban:
+  fd-find:
+  ffmpeg-doc:
+  ffmpeg:
+  flake8:
+  fonts-firacode:
+  fonts-hack:
+  fonts-jetbrains-mono:
+  fzf:
+  g++:
+  gcc:
+  gimp:
+  git-doc:
+  git:
+  gnome-keyring:
+  gnupg:
+  golang:
+  htop:
+  inkscape:
+  inotify-tools:
+  iotop:
+  ipcalc:
+  iperf:
+  iperf3:
+  ipv6calc:
+  jq:
+  kdiff3:
+  keepassxc:
+  kompare:
+  krita:
+  libboost-date-time-dev:
+  libboost-dev:
+  libboost-filesystem-dev:
+  libboost-iostreams-dev:
+  libboost-program-options-dev:
+  libbz2-dev:
+  libcurl4-gnutls-dev:
+  libcurl4-nss-dev:
+  libcurl4:
+  libhts-dev:
+  liblzma-dev:
+  libncurses5-dev:
+  libpam-kwallet5:
+  libreoffice-help-de:
+  libreoffice-help-en-us:
+  libreoffice-l10n-de:
+  libreoffice:
+  libssl-dev:
+  lsb-core:
+  lsb-release:
+  make:
+  moreutils:
+  mysql-client:
+  neovim:
+  network-manager-openvpn:
+  nmap:
+  openjdk-17-doc:
+  openjdk-17-jdk:
+  openjdk-17-source:
+  openjdk-18-doc:
+  openjdk-18-jdk:
+  openjdk-18-source:
+  openssh-client:
+  openssh-server:
+  parallel:
+  patch:
+  python3-doc:
+  python3-venv:
+  python3:
+  rclone:
+  ripgrep:
+  rsync:
+  rust-doc:
+  rust-src:
+  rustc:
+  shellcheck:
+  speedtest-cli:
+  sqlite3:
+  sqlitebrowser:
+  ssh-audit:
+  sysstat:
+  tmux:
+  transmission:
+  tree:
+  unzip:
+  vim-doc:
+  vim:
+  visualvm:
+  vlc:
+  wget:
+  wget2:
+  xclip:
+  xsel:
+  yamllint:
+  zlib1g-dev:
+  zstd:
 
 snaps:
-  - intellij-idea-community
-  - intellij-idea-ultimate
-  - kubectl
-  - kustomize
-  - mysql-workbench-community
-  - teams
+  intellij-idea-community:
+  intellij-idea-ultimate:
+  kubectl:
+  kustomize:
+  mysql-workbench-community:
+  teams:
 
 snap_connections:
   -

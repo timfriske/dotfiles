@@ -7,86 +7,83 @@
 # -----------------------------
 
 packages:
-  - adobe-sourcecodepro-fonts
-  - alacritty
-  - ansible
-  - aspell
-  - aspell-de
-  - aspell-en
-  - aws-cli
-  - borgbackup
-  - btop
-  - checkbashisms
-  - code
-  - curl
-  - dash
-  - docker
-  - docker-machine-driver-kvm2
-  - dos2unix
-  - dragonplayer
-  - fail2ban
-  - fd
-  - ffmpeg-4
-  - fira-code-fonts
-  - fzf
-  - gimp
-  - git
-  - gnu_parallel
-  - go
-  - gpg2
-  - gstreamer-plugins-bad
-  - gstreamer-plugins-good
-  - gstreamer-plugins-libav
-  - gstreamer-plugins-ugly
-  - hack-fonts
-  - htop
-  - hyperfine
-  - inkscape
-  - inotify-tools
-  - iotop
-  - iozone
-  - ipcalc
-  - iperf
-  - java-11-openjdk-devel
-  - java-17-openjdk-devel
-  - java-20-openjdk-devel
-  - java-21-openjdk-devel
-  - jetbrains-mono-fonts
-  - jq
-  - kdiff3
-  - keepassxc
-  - kompare
-  - krita
-  - kustomize
-  - lsb-release
-  - minikube
-  - moreutils
-  - neovim
-  - nmap
-  - openssh
-  - pam_kwallet
-  - partitionmanager
-  - pattern:kvm_tools
-  - permissions-zypp-plugin
-  - rclone
-  - ripgrep
-  - rsync
-  - ShellCheck
-  - speedtest-cli
-  - sqlite3
-  - sqlitebrowser
-  - stress-ng
-  - sysbench
-  - sysstat
-  - tmux
-  - transmission
-  - vim
-  - vlc
-  - vlc-codec-gstreamer
-  - wget
-  - wget2
-  - yq
-  - zstd
-  # - ipv6calc
-  # - kubernetes-client
-  # - rust
+  adobe-sourcecodepro-fonts:
+  alacritty:
+  ansible:
+  aspell-de:
+  aspell-en:
+  aspell:
+  aws-cli:
+  borgbackup:
+  btop:
+  checkbashisms:
+  code:
+  curl:
+  dash:
+  docker-machine-driver-kvm2:
+  docker:
+  dos2unix:
+  dragonplayer:
+  fail2ban:
+  fd:
+  ffmpeg-4:
+  fira-code-fonts:
+  fzf:
+  gimp:
+  git:
+  gnu_parallel:
+  go:
+  gpg2:
+  gstreamer-plugins-bad:
+  gstreamer-plugins-good:
+  gstreamer-plugins-libav:
+  gstreamer-plugins-ugly:
+  hack-fonts:
+  htop:
+  hyperfine:
+  inkscape:
+  inotify-tools:
+  iotop:
+  iozone:
+  ipcalc:
+  iperf:
+  java-11-openjdk-devel:
+  java-17-openjdk-devel:
+  java-20-openjdk-devel:
+  java-21-openjdk-devel:
+  jetbrains-mono-fonts:
+  jq:
+  kdiff3:
+  keepassxc:
+  kompare:
+  krita:
+  kustomize:
+  lsb-release:
+  minikube:
+  moreutils:
+  neovim:
+  nmap:
+  openssh:
+  pam_kwallet:
+  partitionmanager:
+  pattern:kvm_tools:
+  permissions-zypp-plugin:
+  rclone:
+  ripgrep:
+  rsync:
+  ShellCheck:
+  speedtest-cli:
+  sqlite3:
+  sqlitebrowser:
+  stress-ng:
+  sysbench:
+  sysstat:
+  tmux:
+  transmission:
+  vim:
+  vlc-codec-gstreamer:
+  vlc:
+  wget:
+  wget2:
+  yq:
+  zstd:

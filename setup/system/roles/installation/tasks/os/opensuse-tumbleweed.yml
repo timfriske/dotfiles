@@ -39,5 +39,5 @@
 - name: Install packages with zypper
   become: yes
   zypper:
-    name: "{{ packages }}"
+    name: "{{ packages.keys() }}"
     state: present

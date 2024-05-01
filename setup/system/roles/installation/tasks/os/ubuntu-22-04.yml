@@ -31,7 +31,7 @@
 - name: Install packages with apt
   become: yes
   ansible.builtin.apt:
-    name: "{{ packages }}"
+    name: "{{ packages.keys() }}"
     state: present
     install_recommends: yes
     update_cache: yes
@@ -40,7 +40,7 @@
 - name: Install packages with snap
   become: yes
   community.general.snap:
-    name: "{{ snaps }}"
+    name: "{{ snaps.keys() }}"
     channel: stable
     classic: yes
     state: present

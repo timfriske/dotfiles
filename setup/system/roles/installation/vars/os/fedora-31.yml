@@ -7,50 +7,50 @@
 # ----------------
 
 packages:
-  - adobe-source-code-pro-fonts
-  - adobe-source-sans-pro-fonts
-  - adobe-source-serif-pro-fonts
-  - ansible
-  - ansible-doc
-  - asciidoc
-  - asciidoc-doc
-  - bash
-  - borgbackup
-  - cargo
-  - chromium
-  - code
-  - dash
-  - devscripts-checkbashisms
-  - docker-compose
-  - firefox
-  - fzf
-  - git
-  - gnupg2
-  - golang
-  - htop
-  - java-11-openjdk
-  - java-11-openjdk-javadoc
-  - java-11-openjdk-src
-  - java-1.8.0-openjdk
-  - java-1.8.0-openjdk-javadoc
-  - java-1.8.0-openjdk-src
-  - jq
-  - libreoffice
-  - libreoffice-help-de
-  - libreoffice-help-en
-  - libreoffice-langpack-de
-  - libreoffice-langpack-en
-  - openssh
-  - parallel
-  - python3
-  - rsync
-  - rubygem-asciidoctor
-  - rust
-  - rust-doc
-  - rust-src
-  - rustfmt
-  - tmux
-  - transmission
-  - vim
-  - yamllint
-  - zstd
+  adobe-source-code-pro-fonts:
+  adobe-source-sans-pro-fonts:
+  adobe-source-serif-pro-fonts:
+  ansible-doc:
+  ansible:
+  asciidoc-doc:
+  asciidoc:
+  bash:
+  borgbackup:
+  cargo:
+  chromium:
+  code:
+  dash:
+  devscripts-checkbashisms:
+  docker-compose:
+  firefox:
+  fzf:
+  git:
+  gnupg2:
+  golang:
+  htop:
+  java-1.8.0-openjdk-javadoc:
+  java-1.8.0-openjdk-src:
+  java-1.8.0-openjdk:
+  java-11-openjdk-javadoc:
+  java-11-openjdk-src:
+  java-11-openjdk:
+  jq:
+  libreoffice-help-de:
+  libreoffice-help-en:
+  libreoffice-langpack-de:
+  libreoffice-langpack-en:
+  libreoffice:
+  openssh:
+  parallel:
+  python3:
+  rsync:
+  rubygem-asciidoctor:
+  rust-doc:
+  rust-src:
+  rust:
+  rustfmt:
+  tmux:
+  transmission:
+  vim:
+  yamllint:
+  zstd:
