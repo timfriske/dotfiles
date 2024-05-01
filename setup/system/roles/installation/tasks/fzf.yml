@@ -1,0 +1,45 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# AWS FZF tasks
+# -------------
+
+- name: Create FZF temporary directory
+  ansible.builtin.tempfile:
+    prefix: "{{ fzf_program }}-"
+    state: directory
+  register: fzf_temp_dir
+
+- name: Download FZF program
+  ansible.builtin.get_url:
+    url: "{{ fzf_url }}"
+    dest: "{{ fzf_temp_dir.path }}/{{ fzf_archive_file }}"
+    checksum: "{{ fzf_checksum }}"
+
+- name: Unpack FZF archive file
+  ansible.builtin.unarchive:
+   src: "{{ fzf_temp_dir.path }}/{{ fzf_archive_file }}"
+   dest: "{{ fzf_temp_dir.path }}"
+
+- name: Install FZF program
+  become: yes
+  ansible.builtin.copy:
+    src: "{{ fzf_temp_dir.path }}/{{ fzf_program }}"
+    dest: "{{ local_bin_dir }}/{{ fzf_program }}-{{ fzf_version }}"
+    mode: a+x
+
+- name: Find FZF program paths
+  ansible.builtin.find:
+    path: "{{ local_bin_dir }}"
+    pattern: "{{ fzf_program }}-*"
+  register: fzf_program_paths
+
+- name: Link FZF program (latest version)
+  become: yes
+  ansible.builtin.file:
+    src: "{{ fzf_program_paths.files | map(attribute='path') | community.general.version_sort | last | ansible.builtin.basename }}"
+    dest: "{{ local_bin_dir }}/{{ fzf_program }}"
+    force: yes
+    state: link

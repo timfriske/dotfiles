@@ -26,6 +26,12 @@ aws_ec2_instance_selector_version: 2.4.1
 aws_ec2_instance_selector_checksum: sha256:dfd6560a39c98b97ab99a34fc261b6209fc4eec87b0bc981d052f3b13705e9ff
 aws_ec2_instance_selector_url: https://github.com/aws/amazon-ec2-instance-selector/releases/download/v2.4.1/ec2-instance-selector-linux-amd64
 
+fzf_program: fzf
+fzf_version: 0.51.0
+fzf_checksum: sha256:14bf59646adf43ddbe3fd854d04a9de3c16afd4c9b493ff61d44e71c9670243d
+fzf_archive_file: fzf-0.51.0-linux_amd64.tar.gz
+fzf_url: https://github.com/junegunn/fzf/releases/download/0.51.0/fzf-0.51.0-linux_amd64.tar.gz
+
 jq_program: jq
 jq_version: 1.7.1
 jq_checksum: sha256:5942c9b0934e510ee61eb3e30273f1b3fe2590df93933a93d7c58b81d19c8ff5
