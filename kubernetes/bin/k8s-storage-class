@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# K8S Switch Storage Class
+# ========================
+# Tim Friske <me@tifr.de>
+#
+# Prints the default Kubernetes storage class or switches from the old one to the given new one.
+#
+# Deps:: bash, env, kubectl
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+IS_DEFAULT_CLASS_KEY="storageclass.kubernetes.io/is-default-class"
+IS_DEFAULT_CLASS_VAL="true"
+
+function get_default_class_name {
+  kubectl get storageclass --output json \
+  | jq --arg key "${IS_DEFAULT_CLASS_KEY}" --arg val "${IS_DEFAULT_CLASS_VAL}" --raw-output \
+    '.items[]|.metadata|select(.annotations[$key]==$val).name'
+}
+
+if [[ "${#}" -eq 1 ]]; then
+  OLD_CLASS="$(get_default_class_name)" NEW_CLASS="${1}"
+  # Delete (`-`) annotation from old default storage class.
+  kubectl annotate storageclass -- "${OLD_CLASS}" "${IS_DEFAULT_CLASS_KEY}-"
+  # Add (`=`) annotation to new default storage class.
+  kubectl annotate storageclass --overwrite \
+    -- "${NEW_CLASS}" "${IS_DEFAULT_CLASS_KEY}=${IS_DEFAULT_CLASS_VAL}"  
+else
+  get_default_class_name
+fi

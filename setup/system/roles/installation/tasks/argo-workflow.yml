@@ -6,20 +6,40 @@
 # Argo Workflows tasks
 # --------------------
 
-- name: Download Argo Workflow gzip file
+- name: Create Argo Workflows temporary directory
+  ansible.builtin.tempfile:
+    prefix: "{{ argo_workflows_program }}-"
+    state: directory
+  register: argo_workflows_temp_dir
+
+- name: Download Argo Workflows program
   ansible.builtin.get_url:
-    url: https://github.com/argoproj/argo-workflows/releases/download/v{{ release.version }}/argo-linux-amd64.gz
-    dest: "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}.gz"
-    checksum: "{{ release.checksum }}"
+    url: "{{ argo_workflows_url }}"
+    dest: "{{ argo_workflows_temp_dir.path }}/{{ argo_workflows_archive_file }}"
+    checksum: "{{ argo_workflows_checksum }}"
 
-- name: Unpack Argo Workflows gzip file
+- name: Unpack Argo Workflows archive file
   ansible.builtin.shell: |
-    gunzip "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}.gz"
-    chmod -- a+x "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}"
+    gunzip --stdout -- "{{ argo_workflows_temp_dir.path }}/{{ argo_workflows_archive_file }}" \
+      > "{{ argo_workflows_temp_dir.path }}/{{ argo_workflows_program }}"
 
-- name: Copy Argo Workflows program file
+- name: Install Argo Workflows program
   become: yes
   ansible.builtin.copy:
-    src: "{{ argo_workflows_temp_dir.path }}/argo-{{ release.version }}"
-    dest: "/usr/local/bin/argo-{{ release.version }}"
+    src: "{{ argo_workflows_temp_dir.path }}/{{ argo_workflows_program }}"
+    dest: "{{ local_bin_dir }}/{{ argo_workflows_program }}-{{ argo_workflows_version }}"
     mode: a+x
+
+- name: Find Argo Workflows program paths
+  ansible.builtin.find:
+    path: "{{ local_bin_dir }}"
+    pattern: "{{ argo_workflows_program }}-*"
+  register: argo_workflows_program_paths
+
+- name: Link Argo Workflows program (latest version)
+  become: yes
+  ansible.builtin.file:
+    src: "{{ argo_workflows_program_paths.files | map(attribute='path') | community.general.version_sort | last | ansible.builtin.basename }}"
+    dest: "{{ local_bin_dir }}/{{ argo_workflows_program }}"
+    force: yes
+    state: link

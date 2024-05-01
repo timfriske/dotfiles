@@ -8,9 +8,42 @@
 # reference (ref) such as `HEAD`, `FETCH_HEAD`, a branch ref such as `main`,
 # `refs/remotes/origin/next` or a tag ref such as `1.0.1`, `tags/latest` etc.
 #
-# Deps:: bash, env, git-rev-parse
+# Based on the number of arguments given:
+# * If no arguments are given print the commit ID of the `HEAD` reference.
+# * If one argument is given print the commit ID of the given reference.
+# * If multiple arguments are given print each commit ID and reference.
+#
+# For example, the command `git-id tags/next main` produces:
+# [source,text]
+# ----
+# COMMIT ID                                 REFERENCE
+# 1c467f04a47f6d52bc4a9c4272a4da8138dd1379  tags/next
+# 68e93ae64b082cad3270e8b53c5d25b0c8463d34  main
+# a9cd948853c66de2966ba305e65122b052010f9b  heads/next
+# FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF  non-existing
+# ----
+#
+# Deps:: bash, column, env, git-rev-parse
 
 # Ensure fail-fast script execution.
 shopt -os nounset noclobber pipefail errexit errtrace
 
-git rev-parse --verify "${@:-HEAD}"
+function get_commit_id {
+  local -- ref="${1?:ref}" commit_id
+  if commit_id="$(git rev-parse --verify "${ref}" 2>/dev/null)"; then
+    printf '%s\n' "${commit_id}"
+  else
+    # Repeat character `F` fourty times to signal invalid reference.
+    printf 'F%.0s' {0..39}; echo
+  fi
+}
+
+if (( ${#} == 0 )); then
+  get_commit_id HEAD
+elif (( ${#} == 1 )); then
+  get_commit_id "${1}"
+else
+  for REF in "${@}"; do
+    printf '%s\t%s\n' "$(get_commit_id "${REF}")" "${REF}"
+  done | column --table --table-columns "COMMIT ID,REFERENCE"
+fi

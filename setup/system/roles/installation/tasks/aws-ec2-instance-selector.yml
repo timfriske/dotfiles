@@ -6,29 +6,24 @@
 # AWS EC2 Instance Selector tasks
 # -------------------------------
 
-- name: Create temporary directory for AWS EC2 Instance Selector
-  block:
-    - ansible.builtin.tempfile:
-        prefix: aws-ec2-instance-selector-installation-
-        state: directory
-      register: aws_ec2_instance_selector_temp_dir
-    - debug:
-        var: aws_ec2_instance_selector_temp_dir.path
-
-- name: Download AWS EC2 Instance Selector
-  ansible.builtin.get_url:
-    url: https://github.com/aws/amazon-ec2-instance-selector/releases/download/v2.4.0/ec2-instance-selector-linux-amd64
-    dest: "{{ aws_ec2_instance_selector_temp_dir.path }}/aws-ec2-instance-selector"
-    checksum: sha256:63f3532e2adebd1685699340b093d476bc50ba39788c6f51f189bf474deeec69
-    mode: a+x
-  register: aws_ec2_instance_selector_download
-  ignore_errors: yes
-
-- name: Install AWS EC2 Instance Selector
+- name: Download AWS EC2 Instance Selector program
   become: yes
-  ansible.builtin.copy:
-    src: "{{ aws_ec2_instance_selector_temp_dir.path }}/aws-ec2-instance-selector"
-    dest: "/usr/local/bin/aws-ec2-instance-selector"
+  ansible.builtin.get_url:
+    url: "{{ aws_ec2_instance_selector_url }}"
+    dest: "{{ local_bin_dir }}/{{ aws_ec2_instance_selector_program }}-{{ aws_ec2_instance_selector_version }}"
+    checksum: "{{ aws_ec2_instance_selector_checksum }}"
     mode: a+x
-    backup: yes
-  when: not aws_ec2_instance_selector_download.failed
+
+- name: Find AWS EC2 Instance Selector program paths
+  ansible.builtin.find:
+    path: "{{ local_bin_dir }}"
+    pattern: "{{ aws_ec2_instance_selector_program }}-*"
+  register: aws_ec2_instance_selector_program_paths
+
+- name: Link AWS EC2 Instance Selector program (latest version)
+  become: yes
+  ansible.builtin.file:
+    src: "{{ aws_ec2_instance_selector_program_paths.files | map(attribute='path') | community.general.version_sort | last | ansible.builtin.basename }}"
+    dest: "{{ local_bin_dir }}/{{ aws_ec2_instance_selector_program }}"
+    force: yes
+    state: link

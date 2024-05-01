@@ -9,3 +9,6 @@
 collections:
   - ansible.posix
   - community.general
+
+roles:
+  - darkwizard242.googlechrome

@@ -1,0 +1,29 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# AWS CLI tasks
+# -------------
+
+- name: Create AWS CLI temporary directory
+  ansible.builtin.tempfile:
+    prefix: "{{ aws_cli_program }}-"
+    state: directory
+  register: aws_cli_temp_dir
+
+- name: Download AWS CLI program
+  ansible.builtin.get_url:
+    url: "{{ aws_cli_url }}"
+    dest: "{{ aws_cli_temp_dir.path }}/{{ aws_cli_archive_file }}"
+    checksum: "{{ aws_cli_checksum }}"
+
+- name: Unpack AWS CLI archive file
+  ansible.builtin.unarchive:
+   src: "{{ aws_cli_temp_dir.path }}/{{ aws_cli_archive_file }}"
+   dest: "{{ aws_cli_temp_dir.path }}"
+
+- name: Install AWS CLI program
+  become: yes
+  ansible.builtin.shell: |
+    {{ aws_cli_temp_dir.path }}/aws/install --update

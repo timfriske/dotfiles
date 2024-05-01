@@ -36,7 +36,7 @@ function _build_path {
   local _path _path_real
   local -a _paths=()
   local -A _paths_real=()
-  for _path in "${HOME}"/{.local/,}bin {/usr/{local/,},/}{,s}bin /snap/bin; do
+  for _path in "${HOME}"/{.local/,.jbang/}bin {/usr/{local/,},/}{,s}bin /snap/bin; do
     if [[ -d "${_path}" ]]; then
       # Resolve symlinks in path.
       _path_real="$(cd -- "${_path}" && pwd -P)"

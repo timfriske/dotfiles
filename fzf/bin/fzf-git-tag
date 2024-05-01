@@ -35,27 +35,26 @@
 shopt -os nounset noclobber pipefail errexit errtrace
 
 function fzf_git_tag {
-  local tag_options=() tag_options_custom
+  local -- tag_options=() tag_options_custom
   read -r -a tag_options_custom <<< "${tag_opts:-}"
   tag_options+=('--list')
   tag_options+=('--format=%(refname:lstrip=2)')
   tag_options+=('--sort=version:refname')
   tag_options+=("${tag_options_custom[@]}")
 
-  local fzf_keys=()
-  fzf_keys+=('alt-c:execute(git checkout {})+abort')
-  fzf_keys+=('alt-d:execute(git tag --delete {+})+abort')
-  fzf_keys+=('alt-f:execute(git tag --delete --force {+})+abort')
+  local -- fzf_keys=()
+  fzf_keys+=('alt-c:become(git checkout {})')
+  fzf_keys+=('alt-d:become(git tag --delete -- {+})')
   # shellcheck disable=SC2016
   {
-    fzf_keys+=('alt-m:execute(< /dev/tty > /dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
-    fzf_keys+=('alt-n:execute(< /dev/tty > /dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
+    fzf_keys+=('alt-m:become(< /dev/tty > /dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})')
+    fzf_keys+=('alt-n:become(< /dev/tty > /dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})')
   }
-  fzf_keys+=('alt-v:execute(git tag --verify {+})+abort')
-  local fzf_keys_csv
+  fzf_keys+=('alt-v:become(git tag --verify -- {+})')
+  local -- fzf_keys_csv
   fzf_keys_csv="$(IFS=','; printf '%s\n' "${fzf_keys[*]}")"
 
-  local fzf_options=() fzf_default_opts fzf_git_tag_fzf_opts fzf_opts_cust
+  local -- fzf_options=() fzf_default_opts fzf_git_tag_fzf_opts fzf_opts_cust
   read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
   read -r -a fzf_git_tag_fzf_opts <<< "${FZF_GIT_TAG_FZF_OPTS:-}"
   read -r -a fzf_opts_cust <<< "${fzf_opts:-}"

@@ -1,0 +1,29 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# AWS YQ tasks
+# ------------
+
+- name: Download YQ program
+  become: yes
+  ansible.builtin.get_url:
+    url: "{{ yq_url }}"
+    dest: "{{ local_bin_dir }}/{{ yq_program }}-{{ yq_version }}"
+    checksum: "{{ yq_checksum }}"
+    mode: a+x
+
+- name: Find YQ program paths
+  ansible.builtin.find:
+    path: "{{ local_bin_dir }}"
+    pattern: "{{ yq_program }}-*"
+  register: yq_program_paths
+
+- name: Link YQ program (latest version)
+  become: yes
+  ansible.builtin.file:
+    src: "{{ yq_program_paths.files | map(attribute='path') | community.general.version_sort | last | ansible.builtin.basename }}"
+    dest: "{{ local_bin_dir }}/{{ yq_program }}"
+    force: yes
+    state: link

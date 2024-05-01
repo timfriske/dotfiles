@@ -38,30 +38,30 @@
 shopt -os nounset noclobber pipefail errexit errtrace
 
 function fzf_git_branch {
-  local branch_options=() branch_opts_cust
+  local -- branch_options=() branch_opts_cust
   read -r -a branch_opts_cust <<< "${branch_opts:-}"
   branch_options+=('--list')
   branch_options+=('--format=%(refname:lstrip=2)')
   branch_options+=('--sort=version:refname')
   branch_options+=("${branch_opts_cust[@]}")
 
-  local fzf_keys=()
-  fzf_keys+=('alt-b:execute(git checkout -B {})+abort')
-  fzf_keys+=('alt-c:execute(git checkout {})+abort')
-  fzf_keys+=('alt-d:execute(git branch --delete {+})+abort')
-  fzf_keys+=('alt-f:execute(git branch --delete --force {+})+abort')
+  local -- fzf_keys=()
+  fzf_keys+=('alt-b:become(git checkout -B {})')
+  fzf_keys+=('alt-c:become(git checkout {})')
+  fzf_keys+=('alt-d:become(git branch --delete -- {+})')
+  fzf_keys+=('alt-f:become(git branch --delete --force -- {+})')
   # shellcheck disable=SC2016
   {
-    fzf_keys+=('alt-m:execute(< /dev/tty > /dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
-    fzf_keys+=('alt-n:execute(< /dev/tty > /dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} {+})+abort')
+    fzf_keys+=('alt-m:become(< /dev/tty > /dev/tty git merge ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} -- {+})')
+    fzf_keys+=('alt-n:become(< /dev/tty > /dev/tty git merge --no-ff ${GIT_X_SIGNOFF:+"${GIT_X_SIGNOFF}"} -- {+})')
   }
-  fzf_keys+=('alt-r:execute(git branch --delete --remotes {+})+abort')
-  fzf_keys+=('alt-t:execute(git checkout --track {})+abort')
-  fzf_keys+=('alt-v:execute(git log --max-count=1 --oneline --show-signature {})+abort')
-  local fzf_keys_csv
+  fzf_keys+=('alt-r:become(git branch --delete --remotes -- {+})')
+  fzf_keys+=('alt-t:become(git checkout --track {})')
+  fzf_keys+=('alt-v:become(git log --max-count=1 --oneline --show-signature {})')
+  local -- fzf_keys_csv
   fzf_keys_csv="$(IFS=','; printf '%s\n' "${fzf_keys[*]}")"
 
-  local fzf_options=() fzf_default_opts fzf_git_branch_fzf_opts fzf_opts_cust
+  local -- fzf_options=() fzf_default_opts fzf_git_branch_fzf_opts fzf_opts_cust
   read -r -a fzf_default_opts <<< "${FZF_DEFAULT_OPTS:-}"
   read -r -a fzf_git_branch_fzf_opts <<< "${FZF_GIT_BRANCH_FZF_OPTS:-}"
   read -r -a fzf_opts_cust <<< "${fzf_opts:-}"

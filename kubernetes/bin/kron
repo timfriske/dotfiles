@@ -12,28 +12,28 @@
 # Ensure fail-fast script execution.
 shopt -os nounset noclobber pipefail errexit errtrace
 
-function cjs { printf '%s\n' "${@}" | awk '{print $1}'; } 
+function cjs { printf '%s\n' "${@}" | awk --source='{print $1}'; } 
 function par { parallel --no-run-if-empty --keep-order -- "${@}"; }
 function pam { parallel --no-run-if-empty --keep-order --max-args=1 -- "${@}"; }
 function map { xargs --no-run-if-empty --max-args=1 --open-tty -- "${@}"; }
-export -f cjs par pam map
+export -f -- cjs par pam map
 
 function patch_susp {
-  local suspended="${1:?suspended}" cronjob="${2:?cronjob}" suspension
+  local -- suspended="${1:?suspended}" cronjob="${2:?cronjob}" suspension
   suspension="$(printf '{"spec":{"suspend": %s}}' "${suspended}")"
   kubectl patch cronjob --patch "${suspension}" -- "${cronjob}"
-}; export -f patch_susp
+}; export -f -- patch_susp
 
 function pick {
-  local bindings=(
+  local -- bindings=(
     'ctrl-a:toggle-all'
-    'ctrl-d:execute(cjs {+} | par kubectl describe cronjob --)+abort'
-    'ctrl-e:execute(cjs {+} | map kubectl edit cronjob --)+abort'
-    'ctrl-g:execute(cjs {+} | par kubectl get cronjob --)+abort'
-    'ctrl-l:execute(cjs {+})+abort'
-    'ctrl-r:execute(cjs {+} | par kubectl delete cronjob --)+abort'
-    'ctrl-s:execute(cjs {+} | pam patch_susp true)+abort'
-    'ctrl-u:execute(cjs {+} | pam patch_susp false)+abort'
+    'ctrl-d:become(cjs {+} | par kubectl describe cronjob --)'
+    'ctrl-e:become(cjs {+} | map kubectl edit cronjob --)'
+    'ctrl-g:become(cjs {+} | par kubectl get cronjob --)'
+    'ctrl-l:become(cjs {+})'
+    'ctrl-r:become(cjs {+} | par kubectl delete cronjob --)'
+    'ctrl-s:become(cjs {+} | pam patch_susp true)'
+    'ctrl-u:become(cjs {+} | pam patch_susp false)'
     'ctrl-z:clear-selection'
   )
   fzf --bind="$(IFS=,; printf '%s' "${bindings[*]}")" "${@}"

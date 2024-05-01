@@ -7,38 +7,38 @@
 # -----------------------
 
 packages:
-  - ansible
-  - aws-cli
-  - borgbackup
-  - checkbashisms
-  - dash
-  - docker
-  - docker-machine-driver-kvm2
-  - fd
-  - ffmpeg-3
-  - git
-  - gnu_parallel
-  - go
-  - gstreamer-plugins-bad
-  - gstreamer-plugins-good
-  - gstreamer-plugins-libav
-  - gstreamer-plugins-ugly
-  - htop
-  - iotop
-  - java-11-openjdk-devel
-  - jq
-  - kubernetes-client
-  - lsb-release
-  - minikube
-  - nmap
-  - openssh
-  - pam_kwallet
-  - pattern:kvm_tools
-  - rust
-  - sysstat
-  - tmux
-  - transmission
-  - vim
-  - vlc
-  - vlc-codec-gstreamer
-  - zstd
+  ansible:
+  aws-cli:
+  borgbackup:
+  checkbashisms:
+  dash:
+  docker-machine-driver-kvm2:
+  docker:
+  fd:
+  ffmpeg-3:
+  git:
+  gnu_parallel:
+  go:
+  gstreamer-plugins-bad:
+  gstreamer-plugins-good:
+  gstreamer-plugins-libav:
+  gstreamer-plugins-ugly:
+  htop:
+  iotop:
+  java-11-openjdk-devel:
+  jq:
+  kubernetes-client:
+  lsb-release:
+  minikube:
+  nmap:
+  openssh:
+  pam_kwallet:
+  pattern:kvm_tools:
+  rust:
+  sysstat:
+  tmux:
+  transmission:
+  vim:
+  vlc-codec-gstreamer:
+  vlc:
+  zstd:

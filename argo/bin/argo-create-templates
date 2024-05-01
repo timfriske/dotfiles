@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Argo Create Templates command
+# =============================
+# Tim Friske <me@tifr.de>
+#
+# Deletes and creates the Argo templates found in files whose names match the
+# given glob (`*.yml`) below the given directory.
+#
+# Deps:: argo, bash, comm, env, find, sort, xargs, yq
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+DIRECTORY="${1:-${DIRECTORY:?required}}"
+NAME_GLOB="${2:-${NAME_GLOB:-*.yml}}"
+
+# 1. Print the deployed Argo template names alphabetically sorted.
+# 2. Find all matching Argo template files below directory.
+# 3. Extract Argo template names from metadata alphabetically sorted.
+# 4. Print the intersection between deployed and extracted Argo template names.
+# 5. Delete Argo templates by name with a single `argo template delete` command.
+comm -12 -- \
+  <(argo template list --output name | sort) \
+  <(find "${DIRECTORY}" -type f -name "${NAME_GLOB}" -print0 | xargs --null --no-run-if-empty -- yq --no-doc -- '.metadata.name' | sort) \
+  | xargs --no-run-if-empty -- argo template delete --
+
+# 1. Find all matching Argo template files below directory.
+# 2. Create Argo templates from files with a single `argo template create` command.
+find "${DIRECTORY}" -type f -name "${NAME_GLOB}" -print0 | xargs --null --no-run-if-empty -- argo template create --

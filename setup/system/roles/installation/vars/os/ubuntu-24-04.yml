@@ -7,55 +7,32 @@
 # ----------------
 
 packages:
-  alacritty:
   ansible-lint:
   ansible:
   asciidoc:
-  asciidoctor-doc:
   asciidoctor:
-  autoconf:
-  automake:
-  awscli:
   bash:
-  borgbackup-doc:
   borgbackup:
   btop:
-  cargo-doc:
-  cargo:
-  cmake:
-  code:
   curl:
-  cython3:
   dash:
-  devscripts:
   docker-compose:
-  docker-doc:
   docker.io:
   dos2unix:
-  dragonplayer:
   fail2ban:
   fd-find:
-  ffmpeg-doc:
   ffmpeg:
-  flake8:
   fonts-firacode:
   fonts-hack:
   fonts-jetbrains-mono:
   fzf:
-  g++:
-  gcc:
   gimp:
-  git-doc:
   git:
-  gnome-keyring:
   gnupg:
-  golang:
   htop:
   inkscape:
-  inotify-tools:
   iotop:
   ipcalc:
-  iperf:
   iperf3:
   ipv6calc:
   jq:
@@ -63,51 +40,32 @@ packages:
   keepassxc:
   kompare:
   krita:
-  libboost-date-time-dev:
-  libboost-dev:
-  libboost-filesystem-dev:
-  libboost-iostreams-dev:
-  libboost-program-options-dev:
-  libbz2-dev:
-  libcurl4-gnutls-dev:
-  libcurl4-nss-dev:
-  libcurl4:
-  libhts-dev:
-  liblzma-dev:
-  libncurses5-dev:
-  libpam-kwallet5:
   libreoffice-help-de:
   libreoffice-help-en-us:
   libreoffice-l10n-de:
   libreoffice:
-  libssl-dev:
-  lsb-core:
   lsb-release:
-  make:
   moreutils:
   mysql-client:
   neovim:
   network-manager-openvpn:
-  nmap:
   openjdk-17-doc:
   openjdk-17-jdk:
   openjdk-17-source:
-  openjdk-18-doc:
-  openjdk-18-jdk:
-  openjdk-18-source:
+  openjdk-21-doc:
+  openjdk-21-jdk:
+  openjdk-21-source:
   openssh-client:
   openssh-server:
   parallel:
   patch:
+  plasma-workspace-wayland:
   python3-doc:
   python3-venv:
   python3:
   rclone:
   ripgrep:
   rsync:
-  rust-doc:
-  rust-src:
-  rustc:
   shellcheck:
   speedtest-cli:
   sqlite3:
@@ -115,28 +73,28 @@ packages:
   ssh-audit:
   sysstat:
   tmux:
-  transmission:
   tree:
   unzip:
-  vim-doc:
   vim:
   visualvm:
-  vlc:
   wget:
   wget2:
   xclip:
   xsel:
   yamllint:
-  zlib1g-dev:
+  yq:
+  zsh:
   zstd:
 
 snaps:
+  aws-cli:
+  code:
   intellij-idea-community:
   intellij-idea-ultimate:
   kubectl:
   kustomize:
   mysql-workbench-community:
-  teams:
+  teams-for-linux:
 
 snap_connections:
   -

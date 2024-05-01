@@ -1,0 +1,29 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# AWS JQ tasks
+# ------------
+
+- name: Download JQ program
+  become: yes
+  ansible.builtin.get_url:
+    url: "{{ jq_url }}"
+    dest: "{{ local_bin_dir }}/{{ jq_program }}-{{ jq_version }}"
+    checksum: "{{ jq_checksum }}"
+    mode: a+x
+
+- name: Find JQ program paths
+  ansible.builtin.find:
+    path: "{{ local_bin_dir }}"
+    pattern: "{{ jq_program }}-*"
+  register: jq_program_paths
+
+- name: Link JQ program (latest version)
+  become: yes
+  ansible.builtin.file:
+    src: "{{ jq_program_paths.files | map(attribute='path') | community.general.version_sort | last | ansible.builtin.basename }}"
+    dest: "{{ local_bin_dir }}/{{ jq_program }}"
+    force: yes
+    state: link

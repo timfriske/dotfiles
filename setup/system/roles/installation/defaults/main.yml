@@ -7,3 +7,37 @@
 # ----------------------
 bin_dir: /usr/bin
 local_bin_dir: /usr/local/bin
+
+argo_workflows_program: argo
+argo_workflows_version: 3.5.6
+argo_workflows_checksum: sha256:6691b0aa1414b8b1cb8340f50eb7ab352517519f4f982ac682798f369a965c32
+argo_workflows_archive_file: argo-linux-amd64.gz
+argo_workflows_url: https://github.com/argoproj/argo-workflows/releases/download/v3.5.6/argo-linux-amd64.gz
+
+aws_cli_program: aws
+aws_cli_version: 2.15.43
+aws_cli_checksum: sha256:b54a05f4e92532ab78013798e180dfa659e8b486f610dc65b46e977af4946752
+aws_cli_archive_file: awscli-exe-linux-x86_64-2.15.43.zip
+aws_cli_url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.15.43.zip
+aws_cli_base_dir: /usr/local/aws-cli/v2
+
+aws_ec2_instance_selector_program: aws-ec2-instance-selector
+aws_ec2_instance_selector_version: 2.4.1
+aws_ec2_instance_selector_checksum: sha256:dfd6560a39c98b97ab99a34fc261b6209fc4eec87b0bc981d052f3b13705e9ff
+aws_ec2_instance_selector_url: https://github.com/aws/amazon-ec2-instance-selector/releases/download/v2.4.1/ec2-instance-selector-linux-amd64
+
+fzf_program: fzf
+fzf_version: 0.51.0
+fzf_checksum: sha256:14bf59646adf43ddbe3fd854d04a9de3c16afd4c9b493ff61d44e71c9670243d
+fzf_archive_file: fzf-0.51.0-linux_amd64.tar.gz
+fzf_url: https://github.com/junegunn/fzf/releases/download/0.51.0/fzf-0.51.0-linux_amd64.tar.gz
+
+jq_program: jq
+jq_version: 1.7.1
+jq_checksum: sha256:5942c9b0934e510ee61eb3e30273f1b3fe2590df93933a93d7c58b81d19c8ff5
+jq_url: https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+
+yq_program: yq
+yq_version: 4.43.1
+yq_checksum: sha256:cfbbb9ba72c9402ef4ab9d8f843439693dfb380927921740e51706d90869c7e1
+yq_url: https://github.com/mikefarah/yq/releases/download/v4.43.1/yq_linux_amd64

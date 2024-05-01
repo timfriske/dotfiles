@@ -20,7 +20,7 @@
 - name: Install packages with dnf
   become: yes
   ansible.builtin.dnf:
-    name: "{{ packages }}"
+    name: "{{ packages.keys() }}"
     state: present
     skip_broken: yes
     update_cache: yes

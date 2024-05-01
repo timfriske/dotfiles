@@ -6,28 +6,6 @@
 # Ubuntu tasks
 # ------------
 
-- name: Add Alacritty Terminal Emulator apt repository
-  become: yes
-  block:
-  - ansible.builtin.apt_key:
-      id: 3A160895CC2CE253085D08A552B24DF7D43B5377
-      url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3a160895cc2ce253085d08a552b24df7d43b5377
-      state: present
-  - apt_repository:
-      repo: deb https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu jammy main
-      state: present
-
-- name: Add Microsoft Visual Studio Code apt repository
-  become: yes
-  block:
-  - ansible.builtin.apt_key:
-      id: BC528686B50D79E339D3721CEB3E94ADBE1229CF
-      url: https://packages.microsoft.com/keys/microsoft.asc
-      state: present
-  - apt_repository:
-      repo: deb https://packages.microsoft.com/repos/code stable main
-      state: present
-
 - name: Install packages with apt
   become: yes
   ansible.builtin.apt:
@@ -44,6 +22,12 @@
     channel: stable
     classic: yes
     state: present
+
+- block:
+    - name: Install Google Chrome
+      ansible.builtin.include_role:
+        name: darkwizard242.googlechrome
+  become: yes
 
 - name: Connect plugs to slots in snaps
   become: yes
@@ -66,6 +50,3 @@
   loop_control:
     loop_var: link
     label: "{{ link.dest }} => {{ link.src }}"
-
-- name: Install Minikube
-  ansible.builtin.import_tasks: ../minikube.yml
