@@ -1,0 +1,52 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# Ubuntu tasks
+# ------------
+
+- name: Install packages with apt
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+    install_recommends: yes
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install packages with snap
+  become: yes
+  community.general.snap:
+    name: "{{ snaps }}"
+    channel: stable
+    classic: yes
+    state: present
+
+- block:
+    - name: Install Google Chrome
+      ansible.builtin.include_role:
+        name: darkwizard242.googlechrome
+  become: yes
+
+- name: Connect plugs to slots in snaps
+  become: yes
+  loop: "{{ snap_connections }}"
+  loop_control:
+    loop_var: conn
+    label: "{{ conn.snap }}:{{ conn.plug }} {{ conn.snap }}:{{ conn.slot }}"
+  shell: snap connect {{ conn.snap }}:{{ conn.plug }} :{{ conn.slot }}
+
+- name: Create shortcuts to utility programs
+  become: yes
+  ansible.builtin.file:
+    src: "{{ link.src }}"
+    dest: "{{ link.dest }}"
+    force: yes
+    state: link
+  loop:
+    - { src: "{{ bin_dir }}/fdfind", dest: "{{ local_bin_dir }}/fd" }
+    - { src: "{{ bin_dir }}/sqlite3", dest: "{{ local_bin_dir }}/sqlite" }
+  loop_control:
+    loop_var: link
+    label: "{{ link.dest }} => {{ link.src }}"

@@ -18,8 +18,3 @@ os_variable_files:
 os_task_files:
   - os/{{ os_name_id }}-{{ os_version_id }}.yml
   - os/{{ os_name_id }}.yml
-
-argo_workflows_releases:
-  -
-    version: 3.3.9
-    checksum: sha256:469a040c33ed6c6bb8ccc98577f50139ad44eeb912678ed897a15f3e17610d71
