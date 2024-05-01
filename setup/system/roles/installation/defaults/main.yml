@@ -25,3 +25,8 @@ aws_ec2_instance_selector_program: aws-ec2-instance-selector
 aws_ec2_instance_selector_version: 2.4.1
 aws_ec2_instance_selector_checksum: sha256:dfd6560a39c98b97ab99a34fc261b6209fc4eec87b0bc981d052f3b13705e9ff
 aws_ec2_instance_selector_url: https://github.com/aws/amazon-ec2-instance-selector/releases/download/v2.4.1/ec2-instance-selector-linux-amd64
+
+yq_program: yq
+yq_version: 4.43.1
+yq_checksum: sha256:cfbbb9ba72c9402ef4ab9d8f843439693dfb380927921740e51706d90869c7e1
+yq_url: https://github.com/mikefarah/yq/releases/download/v4.43.1/yq_linux_amd64

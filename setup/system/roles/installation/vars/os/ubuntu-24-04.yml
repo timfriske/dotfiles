@@ -82,6 +82,7 @@ packages:
   xclip:
   xsel:
   yamllint:
+  yq:
   zsh:
   zstd:
 
