@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# Pinpbin command
+# ===============
+# Tim Friske <me@tifr.de>
+#
+# Pins under the given name the first file, usually an executable, that is found
+# in one of the directories listed in the PATH environment variable by creating
+# a symbolic link in the user's directory `.local/bin`. If given only the name
+# of the link it is deleted again.
+#
+# Deps:: bash, env, ln, realpath, rm
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+USER_BIN_DIR="${HOME}/.local/bin"
+
+function command_path {
+    command -v -- "${1}"
+}
+
+function command_exists {
+    command_path "${1}" &> /dev/null
+}
+
+function check_symbolic_link {
+  [[ -L "${1}" ]] && return
+  echo >&2 "First argument must be a symbolic link: ${1}"
+  echo >&2 "Aborting..."
+  exit 1
+}
+
+function check_symbolic_link_if_existing {
+    [[ ! -e "${1}" ]] || check_symbolic_link "${1}"
+}
+
+function check_file_to_link {
+  if ! command_exists "${1}" || [[ ! -f "$(command_path "${1}")" ]]; then
+    echo >&2 "Second argument must be a file located in PATH: ${1}"
+    echo >&2 "Aborting..."
+    exit 1
+  fi
+}
+
+function main {
+  if (( $# == 0 )); then
+    echo >&2 "usage: pinbin <link-to-file> [file-to-link]"
+    exit 1
+  fi
+  if (( $# == 1 )); then
+    check_symbolic_link "${USER_BIN_DIR}/${1}"
+    printf "'%s' -> '%s'\n" "${USER_BIN_DIR}/${1}" "$(realpath -- "${USER_BIN_DIR}/${1}")"
+    rm --verbose -- "${USER_BIN_DIR}/${1}"
+  elif (( $# == 2 )); then
+    check_symbolic_link_if_existing "${USER_BIN_DIR}/${1}"
+    check_file_to_link "${2}"
+    ln --force --symbolic --verbose -- "$(command_path "${2}")" "${USER_BIN_DIR}/${1}"
+  fi
+}
+
+main "${@}"
