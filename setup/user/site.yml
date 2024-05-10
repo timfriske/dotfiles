@@ -105,6 +105,14 @@
         - readline
         - inputrc
 
+    # Python Programming Language/Runtime
+    # -----------------------------------
+    - role: python
+      tags:
+        - python
+        - programming
+        - runtime
+
     # Systemd init system
     # -------------------
     - role: systemd
