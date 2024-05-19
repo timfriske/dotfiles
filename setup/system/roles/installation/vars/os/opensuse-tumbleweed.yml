@@ -49,8 +49,8 @@ packages:
   iperf:
   java-11-openjdk-devel:
   java-17-openjdk-devel:
-  java-20-openjdk-devel:
   java-21-openjdk-devel:
+  java-22-openjdk-devel:
   jetbrains-mono-fonts:
   jq:
   kdiff3:
@@ -75,6 +75,7 @@ packages:
   speedtest-cli:
   sqlite3:
   sqlitebrowser:
+  starship:
   stress-ng:
   sysbench:
   sysstat:
@@ -86,4 +87,5 @@ packages:
   wget:
   wget2:
   yq:
+  zoxide:
   zstd:
