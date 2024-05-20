@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# GPG List Keys Unusable command
+# ==============================
+# Tim Friske <me@tifr.de>
+#
+# Lists the OpenPGP keys in the local keyring which are unusable, e.g. expired.
+#
+# Deps:: bash, env, gpg
+
+# Ensure fail-fast script execution.
+shopt -os nounset noclobber pipefail errexit errtrace
+
+gpg --list-keys --list-options show-unusable-subkeys "${@}"
