@@ -34,6 +34,7 @@ packages:
   gnupg
   golang
   htop
+  inxi:
   jq
   libreoffice
   libreoffice-help-de

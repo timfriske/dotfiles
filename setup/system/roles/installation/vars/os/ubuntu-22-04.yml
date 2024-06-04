@@ -35,6 +35,7 @@ packages:
   gnupg:
   htop:
   inkscape:
+  inxi:
   iotop:
   ipcalc:
   iperf3:
