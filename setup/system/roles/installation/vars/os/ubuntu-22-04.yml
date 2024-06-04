@@ -63,6 +63,7 @@ packages:
   openssh-client:
   openssh-server:
   parallel:
+  patch:
   python3-doc:
   python3-pip:
   python3-venv:
