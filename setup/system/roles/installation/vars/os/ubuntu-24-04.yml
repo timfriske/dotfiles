@@ -11,6 +11,7 @@ packages:
   ansible:
   asciidoc:
   asciidoctor:
+  awscli:
   bash:
   borgbackup:
   btop:
@@ -20,6 +21,7 @@ packages:
   docker-compose:
   docker.io:
   dos2unix:
+  dragonplayer:
   fail2ban:
   fd-find:
   ffmpeg:
@@ -59,7 +61,6 @@ packages:
   openssh-client:
   openssh-server:
   parallel:
-  patch:
   plasma-workspace-wayland:
   python3-dev:
   python3-doc:
@@ -80,7 +81,6 @@ packages:
   unzip:
   vim:
   visualvm:
-  wget:
   wget2:
   xclip:
   xsel:
@@ -100,7 +100,6 @@ snaps:
   teams-for-linux:
 
 snap_connections:
-  -
-    snap: mysql-workbench-community
+  - snap: mysql-workbench-community
     plug: password-manager-service
     slot: password-manager-service
