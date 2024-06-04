@@ -9,20 +9,25 @@
 # from the command line with one of these commands curl, wget2, wget depending
 # on availability and preference.
 #
-# .Download with cURL
+# .Download shell script *bootstrap* with cURL.
 # [source,bash]
 # ----
-# curl --fail --location --output timfriske-dotfiles-bootstrap \
+# curl --fail --location --output timfriske-dotfiles-bootstrap -- \
 #  https://raw.githubusercontent.com/timfriske/dotfiles/main/setup/bootstrap
-# chmod --changes -- a+x timfriske-dotfiles-bootstrap
 # ----
 #
-# .Download with Wget
+# .Download shell script *bootstrap* with Wget.
 # [source,bash]
 # ----
-# wget --output-document=timfriske-dotfiles-bootstrap \
+# wget --output-document=timfriske-dotfiles-bootstrap -- \
 #   https://raw.githubusercontent.com/timfriske/dotfiles/main/setup/bootstrap
+# ----
+#
+# .Make shell script *bootstrap* executable and execute it.
+# [source,bash]
+# ----
 # chmod --changes -- a+x timfriske-dotfiles-bootstrap
+# ./timfriske-dotfiles-bootstrap
 # ----
 #
 # Deps:: ansible, apt-get, bash, env, git, zypper
@@ -50,7 +55,7 @@ elif command -v -- apt-get &> /dev/null; then
   sudo apt-get install --assume-yes -- ansible git
 fi
 
-# Clone Tim Friske's configuration management Git repository.
+# Clone Git repository.
 if [[ ! -d "${REPO_DIR}" ]]; then
   mkdir --parents --verbose -- "${REPO_DIR}"
   git clone -- "${REPO_URL_HTTP}" "${REPO_DIR}"
@@ -64,9 +69,9 @@ if [[ ! -d "${REPO_DIR}" ]]; then
     git config --local -- user.signingkey "${REPO_GPG_SIG_KEY}"
     git checkout --track origin/next
   )
-  # Install Ansible collections and roles the playbooks of this repository
-  # depend on.
+  # Install Ansible collections and roles required by playbooks.
   ansible-galaxy collection install --requirements-file "${REPO_DIR}/setup/requirements.yml"
+  ansible-galaxy role install -r "${REPO_DIR}/setup/requirements.yml"
 fi
 
 # Setup system and user via Ansible playbooks.
