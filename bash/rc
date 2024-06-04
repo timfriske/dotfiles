@@ -451,12 +451,6 @@ function sedx {
 }
 alias sed=sedx
 
-# Sudo - Execute programs as another user
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Make `sudo` command also work with aliases.
-alias sudo='sudo '
-
 # Xdg-open - Open files and folders w/ appropriate programs
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
