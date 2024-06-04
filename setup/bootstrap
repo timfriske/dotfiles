@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
+
+# Provisions Tim Friske's *dotfiles* Git repository and sets up the system this
+# program is run on and the user this program is run as by executing the Ansible
+# playbooks provided by that repository.
 #
-# Provisions Tim Friske's configuration management Git repository and
-# sets up the system this program is run on and the user this program is
-# run as by executing the Ansible playbooks provided by that repository.
-#
-# Download this program from Tim Friske's configuration management Git
-# repository via its https://github.com/timfriske/dotfiles[GitHub page]
-# either from the website or from the command line with one of these
-# commands curl, wget2, wget depending on availability and preference.
+# Download this program from Tim Friske's *dotfiles* Git repository via its
+# https://github.com/timfriske/dotfiles[GitHub page] either from the website or
+# from the command line with one of these commands curl, wget2, wget depending
+# on availability and preference.
 #
 # .Download with cURL
 # [source,bash]
@@ -30,50 +30,49 @@
 # Ensure fail-fast script execution.
 shopt -os nounset noclobber pipefail errexit errtrace
 
-repo_name="dotfiles"
-repo_user_id="timfriske"
-repo_user_name="Tim Friske"
-repo_user_email="me@tifr.de"
-repo_host="github.com"
-repo_path="${repo_user_id}/${repo_name}"
-repo_url_http="https://${repo_host}/${repo_path}.git"
-repo_url_ssh="ssh://git@${repo_host}/${repo_path}.git"
-repo_dir="${HOME}/Projects/mine/${repo_user_id}/${repo_name}"
-repo_gpg_sig_key="7DC02297679182342252DFC4D0920BA3A28B1CF7!"
+REPO_NAME="dotfiles"
+REPO_USER_ID="timfriske"
+REPO_USER_NAME="Tim Friske"
+REPO_USER_EMAIL="me@tifr.de"
+REPO_HOST="github.com"
+REPO_PATH="${REPO_USER_ID}/${REPO_NAME}"
+REPO_URL_HTTP="https://${REPO_HOST}/${REPO_PATH}.git"
+REPO_URL_SSH="ssh://git@${REPO_HOST}/${REPO_PATH}.git"
+REPO_DIR="${HOME}/Projects/mine/${REPO_USER_ID}/${REPO_NAME}"
+REPO_GPG_SIG_KEY="7DC02297679182342252DFC4D0920BA3A28B1CF7!"
 
 # Install minimal set of packages required by this program.
-if command -v -- "zypper" &> /dev/null; then
+if command -v -- zypper &> /dev/null; then
   sudo zypper refresh
   sudo zypper install --no-confirm -- ansible git
-elif command -v -- "apt-get" &> /dev/null; then
+elif command -v -- apt-get &> /dev/null; then
   sudo apt-get update
   sudo apt-get install --assume-yes -- ansible git
 fi
 
-# Install Ansible collections of roles and individual roles the roles
-# in this repository depend on.
-ansible-galaxy collection install --requirements-file "${repo_dir}/setup/requirements.yml"
-
 # Clone Tim Friske's configuration management Git repository.
-if [[ ! -d "${repo_dir}" ]]; then
-  mkdir --parents --verbose -- "${repo_dir}";
-  git clone -- "${repo_url_http}" "${repo_dir}"
-  # Configure SSH fetch/push and user info, and checkout "next" branch.
+if [[ ! -d "${REPO_DIR}" ]]; then
+  mkdir --parents --verbose -- "${REPO_DIR}"
+  git clone -- "${REPO_URL_HTTP}" "${REPO_DIR}"
+  # Configure SSH fetch/push and user info, and checkout *next* branch.
   (
     # shellcheck disable=SC2164
-    cd -- "${repo_dir}"
-    git remote set-url -- "origin" "${repo_url_ssh}" "${repo_url_http}"
-    git config --local -- "user.name" "${repo_user_name}"
-    git config --local -- "user.email" "${repo_user_email}"
-    git config --local -- "user.signingkey" "${repo_gpg_sig_key}"
-    git checkout --track "origin/next"
+    cd -- "${REPO_DIR}"
+    git remote set-url -- origin "${REPO_URL_SSH}" "${REPO_URL_HTTP}"
+    git config --local -- user.name "${REPO_USER_NAME}"
+    git config --local -- user.email "${REPO_USER_EMAIL}"
+    git config --local -- user.signingkey "${REPO_GPG_SIG_KEY}"
+    git checkout --track origin/next
   )
+  # Install Ansible collections and roles the playbooks of this repository
+  # depend on.
+  ansible-galaxy collection install --requirements-file "${REPO_DIR}/setup/requirements.yml"
 fi
 
 # Setup system and user via Ansible playbooks.
 (
   # shellcheck disable=SC2164
-  cd -- "${repo_dir}"
+  cd -- "${REPO_DIR}"
   setup/system/site --tags software
   setup/user/site
 )
