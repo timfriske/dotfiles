@@ -8,6 +8,7 @@
     - name: OpenSSH configuration directory
       ansible.builtin.file:
         path: "{{ ssh_dir }}"
+        state: directory
         mode: u=rwx,g=,o=
 
 - name: Copy OpenSSH configuration files
