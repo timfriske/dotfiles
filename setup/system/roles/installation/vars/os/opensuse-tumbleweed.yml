@@ -8,7 +8,6 @@
 
 packages:
   adobe-sourcecodepro-fonts:
-  alacritty:
   ansible:
   aspell-de:
   aspell-en:
@@ -32,7 +31,6 @@ packages:
   gimp:
   git:
   gnu_parallel:
-  go:
   gpg2:
   gstreamer-plugins-bad:
   gstreamer-plugins-good:
@@ -42,15 +40,18 @@ packages:
   htop:
   hyperfine:
   inkscape:
-  inotify-tools:
   iotop:
   iozone:
   ipcalc:
   iperf:
   java-11-openjdk-devel:
+  java-11-openjdk-src:
   java-17-openjdk-devel:
-  java-20-openjdk-devel:
+  java-17-openjdk-src:
   java-21-openjdk-devel:
+  java-21-openjdk-src:
+  java-22-openjdk-devel:
+  java-22-openjdk-src:
   jetbrains-mono-fonts:
   jq:
   kdiff3:
@@ -59,7 +60,7 @@ packages:
   krita:
   kustomize:
   lsb-release:
-  minikube:
+  maven:
   moreutils:
   neovim:
   nmap:
@@ -75,15 +76,15 @@ packages:
   speedtest-cli:
   sqlite3:
   sqlitebrowser:
+  starship:
   stress-ng:
   sysbench:
   sysstat:
   tmux:
-  transmission:
   vim:
   vlc-codec-gstreamer:
   vlc:
-  wget:
   wget2:
   yq:
+  zoxide:
   zstd:
