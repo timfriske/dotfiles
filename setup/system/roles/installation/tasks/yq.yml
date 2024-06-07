@@ -3,8 +3,8 @@
 # ========================
 # Tim Friske <me@tifr.de>
 
-# AWS YQ tasks
-# ------------
+# YQ tasks
+# --------
 
 - name: Download YQ program
   become: yes

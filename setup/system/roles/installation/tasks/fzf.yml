@@ -3,8 +3,8 @@
 # ========================
 # Tim Friske <me@tifr.de>
 
-# AWS FZF tasks
-# -------------
+# FZF tasks
+# ---------
 
 - name: Create FZF temporary directory
   ansible.builtin.tempfile:
