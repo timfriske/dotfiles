@@ -18,6 +18,7 @@ packages:
   checkbashisms:
   code:
   curl:
+  d2:
   dash:
   docker-machine-driver-kvm2:
   docker:

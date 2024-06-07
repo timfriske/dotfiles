@@ -6,7 +6,9 @@
 # Default main variables
 # ----------------------
 bin_dir: /usr/bin
+local_dir: /usr/local
 local_bin_dir: /usr/local/bin
+local_man_dir: /usr/local/share/man
 
 argo_workflows_program: argo
 argo_workflows_version: 3.5.6
@@ -25,6 +27,13 @@ aws_ec2_instance_selector_program: aws-ec2-instance-selector
 aws_ec2_instance_selector_version: 2.4.1
 aws_ec2_instance_selector_checksum: sha256:dfd6560a39c98b97ab99a34fc261b6209fc4eec87b0bc981d052f3b13705e9ff
 aws_ec2_instance_selector_url: https://github.com/aws/amazon-ec2-instance-selector/releases/download/v{{ aws_ec2_instance_selector_version }}/ec2-instance-selector-linux-amd64
+
+d2_program: d2
+d2_manpage: d2.1
+d2_version: 0.6.5
+d2_checksum: sha256:17702919af263337b65378c7ec9e08b2f136e5fd022c5e11d5b260033281a734
+d2_archive_file: d2-v{{ d2_version }}-linux-amd64.tar.gz
+d2_url: https://github.com/terrastruct/d2/releases/download/v{{ d2_version }}/{{ d2_archive_file }}
 
 fzf_program: fzf
 fzf_version: 0.51.0
