@@ -112,16 +112,12 @@ CHOWN_X_OPTIONS+='--changes '
 #   Show human-readable file system sizes in powers of 1,000.
 
 export DF_X_OPTIONS=''
-DF_X_OPTIONS+='--si '
 DF_X_OPTIONS+='--print-type '
 
 export DF_COMMON_X_OPTIONS=''
 DF_COMMON_X_OPTIONS+='--exclude-type=devtmpfs '
 DF_COMMON_X_OPTIONS+='--exclude-type=squashfs '
 DF_COMMON_X_OPTIONS+='--exclude-type=tmpfs '
-
-export DU_X_OPTIONS=''
-DU_X_OPTIONS+='--si '
 
 # Diff - Differences between files & directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -173,7 +169,6 @@ export VISUAL='vim'
 
 export FREE_X_OPTIONS=''
 FREE_X_OPTIONS+='--human '
-FREE_X_OPTIONS+='--si '
 
 # Fzf - Fuzzy-search and select all kinds of items
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -384,7 +379,6 @@ LN_X_OPTIONS+='--verbose '
 #     listings might be easier on the eye and therefore to comprehend.
 
 export LS_X_OPTIONS=''
-LS_X_OPTIONS+='--si '
 LS_X_OPTIONS+='--classify '
 LS_X_OPTIONS+='--color=auto '
 LS_X_OPTIONS+='--time-style=long-iso '
