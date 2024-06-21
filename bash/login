@@ -26,12 +26,7 @@
 #   * link:{user-home}/.bash_logout
 #   * link:{user-home}/.bashrc
 
-# Environment setup
-# -----------------
-
-# Path - Setup folders where to search for programs
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+# Configure directories where to search for executable and sourceable files.
 function _build_path {
   local _path _path_real
   local -a _paths=()
@@ -54,444 +49,60 @@ export PATH
 PATH="$(_build_path)"
 unset -f _build_path
 
-# Execute command everytime a new prompt is displayed.
 export PROMPT_COMMAND="tmux-pwd;${PROMPT_COMMAND}"
+export PROMPT_DIRTRIM=3
 
-# File/directory name utilities
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Define favorite (visual) text editor.
+export EDITOR=vim VISUAL=vim
 
-export BASENAME_X_OPTIONS=''
-BASENAME_X_OPTIONS='--multiple '
+# Define sensible options for various programs via environment variables.
+export BASENAME_X_OPTIONS='--multiple'
 
-# Copy - Copy files & directories
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# interactive::
-#   Let _Cp_ prompt before overwriting.
-#
-# verbose::
-#   Let _Cp_ report what it is doing.
+export CHGRP_X_OPTIONS='--changes --preserve-root'
+export CHMOD_X_OPTIONS='--changes --preserve-root'
+export CHOWN_X_OPTIONS='--changes --preserve-root'
 
-export CP_X_OPTIONS=''
-CP_X_OPTIONS+='--interactive '
-CP_X_OPTIONS+='--verbose '
+export DF_X_OPTIONS='--print-type'
+export DF_COMMON_X_OPTIONS='--exclude-type=devtmpfs --exclude-type=squashfs --exclude-type=tmpfs'
+export FREE_X_OPTIONS='--human'
 
-# Ch(attr|grp|mod|own) - Change file metadata
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# preserve-root::
-#   Never start from the root directory because this would almost always
-#   mean to *destroy* the *entire* root file system and *all* file
-#   systems mounted below.
-#
-# changes::
-#   Report only which files and directories actually changed.
-#
-# V::
-#   Verbose output.
+export DIFF_X_OPTIONS='--color=auto --unified --ignore-tab-expansion --ignore-space-change --ignore-trailing-space --ignore-blank-lines --ignore-all-space'
+export GIT_X_SIGNOFF='--signoff'
+export GREP_X_OPTIONS='--binary-files=without-match --color=auto  --devices=skip --directories=recurse'
+export RIPGREP_X_OPTIONS='--smart-case'
+export INFO_X_OPTIONS='--vi-keys'
+export LS_X_OPTIONS='--classify --color=auto --time-style=long-iso --group-directories-first'
 
-export CHGRP_X_OPTIONS=''
-CHGRP_X_OPTIONS+='-V '
+export MKDIR_X_OPTIONS='--parents --verbose'
+export RMDIR_X_OPTIONS='--verbose'
+export CP_X_OPTIONS='--interactive --verbose'
+export MV_X_OPTIONS='--interactive --verbose'
+export LN_X_OPTIONS='--interactive --verbose'
+export RM_X_OPTIONS='--interactive --verbose'
+export RSYNC_X_OPTIONS='--human-readable --progress'
 
-export CHGRP_X_OPTIONS=''
-CHGRP_X_OPTIONS+='--preserve-root '
-CHGRP_X_OPTIONS+='--changes '
-
-export CHMOD_X_OPTIONS=''
-CHMOD_X_OPTIONS+='--preserve-root '
-CHMOD_X_OPTIONS+='--changes '
-
-export CHOWN_X_OPTIONS=''
-CHOWN_X_OPTIONS+='--preserve-root '
-CHOWN_X_OPTIONS+='--changes '
-
-# D(f|u) - Disk free, usage
-# ~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# si::
-#   Show human-readable file system sizes in powers of 1,000.
-
-export DF_X_OPTIONS=''
-DF_X_OPTIONS+='--print-type '
-
-export DF_COMMON_X_OPTIONS=''
-DF_COMMON_X_OPTIONS+='--exclude-type=devtmpfs '
-DF_COMMON_X_OPTIONS+='--exclude-type=squashfs '
-DF_COMMON_X_OPTIONS+='--exclude-type=tmpfs '
-
-# Diff - Differences between files & directories
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-#  unified::
-#    output NUMBER (3) lines above and below a diff hunk in the
-#    `unified' diff format. This format is more readable than _Diff's_
-#    default `normal' format. The `unified' format is also the default
-#    format used by _Git_.
-#
-#  ignore-tab-expansion::
-#  ignore-space-change::
-#  ignore-trailing-space::
-#  ignore-blank-lines::
-#  ignore-all-space::
-#    Don't get distracted from any kind of changes in whitespace.
-#    Whitespace usually doesn't change the meaning of the content of a
-#    file for most file formats.
-#
-#  color=auto::
-#    If _Diff_ output is to a terminal colorize it.
-
-export DIFF_X_OPTIONS=''
-DIFF_X_OPTIONS+='--unified '
-DIFF_X_OPTIONS+='--ignore-tab-expansion '
-DIFF_X_OPTIONS+='--ignore-space-change '
-DIFF_X_OPTIONS+='--ignore-trailing-space '
-DIFF_X_OPTIONS+='--ignore-blank-lines '
-DIFF_X_OPTIONS+='--ignore-all-space '
-DIFF_X_OPTIONS+='--color=auto '
-
-# Editor - Favorite text editors
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Tell programs to open files in favorite text editor _Vim_ _Vi
-# Improved_. Don't care about line-oriented vs. visual editors just
-# assign both `$EDITOR` and `$VISUAL` the same editor.
-
-export EDITOR='vim'
-export VISUAL='vim'
-
-# Free - Free main memory and swap space
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# human::
-#   show sizes in next largest units.
-# si::
-#   show sizes in powers of 1,000 instead of e.g. 1,204.
-
-export FREE_X_OPTIONS=''
-FREE_X_OPTIONS+='--human '
-
-# Fzf - Fuzzy-search and select all kinds of items
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# height::
-#   display fzf window below cursor with given height in percent instead
-#   of using full screen.
-# layout::
-#   reverse;;
-#     display from top of screen.
-# multi::
-#   allow selecting multiple items.
-# exit-0::
-#   exit immediately if none of the items matches.
-
-# 1. Allow user to select multiple _Git_ branches with _Fzf_.
-# 2. Exit immediately if there is no matching _Git_ branch.
 export FZF_GIT_BRANCH_FZF_OPTS='--multi --exit-0'
-
-export FZF_PPDS_FZF_OPTS=''
-FZF_PPDS_FZF_OPTS+='--height=1% --layout=reverse --multi '
-FZF_PPDS_FZF_OPTS+='--bind=ctrl-a:select-all,ctrl-d:deselect-all '
-
-# 1. Allow user to select multiple _Git_ tags with _Fzf_.
-# 2. Exit immediately if there is no matching _Git_ tag.
+export FZF_PPDS_FZF_OPTS='--height=1% --layout=reverse --multi --bind=ctrl-a:select-all,ctrl-d:deselect-all'
 export FZF_GIT_TAG_FZF_OPTS='--multi --exit-0'
-
-# 1. Allow user to select multiple jobs with _Fzf_.
-# 2. Exit immediately if there is no matching job.
 export FZF_JOBS_FZF_OPTS='--multi --exit-0'
 
-# Git - Version control system to track files
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Let _Git_ skip reading settings from its system-wide configuration
-# file `{system-home}/gitconfig`. Assume that the user is a power user
-# of _Git_ and configured every aspect of it down to the smallest detail
-# in her/his personal _Git_ configuration files.
+export PAGER=less
+export SYSTEMD_LESS="${LESS}"
+export LESS='--no-init --tabs=4 --LONG-PROMPT --ignore-case --jump-target=.5 --hilite-unread --RAW-CONTROL-CHARS --chop-long-lines --quit-if-one-screen'
 
+export SED_X_OPTIONS='--regexp-extended'
+
+# Assume fully customized Git without need for system-wide settings.
 export GIT_CONFIG_NOSYSTEM=true
-
-# Add _Git's_ commit message footer line `Signed-off-by`.
-export GIT_X_SIGNOFF='--signoff'
-
-# Grep - Search files for content
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-#   directories=recurse::
-#     If given no files search all files in the current directory and
-#     below in a recursive manner. Otherwise _Grep_ would read from
-#     standard input or if given a directory tell the user that it is
-#     one. _Grep's_ default behavior is simply not what users most
-#     likely expect it to be.
-#
-#   binary-file=without-match::
-#     If _Grep_ encounters binary files just ignore them.
-#
-#   devices=skip::
-#     If _Grep_ encounters devices just ignore them.
-#
-#   color=auto::
-#     If _Grep_ output is to a terminal colorize it.
-
-export GREP_X_OPTIONS=''
-GREP_X_OPTIONS+='--directories=recurse '
-GREP_X_OPTIONS+='--binary-files=without-match '
-GREP_X_OPTIONS+='--devices=skip '
-GREP_X_OPTIONS+='--color=auto '
-
-# History - Manage previously entered commands
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Remember up to 100,000 commands in memory and on disk. Store the
-# history in the `history` file under the specified location. Record
-# the time when each command entered history as an ISO-8601 timestamp.
-# Exclude commands starting with whitespace from history. Erase all
-# duplicate commands from history before the same command is appended
-# again.
-#
-# Enable the `$HISTCONTROL` option `erasedups` to keep the history free
-# from duplicate commands which would otherwise clutter up the history.
-# By switching on the `ignorespace` option the user may prepend
-# whitespace to exclude commands from history, e.g. commands with
-# sensitive information such as passwords etc.
-#
-# With the `$HISTIGNORE` shell globs (patterns) exclude any single-word
-# commands from history because such trivial commands can be easily
-# recalled just by typing them again.
 
 export HISTSIZE=100000
 export HISTFILE=~/.bash_history
 export HISTFILESIZE="${HISTSIZE}"
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
-export HISTCONTROL='erasedups:ignorespace'
-export HISTIGNORE=''
-HISTIGNORE+='+([[:alnum:]])*([[:space:]])'
+export HISTCONTROL=erasedups:ignorespace
+export HISTIGNORE='+([[:alnum:]])*([[:space:]])'
 
-# Info - View info pages
-# ~~~~~~~~~~~~~~~~~~~~~~
-#
-# vi-keys::
-#   Use keybindings to navigate through info pages similar to those of
-#   the Vi text editor.
-
-export INFO_X_OPTIONS=''
-INFO_X_OPTIONS='--vi-keys '
-
-# Less - View long text files page-wise
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Make paging with the _Less_ program more pleasant by default in the
-# following ways:
-#
-#   no-init::
-#     Prevent _Less_ from clearing the terminal screen when it quits.
-#     This way the user has a chance to refer to the last screen full of
-#     output even after _Less_ exited.
-#
-#   tabs=4::
-#     Let _Less_ display each tabulator four spaces wide in order to let
-#     its output consume less space on the screen.
-#
-#   LONG-PROMPT::
-#     Let _Less_ to prompt even more verbosely than _More_.
-#
-#   ignore-case::
-#     Let _Less_ search smarter by ignoring the case if the pattern
-#     consists of lower-case characters only. Let it perform a case-
-#     sensitive search if the pattern contains upper-case characters.
-#
-#   jump-target=.5::
-#     Let _Less_ position the next or previous line that matches a
-#     search pattern in the center of the terminal screen. This should
-#     give the user enough context, i.e. lines surrounding that line.
-#
-#   hilite-unread::
-#     Let _Less_ give the user visual guidance as to where s/he left off
-#     reading after paging through a screen worth of output.
-#
-#   RAW-CONTROL-CHARS::
-#     Let _Less_ output colors and escape the rest of `raw' control
-#     characters in order to not mess up the terminal screen.
-#
-#   chop-long-lines::
-#     Let _Less_ truncate overlong lines to the left and right but make
-#     them horizontally scrollable instead. Line wrapping works well
-#     with continuous text such as text in paragraphs of text documents
-#     but breaks structured text such as text arranged in table columns.
-#
-#   quit-if-one-screen::
-#     Let _Less_ display automatically quit itself if there is less than
-#     a screen full of output to display. Don't let the user have to do
-#     that every time.
-
-export LESS=''
-LESS+='--no-init '
-LESS+='--tabs=4 '
-LESS+='--LONG-PROMPT '
-LESS+='--ignore-case '
-LESS+='--jump-target=.5 '
-LESS+='--hilite-unread '
-LESS+='--RAW-CONTROL-CHARS '
-LESS+='--chop-long-lines '
-LESS+='--quit-if-one-screen '
-
-# Ln - Create hard and soft links to files and folders
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# interactive::
-#   Let _Ln_ prompt before overwriting.
-# verbose::
-#   Let _Ln_ report what it is doing.
-
-export LN_X_OPTIONS=''
-LN_X_OPTIONS+='--interactive '
-LN_X_OPTIONS+='--verbose '
-
-# Ls - List contents of folders
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Make listing directories with the _Ls_ program more pleasant by default in
-# the following ways:
-#
-#   si::
-#     Let _Ls_ display file sizes as human-readable numbers in powers of
-#     1,000 with their units in the _SI_-system, the _International
-#     System of Units_ (Système International (d'unités)), e.g. KB, MB,
-#     TB etc. The _SI_-system is also the system in which most storage
-#     device capacities are advertised.
-#
-#   classify::
-#     Let _Ls_ append an indicator sign to each type of file to help the
-#     user identify its file type, e.g. `/` for directories or `*` for
-#     executable files.
-#
-#   clolor=auto::
-#     Let _Ls_ colorize its output if it goes to a terminal.
-#
-#   time-style::
-#     Let _Ls_ display the date-time in ISO-8601 `long' format. Due to
-#     the format's fixed-width pattern `+%Y-%m-%d %H:%M` it should be
-#     more readable and independent from the current locale. With up to
-#     the minute precision it should be good enough for everyday use.
-#
-#   group-directories-first::
-#     Let _Ls_ list all directories before all other kinds of files,
-#     e.g. regular files, symbolic links etc. because such directory
-#     listings might be easier on the eye and therefore to comprehend.
-
-export LS_X_OPTIONS=''
-LS_X_OPTIONS+='--classify '
-LS_X_OPTIONS+='--color=auto '
-LS_X_OPTIONS+='--time-style=long-iso '
-LS_X_OPTIONS+='--group-directories-first '
-
-# Mkdir - Create folders
-# ~~~~~~~~~~~~~~~~~~~~~~
-#
-# parents::
-#   Let _Mkdir_ create all folders, i.e. also the intermediate ones.
-#
-# verbose::
-#   Let _Mkdir_ report what it is doing.
-
-export MKDIR_X_OPTIONS=''
-MKDIR_X_OPTIONS+='--parents '
-MKDIR_X_OPTIONS+='--verbose '
-
-# Mv - Move/rename files and folders
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# interactive::
-#   Let _Mv_ prompt before overwriting.
-#
-# verbose::
-#   Let _Mv_ report what it is doing.
-
-export MV_X_OPTIONS=''
-MV_X_OPTIONS+='--interactive '
-MV_X_OPTIONS+='--verbose '
-
-# Pager - Favorite page-wise text file viewers
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Tell programs to open files in favorite pager _Less_.
-
-export PAGER='less'
-export SYSTEMD_LESS="${LESS}"
-
-# Parallel - run commands in parallel
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-export PARALLEL_X_OPTIONS=''
-PARALLEL_X_OPTIONS+='--no-run-if-empty '
-PARALLEL_X_OPTIONS+='--keep-order '
-
-# Prompt - Command line prompt
-#
-# Save space for the actual command line by showing only the trailing
-# number of path components of the working directory in the command
-# prompt. The rest of the path is represented by an ellipsis.
-
-export PROMPT_DIRTRIM=3
-
-# Ripgrep file content searcher
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-export RIPGREP_X_OPTIONS=''
-RIPGREP_X_OPTIONS='--smart-case '
-
-# Rm - Delete files and non-empty folders
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# interactive::
-#   Let _Rm_ prompt before overwriting.
-#
-# verbose::
-#   Let _Rm_ report what it is doing.
-
-export RM_X_OPTIONS=''
-RM_X_OPTIONS+='--interactive '
-RM_X_OPTIONS+='--verbose '
-
-# Rmdir - Delete empty folders
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# verbose::
-#   Let _Rmdir_ report what it is doing.
-
-export RMDIR_X_OPTIONS=''
-RMDIR_X_OPTIONS+='--verbose '
-
-# Rsync - Synchronize file system trees
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# human-readable::
-#   Let _Rsync_ output numbers, in a human-friendly format. For example
-#   thousands separators, units to the power of 1000, symbols for units
-#   larger than 1000, etc.
-#
-# progress::
-#   Let _Rsync_ report what it is doing on a per-file basis. See also
-#   `info=progress2` option if you want to see statistics about the
-#   transfer as a whole.
-
-export RSYNC_X_OPTIONS=''
-RSYNC_X_OPTIONS+='--human-readable '
-RSYNC_X_OPTIONS+='--progress '
-
-# Rust programming language
-# ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-export CARGO_HOME=~/.local
-export RUSTUP_HOME=~/.local/rustup
-
-# Sed - Edit streams of text
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# regexp-extended::
-#   Let _Sed_ use extended instead of basic regular expressions.
-
-export SED_X_OPTIONS=''
-SED_X_OPTIONS+='--regexp-extended '
+export PARALLEL_X_OPTIONS='--no-run-if-empty --keep-order'
 
 # Test if login shell has startup file with local overrides.
 if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
@@ -499,9 +110,6 @@ if [[ -f ~/.bash_login.local && -r ~/.bash_login.local ]]; then
   # shellcheck disable=SC1090
   source ~/.bash_login.local
 fi
-
-# Interactive login shells
-# ------------------------
 
 # Test if interactive shell and its startup file is readable.
 if [[ "${-}" == *i* && -f ~/.bashrc && -r ~/.bashrc ]]; then
