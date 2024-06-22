@@ -50,6 +50,7 @@ packages:
   libreoffice-l10n-de:
   libreoffice:
   lsb-release:
+  maven:
   moreutils:
   mysql-client:
   neovim:
