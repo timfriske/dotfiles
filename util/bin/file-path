@@ -9,7 +9,8 @@
 # Deps:: bash, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function main {
   : "${1:?usage: file-path <path>...}"

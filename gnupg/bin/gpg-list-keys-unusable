@@ -9,6 +9,7 @@
 # Deps:: bash, env, gpg
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 gpg --list-keys --list-options show-unusable-subkeys "${@}"

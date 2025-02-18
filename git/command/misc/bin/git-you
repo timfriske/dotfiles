@@ -12,7 +12,8 @@
 # Deps:: bash, env, git-config
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function git_config_reset {
   local opt_val

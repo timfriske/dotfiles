@@ -26,7 +26,8 @@
 # Deps:: bash, column, env, git-rev-parse
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function get_commit_id {
   local -- ref="${1?:ref}" commit_id

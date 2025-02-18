@@ -9,7 +9,8 @@
 # Deps:: bash, env, git-describe, git-rev-parse, sed
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function get_nth_prev_commit {
   local nth_commit="${1:-1}"

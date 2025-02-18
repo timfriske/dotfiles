@@ -12,7 +12,8 @@
 # Deps:: bash, date, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 [[ -t 1 ]] && printf 'date-ltz: '
 date '+%Z'

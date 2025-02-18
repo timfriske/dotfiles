@@ -9,7 +9,8 @@
 # Deps:: bash, env, git-config, git-log
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function main {
   local author="${1:-$(git config user.email)}" commit="${2:-HEAD}" args=("${@:3}")

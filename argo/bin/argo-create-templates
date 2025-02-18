@@ -10,7 +10,8 @@
 # Deps:: argo, bash, comm, env, find, sort, xargs, yq
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 DIRECTORY="${1:-${DIRECTORY:?required}}"
 NAME_GLOB="${2:-${NAME_GLOB:-*.yml}}"

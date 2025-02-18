@@ -10,7 +10,8 @@
 # Deps:: bash, df, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 read -r -a df_x_options <<< "${DF_X_OPTIONS:-}"
 read -r -a df_common_x_options <<< "${DF_COMMON_X_OPTIONS:-}"

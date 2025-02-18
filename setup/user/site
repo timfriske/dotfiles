@@ -5,7 +5,8 @@
 # Tim Friske <me@tifr.de>
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 declare -r site_dir="${0%/*}"
 

@@ -11,8 +11,9 @@
 #
 # Deps:: bash, date, env
 
-# Ensure fail-fast execution.
-shopt -os nounset pipefail errexit errtrace
+# Ensure fail-fast script execution.
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 [[ -t 1 ]] && printf 'date-gmt: '
 TZ=GMT date "${@}"

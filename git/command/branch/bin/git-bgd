@@ -9,6 +9,7 @@
 # Deps:: bash, env, git-bd, git-bg, xargs
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 git-bg | xargs --no-run-if-empty git-bd

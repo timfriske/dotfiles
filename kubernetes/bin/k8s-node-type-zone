@@ -16,7 +16,8 @@
 # Deps:: awk, bash, env, fzf, kubectl, sort
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function node_type_zone {
   local columns=(

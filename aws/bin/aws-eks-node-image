@@ -10,7 +10,8 @@
 # Deps:: aws, bash, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 K8S_VERSION="${1:-${K8S_VERSION:?required}}"

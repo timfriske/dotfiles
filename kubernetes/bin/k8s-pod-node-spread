@@ -11,7 +11,8 @@
 # k8s-node-type-zone, sort
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # 1. Sort `k8s-pod-node-status` output by node name.
 # 2. Sort `k8s-node-type-zone` output by node name.

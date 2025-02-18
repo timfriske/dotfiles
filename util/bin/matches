@@ -10,6 +10,7 @@
 # Deps:: bash, env, rank, rg
 
 # Ensure fail-fast script execution.
-shopt -os nounset noclobber pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 rg --only-matching --smart-case "${@}" | rank

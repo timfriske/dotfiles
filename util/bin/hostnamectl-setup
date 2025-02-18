@@ -10,7 +10,8 @@
 # Deps:: awk, bash, env, hostnamectl
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function machine_info_var_val {
   local var="${1:-${var:?'required'}}"

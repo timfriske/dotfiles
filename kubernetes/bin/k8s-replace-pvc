@@ -9,7 +9,8 @@
 # Deps:: bash, env, jq, kubectl
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 old="${1:-"${old:?required}"}"

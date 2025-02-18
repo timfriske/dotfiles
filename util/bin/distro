@@ -1,11 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Distro command
 # ==============
 # Tim Friske <me@tifr.de>
 #
-# Deps:: env, lsb_release, sh
+# Deps:: env, lsb_release, bash
 
-set -o errexit -o nounset
+# Ensure fail-fast script execution.
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 lsb_release --all

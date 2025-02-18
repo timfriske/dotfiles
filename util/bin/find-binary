@@ -10,7 +10,8 @@
 # Deps:: bash, env, grep
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function find_binary_files {
   grep --regexp='' --recursive --binary-files=without-match --files-without-match "${@}"

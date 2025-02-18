@@ -12,7 +12,8 @@
 # Deps:: aws, bash, env, jq
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 AWS_EKS_ADDON="${1:-"${AWS_EKS_ADDON:?required}"}"

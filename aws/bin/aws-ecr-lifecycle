@@ -10,7 +10,8 @@
 # Deps:: aws, bash, env, jq, parallel
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 POLICY_FILE="${1:-${POLICY_FILE:?required}}"

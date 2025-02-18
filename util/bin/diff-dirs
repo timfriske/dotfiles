@@ -12,7 +12,8 @@
 # Deps:: bash, diff, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 read -r -a diff_x_options <<< "${DIFF_X_OPTIONS:-}"
 diff "${diff_x_options[@]}" --recursive --brief "${@}"

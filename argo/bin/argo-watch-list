@@ -13,7 +13,8 @@
 # Deps:: argo-watch-list-cmd, bash, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 interval="${interval:-${1:-5}}"
 status="${status:-${2:-Running,Failed,Error}}"

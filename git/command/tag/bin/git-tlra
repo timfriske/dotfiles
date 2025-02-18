@@ -9,7 +9,8 @@
 # Deps:: awk, bash, env, git-ls-remote
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # List remote tags. Drop commit IDs in first column. Keep tags in second column.
 # Keep annotated tags, i.e. their dereferenced form ending in `^{}`. Strip

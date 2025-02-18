@@ -9,7 +9,8 @@
 # Deps:: aws, bash, env, sed
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 AWS_S3_URI="${1:-${AWS_S3_URI:?required}}"

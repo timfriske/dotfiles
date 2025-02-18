@@ -10,7 +10,8 @@
 #   * man:cat[1]
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Enable shell options for extra capabilities.
 shopt -s extglob globstar

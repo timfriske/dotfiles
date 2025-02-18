@@ -9,7 +9,8 @@
 # Deps:: bash, column, env, git-tag
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 git tag --list \
   --format='%(refname:short)%09%(creatordate:iso8601-strict)' "${@}" \

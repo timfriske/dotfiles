@@ -11,7 +11,8 @@
 # Deps:: bash, env, kubectl
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 pvc="${1:-"${pvc:?required}"}"
