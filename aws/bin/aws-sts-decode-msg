@@ -9,8 +9,10 @@
 # Deps:: aws, bash, env, jq
 
 # Ensure fail-fast script execution.
-shopt -os nounset noclobber pipefail errexit errtrace
+shopt -os nounset pipefail errexit errtrace
 
-encoded_message="${1:-"${encoded_message:?required}"}"
-aws sts decode-authorization-message --encoded-message "${encoded_message}" \
-  | jq '. + {DecodedMessage:.DecodedMessage|fromjson}'
+# Input parameters and validation:
+ENCODED_MESSAGE="${1:-"${ENCODED_MESSAGE:?required}"}"
+
+aws sts decode-authorization-message --encoded-message "${ENCODED_MESSAGE}" \
+| jq '. + {DecodedMessage:.DecodedMessage|fromjson}'

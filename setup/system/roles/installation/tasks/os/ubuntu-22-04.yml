@@ -45,6 +45,16 @@
     classic: yes
     state: present
 
+- block:
+    - name: Install Google Chrome
+      ansible.builtin.include_role:
+        name: darkwizard242.googlechrome
+  become: yes
+
+- name: Install Ubuntu drivers
+  become: yes
+  ansible.builtin.shell: ubuntu-drivers install
+
 - name: Connect plugs to slots in snaps
   become: yes
   loop: "{{ snap_connections }}"

@@ -1,0 +1,87 @@
+---
+# System-wide installation
+# ========================
+# Tim Friske <me@tifr.de>
+
+# D2 tasks
+# --------
+
+- name: Make system directories
+  become: yes
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ local_man_dir }}/man1"
+
+- name: Create D2 temporary directory
+  ansible.builtin.tempfile:
+    prefix: "{{ d2_program }}-"
+    state: directory
+  register: d2_temp_dir
+
+- name: Download D2 program
+  ansible.builtin.get_url:
+    url: "{{ d2_url }}"
+    dest: "{{ d2_temp_dir.path }}/{{ d2_archive_file }}"
+    checksum: "{{ d2_checksum }}"
+
+- name: Unpack D2 archive file
+  ansible.builtin.unarchive:
+    src: "{{ d2_temp_dir.path }}/{{ d2_archive_file }}"
+    dest: "{{ d2_temp_dir.path }}"
+
+- name: Install D2 program
+  become: yes
+  ansible.builtin.copy:
+    src: "{{ d2_temp_dir.path }}/{{ d2_program }}-v{{ d2_version }}/"
+    dest: "{{ local_dir }}/{{ d2_program }}-{{ d2_version }}/"
+    owner: root
+    group: root
+    mode: preserve
+
+- name: Link D2 program
+  become: yes
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  loop:
+    - src: "{{ local_dir }}/{{ d2_program }}-{{ d2_version }}/bin/{{ d2_program }}"
+      dest: "{{ local_bin_dir }}/{{ d2_program }}-{{ d2_version }}"
+      state: link
+    - src: "{{ local_dir }}/{{ d2_program }}-{{ d2_version }}/man/{{ d2_manpage }}"
+      dest: "{{ local_man_dir }}/man1/{{ d2_manpage }}-{{ d2_version }}"
+      state: hard
+
+- name: Find D2 program versions
+  ansible.builtin.find:
+    path: "{{ local_bin_dir }}"
+    file_type: link
+    pattern: "{{ d2_program }}-*"
+  register: d2_program_versions
+
+- name: Find D2 manpage versions
+  ansible.builtin.find:
+    path: "{{ local_man_dir }}/man1"
+    file_type: file
+    pattern: "{{ d2_manpage }}-*"
+  register: d2_manpage_versions
+
+- debug:
+    msg: "{{ d2_manpage_versions.files }}"
+
+- name: Link D2 program (latest version)
+  become: yes
+  ansible.builtin.file:
+    src: "{{ item.files | map(attribute='path') | community.general.version_sort | last }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+    force: yes
+  loop:
+    - files: "{{ d2_program_versions.files }}"
+      dest: "{{ local_bin_dir }}/{{ d2_program }}"
+      state: link
+    - files: "{{ d2_manpage_versions.files }}"
+      dest: "{{ local_man_dir }}/man1/{{ d2_manpage }}"
+      state: hard

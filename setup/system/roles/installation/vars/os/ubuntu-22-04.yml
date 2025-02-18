@@ -35,6 +35,7 @@ packages:
   gnupg:
   htop:
   inkscape:
+  inxi:
   iotop:
   ipcalc:
   iperf3:
@@ -49,10 +50,12 @@ packages:
   libreoffice-l10n-de:
   libreoffice:
   lsb-release:
+  maven:
   moreutils:
   mysql-client:
   neovim:
   network-manager-openvpn:
+  nvidia-settings:
   openjdk-17-doc:
   openjdk-17-jdk:
   openjdk-17-source:
@@ -62,6 +65,7 @@ packages:
   openssh-client:
   openssh-server:
   parallel:
+  patch:
   python3-doc:
   python3-pip:
   python3-venv:

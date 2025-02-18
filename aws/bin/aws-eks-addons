@@ -8,25 +8,25 @@
 # addons by the given regular expressions (regex). When giving multiple regexes
 # at least one of them must match (any; logical OR).
 #
-# Deps:: aws, bash, env, jq
+# Deps:: aws, bash, env, jq, yq
 
 # Ensure fail-fast script execution.
-shopt -os nounset noclobber pipefail errexit errtrace
+shopt -os nounset pipefail errexit errtrace
 
 # Input parameters and validation:
-names=("${@}") # optional
+AWS_EKS_ADDON_REGEXES=("${@}") # optional
 
 function addon_names {
   aws eks describe-addon-versions --output json | jq '.addons|map(.addonName)|sort'
 }
 
-function select_by_name {
-  local names=("${@}");: "${names:?required}"
-  jq 'map(select(. as $name|$ARGS.positional|any(. as $arg|$name|test($arg;"i"))))' --args -- "${names[@]}"
+function select_by_regexes {
+  local regexes=("${@:?regexes}")
+  jq 'map(select(. as $string|$ARGS.positional|any(. as $regex|$string|test($regex;"i"))))' --args -- "${regexes[@]}"
 }
 
-if (( "${#names[@]}" == 0 )); then
+if (( "${#AWS_EKS_ADDON_REGEXES[@]}" == 0 )); then
   addon_names
 else
-  addon_names | select_by_name "${names[@]}"
-fi
+  addon_names | select_by_regexes "${AWS_EKS_ADDON_REGEXES[@]}"
+fi | if [[ -t 1 ]]; then yq --prettyPrint; else jq; fi

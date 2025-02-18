@@ -3,8 +3,8 @@
 # ========================
 # Tim Friske <me@tifr.de>
 
-# AWS JQ tasks
-# ------------
+# JQ tasks
+# --------
 
 - name: Download JQ program
   become: yes

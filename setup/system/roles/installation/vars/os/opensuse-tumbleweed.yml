@@ -18,6 +18,7 @@ packages:
   checkbashisms:
   code:
   curl:
+  d2:
   dash:
   docker-machine-driver-kvm2:
   docker:
@@ -40,6 +41,7 @@ packages:
   htop:
   hyperfine:
   inkscape:
+  inxi:
   iotop:
   iozone:
   ipcalc:
@@ -67,6 +69,7 @@ packages:
   openssh:
   pam_kwallet:
   partitionmanager:
+  patch:
   pattern:kvm_tools:
   permissions-zypp-plugin:
   rclone:
@@ -87,4 +90,5 @@ packages:
   wget2:
   yq:
   zoxide:
+  zsh:
   zstd:

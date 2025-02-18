@@ -9,10 +9,20 @@
 # Deps:: bash, env, fzf, jq
 
 # Ensure fail-fast script execution.
-shopt -os nounset noclobber pipefail errexit errtrace
+shopt -os nounset pipefail errexit errtrace
 
 function paths {
-  jq --raw-output "$(printf '%s|paths|join(".")' "${1:-.}")" "${@:2}"
+  case "${#}" in
+    0) jq --raw-output -- 'paths|join(".")';;
+    1)
+      if [[ ! -d "${1}" && -r "${1}" ]]; then
+        jq --raw-output -- 'paths|join(".")' "${1:--}"
+      else
+        jq --raw-output -- "$(printf '%s|paths|join(".")' "${1:-.}")"
+      fi
+      ;;
+    *) jq --raw-output -- "$(printf '%s|paths|join(".")' "${1:-.}")" "${2:--}";;
+  esac
 }
 
 function pick {

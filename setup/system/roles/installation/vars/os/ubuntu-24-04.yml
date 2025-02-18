@@ -11,7 +11,6 @@ packages:
   ansible:
   asciidoc:
   asciidoctor:
-  awscli:
   bash:
   borgbackup:
   btop:
@@ -32,8 +31,10 @@ packages:
   gimp:
   git:
   gnupg:
+  golang-docker-credential-helpers:
   htop:
   inkscape:
+  inxi:
   iotop:
   ipcalc:
   iperf3:
@@ -48,10 +49,12 @@ packages:
   libreoffice-l10n-de:
   libreoffice:
   lsb-release:
+  maven:
   moreutils:
   mysql-client:
   neovim:
   network-manager-openvpn:
+  nvidia-settings:
   openjdk-17-doc:
   openjdk-17-jdk:
   openjdk-17-source:
@@ -61,6 +64,7 @@ packages:
   openssh-client:
   openssh-server:
   parallel:
+  patch:
   plasma-workspace-wayland:
   python3-dev:
   python3-doc:
