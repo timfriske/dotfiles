@@ -12,6 +12,7 @@
 # Deps:: bash, env, git-ls-files, grep
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 git ls-files -v "${@}" | grep '^[a-z?]'

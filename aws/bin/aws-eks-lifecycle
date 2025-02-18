@@ -11,7 +11,8 @@
 # Deps:: aws-ec2-lifecycle, bash, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 AWS_EKS_CLUSTER="${1:-${AWS_EKS_CLUSTER:?required}}"

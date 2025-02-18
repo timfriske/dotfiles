@@ -6,6 +6,10 @@
 #
 # Deps:: bash, env
 
+# Ensure fail-fast script execution.
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
+
 function path_raw {
   printf '%s\n' "${PATH}"
 }

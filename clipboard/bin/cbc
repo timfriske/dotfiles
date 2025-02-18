@@ -9,8 +9,9 @@
 #
 # Deps:: env, pbpaste, sh, xclip, xsel
 
-# Ensure fail-fast execution.
-shopt -os nounset pipefail errexit errtrace
+# Ensure fail-fast script execution.
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 if (( "${#}" > 0 )); then
   echo >&2 "usage: cbc [< FILE | < <(PROCESS)]"

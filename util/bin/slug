@@ -11,7 +11,8 @@
 # Deps:: bash, env, iconv, sed
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function convert {
   # 1. Convert characters from default encoding (e.g. UTF-8) to ASCII (`ascii`).

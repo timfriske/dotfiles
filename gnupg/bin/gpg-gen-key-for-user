@@ -22,7 +22,8 @@
 # are generated.
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 USER_ID="${USER_ID:-${1:-}}"
 KEY_FPR="${KEY_FPR:-${2:-}}"

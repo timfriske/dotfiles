@@ -9,7 +9,8 @@
 # Deps:: bash, env, gpg-connect-agent
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 echo Reloading GPG agent...
 echo RELOADAGENT | gpg-connect-agent

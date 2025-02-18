@@ -19,7 +19,8 @@
 # Deps:: bash, cryptsetup, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function ensure_block_special_file {
     local file="${1:-${file:?required}}"

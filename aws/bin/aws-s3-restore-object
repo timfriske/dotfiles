@@ -6,8 +6,9 @@
 #
 # Deps:: aws, bash, env
 
-# Ensure fail-fast execution.
-shopt -os nounset pipefail errexit errtrace
+# Ensure fail-fast script execution.
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Define usage text.
 USAGE="usage: ${0##*/} -u | -h | -b BUCKET -k KEY -d DAYS -t TIER"

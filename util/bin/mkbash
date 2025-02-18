@@ -16,7 +16,8 @@
 # Deps:: bash, cat, chmod, dirname, env, wc
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and argument validation.
 script="${1:?script}"
@@ -30,7 +31,8 @@ cat > "${script}" \
 #!/usr/bin/env bash
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 
 SCRIPT

@@ -9,7 +9,8 @@
 # Deps:: aws, bash, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 STACK_NAME="${1:-${STACK_NAME:?required}}"

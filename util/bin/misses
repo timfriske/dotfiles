@@ -9,6 +9,7 @@
 # Deps:: bash, env, rg
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 rg --files-without-match --smart-case "${@}"

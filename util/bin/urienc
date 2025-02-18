@@ -10,7 +10,8 @@
 # Deps:: bash, env, jq
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 function convert { jq --raw-input --raw-output '@uri'; }
 if [[ "${#}" -eq 0 ]]; then convert; else printf "%s\n" "${@}" | convert; fi

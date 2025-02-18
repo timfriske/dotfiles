@@ -9,7 +9,8 @@
 # Deps:: bash, env, git-for-each-ref, sed, xargs
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 git for-each-ref \
     --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' \

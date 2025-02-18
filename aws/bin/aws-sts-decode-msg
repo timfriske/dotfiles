@@ -9,7 +9,8 @@
 # Deps:: aws, bash, env, jq
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Input parameters and validation:
 ENCODED_MESSAGE="${1:-"${ENCODED_MESSAGE:?required}"}"

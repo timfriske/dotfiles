@@ -7,6 +7,7 @@
 # Deps:: bash, env, git-diff
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 git diff --cached --name-status "${@}"

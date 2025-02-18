@@ -12,7 +12,8 @@
 # Deps:: bash, env, ln, realpath, rm
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 USER_BIN_DIR="${HOME}/.local/bin"
 

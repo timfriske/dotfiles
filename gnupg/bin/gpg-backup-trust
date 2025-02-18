@@ -27,7 +27,8 @@
 # Deps:: bash env gpg gpg-backup-lib
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 source gpg-backup-lib
 

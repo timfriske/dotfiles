@@ -10,7 +10,8 @@
 # Deps:: bash, env, git-bd, git-for-each-ref, xargs
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 git for-each-ref \
   --format='%(if:notequals=*)%(HEAD)%(then)%(refname:lstrip=2)%(end)' \

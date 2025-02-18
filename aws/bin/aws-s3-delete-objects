@@ -13,7 +13,8 @@
 # Deps:: sort
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 # Standard input stream of script must be connected to terminal in order to
 # prompt the user.

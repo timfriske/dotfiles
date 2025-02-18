@@ -9,6 +9,7 @@
 # Deps:: argo, bash, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 argo retry --log "${@}"

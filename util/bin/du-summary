@@ -9,7 +9,8 @@
 # Deps:: bash, du, env
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 read -r -a du_x_options <<< "${DU_X_OPTIONS:-}"
 du "${du_x_options[@]}" --summarize "${@}"

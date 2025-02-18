@@ -14,7 +14,8 @@
 # Deps:: argo, bash, env, tput
 
 # Ensure fail-fast script execution.
-shopt -os nounset pipefail errexit errtrace
+shopt -s inherit_errexit
+shopt -so nounset pipefail errtrace errexit
 
 header_lines="${header_lines:-${1:-0}}"
 status="${status:-${2:-}}"
